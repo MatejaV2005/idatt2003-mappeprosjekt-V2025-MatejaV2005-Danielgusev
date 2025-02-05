@@ -34,6 +34,9 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.13.0</version>
+        <configuration>
+          <release>21</release>  <!-- Use release instead of source/target -->
+        </configuration>
       </plugin>
       <!--Theunit-testengineSurefire-->
       <plugin>
@@ -49,7 +52,7 @@
         <version>0.0.8</version>
         <configuration>
           <!--TODO:Replacewithyourownmain-class-->
-          <mainClass>org.openjfx.App</mainClass>
+          <mainClass>edu.ntnu.idi.idatt.fx</mainClass>
         </configuration>
       </plugin>
     </plugins>
