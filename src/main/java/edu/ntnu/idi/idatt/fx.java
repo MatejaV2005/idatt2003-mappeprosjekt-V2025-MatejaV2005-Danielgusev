@@ -7,7 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class fx extends Application{
+public class fx extends Application {
+
   //AI-GENERERT KODE, BRUKES BARE FOR Å TESTE OM JAVAFX FUNKER
   @Override
   public void start(Stage primaryStage) {
@@ -27,6 +28,8 @@ public class fx extends Application{
 
     // Konfigurer hovedvinduet (stage)
     primaryStage.setTitle("JavaFX Test");
+    primaryStage.setResizable(false);
+    primaryStage.setFullScreen(true);
     primaryStage.setScene(scene);
     primaryStage.show();
   }
