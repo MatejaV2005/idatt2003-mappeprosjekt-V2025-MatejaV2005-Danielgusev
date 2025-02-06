@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now." />
+    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="fixed javaFX-controls plug-in in the pom.xml file. added a fx.java class to check if javaFX runs properly. mvn javafx:run works as it should.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/Dice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/Dice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/Die.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/Die.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/fx.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/fx.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -75,25 +81,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Application.fx.executor": "Run",
-    "Maven.boardgame-V2025-IDATT2003 [clean].executor": "Run",
-    "Maven.boardgame-V2025-IDATT2003 [package].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/matej/.ssh/id_rsa",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.CommitDialog",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.fx.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.boardgame-V2025-IDATT2003 [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.boardgame-V2025-IDATT2003 [package].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/matej/.ssh/id_rsa&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.CommitDialog&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.fx">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.Main" />
@@ -155,7 +161,8 @@
       <workItem from="1738658201453" duration="1094000" />
       <workItem from="1738659321679" duration="2428000" />
       <workItem from="1738668533014" duration="281000" />
-      <workItem from="1738756099450" duration="2380000" />
+      <workItem from="1738756099450" duration="2809000" />
+      <workItem from="1738844228446" duration="2870000" />
     </task>
     <task id="LOCAL-00001" summary="fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now.">
       <option name="closed" value="true" />
@@ -165,7 +172,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738758656451</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="fixed javaFX-controls plug-in in the pom.xml file. added a fx.java class to check if javaFX runs properly. mvn javafx:run works as it should.">
+      <option name="closed" value="true" />
+      <created>1738758992038</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1738758992038</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -184,7 +199,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now." />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now." />
+    <MESSAGE value="fixed javaFX-controls plug-in in the pom.xml file. added a fx.java class to check if javaFX runs properly. mvn javafx:run works as it should." />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed javaFX-controls plug-in in the pom.xml file. added a fx.java class to check if javaFX runs properly. mvn javafx:run works as it should." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
