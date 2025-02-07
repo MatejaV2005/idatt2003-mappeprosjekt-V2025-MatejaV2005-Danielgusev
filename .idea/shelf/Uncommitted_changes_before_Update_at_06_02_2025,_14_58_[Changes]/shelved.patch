@@ -1,0 +1,200 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"d38db8a7-df11-4f93-a67d-5a3991d0ffb3\" name=\"Changes\" comment=\"fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now.\" />\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Class\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitHubPullRequestSearchHistory\">{\n  &quot;lastFilter&quot;: {\n    &quot;state&quot;: &quot;OPEN&quot;,\n    &quot;assignee&quot;: &quot;MatejaV2005&quot;\n  }\n}</component>\n  <component name=\"GitToolBoxStore\">\n    <option name=\"recentBranches\">\n      <RecentBranches>\n        <option name=\"branchesForRepo\">\n          <list>\n            <RecentBranchesForRepo>\n              <option name=\"branches\">\n                <list>\n                  <RecentBranch>\n                    <option name=\"branchName\" value=\"main\" />\n                    <option name=\"lastUsedInstant\" value=\"1738523463\" />\n                  </RecentBranch>\n                  <RecentBranch>\n                    <option name=\"branchName\" value=\"master\" />\n                    <option name=\"lastUsedInstant\" value=\"1738523462\" />\n                  </RecentBranch>\n                </list>\n              </option>\n              <option name=\"repositoryRootUrl\" value=\"file://$PROJECT_DIR$\" />\n            </RecentBranchesForRepo>\n          </list>\n        </option>\n      </RecentBranches>\n    </option>\n  </component>\n  <component name=\"GithubPullRequestsUISettings\">{\n  &quot;selectedUrlAndAccountId&quot;: {\n    &quot;url&quot;: &quot;git@github.com:MatejaV2005/idatt2003-mappeprosjekt-V2025-MatejaV2005-Danielgusev.git&quot;,\n    &quot;accountId&quot;: &quot;e9b8daee-d88a-44b5-b668-8dcb09957c0f&quot;\n  }\n}</component>\n  <component name=\"MavenImportPreferences\">\n    <option name=\"importingSettings\">\n      <MavenImportingSettings>\n        <option name=\"jdkForImporter\" value=\"21\" />\n      </MavenImportingSettings>\n    </option>\n  </component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 6\n}</component>\n  <component name=\"ProjectId\" id=\"2sUsKNrE6Rso21q8J5STTfDjXoI\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\n    <ConfirmationsSetting value=\"1\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"Application.Main.executor\": \"Run\",\n    \"Application.fx.executor\": \"Run\",\n    \"Maven.boardgame-V2025-IDATT2003 [clean].executor\": \"Run\",\n    \"Maven.boardgame-V2025-IDATT2003 [package].executor\": \"Run\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"git-widget-placeholder\": \"main\",\n    \"kotlin-language-version-configured\": \"true\",\n    \"last_opened_file_path\": \"C:/Users/matej/.ssh/id_rsa\",\n    \"node.js.detected.package.eslint\": \"true\",\n    \"node.js.detected.package.tslint\": \"true\",\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\n    \"nodejs_package_manager_path\": \"npm\",\n    \"settings.editor.selected.configurable\": \"project.propVCSSupport.CommitDialog\",\n    \"vue.rearranger.settings.migration\": \"true\"\n  }\n}]]></component>\n  <component name=\"RunManager\" selected=\"Application.fx\">\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"edu.ntnu.idi.idatt.Main\" />\n      <module name=\"boardgame-V2025-IDATT2003\" />\n      <extension name=\"coverage\">\n        <pattern>\n          <option name=\"PATTERN\" value=\"edu.ntnu.idi.idatt.*\" />\n          <option name=\"ENABLED\" value=\"true\" />\n        </pattern>\n      </extension>\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration name=\"fx\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"edu.ntnu.idi.idatt.fx\" />\n      <module name=\"boardgame-V2025-IDATT2003\" />\n      <extension name=\"coverage\">\n        <pattern>\n          <option name=\"PATTERN\" value=\"edu.ntnu.idi.idatt.*\" />\n          <option name=\"ENABLED\" value=\"true\" />\n        </pattern>\n      </extension>\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Application.fx\" />\n        <item itemvalue=\"Application.Main\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.22855.74\" />\n        <option value=\"bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.22855.74\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"SvnConfiguration\">\n    <configuration>C:\\Users\\matej\\AppData\\Roaming\\Subversion</configuration>\n    <option name=\"sshConnectionType\" value=\"PRIVATE_KEY\" />\n    <option name=\"sshPrivateKeyPath\" value=\"C:\\Users\\matej\\.ssh\\id_rsa\" />\n  </component>\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"d38db8a7-df11-4f93-a67d-5a3991d0ffb3\" name=\"Changes\" comment=\"\" />\n      <created>1738521423254</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1738521423254</updated>\n      <workItem from=\"1738521424312\" duration=\"1981000\" />\n      <workItem from=\"1738657631710\" duration=\"95000\" />\n      <workItem from=\"1738657742874\" duration=\"112000\" />\n      <workItem from=\"1738658201453\" duration=\"1094000\" />\n      <workItem from=\"1738659321679\" duration=\"2428000\" />\n      <workItem from=\"1738668533014\" duration=\"281000\" />\n      <workItem from=\"1738756099450\" duration=\"2380000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now.\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1738758656451</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1738758656451</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"2\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now.\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now.\" />\n  </component>\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\n    <expand />\n    <select />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision cd0c049b8d26a22f2f68f221a3dff055ce08c24d)
++++ b/.idea/workspace.xml	(date 1738850264818)
+@@ -4,20 +4,18 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now." />
++    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="First test commit just for fun and to test if the clone is properly working with our git" />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+     <option name="LAST_RESOLUTION" value="IGNORE" />
+   </component>
+-  <component name="FileTemplateManagerImpl">
+-    <option name="RECENT_TEMPLATES">
+-      <list>
+-        <option value="Class" />
+-      </list>
++  <component name="Git.Settings">
++    <option name="RECENT_BRANCH_BY_REPOSITORY">
++      <map>
++        <entry key="$PROJECT_DIR$" value="main" />
++      </map>
+     </option>
+-  </component>
+-  <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+   <component name="GitHubPullRequestSearchHistory">{
+@@ -53,24 +51,15 @@
+   </component>
+   <component name="GithubPullRequestsUISettings">{
+   &quot;selectedUrlAndAccountId&quot;: {
+-    &quot;url&quot;: &quot;git@github.com:MatejaV2005/idatt2003-mappeprosjekt-V2025-MatejaV2005-Danielgusev.git&quot;,
+-    &quot;accountId&quot;: &quot;e9b8daee-d88a-44b5-b668-8dcb09957c0f&quot;
++    &quot;url&quot;: &quot;https://github.com/MatejaV2005/idatt2003-mappeprosjekt-V2025-MatejaV2005-Danielgusev.git&quot;,
++    &quot;accountId&quot;: &quot;f197bc85-7e42-4ada-be4d-5e422156eed1&quot;
+   }
+ }</component>
+-  <component name="MavenImportPreferences">
+-    <option name="importingSettings">
+-      <MavenImportingSettings>
+-        <option name="jdkForImporter" value="21" />
+-      </MavenImportingSettings>
+-    </option>
+-  </component>
+   <component name="ProjectColorInfo">{
+   &quot;associatedIndex&quot;: 6
+ }</component>
+   <component name="ProjectId" id="2sUsKNrE6Rso21q8J5STTfDjXoI" />
+-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+-    <ConfirmationsSetting value="1" id="Add" />
+-  </component>
++  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+@@ -79,69 +68,33 @@
+   "keyToString": {
+     "Application.Main.executor": "Run",
+     "Application.fx.executor": "Run",
+-    "Maven.boardgame-V2025-IDATT2003 [clean].executor": "Run",
+-    "Maven.boardgame-V2025-IDATT2003 [package].executor": "Run",
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "git-widget-placeholder": "main",
++    "RunOnceActivity.git.unshallow": "true",
++    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
++    "git-widget-placeholder": "Features",
+     "kotlin-language-version-configured": "true",
+-    "last_opened_file_path": "C:/Users/matej/.ssh/id_rsa",
++    "last_opened_file_path": "/Users/danielgusev/idatt2003-mappeprosjekt-V2025-MatejaV2005-Danielgusev",
+     "node.js.detected.package.eslint": "true",
+     "node.js.detected.package.tslint": "true",
+     "node.js.selected.package.eslint": "(autodetect)",
+     "node.js.selected.package.tslint": "(autodetect)",
+     "nodejs_package_manager_path": "npm",
+-    "settings.editor.selected.configurable": "project.propVCSSupport.CommitDialog",
++    "project.structure.last.edited": "Project",
++    "project.structure.proportion": "0.0",
++    "project.structure.side.proportion": "0.0",
++    "settings.editor.selected.configurable": "org.infernus.idea.checkstyle.CheckStyleConfigurable",
+     "vue.rearranger.settings.migration": "true"
+   }
+ }]]></component>
+-  <component name="RunManager" selected="Application.fx">
+-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.Main" />
+-      <module name="boardgame-V2025-IDATT2003" />
+-      <extension name="coverage">
+-        <pattern>
+-          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
+-          <option name="ENABLED" value="true" />
+-        </pattern>
+-      </extension>
+-      <method v="2">
+-        <option name="Make" enabled="true" />
+-      </method>
+-    </configuration>
+-    <configuration name="fx" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.fx" />
+-      <module name="boardgame-V2025-IDATT2003" />
+-      <extension name="coverage">
+-        <pattern>
+-          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
+-          <option name="ENABLED" value="true" />
+-        </pattern>
+-      </extension>
+-      <method v="2">
+-        <option name="Make" enabled="true" />
+-      </method>
+-    </configuration>
+-    <recent_temporary>
+-      <list>
+-        <item itemvalue="Application.fx" />
+-        <item itemvalue="Application.Main" />
+-      </list>
+-    </recent_temporary>
+-  </component>
+   <component name="SharedIndexes">
+     <attachedChunks>
+       <set>
+-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.22855.74" />
+-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.22855.74" />
++        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.189" />
++        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.189" />
+       </set>
+     </attachedChunks>
+   </component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+-  <component name="SvnConfiguration">
+-    <configuration>C:\Users\matej\AppData\Roaming\Subversion</configuration>
+-    <option name="sshConnectionType" value="PRIVATE_KEY" />
+-    <option name="sshPrivateKeyPath" value="C:\Users\matej\.ssh\id_rsa" />
+-  </component>
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
+       <changelist id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="" />
+@@ -150,20 +103,19 @@
+       <option name="presentableId" value="Default" />
+       <updated>1738521423254</updated>
+       <workItem from="1738521424312" duration="1981000" />
+-      <workItem from="1738657631710" duration="95000" />
+-      <workItem from="1738657742874" duration="112000" />
+-      <workItem from="1738658201453" duration="1094000" />
+-      <workItem from="1738659321679" duration="2428000" />
+-      <workItem from="1738668533014" duration="281000" />
+-      <workItem from="1738756099450" duration="2380000" />
++      <workItem from="1738593165656" duration="1724000" />
++      <workItem from="1738598321288" duration="81000" />
++      <workItem from="1738760609413" duration="3813000" />
++      <workItem from="1738843392596" duration="711000" />
++      <workItem from="1738844147074" duration="1615000" />
++      <workItem from="1738848560711" duration="1371000" />
+     </task>
+-    <task id="LOCAL-00001" summary="fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now.">
++    <task id="LOCAL−00001" summary="First test commit just for fun and to test if the clone is properly working with our git">
+       <option name="closed" value="true" />
+-      <created>1738758656451</created>
+-      <option name="number" value="00001" />
+-      <option name="presentableId" value="LOCAL-00001" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1738758656451</updated>
++      <created>1738594961726</created>
++      <option name="number" value="LOCAL−00001" />
++      <option name="presentableId" value="LOCAL−00001" />
++      <updated>1738594961726</updated>
+     </task>
+     <option name="localTasksCounter" value="2" />
+     <servers />
+@@ -171,20 +123,9 @@
+   <component name="TypeScriptGeneratedFilesManager">
+     <option name="version" value="3" />
+   </component>
+-  <component name="Vcs.Log.Tabs.Properties">
+-    <option name="TAB_STATES">
+-      <map>
+-        <entry key="MAIN">
+-          <value>
+-            <State />
+-          </value>
+-        </entry>
+-      </map>
+-    </option>
+-  </component>
+   <component name="VcsManagerConfiguration">
+-    <MESSAGE value="fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now." />
+-    <option name="LAST_COMMIT_MESSAGE" value="fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now." />
++    <MESSAGE value="First test commit just for fun and to test if the clone is properly working with our git" />
++    <option name="LAST_COMMIT_MESSAGE" value="First test commit just for fun and to test if the clone is properly working with our git" />
+   </component>
+   <component name="XSLT-Support.FileAssociations.UIState">
+     <expand />
