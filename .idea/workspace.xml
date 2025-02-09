@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="fixed javaFX-controls plug-in in the pom.xml file. added a fx.java class to check if javaFX runs properly. mvn javafx:run works as it should.">
+    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/Dice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/Dice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/Die.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/Die.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/fx.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/fx.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Dice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Dice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Die.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Die.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +24,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Features" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -41,12 +46,16 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
-                    <option name="branchName" value="main" />
-                    <option name="lastUsedInstant" value="1738523463" />
+                    <option name="branchName" value="Features" />
+                    <option name="lastUsedInstant" value="1738848777" />
                   </RecentBranch>
                   <RecentBranch>
-                    <option name="branchName" value="master" />
-                    <option name="lastUsedInstant" value="1738523462" />
+                    <option name="branchName" value="Development" />
+                    <option name="lastUsedInstant" value="1738848773" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1738523463" />
                   </RecentBranch>
                 </list>
               </option>
@@ -81,32 +90,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.fx.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.boardgame-V2025-IDATT2003 [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.boardgame-V2025-IDATT2003 [package].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/matej/.ssh/id_rsa&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.CommitDialog&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Application.fx.executor": "Run",
+    "JUnit.DieTest.testRollDie.executor": "Run",
+    "JUnit.DieTest.testRollDieDifferentValues.executor": "Run",
+    "Maven.boardgame-V2025-IDATT2003 [clean].executor": "Run",
+    "Maven.boardgame-V2025-IDATT2003 [package].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Features",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/matej/.ssh/id_rsa",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "org.infernus.idea.checkstyle.CheckStyleConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="Application.fx">
+}]]></component>
+  <component name="RunManager" selected="JUnit.DieTest.testRollDieDifferentValues">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.Main" />
       <module name="boardgame-V2025-IDATT2003" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.model.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -119,7 +130,7 @@
       <module name="boardgame-V2025-IDATT2003" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.model.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -127,10 +138,32 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="DieTest.testRollDie" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="boardgame-V2025-IDATT2003" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="DieTest" />
+      <option name="METHOD_NAME" value="testRollDie" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DieTest.testRollDieDifferentValues" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="boardgame-V2025-IDATT2003" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="DieTest" />
+      <option name="METHOD_NAME" value="testRollDieDifferentValues" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.fx" />
+        <item itemvalue="JUnit.DieTest.testRollDieDifferentValues" />
+        <item itemvalue="JUnit.DieTest.testRollDie" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.fx" />
       </list>
     </recent_temporary>
   </component>
@@ -163,6 +196,9 @@
       <workItem from="1738668533014" duration="281000" />
       <workItem from="1738756099450" duration="2809000" />
       <workItem from="1738844228446" duration="2870000" />
+      <workItem from="1738848044069" duration="2662000" />
+      <workItem from="1739111558179" duration="3346000" />
+      <workItem from="1739115319378" duration="3442000" />
     </task>
     <task id="LOCAL-00001" summary="fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now.">
       <option name="closed" value="true" />
@@ -180,7 +216,23 @@
       <option name="project" value="LOCAL" />
       <updated>1738758992038</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="adding unversioned files to version control">
+      <option name="closed" value="true" />
+      <created>1738848547885</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1738848547886</updated>
+    </task>
+    <task id="LOCAL-00004" summary="added neccesary packages and established classes. finished Die class, started on Dice class">
+      <option name="closed" value="true" />
+      <created>1738850185221</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1738850185223</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,7 +252,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now." />
     <MESSAGE value="fixed javaFX-controls plug-in in the pom.xml file. added a fx.java class to check if javaFX runs properly. mvn javafx:run works as it should." />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed javaFX-controls plug-in in the pom.xml file. added a fx.java class to check if javaFX runs properly. mvn javafx:run works as it should." />
+    <MESSAGE value="adding unversioned files to version control" />
+    <MESSAGE value="added neccesary packages and established classes. finished Die class, started on Dice class" />
+    <option name="LAST_COMMIT_MESSAGE" value="added neccesary packages and established classes. finished Die class, started on Dice class" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
