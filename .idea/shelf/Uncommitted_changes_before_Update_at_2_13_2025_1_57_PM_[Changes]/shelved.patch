@@ -1,0 +1,255 @@
+Index: src/test/java/DiceTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>public class DiceTest {\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/DiceTest.java b/src/test/java/DiceTest.java
+--- a/src/test/java/DiceTest.java	(revision 0482943578dc273488ee4ed68bf99cf60c3800fa)
++++ b/src/test/java/DiceTest.java	(date 1739206400172)
+@@ -1,3 +1,35 @@
++import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
++import static org.junit.jupiter.api.Assertions.assertTrue;
++
++import edu.ntnu.idi.idatt.model.Dice;
++import org.junit.jupiter.api.BeforeEach;
++import org.junit.jupiter.api.Test;
++
+ public class DiceTest {
++  private Dice dice;
++
++
++  @BeforeEach
++  void setUp() {
++    dice = new Dice(2);
++    dice.roll();
++  }
++
++  @Test
++  void testRollingMultipleDice() {
++    for (int i = 0; i < 100; i++) {
++      int value = dice.roll();
++      assertTrue(value >= 0 && value <= 12, "Dice value rolled: " +value+ "but must be between 0 and 12");
++    }
++  }
++
++  @Test
++  void testGetDieValue() {
++    assertDoesNotThrow(() -> dice.getDieValue(0));
++    assertDoesNotThrow(() -> dice.getDieValue(1));
++
++  }
++
++
+ 
+ }
+Index: src/main/java/edu/ntnu/idi/idatt/model/Dice.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.ntnu.idi.idatt.model;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class Dice {\r\n  private final List<Die> dice = new ArrayList<>();\r\n\r\n  public Dice(int numberOfDice) {\r\n    for (int i = 0; i < numberOfDice; i++) {\r\n      dice.add(new Die());\r\n    }\r\n  }\r\n\r\n  public int roll() {\r\n    int sum = 0;\r\n    for (Die die : dice) {\r\n      sum += die.roll();\r\n    }\r\n\r\n    return sum;\r\n  }\r\n\r\n  public int getDieValue(int dieNumber) {\r\n    if (dieNumber < 0 || dieNumber >= dice.size()) {\r\n      throw new IndexOutOfBoundsException(\"Invalid die number: \" + dieNumber + \". Must be between 0 and \" + (dice.size() - 1) + \".\");\r\n\r\n    }\r\n\r\n    return dice.get(dieNumber).getLastRolledValue();\r\n  }\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/edu/ntnu/idi/idatt/model/Dice.java b/src/main/java/edu/ntnu/idi/idatt/model/Dice.java
+--- a/src/main/java/edu/ntnu/idi/idatt/model/Dice.java	(revision 0482943578dc273488ee4ed68bf99cf60c3800fa)
++++ b/src/main/java/edu/ntnu/idi/idatt/model/Dice.java	(date 1739203793064)
+@@ -2,11 +2,16 @@
+ 
+ import java.util.ArrayList;
+ import java.util.List;
++import java.util.logging.Logger;
+ 
+ public class Dice {
+   private final List<Die> dice = new ArrayList<>();
++  private static final Logger LOGGER = Logger.getLogger(Dice.class.getName());
+ 
+   public Dice(int numberOfDice) {
++    if (numberOfDice <= 0) {
++      throw new IllegalArgumentException("number of dice cannot be negative");
++    }
+     for (int i = 0; i < numberOfDice; i++) {
+       dice.add(new Die());
+     }
+@@ -18,6 +23,7 @@
+       sum += die.roll();
+     }
+ 
++    LOGGER.info("Rolled value of multiple dice is: " + sum);
+     return sum;
+   }
+ 
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_2_4_2025_9_24_AM__Changes_.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_2_4_2025_9_24_AM__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_2_4_2025_9_24_AM__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_2_4_2025_9_24_AM__Changes_.xml	(revision 0482943578dc273488ee4ed68bf99cf60c3800fa)
++++ /dev/null	(revision 0482943578dc273488ee4ed68bf99cf60c3800fa)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_2_4_2025_9_24_AM_[Changes]" date="1738657515094" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2_4_2025_9_24_AM_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 2/4/2025 9:24 AM [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"d38db8a7-df11-4f93-a67d-5a3991d0ffb3\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/checkstyle-idea.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/checkstyle-idea.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/Main.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/Main.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Dice.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Dice.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Die.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Die.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"Features\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;MatejaV2005&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GitToolBoxStore\">\r\n    <option name=\"recentBranches\">\r\n      <RecentBranches>\r\n        <option name=\"branchesForRepo\">\r\n          <list>\r\n            <RecentBranchesForRepo>\r\n              <option name=\"branches\">\r\n                <list>\r\n                  <RecentBranch>\r\n                    <option name=\"branchName\" value=\"Features\" />\r\n                    <option name=\"lastUsedInstant\" value=\"1738848777\" />\r\n                  </RecentBranch>\r\n                  <RecentBranch>\r\n                    <option name=\"branchName\" value=\"Development\" />\r\n                    <option name=\"lastUsedInstant\" value=\"1738848773\" />\r\n                  </RecentBranch>\r\n                  <RecentBranch>\r\n                    <option name=\"branchName\" value=\"main\" />\r\n                    <option name=\"lastUsedInstant\" value=\"1738523463\" />\r\n                  </RecentBranch>\r\n                </list>\r\n              </option>\r\n              <option name=\"repositoryRootUrl\" value=\"file://$PROJECT_DIR$\" />\r\n            </RecentBranchesForRepo>\r\n          </list>\r\n        </option>\r\n      </RecentBranches>\r\n    </option>\r\n  </component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;git@github.com:MatejaV2005/idatt2003-mappeprosjekt-V2025-MatejaV2005-Danielgusev.git&quot;,\r\n    &quot;accountId&quot;: &quot;e9b8daee-d88a-44b5-b668-8dcb09957c0f&quot;\r\n  }\r\n}</component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"importingSettings\">\r\n      <MavenImportingSettings>\r\n        <option name=\"jdkForImporter\" value=\"21\" />\r\n      </MavenImportingSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 6\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2sUsKNrE6Rso21q8J5STTfDjXoI\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"1\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.Main.executor\": \"Run\",\r\n    \"Application.fx.executor\": \"Run\",\r\n    \"JUnit.DieTest.testRollDie.executor\": \"Run\",\r\n    \"JUnit.DieTest.testRollDieDifferentValues.executor\": \"Run\",\r\n    \"Maven.boardgame-V2025-IDATT2003 [clean].executor\": \"Run\",\r\n    \"Maven.boardgame-V2025-IDATT2003 [package].executor\": \"Run\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"git-widget-placeholder\": \"Features\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/matej/.ssh/id_rsa\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"settings.editor.selected.configurable\": \"org.infernus.idea.checkstyle.CheckStyleConfigurable\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RunManager\" selected=\"JUnit.DieTest.testRollDieDifferentValues\">\r\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"edu.ntnu.idi.idatt.Main\" />\r\n      <module name=\"boardgame-V2025-IDATT2003\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"edu.ntnu.idi.idatt.model.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"fx\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"edu.ntnu.idi.idatt.fx\" />\r\n      <module name=\"boardgame-V2025-IDATT2003\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"edu.ntnu.idi.idatt.model.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"DieTest.testRollDie\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"boardgame-V2025-IDATT2003\" />\r\n      <option name=\"PACKAGE_NAME\" value=\"\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"DieTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"testRollDie\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"DieTest.testRollDieDifferentValues\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"boardgame-V2025-IDATT2003\" />\r\n      <option name=\"PACKAGE_NAME\" value=\"\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"DieTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"testRollDieDifferentValues\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"JUnit.DieTest.testRollDieDifferentValues\" />\r\n        <item itemvalue=\"JUnit.DieTest.testRollDie\" />\r\n        <item itemvalue=\"Application.Main\" />\r\n        <item itemvalue=\"Application.fx\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.22855.74\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.22855.74\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"SvnConfiguration\">\r\n    <configuration>C:\\Users\\matej\\AppData\\Roaming\\Subversion</configuration>\r\n    <option name=\"sshConnectionType\" value=\"PRIVATE_KEY\" />\r\n    <option name=\"sshPrivateKeyPath\" value=\"C:\\Users\\matej\\.ssh\\id_rsa\" />\r\n  </component>\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"d38db8a7-df11-4f93-a67d-5a3991d0ffb3\" name=\"Changes\" comment=\"\" />\r\n      <created>1738521423254</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1738521423254</updated>\r\n      <workItem from=\"1738521424312\" duration=\"1981000\" />\r\n      <workItem from=\"1738657631710\" duration=\"95000\" />\r\n      <workItem from=\"1738657742874\" duration=\"112000\" />\r\n      <workItem from=\"1738658201453\" duration=\"1094000\" />\r\n      <workItem from=\"1738659321679\" duration=\"2428000\" />\r\n      <workItem from=\"1738668533014\" duration=\"281000\" />\r\n      <workItem from=\"1738756099450\" duration=\"2809000\" />\r\n      <workItem from=\"1738844228446\" duration=\"2870000\" />\r\n      <workItem from=\"1738848044069\" duration=\"2662000\" />\r\n      <workItem from=\"1739111558179\" duration=\"3346000\" />\r\n      <workItem from=\"1739115319378\" duration=\"3442000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now.\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1738758656451</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1738758656451</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"fixed javaFX-controls plug-in in the pom.xml file. added a fx.java class to check if javaFX runs properly. mvn javafx:run works as it should.\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1738758992038</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1738758992038</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"adding unversioned files to version control\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1738848547885</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1738848547886</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"added neccesary packages and established classes. finished Die class, started on Dice class\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1738850185221</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1738850185223</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"5\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now.\" />\r\n    <MESSAGE value=\"fixed javaFX-controls plug-in in the pom.xml file. added a fx.java class to check if javaFX runs properly. mvn javafx:run works as it should.\" />\r\n    <MESSAGE value=\"adding unversioned files to version control\" />\r\n    <MESSAGE value=\"added neccesary packages and established classes. finished Die class, started on Dice class\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"added neccesary packages and established classes. finished Die class, started on Dice class\" />\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 0482943578dc273488ee4ed68bf99cf60c3800fa)
++++ b/.idea/workspace.xml	(date 1739451455776)
+@@ -4,12 +4,12 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="">
+-      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
++    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="finished Dice and Die class. Started tests on Die and Dice. finished Die test">
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2_4_2025_9_24_AM_[Changes]/shelved.patch" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/Main.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Dice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Dice.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Die.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Die.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/test/java/DiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DiceTest.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -90,28 +90,30 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "Application.Main.executor": "Run",
+-    "Application.fx.executor": "Run",
+-    "JUnit.DieTest.testRollDie.executor": "Run",
+-    "JUnit.DieTest.testRollDieDifferentValues.executor": "Run",
+-    "Maven.boardgame-V2025-IDATT2003 [clean].executor": "Run",
+-    "Maven.boardgame-V2025-IDATT2003 [package].executor": "Run",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "git-widget-placeholder": "Features",
+-    "kotlin-language-version-configured": "true",
+-    "last_opened_file_path": "C:/Users/matej/.ssh/id_rsa",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)",
+-    "nodejs_package_manager_path": "npm",
+-    "settings.editor.selected.configurable": "org.infernus.idea.checkstyle.CheckStyleConfigurable",
+-    "vue.rearranger.settings.migration": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
++    &quot;Application.fx.executor&quot;: &quot;Run&quot;,
++    &quot;JUnit.DiceTest.testGetDieValue.executor&quot;: &quot;Run&quot;,
++    &quot;JUnit.DiceTest.testRollingMultipleDice.executor&quot;: &quot;Run&quot;,
++    &quot;JUnit.DieTest.testRollDie.executor&quot;: &quot;Run&quot;,
++    &quot;JUnit.DieTest.testRollDieDifferentValues.executor&quot;: &quot;Run&quot;,
++    &quot;Maven.boardgame-V2025-IDATT2003 [clean].executor&quot;: &quot;Run&quot;,
++    &quot;Maven.boardgame-V2025-IDATT2003 [package].executor&quot;: &quot;Run&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;Features&quot;,
++    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/Users/matej/.ssh/id_rsa&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;org.infernus.idea.checkstyle.CheckStyleConfigurable&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   }
+-}]]></component>
+-  <component name="RunManager" selected="JUnit.DieTest.testRollDieDifferentValues">
++}</component>
++  <component name="RunManager" selected="JUnit.DiceTest.testGetDieValue">
+     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.Main" />
+       <module name="boardgame-V2025-IDATT2003" />
+@@ -125,15 +127,22 @@
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <configuration name="fx" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.fx" />
++    <configuration name="DiceTest.testGetDieValue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
++      <module name="boardgame-V2025-IDATT2003" />
++      <option name="PACKAGE_NAME" value="" />
++      <option name="MAIN_CLASS_NAME" value="DiceTest" />
++      <option name="METHOD_NAME" value="testGetDieValue" />
++      <option name="TEST_OBJECT" value="method" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <configuration name="DiceTest.testRollingMultipleDice" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+       <module name="boardgame-V2025-IDATT2003" />
+-      <extension name="coverage">
+-        <pattern>
+-          <option name="PATTERN" value="edu.ntnu.idi.idatt.model.*" />
+-          <option name="ENABLED" value="true" />
+-        </pattern>
+-      </extension>
++      <option name="PACKAGE_NAME" value="" />
++      <option name="MAIN_CLASS_NAME" value="DiceTest" />
++      <option name="METHOD_NAME" value="testRollingMultipleDice" />
++      <option name="TEST_OBJECT" value="method" />
+       <method v="2">
+         <option name="Make" enabled="true" />
+       </method>
+@@ -160,10 +169,11 @@
+     </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="JUnit.DiceTest.testGetDieValue" />
++        <item itemvalue="JUnit.DiceTest.testRollingMultipleDice" />
+         <item itemvalue="JUnit.DieTest.testRollDieDifferentValues" />
+         <item itemvalue="JUnit.DieTest.testRollDie" />
+         <item itemvalue="Application.Main" />
+-        <item itemvalue="Application.fx" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -198,7 +208,8 @@
+       <workItem from="1738844228446" duration="2870000" />
+       <workItem from="1738848044069" duration="2662000" />
+       <workItem from="1739111558179" duration="3346000" />
+-      <workItem from="1739115319378" duration="3442000" />
++      <workItem from="1739115319378" duration="10026000" />
++      <workItem from="1739451159317" duration="295000" />
+     </task>
+     <task id="LOCAL-00001" summary="fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now.">
+       <option name="closed" value="true" />
+@@ -232,7 +243,15 @@
+       <option name="project" value="LOCAL" />
+       <updated>1738850185223</updated>
+     </task>
+-    <option name="localTasksCounter" value="5" />
++    <task id="LOCAL-00005" summary="finished Dice and Die class. Started tests on Die and Dice. finished Die test">
++      <option name="closed" value="true" />
++      <created>1739119530454</created>
++      <option name="number" value="00005" />
++      <option name="presentableId" value="LOCAL-00005" />
++      <option name="project" value="LOCAL" />
++      <updated>1739119530454</updated>
++    </task>
++    <option name="localTasksCounter" value="6" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -254,7 +273,8 @@
+     <MESSAGE value="fixed javaFX-controls plug-in in the pom.xml file. added a fx.java class to check if javaFX runs properly. mvn javafx:run works as it should." />
+     <MESSAGE value="adding unversioned files to version control" />
+     <MESSAGE value="added neccesary packages and established classes. finished Die class, started on Dice class" />
+-    <option name="LAST_COMMIT_MESSAGE" value="added neccesary packages and established classes. finished Die class, started on Dice class" />
++    <MESSAGE value="finished Dice and Die class. Started tests on Die and Dice. finished Die test" />
++    <option name="LAST_COMMIT_MESSAGE" value="finished Dice and Die class. Started tests on Die and Dice. finished Die test" />
+   </component>
+   <component name="XSLT-Support.FileAssociations.UIState">
+     <expand />

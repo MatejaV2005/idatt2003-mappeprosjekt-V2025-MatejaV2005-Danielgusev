@@ -10,7 +10,7 @@ public class Die {
 
   public Die() {
     random = new Random();
-    roll(); //Initializes the die-instance with a value
+    // roll(); //Initializes the die-instance with a value
   }
 
   // Returns the last rolled value
