@@ -1,35 +1,61 @@
 package edu.ntnu.idi.idatt.model;
 
+import edu.ntnu.idi.idatt.model.PlayerType.Player;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Tile {
 
  private int tileid;
- private Tile nexttile;
+ private Tile nextTile;
  private TileAction landaction;
+ private List<Player> players;
 
   public Tile(int tileid) {
     this.tileid = tileid;
+    this.players = new ArrayList<>();
   }
 
-  // Get methods ------------------------------------
+
   public Tile getNextTile() {
-    return nexttile;
+    return nextTile;
   }
 
   public int getTileId() {
    return tileid;
   }
 
+
  public TileAction getLandaction() {
   return landaction;
  }
 
- // Set methods --------------------------------------
+ public TileAction action setLandAction(TileAction action) {
+  //TODO: fill out
+ }
+
+ public void landPlayer(Player player) {
+   players.add(player);
+   //TODO: fill out
+ }
+
+ public void leavePlayer(Player player) {
+   players.remove(player);
+   //TODO: fill out
+ }
+
+ public void setNextTile(Tile nextTile) {
+  this.nextTile = nextTile;
+ }
 
 
 
-  public void setNextTile(Tile tile) {
-  }
+
 }
+
+
+
+
 
 
 /*

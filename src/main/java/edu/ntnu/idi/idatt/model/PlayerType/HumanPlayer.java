@@ -9,8 +9,10 @@ public class HumanPlayer extends Player {
   @Override
   public void move(int steps) {
     System.out.println(getName() + " moves " + steps + " steps");
-    //LOGIC:
-    //IN MOVE, need to implement methods from tile (leaveTile, LandTile)
-    //USE FOR LOOP to iterate through the tiles on the board
+    basicMove(steps);
   }
 }
+
+//LOGIC:
+//IN MOVE, need to implement methods from tile (leaveTile, LandTile)
+//USE FOR LOOP to iterate through the tiles on the board

@@ -20,11 +20,14 @@ public abstract class Player {
 
   //--------------------------------------------
 
-  public void PlaceOnTile(Tile newTile) {
-    // NOT ITERATIVE, this method will be responsible for moving player instantly to
-    // a new tile if player e.g. lands on a ladder or a teleporitng tile
+  public void placeOnTile(Tile newTile) {
     this.currentTile = newTile;
   }
+
+  public void basicMove(int steps) {
+    //TODO: fill out logic when tile is done
+  }
+
 
   public abstract void move(int steps);
 
