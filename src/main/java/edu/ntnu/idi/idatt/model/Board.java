@@ -3,19 +3,45 @@ package edu.ntnu.idi.idatt.model;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class Board {
   private Map<Integer, Tile> tiles;
+  private int totalTiles;
 
-  public Board() {
+  public Board(int totalTiles) {
     tiles = new HashMap<>();
+    this.totalTiles = totalTiles;
+    initializeTiles();
+    linkTiles();
   }
 
-  public void addTiles(Tile tile) {
-    tiles.put(tile.getTileId(), tile);
+
+  public void initializeTiles() {
+    for (int i = 1; i <= totalTiles; i++) {
+      tiles.put(i, new Tile(i));
+    }
   }
 
-  public void linkTiles(Tile previousTile, Tile currentTile) {
+  public void addTilesWithAction(Tile tile) {
+    //TODO: implement when tileAction is done
+  }
 
+  public void linkTiles() {
+    /*
+    tiles.keySet().stream().sorted().forEach(id -> {
+      Tile currentTile = tiles.get(id);
+      Tile nextTile = tiles.get(id + 1);
+
+      if (nextTile != null) {
+        currentTile.setNextTile(nextTile);
+      }
+    });
+    Stream alternative above, but potentially un-necessary
+     */
+
+    for (int i = 1; i < totalTiles; i++) {
+      tiles.get(i).setNextTile(tiles.get(i + 1));
+    }
   }
 
   public Tile getTile(int tileId) {
@@ -23,8 +49,13 @@ public class Board {
       throw new IllegalArgumentException("tileID not found");
     }
 
-    Tile tile = tiles.get(tileId);
-    return tile;
+    return tiles.get(tileId);
+  }
+
+  public void resetBoard() {
+    tiles.clear();
+    initializeTiles();
+    linkTiles();
   }
 
 
