@@ -27,18 +27,6 @@ public class Board {
   }
 
   public void linkTiles() {
-    /*
-    tiles.keySet().stream().sorted().forEach(id -> {
-      Tile currentTile = tiles.get(id);
-      Tile nextTile = tiles.get(id + 1);
-
-      if (nextTile != null) {
-        currentTile.setNextTile(nextTile);
-      }
-    });
-    Stream alternative above, but potentially un-necessary
-     */
-
     for (int i = 1; i < totalTiles; i++) {
       tiles.get(i).setNextTile(tiles.get(i + 1));
     }
