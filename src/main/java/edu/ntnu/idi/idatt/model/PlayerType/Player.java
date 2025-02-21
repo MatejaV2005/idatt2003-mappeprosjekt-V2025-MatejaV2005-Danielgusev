@@ -25,7 +25,11 @@ public abstract class Player {
   }
 
   public void basicMove(int steps) {
-    //TODO: fill out logic when tile is done
+    for (int i = 0; i < steps; i++) {
+      currentTile = currentTile.getNextTile();
+    }
+
+    placeOnTile(currentTile);
   }
 
 
