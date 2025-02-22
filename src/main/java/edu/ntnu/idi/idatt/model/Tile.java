@@ -1,6 +1,7 @@
 package edu.ntnu.idi.idatt.model;
 
-import edu.ntnu.idi.idatt.model.PlayerType.Player;
+import edu.ntnu.idi.idatt.model.player_type.Player;
+import edu.ntnu.idi.idatt.model.actions.TileAction;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class Tile {
   }
 
 
+  // Get-methods
   public Tile getNextTile() {
     return nextTile;
   }
@@ -25,23 +27,24 @@ public class Tile {
    return tileid;
   }
 
-
+ // Set-methods
  public TileAction getLandaction() {
   return landaction;
  }
 
- public TileAction action setLandAction(TileAction action) {
-  //TODO: fill out
+
+ public TileAction setLandAction(TileAction action) {
+  this.landaction = action;
+  return landaction;
  }
 
  public void landPlayer(Player player) {
    players.add(player);
-   //TODO: fill out
+   landaction.perform(player);
  }
 
  public void leavePlayer(Player player) {
    players.remove(player);
-   //TODO: fill out
  }
 
  public void setNextTile(Tile nextTile) {
