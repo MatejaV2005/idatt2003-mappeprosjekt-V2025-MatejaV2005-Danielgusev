@@ -32,12 +32,14 @@ public class Board {
     }
   }
 
-  public Tile getTile(int tileId) {
-    if (tileId < 1 || !tiles.containsKey(tileId)) {
-      throw new IllegalArgumentException("tileID not found");
+  public Tile getTileById(int tileId) {
+    Tile tile = tiles.get(tileId);
+
+    if (tile == null) {
+      throw new IllegalArgumentException("Tile ID: " + tileId + " does not exist on the board");
     }
 
-    return tiles.get(tileId);
+    return tile;
   }
 
   public void resetBoard() {
