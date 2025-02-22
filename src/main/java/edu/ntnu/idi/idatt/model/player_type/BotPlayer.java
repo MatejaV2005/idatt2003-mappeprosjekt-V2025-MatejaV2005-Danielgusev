@@ -1,17 +1,19 @@
-package edu.ntnu.idi.idatt.model.PlayerType;
+package edu.ntnu.idi.idatt.model.player_type;
 
-public class HumanPlayer extends Player {
+public class BotPlayer extends Player {
 
-  public HumanPlayer(String name, BoardGame game) {
+  public BotPlayer(String name, BoardGame game) {
     super(name, game);
   }
 
   @Override
   public void move(int steps) {
-    System.out.println(getName() + " moves " + steps + " steps");
+    System.out.println("Bot moves " + steps + " steps");
     basicMove(steps);
   }
+
 }
+
 
 //LOGIC:
 //IN MOVE, need to implement methods from tile (leaveTile, LandTile)
