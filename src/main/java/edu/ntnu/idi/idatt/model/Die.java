@@ -8,6 +8,9 @@ public class Die {
   private final Random random;
   private static final Logger LOGGER = Logger.getLogger(Die.class.getName());
 
+  /*
+  * TODO: fill out javadoc
+  * */
   public Die() {
     random = new Random();
     // roll(); //Initializes the die-instance with a value
@@ -18,7 +21,9 @@ public class Die {
     return this.lastRolledValue;
   }
 
-  // Rolls the die and returns the new value
+  /*
+  * TODO: Fill out javadoc
+  * */
   public int roll() {
     LOGGER.info("Dice is rolling...");
 
