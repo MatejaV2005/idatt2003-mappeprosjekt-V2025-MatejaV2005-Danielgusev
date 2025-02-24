@@ -38,21 +38,38 @@ public class DiceTest {
 
 
   //Negative tests--------------------------------------------------
+
   @Test
-  void testInvalidDieNumberNegative() {
-    diceWithTwoDice.roll(); // Roll the dice to ensure dice are initialized
-    // Test invalid index (-1)
-    Exception exception1 = assertThrows(IndexOutOfBoundsException.class, () -> {
-      diceWithTwoDice.getDieValue(-1);
-    });
+  void testDiceCreationWithNegativeDiceNumber() {
+    IllegalArgumentException thrown = assertThrows(
+        IllegalArgumentException.class,
+        () -> new Dice(-1),
+        "Expected exception for negative number of dice"
+    );
+    assertEquals("numberOfDice must be positive", thrown.getMessage());
+  }
 
-    assertEquals("Invalid die number: -1. Must be between 0 and 1.", exception1.getMessage());
+  @Test
+  void testDiceCreationWithZeroDiceNumber() {
+    IllegalArgumentException thrown = assertThrows(
+        IllegalArgumentException.class,
+        () -> new Dice(0),
+        "Expected exception for zero number of dice"
+    );
+    assertEquals("numberOfDice must be positive", thrown.getMessage());
+  }
 
-    // Test invalid index (greater than size)
-    Exception exception2 = assertThrows(IndexOutOfBoundsException.class, () -> {
-      diceWithTwoDice.getDieValue(2);
-    });
-    assertEquals("Invalid die number: 2. Must be between 0 and 1.", exception2.getMessage());
+  @Test
+  void testGetDieValueWithIndexOutOfBounds() {
+    Dice dice = new Dice(2);
+    dice.roll();
+    IllegalArgumentException thrown = assertThrows(
+        IllegalArgumentException.class,
+        () -> dice.getDieValue(3),
+        "Expected exception for dice index out of bounds"
+    );
+
+    assertEquals("number of dice must be between 0 and 2", thrown.getMessage());
   }
 
 }

@@ -1,6 +1,8 @@
 package edu.ntnu.idi.idatt.model;
 
-import edu.ntnu.idi.idatt.model.PlayerType.Player;
+import edu.ntnu.idi.idatt.model.player_type.Player;
+import edu.ntnu.idi.idatt.model.actions.TileAction;
+import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,45 +14,47 @@ public class Tile {
  private List<Player> players;
 
   public Tile(int tileid) {
+    ExceptionHandling.requirePositive(tileid, "tileid");
+
     this.tileid = tileid;
     this.players = new ArrayList<>();
   }
 
 
+  // Get-methods
   public Tile getNextTile() {
     return nextTile;
   }
 
   public int getTileId() {
-   return tileid;
+    return tileid;
   }
 
-
  public TileAction getLandaction() {
-  return landaction;
+    return landaction;
  }
 
- public TileAction action setLandAction(TileAction action) {
-  //TODO: fill out
- }
-
- public void landPlayer(Player player) {
-   players.add(player);
-   //TODO: fill out
- }
-
- public void leavePlayer(Player player) {
-   players.remove(player);
-   //TODO: fill out
+ // Set-methods
+ public void setLandAction(TileAction action) {
+    ExceptionHandling.requireNonNull(action, "TileAction");
+    this.landaction = action;
  }
 
  public void setNextTile(Tile nextTile) {
-  this.nextTile = nextTile;
+    ExceptionHandling.requireNonNull(nextTile, "Tile");
+    this.nextTile = nextTile;
  }
 
+ public void landPlayer(Player player) {
+    ExceptionHandling.requireNonNull(player, "Player");
+    players.add(player);
+    landaction.perform(player);
+ }
 
-
-
+ public void leavePlayer(Player player) {
+    ExceptionHandling.requireNonNull(player, "Player");
+    players.remove(player);
+ }
 }
 
 
@@ -58,11 +62,3 @@ public class Tile {
 
 
 
-/*
-* how move, PlaceOnTile and LandPLayer correspond
-
-Move will calculate the destination tile based on the steps its given. it will iterate through the tiles until it has finished the loop and found which tile the player is supposed to go to.
-
-PlaceOnTile Registers the actual tile that the player moved to, and saves the player position to that corresponding tile.
-
-landPlayer tells the tile (if there is an action on it) to activate its action and perform it*/

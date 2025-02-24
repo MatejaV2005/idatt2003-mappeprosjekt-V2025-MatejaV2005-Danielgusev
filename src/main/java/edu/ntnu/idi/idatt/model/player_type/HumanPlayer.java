@@ -1,4 +1,7 @@
-package edu.ntnu.idi.idatt.model.PlayerType;
+package edu.ntnu.idi.idatt.model.player_type;
+
+import edu.ntnu.idi.idatt.model.BoardGame;
+import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 
 public class HumanPlayer extends Player {
 
@@ -8,6 +11,8 @@ public class HumanPlayer extends Player {
 
   @Override
   public void move(int steps) {
+    ExceptionHandling.requirePositive(steps, "steps");
+
     System.out.println(getName() + " moves " + steps + " steps");
     basicMove(steps);
   }

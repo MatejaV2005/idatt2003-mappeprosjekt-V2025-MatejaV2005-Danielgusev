@@ -1,4 +1,6 @@
-package edu.ntnu.idi.idatt.model.PlayerType;
+package edu.ntnu.idi.idatt.model.player_type;
+import edu.ntnu.idi.idatt.model.BoardGame;
+import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 
 public class BotPlayer extends Player {
 
@@ -8,6 +10,8 @@ public class BotPlayer extends Player {
 
   @Override
   public void move(int steps) {
+    ExceptionHandling.requirePositive(steps, "steps");
+
     System.out.println("Bot moves " + steps + " steps");
     basicMove(steps);
   }
