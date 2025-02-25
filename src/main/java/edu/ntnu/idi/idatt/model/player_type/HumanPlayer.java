@@ -2,9 +2,10 @@ package edu.ntnu.idi.idatt.model.player_type;
 
 import edu.ntnu.idi.idatt.model.BoardGame;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
+import java.util.logging.Logger;
 
 public class HumanPlayer extends Player {
-
+  public static final Logger LOGGER = Logger.getLogger(HumanPlayer.class.getName());
   public HumanPlayer(String name, BoardGame game) {
     super(name, game);
   }
@@ -13,7 +14,8 @@ public class HumanPlayer extends Player {
   public void move(int steps) {
     ExceptionHandling.requirePositive(steps, "steps");
 
-    System.out.println(getName() + " moves " + steps + " steps");
+
+    LOGGER.info(getName() + " moves " + steps + " steps");//TODO Add custom Logging Handler for UI, to seperate debugging logger from UI
     basicMove(steps);
   }
 }

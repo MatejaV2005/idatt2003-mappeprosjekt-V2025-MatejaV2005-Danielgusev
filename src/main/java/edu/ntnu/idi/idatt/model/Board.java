@@ -67,9 +67,6 @@ public class Board {
     initializeTiles();
     linkTiles();
   }
-
-
-
 }
 
 

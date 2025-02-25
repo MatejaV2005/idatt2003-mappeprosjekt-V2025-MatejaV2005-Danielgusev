@@ -10,7 +10,7 @@ public class Tile {
 
  private int tileid;
  private Tile nextTile;
- private TileAction landaction;
+ //private TileAction landaction;
  private List<Player> players;
 
   public Tile(int tileid) {

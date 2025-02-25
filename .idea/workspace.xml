@@ -4,11 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Test commit, unversioned files">
+    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Test commit">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_02_2025__13_55__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_02_2025,_15_04_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_02_2025__15_04__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_02_2025,_17_47_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_02_2025__17_47__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Tile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/DiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/player_type/BotPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/player_type/BotPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/player_type/HumanPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/player_type/HumanPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/player_type/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/player_type/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PlayerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PlayerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,12 +64,12 @@
       </RecentBranches>
     </option>
   </component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/MatejaV2005/idatt2003-mappeprosjekt-V2025-MatejaV2005-Danielgusev.git",
-    "accountId": "f197bc85-7e42-4ada-be4d-5e422156eed1"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/MatejaV2005/idatt2003-mappeprosjekt-V2025-MatejaV2005-Danielgusev.git&quot;,
+    &quot;accountId&quot;: &quot;f197bc85-7e42-4ada-be4d-5e422156eed1&quot;
   }
-}]]></component>
+}</component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
       <MavenImportingSettings>
@@ -84,6 +92,7 @@
   "keyToString": {
     "Application.Main.executor": "Run",
     "Application.fx.executor": "Run",
+    "JUnit.PlayerTest.executor": "Run",
     "Maven.boardgame-V2025-IDATT2003 [clean].executor": "Run",
     "Maven.boardgame-V2025-IDATT2003 [package].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -96,11 +105,11 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.CommitDialog",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.fx">
+  <component name="RunManager" selected="JUnit.PlayerTest">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.Main" />
       <module name="boardgame-V2025-IDATT2003" />
@@ -127,10 +136,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="PlayerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="boardgame-V2025-IDATT2003" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="PlayerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.fx" />
+        <item itemvalue="JUnit.PlayerTest" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.fx" />
       </list>
     </recent_temporary>
   </component>
@@ -163,6 +182,11 @@
       <workItem from="1738668533014" duration="281000" />
       <workItem from="1738756099450" duration="2380000" />
       <workItem from="1739203786603" duration="2319000" />
+      <workItem from="1739451082441" duration="3711000" />
+      <workItem from="1739458213219" duration="775000" />
+      <workItem from="1739724216299" duration="2670000" />
+      <workItem from="1740059750149" duration="3234000" />
+      <workItem from="1740139548786" duration="9535000" />
     </task>
     <task id="LOCAL-00001" summary="fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now.">
       <option name="closed" value="true" />
@@ -172,7 +196,21 @@
       <option name="project" value="LOCAL" />
       <updated>1738758656451</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL−00002" summary="Test commit, unversioned files">
+      <option name="closed" value="true" />
+      <created>1739451232235</created>
+      <option name="number" value="LOCAL−00002" />
+      <option name="presentableId" value="LOCAL−00002" />
+      <updated>1739451232235</updated>
+    </task>
+    <task id="LOCAL−00003" summary="Test commit">
+      <option name="closed" value="true" />
+      <created>1739458410766</created>
+      <option name="number" value="LOCAL−00003" />
+      <option name="presentableId" value="LOCAL−00003" />
+      <updated>1739458410766</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -191,7 +229,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now." />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now." />
+    <MESSAGE value="Test commit, unversioned files" />
+    <MESSAGE value="Test commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test commit" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
