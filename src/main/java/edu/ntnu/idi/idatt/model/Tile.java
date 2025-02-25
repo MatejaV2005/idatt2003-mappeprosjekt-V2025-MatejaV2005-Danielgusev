@@ -10,7 +10,7 @@ public class Tile {
 
  private int tileid;
  private Tile nextTile;
- //private TileAction landaction;
+ private TileAction landaction;
  private List<Player> players;
 
   public Tile(int tileid) {
@@ -48,7 +48,7 @@ public class Tile {
  public void landPlayer(Player player) {
     ExceptionHandling.requireNonNull(player, "Player");
     players.add(player);
-    landaction.perform(player);
+//    landaction.perform(player);
  }
 
  public void leavePlayer(Player player) {

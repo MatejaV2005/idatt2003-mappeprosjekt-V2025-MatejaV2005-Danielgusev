@@ -15,7 +15,7 @@ public class HumanPlayer extends Player {
     ExceptionHandling.requirePositive(steps, "steps");
 
 
-    LOGGER.info(getName() + " moves " + steps + " steps");//TODO Add custom Logging Handler for UI, to seperate debugging logger from UI
+    //LOGGER.info(getName() + " moves " + steps + " steps");//TODO Add custom Logging Handler for UI, to seperate debugging logger from UI
     basicMove(steps);
   }
 }

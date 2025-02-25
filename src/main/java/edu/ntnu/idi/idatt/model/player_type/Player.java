@@ -40,25 +40,25 @@ public abstract class Player {
 
 
   // METHOD OVERLOADING
-  /*public void placeOnTile(Tile newTile) {
+  public void placeOnTile(Tile newTile) {
     ExceptionHandling.requireNonNull(newTile, "tile ");
 
     currentTile.leavePlayer(this); //removes player from the currently occupied tile
     this.currentTile = newTile; // determines the new current tile the player is to be placed
     currentTile.landPlayer(this); // lands player and initiates an action if there is any on that tile
-  }*/
+  }
 
   //METHOD OVERLOADING
- /* public void placeOnTile(int tileID) {
+ public void placeOnTile(int tileID) {
     ExceptionHandling.requirePositive(tileID, "steps");
 
     // retrieves tile form board through getTileByID method
     currentTile.leavePlayer(this);
     this.currentTile = board.getTileById(tileID);
     currentTile.landPlayer(this);
-  }*/
+  }
 
-  /*public void basicMove(int steps) {
+  public void basicMove(int steps) {
     ExceptionHandling.requirePositive(steps, "steps");
 
     for (int i = 0; i < steps; i++) {
@@ -66,7 +66,7 @@ public abstract class Player {
     }
 
     placeOnTile(currentTile);
-  }*/
+  }
 
   public abstract void move(int steps);
 
