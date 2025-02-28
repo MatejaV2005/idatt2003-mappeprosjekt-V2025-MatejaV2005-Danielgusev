@@ -1,27 +1,65 @@
 package edu.ntnu.idi.idatt.model;
 
-public class BoardGame {
-  private final Board board;
+import edu.ntnu.idi.idatt.model.player_type.Player;
+import java.util.ArrayList;
+import java.util.List;
 
-  /**
-   * Constructs a BoardGame with the provided board.
-   *
-   * @param board the board to use; must not be null
-   * @throws IllegalArgumentException if board is null
-   */
-  public BoardGame(Board board) {
-    if (board == null) {
-      throw new IllegalArgumentException("Board must not be null haaland er skalla.");
-    }
-    this.board = board;
+public class BoardGame {
+    private Board board;
+    private Dice dice;
+    private Player currentPlayer;
+    private List<Player> players;
+    private boolean gameOver;
+
+
+
+  public BoardGame(int numOfTiles, int numOfDice) {
+    //TODO: add exception Handling
+
+    this.players = new ArrayList<>();
+    this.currentPlayer = null;
+    createBoard(numOfTiles);
+    createDice(numOfDice);
+
   }
 
-  /**
-   * Returns the board associated with this game.
-   *
-   * @return the board
-   */
+  public void addPlayer(Player player) {
+      players.add(player);
+
+      if (currentPlayer == null) {
+        currentPlayer = player;
+      }
+  }
+
   public Board getBoard() {
     return board;
   }
+
+  public void createBoard(int numOfTiles) {
+    board = new Board(numOfTiles);
+  }
+
+  public void createDice(int numOfDice) {
+    dice = new Dice(2);
+  }
+
+  // Play should only handle the flow of the game, calling upon the game rules from the game engine
+  public void play() {
+    if (players.isEmpty()) {
+      System.out.println("no players in the game");
+    }
+  }
+
+
+  public void announceWinner() {
+    System.out.println("Congratulations! player: " + currentPlayer + " You won!");
+  }
+
+
+  public void nextPlayer() {
+    int currentIndex = players.indexOf(currentPlayer);
+    int nextIndex = currentIndex + 1;
+    currentPlayer = players.get(nextIndex);
+  }
+
 }
