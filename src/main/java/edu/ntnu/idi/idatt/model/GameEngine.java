@@ -11,21 +11,35 @@ public class GameEngine {
     this.dice = new Dice(numOfDice);
   }
 
-  public void playTurn(Player currentPlayer) {
+  public Tile getStartingTile() {
+    return board.getTileById(1);
+  }
 
+  public void playTurn(Player currentPlayer) {
+    dice.roll();
+    int steps = dice.getTotalDiceValue();
+
+    Tile oldTile = currentPlayer.getCurrentTile();
+    Tile newTile = currentPlayer.basicMove(steps);
+
+    updatePlayerPosition(currentPlayer, oldTile, newTile);
+    System.out.println(currentPlayer.getName() + " is at tile " + newTile.getTileId());
+  }
+
+  private void updatePlayerPosition(Player currentPlayer, Tile oldTile, Tile newTile) {
+    oldTile.leavePlayer(currentPlayer);
+    currentPlayer.placeOnTile(newTile);
+    newTile.landPlayer(currentPlayer);
   }
 
   public boolean isWinner(Player winner) {
+    if (winner.getCurrentTile() == null) {
+      return true;
+    }
     return false;
   }
 
-  private void landPlayer(Player player, Tile landTile) {
 
-  }
-
-  private void LeavePlayer(Player player, Tile leaveTile) {
-
-  }
 
 
 

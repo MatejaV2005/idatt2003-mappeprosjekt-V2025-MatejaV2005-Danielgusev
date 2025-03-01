@@ -4,19 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Test commit">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_02_2025__13_55__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_02_2025,_15_04_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_02_2025__15_04__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_02_2025,_17_47_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_02_2025__17_47__Changes_.xml" beforeDir="false" />
+    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Added Class GameEngine, will be responsible for game-logic.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/BoardGame.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Dice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Dice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Die.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Die.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/GameEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/Tile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/actions/LadderAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/actions/LadderAction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/player_type/BotPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/player_type/BotPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/player_type/HumanPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/player_type/HumanPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/player_type/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/player_type/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/PlayerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PlayerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +31,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Features" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -48,12 +53,12 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
-                    <option name="branchName" value="main" />
-                    <option name="lastUsedInstant" value="1738523463" />
+                    <option name="branchName" value="Mateja-features" />
+                    <option name="lastUsedInstant" value="1740512644" />
                   </RecentBranch>
                   <RecentBranch>
-                    <option name="branchName" value="master" />
-                    <option name="lastUsedInstant" value="1738523462" />
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1738523463" />
                   </RecentBranch>
                 </list>
               </option>
@@ -66,8 +71,8 @@
   </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/MatejaV2005/idatt2003-mappeprosjekt-V2025-MatejaV2005-Danielgusev.git&quot;,
-    &quot;accountId&quot;: &quot;f197bc85-7e42-4ada-be4d-5e422156eed1&quot;
+    &quot;url&quot;: &quot;git@github.com:MatejaV2005/idatt2003-mappeprosjekt-V2025-MatejaV2005-Danielgusev.git&quot;,
+    &quot;accountId&quot;: &quot;e9b8daee-d88a-44b5-b668-8dcb09957c0f&quot;
   }
 }</component>
   <component name="MavenImportPreferences">
@@ -97,7 +102,8 @@
     "Maven.boardgame-V2025-IDATT2003 [package].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Features",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "git-widget-placeholder": "Mateja-features",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/matej/.ssh/id_rsa",
     "node.js.detected.package.eslint": "true",
@@ -109,7 +115,12 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.PlayerTest">
+  <component name="RecentsManager">
+    <key name="MoveInnerDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.Main" />
       <module name="boardgame-V2025-IDATT2003" />
@@ -147,8 +158,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.PlayerTest" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.PlayerTest" />
         <item itemvalue="Application.fx" />
       </list>
     </recent_temporary>
@@ -156,8 +167,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.189" />
-        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.189" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.24807.4" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.24807.4" />
       </set>
     </attachedChunks>
   </component>
@@ -187,6 +198,10 @@
       <workItem from="1739724216299" duration="2670000" />
       <workItem from="1740059750149" duration="3234000" />
       <workItem from="1740139548786" duration="9535000" />
+      <workItem from="1740649965523" duration="2160000" />
+      <workItem from="1740652210484" duration="14199000" />
+      <workItem from="1740741446031" duration="5578000" />
+      <workItem from="1740840355898" duration="10578000" />
     </task>
     <task id="LOCAL-00001" summary="fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now.">
       <option name="closed" value="true" />
@@ -210,7 +225,31 @@
       <option name="presentableId" value="LOCAL−00003" />
       <updated>1739458410766</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="added BoardGame to VCS-history">
+      <option name="closed" value="true" />
+      <created>1740499828461</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1740499828461</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Started working on BoardGame. game-logic will be handled in GameEngine">
+      <option name="closed" value="true" />
+      <created>1740746661323</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1740746661323</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added Class GameEngine, will be responsible for game-logic.">
+      <option name="closed" value="true" />
+      <created>1740746877104</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1740746877104</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,7 +270,10 @@
     <MESSAGE value="fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now." />
     <MESSAGE value="Test commit, unversioned files" />
     <MESSAGE value="Test commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test commit" />
+    <MESSAGE value="added BoardGame to VCS-history" />
+    <MESSAGE value="Started working on BoardGame. game-logic will be handled in GameEngine" />
+    <MESSAGE value="Added Class GameEngine, will be responsible for game-logic." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Class GameEngine, will be responsible for game-logic." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

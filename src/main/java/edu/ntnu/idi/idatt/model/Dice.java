@@ -36,6 +36,14 @@ public class Dice {
     return dice.get(dieNumber).getLastRolledValue();
   }
 
+  public int getTotalDiceValue() {
+    int totalValue = 0;
+    for (Die die : dice) {
+      totalValue += die.getLastRolledValue();
+    }
+    return totalValue;
+  }
+
 
 
 
