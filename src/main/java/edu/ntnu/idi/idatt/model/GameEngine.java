@@ -33,9 +33,11 @@ public class GameEngine {
   }
 
   public boolean isWinner(Player winner) {
-    if (winner.getCurrentTile() == null) {
+    Tile currentTile = winner.getCurrentTile();
+    if (currentTile.getNextTile() == null) {
       return true;
     }
+
     return false;
   }
 
