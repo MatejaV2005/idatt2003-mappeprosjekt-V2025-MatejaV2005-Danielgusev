@@ -4,13 +4,14 @@ import edu.ntnu.idi.idatt.model.player_type.Player;
 import edu.ntnu.idi.idatt.model.actions.TileAction;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Tile {
 
  private int tileid;
  private Tile nextTile;
- //private TileAction landaction;
+ private TileAction landaction;
  private List<Player> players;
 
   public Tile(int tileid) {
@@ -34,6 +35,10 @@ public class Tile {
     return landaction;
  }
 
+ public List<Player> getPlayers() {
+    return Collections.unmodifiableList(players);
+ }
+
  // Set-methods
  public void setLandAction(TileAction action) {
     ExceptionHandling.requireNonNull(action, "TileAction");
@@ -48,7 +53,11 @@ public class Tile {
  public void landPlayer(Player player) {
     ExceptionHandling.requireNonNull(player, "Player");
     players.add(player);
-    landaction.perform(player);
+
+    if (landaction != null) {
+      landaction.perform(player);
+    }
+
  }
 
  public void leavePlayer(Player player) {

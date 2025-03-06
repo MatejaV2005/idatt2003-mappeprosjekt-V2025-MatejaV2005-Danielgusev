@@ -1,14 +1,14 @@
 package edu.ntnu.idi.idatt.model.player_type;
 
-import edu.ntnu.idi.idatt.model.BoardGame;
+import edu.ntnu.idi.idatt.model.Tile;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import java.util.logging.Logger;
 
 public class BotPlayer extends Player {
-
   public static final Logger LOGGER = Logger.getLogger(BotPlayer.class.getName());
-  public BotPlayer(String name, BoardGame game) {
-    super(name, game);
+
+  public BotPlayer(String name, Tile startingTile) {
+    super(name, startingTile);
   }
 
   @Override
@@ -22,6 +22,3 @@ public class BotPlayer extends Player {
 }
 
 
-//LOGIC:
-//IN MOVE, need to implement methods from tile (leaveTile, LandTile)
-//USE FOR LOOP to iterate through the tiles on the board

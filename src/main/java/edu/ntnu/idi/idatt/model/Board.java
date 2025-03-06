@@ -19,6 +19,7 @@ public class Board {
 
     initializeTiles();
     linkTiles();
+    assignTilesWithAction();
   }
 
 
@@ -28,19 +29,12 @@ public class Board {
     }
   }
 
-  public void assignTilesWithAction(Tile tile) {
-    //TODO: implement when tileAction is done
-    /*
-    * how will this work? we need to assign already initialized tiles with an action
-    * we could approach it this way:
-    * we have a setLandAction method, so we should make an array of integers that will
-    * serve as constant tiles that will contain a tileAction
-    * but it should also be dynamic
-    *
-    * a problem is how to first of all add the TileActions, create them here?
-    * MAYBE USE GENERICS?????
-    * I ALSO THInk that i should refer to the script class from OVING_3
-     */
+  public void assignTilesWithAction() {
+    //TODO: implement when tileAction is done, REMEMBER FACTORY DESIGN HERE
+    Tile startTile = getTileById(8);
+    Tile destinationTile = getTileById(80);
+
+    startTile.setLandAction(new LadderAction(destinationTile, "climbs up to tile 80!"));
   }
 
   private void linkTiles() {

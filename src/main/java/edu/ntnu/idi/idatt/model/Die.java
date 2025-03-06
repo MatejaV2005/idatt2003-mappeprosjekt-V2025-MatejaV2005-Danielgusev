@@ -25,10 +25,10 @@ public class Die {
   * TODO: Fill out javadoc
   * */
   public int roll() {
-    LOGGER.info("Dice is rolling...");
+    //LOGGER.info("Dice is rolling...");
 
     this.lastRolledValue = random.nextInt(6) + 1;  // Corrected range for a six-sided die
-    LOGGER.info("Rolled value is: " + lastRolledValue);
+    //LOGGER.info("Rolled value is: " + lastRolledValue);
 
     return lastRolledValue;
   }
