@@ -19,6 +19,7 @@ public class Board {
 
     initializeTiles();
     linkTiles();
+    assignTilesWithAction();
   }
 
 
@@ -29,11 +30,11 @@ public class Board {
   }
 
   public void assignTilesWithAction() {
-    //TODO: implement when tileAction is done
-    Tile startTile = getTileById(5);
-    Tile destinationTile = getTileById(15);
+    //TODO: implement when tileAction is done, REMEMBER FACTORY DESIGN HERE
+    Tile startTile = getTileById(8);
+    Tile destinationTile = getTileById(80);
 
-    startTile.setLandAction(new LadderAction(destinationTile, "climbs up to tile 15!"));
+    startTile.setLandAction(new LadderAction(destinationTile, "climbs up to tile 80!"));
   }
 
   private void linkTiles() {
