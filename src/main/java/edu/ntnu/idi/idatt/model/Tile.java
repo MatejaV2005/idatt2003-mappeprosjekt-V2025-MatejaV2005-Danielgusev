@@ -53,7 +53,11 @@ public class Tile {
  public void landPlayer(Player player) {
     ExceptionHandling.requireNonNull(player, "Player");
     players.add(player);
-    landaction.perform(player);
+
+    if (landaction != null) {
+      landaction.perform(player);
+    }
+
  }
 
  public void leavePlayer(Player player) {
