@@ -1,7 +1,5 @@
 package edu.ntnu.idi.idatt.model.player_type;
 
-import edu.ntnu.idi.idatt.model.Board;
-import edu.ntnu.idi.idatt.model.BoardGame;
 import edu.ntnu.idi.idatt.model.Tile;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 
@@ -43,7 +41,7 @@ public abstract class Player {
     Tile newTile = currentTile;
 
     for (int i = 0; i < steps; i++) {
-      if(newTile.getNextTile() != null) {
+      if(newTile.getNextTile() != null) { //check for if the player is at the end of the board
         newTile = newTile.getNextTile();
       }
     }
