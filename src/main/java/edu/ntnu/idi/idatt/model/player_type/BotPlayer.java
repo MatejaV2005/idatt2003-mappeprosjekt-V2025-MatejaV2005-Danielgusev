@@ -1,6 +1,5 @@
 package edu.ntnu.idi.idatt.model.player_type;
 
-import edu.ntnu.idi.idatt.model.BoardGame;
 import edu.ntnu.idi.idatt.model.Tile;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import java.util.logging.Logger;
