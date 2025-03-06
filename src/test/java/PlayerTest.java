@@ -1,13 +1,10 @@
 import static org.junit.jupiter.api.Assertions.*;
 
 import edu.ntnu.idi.idatt.model.player_type.Player;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
 import edu.ntnu.idi.idatt.model.Board;
-import edu.ntnu.idi.idatt.model.BoardGame;
 import edu.ntnu.idi.idatt.model.Tile;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 
@@ -90,7 +87,7 @@ public class PlayerTest {
    * DummyBoardGame is a minimal implementation of BoardGame that returns an ImitationBoard.
    * This dummy implementation is used to bypass the unfinished parts of BoardGame.
    */
-  private static class DummyBoardGame extends BoardGame {
+  private static class DummyBoardGame {
     public DummyBoardGame() {
       // Call the parent constructor with a new ImitationBoard instance.
       super(new ImitationBoard());

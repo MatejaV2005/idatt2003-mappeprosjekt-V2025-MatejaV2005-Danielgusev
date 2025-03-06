@@ -1,12 +1,9 @@
 package edu.ntnu.idi.idatt;
 
 import edu.ntnu.idi.idatt.model.BoardGame;
-import edu.ntnu.idi.idatt.model.Dice;
-import edu.ntnu.idi.idatt.model.Die;
 import edu.ntnu.idi.idatt.model.GameEngine;
 import edu.ntnu.idi.idatt.model.player_type.HumanPlayer;
 import edu.ntnu.idi.idatt.model.player_type.Player;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
