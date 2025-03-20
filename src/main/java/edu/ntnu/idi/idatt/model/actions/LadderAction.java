@@ -4,8 +4,8 @@ import edu.ntnu.idi.idatt.model.Tile;
 import edu.ntnu.idi.idatt.model.player_type.Player;
 
 public class LadderAction implements TileAction {
-  private Tile destinationTile;
-  private String description;
+  private final Tile destinationTile;
+  private final String description;
 
 
   public LadderAction(Tile destinationTile, String description) {
@@ -15,6 +15,7 @@ public class LadderAction implements TileAction {
 
   @Override
   public void perform(Player player) {
+    //TODO: add distinguishing features for
     System.out.println(player.getName() + " " + description);
     player.placeOnTile(destinationTile);
   }

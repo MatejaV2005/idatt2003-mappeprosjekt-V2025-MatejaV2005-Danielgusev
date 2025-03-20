@@ -9,12 +9,12 @@ import java.util.List;
 public class Main {
   public static void main(String[] args) {
     BoardGame board = new BoardGame(90, 2);
-    GameEngine gameEngine = board.getGameEngine();
+
 
     List<Player> players = List.of(
-        new HumanPlayer("xXSugondeezXx", gameEngine.getStartingTile()),
-        new HumanPlayer("xXLigmaFigmaXx", gameEngine.getStartingTile()),
-        new HumanPlayer("xXAtleXx PUSSYCLAT slayer", gameEngine.getStartingTile())
+        new HumanPlayer("player 1", board.getStartingTile()),
+        new HumanPlayer("player 2", board.getStartingTile()),
+        new HumanPlayer("player 3", board.getStartingTile())
     );
 
     for (Player player : players) {

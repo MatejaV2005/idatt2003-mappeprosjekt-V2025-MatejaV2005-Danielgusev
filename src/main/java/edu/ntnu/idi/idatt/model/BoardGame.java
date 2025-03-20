@@ -22,8 +22,8 @@ public class BoardGame {
 
   }
 
-  public GameEngine getGameEngine() {
-    return gameEngine;
+  public Tile getStartingTile() {
+    return gameEngine.getStartingTile();
   }
 
   public void addPlayer(Player player) {

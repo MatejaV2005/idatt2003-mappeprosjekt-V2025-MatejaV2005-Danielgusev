@@ -1,14 +1,14 @@
 package edu.ntnu.idi.idatt.model;
 
 import edu.ntnu.idi.idatt.model.actions.LadderAction;
-import edu.ntnu.idi.idatt.model.actions.TileAction;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 
 public class Board {
-  private Map<Integer, Tile> tiles;
+  private final Map<Integer, Tile> tiles;
   private int totalTiles;
 
   public Board(int totalTiles) {
@@ -34,7 +34,12 @@ public class Board {
     Tile startTile = getTileById(8);
     Tile destinationTile = getTileById(80);
 
-    startTile.setLandAction(new LadderAction(destinationTile, "climbs up to tile 80!"));
+    startTile.setLandAction(Optional.of(new LadderAction(destinationTile, "climbs up to tile 80!")));
+
+    Tile startTile2 = getTileById(50);
+    Tile destinationTile2 = getTileById(5);
+
+    startTile2.setLandAction(Optional.of(new LadderAction(destinationTile2, "climbs down to tile 5! buhu :(")));
   }
 
   private void linkTiles() {

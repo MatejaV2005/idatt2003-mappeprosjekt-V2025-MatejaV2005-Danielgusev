@@ -6,12 +6,13 @@ import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class Tile {
 
  private int tileid;
  private Tile nextTile;
- private TileAction landaction;
+ private Optional<TileAction> landaction;
  private List<Player> players;
 
   public Tile(int tileid) {
@@ -19,6 +20,7 @@ public class Tile {
 
     this.tileid = tileid;
     this.players = new ArrayList<>();
+    this.landaction = Optional.empty();
   }
 
 
@@ -31,7 +33,7 @@ public class Tile {
     return tileid;
   }
 
- public TileAction getLandaction() {
+ public Optional<TileAction> getLandaction() {
     return landaction;
  }
 
@@ -40,7 +42,7 @@ public class Tile {
  }
 
  // Set-methods
- public void setLandAction(TileAction action) {
+ public void setLandAction(Optional<TileAction> action) {
     ExceptionHandling.requireNonNull(action, "TileAction");
     this.landaction = action;
  }
@@ -54,9 +56,7 @@ public class Tile {
     ExceptionHandling.requireNonNull(player, "Player");
     players.add(player);
 
-    if (landaction != null) {
-      landaction.perform(player);
-    }
+    landaction.ifPresent(action -> action.perform(player));
 
  }
 
