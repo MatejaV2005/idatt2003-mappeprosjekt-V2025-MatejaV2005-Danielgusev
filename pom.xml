@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
+<project
+  xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
 
+  <modelVersion>4.0.0</modelVersion>
   <groupId>edu.ntnu.idi.idatt</groupId>
   <artifactId>boardgame-V2025-IDATT2003</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <properties>
-    <!--PerJanuar2025theLTSversionis21-->
-    <maven.compiler.source>21</maven.compiler.source>
-    <maven.compiler.target>21</maven.compiler.target>
+    <!-- Using JDK 21 -->
+    <maven.compiler.release>21</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- Use JavaFX version 21.0.2 for all JavaFX modules -->
+    <javafx.version>21.0.2</javafx.version>
   </properties>
 
   <dependencies>
+    <!-- Unit Testing -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
@@ -27,50 +30,51 @@
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
-      <version>23.0.1</version>
+      <version>${javafx.version}</version>
     </dependency>
 
-    <!-- JavaFX FXML (if using FXML) -->
+    <!-- JavaFX FXML -->
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-fxml</artifactId>
-      <version>21.0.2</version>
+      <version>${javafx.version}</version>
     </dependency>
 
     <!-- JavaFX Base -->
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-base</artifactId>
-      <version>23.0.1</version>
+      <version>${javafx.version}</version>
     </dependency>
-
   </dependencies>
+
   <build>
     <plugins>
-      <!--TheJavacompiler-->
+      <!-- Maven Compiler Plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.13.0</version>
         <configuration>
-          <release>21</release>  <!-- Use release instead of source/target -->
+          <release>21</release>
         </configuration>
       </plugin>
-      <!--Theunit-testengineSurefire-->
+
+      <!-- Maven Surefire Plugin for testing -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.5.2</version>
       </plugin>
 
-      <!--PlugintoexecuteJavaFXapplicationsfromMaven-->
+      <!-- JavaFX Maven Plugin -->
       <plugin>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-maven-plugin</artifactId>
         <version>0.0.8</version>
         <configuration>
-          <!--TODO:Replacewithyourownmain-class-->
-          <mainClass>edu.ntnu.idi.idatt.fx</mainClass>
+          <!-- Fully qualified name of your JavaFX main class -->
+          <mainClass>edu.ntnu.idi.idatt.UserInterface.TitleScreen</mainClass>
         </configuration>
       </plugin>
     </plugins>

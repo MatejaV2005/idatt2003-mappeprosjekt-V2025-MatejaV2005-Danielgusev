@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Refactor: minor cleanUp" />
+    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Refactor: minor cleanUp">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/fx.java" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,8 +82,8 @@
   </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;git@github.com:MatejaV2005/idatt2003-mappeprosjekt-V2025-MatejaV2005-Danielgusev.git&quot;,
-    &quot;accountId&quot;: &quot;e9b8daee-d88a-44b5-b668-8dcb09957c0f&quot;
+    &quot;url&quot;: &quot;https://github.com/MatejaV2005/idatt2003-mappeprosjekt-V2025-MatejaV2005-Danielgusev.git&quot;,
+    &quot;accountId&quot;: &quot;f197bc85-7e42-4ada-be4d-5e422156eed1&quot;
   }
 }</component>
   <component name="MavenImportPreferences">
@@ -103,6 +107,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TitleScreen.executor&quot;: &quot;Run&quot;,
     &quot;Application.fx.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.PlayerTest.executor&quot;: &quot;Run&quot;,
     &quot;Maven.boardgame-V2025-IDATT2003 [clean].executor&quot;: &quot;Run&quot;,
@@ -110,7 +115,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Mateja-features&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Features&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/matej/.ssh/id_rsa&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -128,13 +133,26 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.TitleScreen">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.Main" />
       <module name="boardgame-V2025-IDATT2003" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.UserInterface.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TitleScreen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.UserInterface.TitleScreen" />
+      <module name="boardgame-V2025-IDATT2003" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.UserInterface.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -143,11 +161,11 @@
       </method>
     </configuration>
     <configuration name="fx" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.fx" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.UserInterface.fx" />
       <module name="boardgame-V2025-IDATT2003" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.*" />
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.UserInterface.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -166,6 +184,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.TitleScreen" />
         <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.PlayerTest" />
         <item itemvalue="Application.fx" />
@@ -175,8 +194,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.24807.4" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.24807.4" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
       </set>
     </attachedChunks>
   </component>
@@ -216,6 +235,9 @@
       <workItem from="1741080994954" duration="25000" />
       <workItem from="1741255977871" duration="281000" />
       <workItem from="1741260192989" duration="2222000" />
+      <workItem from="1741966502385" duration="52000" />
+      <workItem from="1742297225392" duration="175000" />
+      <workItem from="1742468367552" duration="1349000" />
     </task>
     <task id="LOCAL-00001" summary="fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now.">
       <option name="closed" value="true" />
