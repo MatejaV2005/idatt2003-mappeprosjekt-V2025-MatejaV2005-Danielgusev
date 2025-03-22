@@ -1,7 +1,9 @@
 package edu.ntnu.idi.idatt.factory;
 
 import edu.ntnu.idi.idatt.model.Tile;
+import edu.ntnu.idi.idatt.model.actions.TileAction;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
+import java.util.Optional;
 
 /**
  * Creates tiles.
@@ -18,5 +20,14 @@ public class TileFactory {
     ExceptionHandling.requirePositive(tileId, "tileId");
     return new Tile(tileId);
   }
+
+  public Tile createTileWithAction(int tileId, TileAction action) {
+    ExceptionHandling.requirePositive(tileId, "tileId");
+    Tile tile = new Tile(tileId);
+    tile.setLandAction(Optional.of(action));
+    return tile;
+  }
+
+
 
 }
