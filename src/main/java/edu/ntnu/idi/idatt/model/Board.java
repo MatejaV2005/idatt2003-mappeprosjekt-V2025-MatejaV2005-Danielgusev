@@ -1,5 +1,6 @@
 package edu.ntnu.idi.idatt.model;
 
+import edu.ntnu.idi.idatt.factory.TileFactory;
 import edu.ntnu.idi.idatt.model.actions.LadderAction;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import java.util.HashMap;
@@ -10,13 +11,14 @@ import java.util.Optional;
 public class Board {
   private final Map<Integer, Tile> tiles;
   private int totalTiles;
+  private TileFactory tileFactory;
 
   public Board(int totalTiles) {
     ExceptionHandling.requirePositive(totalTiles, "totalTiles");
 
     tiles = new HashMap<>();
     this.totalTiles = totalTiles;
-
+    this.tileFactory = new TileFactory();
     initializeTiles();
     linkTiles();
     assignTilesWithAction();
@@ -39,7 +41,7 @@ public class Board {
     Tile startTile2 = getTileById(50);
     Tile destinationTile2 = getTileById(5);
 
-    startTile2.setLandAction(Optional.of(new LadderAction(destinationTile2, "climbs down to tile 5! buhu :(")));
+    startTile2.setLandAction(Optional.of(new LadderAction(destinationTile2, "falls down to tile 5! buhu :(")));
   }
 
   private void linkTiles() {
