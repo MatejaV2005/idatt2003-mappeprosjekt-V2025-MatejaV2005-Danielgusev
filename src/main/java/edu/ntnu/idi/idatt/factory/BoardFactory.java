@@ -5,6 +5,7 @@ import edu.ntnu.idi.idatt.model.Tile;
 import edu.ntnu.idi.idatt.model.actions.TileAction;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import java.util.Optional;
+import java.util.concurrent.TimeoutException;
 
 public class BoardFactory {
 
@@ -112,6 +113,19 @@ public class BoardFactory {
     snake = TileActionFactory.createSnakeAction(
         destination, "slides down to tile " + destination.getTileId());
     start.setLandAction(Optional.of(snake));
+
+    start = board.getTileById(22);
+    TileAction skipTurnAction = TileActionFactory.createSkipTurnAction();
+    start.setLandAction(Optional.of(skipTurnAction));
+
+    start = board.getTileById(47);
+    skipTurnAction = TileActionFactory.createSkipTurnAction();
+    start.setLandAction(Optional.of(skipTurnAction));
+
+    start = board.getTileById(66);
+    skipTurnAction = TileActionFactory.createSkipTurnAction();
+    start.setLandAction(Optional.of(skipTurnAction));
+
   }
 
   // Assigns fewer ladder actions and more snake actions for a hard board (120 tiles)
