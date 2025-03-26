@@ -22,7 +22,7 @@ public class BoardFactory {
    * @return a new Board instance configured as an easy board.
    */
   public Board createEasyBoard() {
-    Board board = new Board(50);
+    Board board = new Board(10, 5);
     assignEasyActions(board);
     return board;
   }
@@ -33,7 +33,7 @@ public class BoardFactory {
    * @return a new Board instance configured as a normal board.
    */
   public Board createNormalBoard() {
-    Board board = new Board(90);
+    Board board = new Board(10, 10);
     assignNormalActions(board);
     return board;
   }
@@ -44,7 +44,7 @@ public class BoardFactory {
    * @return a new Board instance configured as a hard board.
    */
   public Board createHardBoard() {
-    Board board = new Board(120);
+    Board board = new Board(12, 10);
     assignHardActions(board);
     return board;
   }

@@ -10,41 +10,40 @@ import java.util.Optional;
 
 public class Board {
   private final Map<Integer, Tile> tiles;
-  private int totalTiles;
+  private final int rows;
+  private final int columns;
+
+
   private TileFactory tileFactory;
 
-  public Board(int totalTiles) {
-    ExceptionHandling.requirePositive(totalTiles, "totalTiles");
+  public Board(int rows, int columns) {
+    ExceptionHandling.requirePositive(rows, "rows");
+    ExceptionHandling.requirePositive(columns, "columns");
 
     tiles = new HashMap<>();
-    this.totalTiles = totalTiles;
+
+    this.rows = rows;
+    this.columns = columns;
+
     this.tileFactory = new TileFactory();
+
     initializeTiles();
     linkTiles();
-    assignTilesWithAction();
   }
 
 
   private void initializeTiles() {
-    for (int i = 1; i <= totalTiles; i++) {
-      tiles.put(i, new Tile(i));
+    int tileId = 1;
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < columns; j++) {
+        tiles.put(tileId, tileFactory.createTile(tileId, i, j));
+        tileId++;
+      }
     }
   }
 
-  public void assignTilesWithAction() {
-    //TODO: implement when tileAction is done, REMEMBER FACTORY DESIGN HERE
-    Tile startTile = getTileById(8);
-    Tile destinationTile = getTileById(80);
-
-    startTile.setLandAction(Optional.of(new LadderAction(destinationTile, "climbs up to tile 80!")));
-
-    Tile startTile2 = getTileById(50);
-    Tile destinationTile2 = getTileById(5);
-
-    startTile2.setLandAction(Optional.of(new LadderAction(destinationTile2, "falls down to tile 5! buhu :(")));
-  }
-
   private void linkTiles() {
+    int totalTiles = rows * columns;
     for (int i = 1; i < totalTiles; i++) {
       tiles.get(i).setNextTile(tiles.get(i + 1));
     }

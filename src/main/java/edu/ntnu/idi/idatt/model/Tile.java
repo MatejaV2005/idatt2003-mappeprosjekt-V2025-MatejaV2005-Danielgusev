@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.model;
 
-import edu.ntnu.idi.idatt.model.player_type.Player;
+import edu.ntnu.idi.idatt.model.playertype.Player;
 import edu.ntnu.idi.idatt.model.actions.TileAction;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import java.util.ArrayList;
@@ -12,11 +12,20 @@ public class Tile {
 
  private int tileid;
  private Tile nextTile;
+
+ private final int row;
+ private final int column;;
+
  private Optional<TileAction> landaction;
  private List<Player> players;
 
-  public Tile(int tileid) {
+  public Tile(int tileid, int row, int column) {
     ExceptionHandling.requirePositive(tileid, "tileid");
+    ExceptionHandling.requirePositive(row, "row");
+    ExceptionHandling.requirePositive(column, "column");
+
+    this.row = row;
+    this.column = column;
 
     this.tileid = tileid;
     this.players = new ArrayList<>();
