@@ -16,14 +16,14 @@ public class TileFactory {
    * @return new tile object
    * @throws IllegalArgumentException if tile is not positive
    */
-  public Tile createTile(int tileId) {
+  public Tile createTile(int tileId, int row, int column) {
     ExceptionHandling.requirePositive(tileId, "tileId");
-    return new Tile(tileId);
+    return new Tile(tileId, row, column);
   }
 
-  public Tile createTileWithAction(int tileId, TileAction action) {
+  public Tile createTileWithAction(int tileId, int rows, int columns, TileAction action) {
     ExceptionHandling.requirePositive(tileId, "tileId");
-    Tile tile = new Tile(tileId);
+    Tile tile = new Tile(tileId, rows, columns);
     tile.setLandAction(Optional.of(action));
     return tile;
   }

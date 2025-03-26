@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.model;
 
-import edu.ntnu.idi.idatt.model.player_type.Player;
+import edu.ntnu.idi.idatt.model.playertype.Player;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,13 +12,13 @@ public class BoardGame {
   private boolean gameOver;
 
 
-  public BoardGame(int numOfTiles, int numOfDice) {
+  public BoardGame() {
     //TODO: add exception Handling
 
     this.players = new ArrayList<>();
     this.currentPlayer = null;
     this.gameOver = false;
-    this.gameEngine = new GameEngine(numOfTiles, numOfDice);
+    this.gameEngine = new GameEngine();
 
   }
 
@@ -44,13 +44,14 @@ public class BoardGame {
     }
 
     while (!gameOver) {
-      System.out.println("\n Round " + round);
+      System.out.println("\nRound " + round);
 
       for (Player player : players) {
         gameEngine.playTurn(player);
 
         if (gameEngine.isWinner(player)) {
           gameOver = true;
+          break; //TODO: find a way to remove break statement
         } else {
           nextPlayer();
         }
