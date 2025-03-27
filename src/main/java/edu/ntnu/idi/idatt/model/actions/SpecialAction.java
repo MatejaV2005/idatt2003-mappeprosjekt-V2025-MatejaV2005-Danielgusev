@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.model.actions;
 
-import edu.ntnu.idi.idatt.model.player_type.Player;
+import edu.ntnu.idi.idatt.model.playertype.Player;
 import java.util.function.Consumer;
 
 public class SpecialAction implements TileAction {
