@@ -1,6 +1,7 @@
 package edu.ntnu.idi.idatt.filehandler;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import edu.ntnu.idi.idatt.model.Board;
 
 import java.io.FileReader;
@@ -12,7 +13,12 @@ import java.util.logging.Logger;
 public class BoardJsonFileHandler implements FileHandler {
 
   private static final Logger logger = Logger.getLogger(BoardJsonFileHandler.class.getName());
-  private final Gson gson = new Gson();
+  private final Gson gson;
+
+  public BoardJsonFileHandler() {
+    this.gson = new Gson();
+    logger.setLevel(Level.INFO);
+  }
 
   @Override
   public void saveToFile(Object object, String filePath) {
