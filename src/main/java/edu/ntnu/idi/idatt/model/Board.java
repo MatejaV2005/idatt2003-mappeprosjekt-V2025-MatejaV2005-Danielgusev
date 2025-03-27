@@ -11,6 +11,7 @@ public class Board {
   private int rows;
   private int columns;
 
+  private Integer nextTileId;
   private transient TileFactory tileFactory;
 
   // No args constructor for deserializing

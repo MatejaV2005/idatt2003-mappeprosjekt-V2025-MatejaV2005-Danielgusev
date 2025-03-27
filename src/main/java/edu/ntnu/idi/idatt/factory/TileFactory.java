@@ -24,7 +24,7 @@ public class TileFactory {
   public Tile createTileWithAction(int tileId, int rows, int columns, TileAction action) {
     ExceptionHandling.requirePositive(tileId, "tileId");
     Tile tile = new Tile(tileId, rows, columns);
-    tile.setLandAction(Optional.of(action));
+    tile.setLandAction(action);
     return tile;
   }
 

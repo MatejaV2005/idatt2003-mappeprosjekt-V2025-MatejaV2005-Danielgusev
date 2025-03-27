@@ -16,7 +16,7 @@ public class ExceptionHandling {
   }
 
   public static void requirePositive(int input, String fieldname) {
-    if (input <= 0) {
+    if (input < 0) {
       throw new IllegalArgumentException(fieldname + " must be positive");
     }
   }

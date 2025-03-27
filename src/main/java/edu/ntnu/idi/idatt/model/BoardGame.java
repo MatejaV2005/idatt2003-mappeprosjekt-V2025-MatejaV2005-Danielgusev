@@ -12,13 +12,13 @@ public class BoardGame {
   private boolean gameOver;
 
 
-  public BoardGame() {
+  public BoardGame(Board board, Dice dice) {
     //TODO: add exception Handling
 
     this.players = new ArrayList<>();
     this.currentPlayer = null;
     this.gameOver = false;
-    this.gameEngine = new GameEngine();
+    this.gameEngine = new GameEngine(board, dice);
 
   }
 
