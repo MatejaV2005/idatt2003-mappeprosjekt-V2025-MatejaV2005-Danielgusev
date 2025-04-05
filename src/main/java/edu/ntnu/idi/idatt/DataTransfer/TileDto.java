@@ -1,18 +1,20 @@
 package edu.ntnu.idi.idatt.DataTransfer;
 
-public class TileDto {
-  private int id;
-  private int row;
-  private int column;
-  private int nextTileId;
-  private String actionType;
+import edu.ntnu.idi.idatt.model.ActionType;
 
-  public TileDto(int id, int row, int column, int nextTileId, String actionType) {
+public class TileDto {
+  private final int id;
+  private final int row;
+  private final int column;
+  private final int nextTileId;
+  private ActionDto action;
+
+  public TileDto(int id, int row, int column, int nextTileId, ActionDto action) {
     this.id = id;
     this.row = row;
     this.column = column;
     this.nextTileId = nextTileId;
-    this.actionType = actionType;
+    this.action = action;
   }
 
   public int getId() {
@@ -31,7 +33,8 @@ public class TileDto {
     return nextTileId;
   }
 
-  public String getActionType() {
-    return actionType;
+
+  public ActionDto getAction() {
+    return action;
   }
 }
