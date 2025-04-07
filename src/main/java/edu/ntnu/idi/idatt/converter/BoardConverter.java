@@ -2,6 +2,7 @@ package edu.ntnu.idi.idatt.converter;
 
 import edu.ntnu.idi.idatt.DataTransfer.BoardDto;
 import edu.ntnu.idi.idatt.DataTransfer.TileDto;
+import edu.ntnu.idi.idatt.factory.TileFactory;
 import edu.ntnu.idi.idatt.model.Board;
 import edu.ntnu.idi.idatt.model.Tile;
 import edu.ntnu.idi.idatt.model.actions.TileAction;
@@ -28,18 +29,28 @@ public class BoardConverter {
 
   public static Board fromDto(BoardDto boardDto) {
     Board board = new Board();
-    board.setRows(board.getRows());
-    board.setColumns(board.getColumns());
+    board.setRows(boardDto.getRows());
+    board.setColumns(boardDto.getColumns());
 
-    //Convert tileDtos to Tiles and put in map
+    TileFactory factory = new TileFactory();
+    ActionConverter actionConverter = new ActionConverter();
     Map<Integer, Tile> tilesMap = new HashMap<>();
-    boardDto.getTiles().forEach((id, tileDto) -> {
-      Tile tile = TileConverter.fromDto(tileDto);
+
+    boardDto.getTiles().forEach((id, dto) -> {
+      Tile tile = factory.createTile(dto.getId(), dto.getRow(), dto.getColumn());
+      tile.setNextTileId(dto.getNextTileId());
       tilesMap.put(id, tile);
     });
 
+    boardDto.getTiles().forEach((id, dto) -> {
+      Tile tile = tilesMap.get(id);
+      TileAction action = actionConverter.fromDto(dto.getAction(), tilesMap);
+      tile.setLandAction(action);
+
+    });
+
     board.setTiles(tilesMap);
-    board.relink();
+    board.relinkTiles();
 
     return board;
   }
