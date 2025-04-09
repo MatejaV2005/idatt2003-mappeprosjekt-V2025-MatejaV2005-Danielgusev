@@ -4,8 +4,11 @@ import java.util.Map;
 
 public class BoardDto {
   private Map<Integer, TileDto> tiles;
-  private int rows;
-  private int columns;
+  private final int rows;
+  private final int columns;
+//  private final String name;
+//  private final String description;
+
 
   public BoardDto(Map<Integer, TileDto> tiles, int rows, int columns) {
     this.tiles = tiles;
