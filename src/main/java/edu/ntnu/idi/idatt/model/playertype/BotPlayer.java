@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 public class BotPlayer extends Player {
   public static final Logger LOGGER = Logger.getLogger(BotPlayer.class.getName());
 
-  public BotPlayer(String name, Tile startingTile) {
-    super(name, startingTile);
+  public BotPlayer(String name, String pieceType) {
+    super(name, pieceType);
   }
 
   @Override

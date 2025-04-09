@@ -1,12 +1,13 @@
 package edu.ntnu.idi.idatt.model.playertype;
 
-import edu.ntnu.idi.idatt.model.Tile;
+import static edu.ntnu.idi.idatt.model.playertype.BotPlayer.LOGGER;
+
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 
 public class HumanPlayer extends Player {
 
-  public HumanPlayer(String name, Tile startingTile) {
-    super(name, startingTile);
+  public HumanPlayer(String name, String pieceType) {
+    super(name, pieceType);
   }
 
   @Override
@@ -14,7 +15,7 @@ public class HumanPlayer extends Player {
     ExceptionHandling.requirePositive(steps, "steps");
 
 
-   //  LOGGER.info(getName() + " moves " + steps + " steps");
+    LOGGER.info(getName() + " moves " + steps + " steps");
     basicMove(steps);
   }
 }

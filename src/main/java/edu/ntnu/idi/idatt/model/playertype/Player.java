@@ -4,21 +4,19 @@ import edu.ntnu.idi.idatt.model.Tile;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 
 public abstract class Player {
-  private String name;
+  private final String name;
   private Tile currentTile;
+  private final String pieceType;
   private boolean skipTurn;
 
-  protected Player (String name, Tile startingTile) {
-    setName(name);
-    this.currentTile = startingTile;
-    this.skipTurn = false;
-  }
-
-
-  private void setName (String name) {
-    ExceptionHandling.requireNonNull(name, name);
+  protected Player (String name, String pieceType) {
     this.name = name;
+    this.skipTurn = false;
+    this.pieceType = pieceType;
   }
+
+
+
 
   // Get-methods
   public String getName() {
@@ -29,6 +27,10 @@ public abstract class Player {
     return currentTile;
   }
 
+  public String getPieceType() {
+    return pieceType;
+  }
+
   public boolean shouldSkipTurn() {
     if (skipTurn) {
       skipTurn = false;
@@ -37,19 +39,20 @@ public abstract class Player {
     return false;
   }
 
+  // set-methods
+
   public void setSkipTurn(boolean skipTurn) {
     this.skipTurn = skipTurn;
   }
 
-
-
-  public abstract void move(int steps);
-
-
-  public void placeOnTile(Tile newTile) {
+  public void setOnCurrentTile(Tile newTile) {
     ExceptionHandling.requireNonNull(newTile, "tile ");
     this.currentTile = newTile;
   }
+
+  // abstract method
+  public abstract void move(int steps);
+
 
   public Tile basicMove(int steps) {
     ExceptionHandling.requirePositive(steps, "steps");
