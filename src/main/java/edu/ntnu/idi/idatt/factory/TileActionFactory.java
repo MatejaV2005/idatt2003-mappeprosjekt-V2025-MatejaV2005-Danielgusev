@@ -1,8 +1,6 @@
 package edu.ntnu.idi.idatt.factory;
 
 import edu.ntnu.idi.idatt.model.ActionType;
-import edu.ntnu.idi.idatt.model.Board;
-import edu.ntnu.idi.idatt.model.GameEngine;
 import edu.ntnu.idi.idatt.model.Tile;
 import edu.ntnu.idi.idatt.model.actions.LadderAction;
 import edu.ntnu.idi.idatt.model.actions.NoOperationAction;
@@ -11,7 +9,6 @@ import edu.ntnu.idi.idatt.model.actions.SpecialAction;
 import edu.ntnu.idi.idatt.model.actions.TileAction;
 import edu.ntnu.idi.idatt.model.playertype.Player;
 import java.util.function.Consumer;
-import javax.swing.Action;
 
 public class TileActionFactory {
 
@@ -37,7 +34,7 @@ public class TileActionFactory {
 
   public static TileAction createReturnToStartAction(Tile startingTile) {
     return new SpecialAction("returns to start",
-        player -> player.placeOnTile(startingTile));
+        player -> player.setOnCurrentTile(startingTile));
   }
 
   public static TileAction createSkipTurnAction() {
@@ -50,18 +47,20 @@ public class TileActionFactory {
       return NoOperationAction.INSTANCE;
     }
 
-    return switch (String.valueOf(type)) {
-      case "LADDER" -> createLadderAction(destinationTileId, "ladder");
-      case "SNAKE" -> createSnakeAction(destinationTileId, "snake");
-      case "SPECIAL" -> createSpecialAction("special", p -> {
-      });
-      case "RETURN_TO_START" -> createReturnToStartAction(null);
-      case "SKIP_TURN" -> createSkipTurnAction();
-      case "NO_OP" -> NoOperationAction.INSTANCE;
-      default -> {
-        System.out.println("Unknown action type: " + type);
-        yield NoOperationAction.INSTANCE; //what does yield do?!?!?!
+    return switch (type) {
+      case LADDER -> createLadderAction(destinationTileId, description);
+      case SNAKE -> createSnakeAction(destinationTileId, description);
+      case SPECIAL -> {
+        if (description != null && description.contains("skips turn")) {
+          yield createSkipTurnAction();
+        } else {
+          yield createSpecialAction("special", p -> {
+          });
+        }
       }
+      case RETURN_TO_START -> createReturnToStartAction(null);
+      case SKIP_TURN -> createSkipTurnAction();
+      case NO_OP -> NoOperationAction.INSTANCE;
     };
   }
 
@@ -71,14 +70,22 @@ public class TileActionFactory {
       return NoOperationAction.INSTANCE;
     }
 
-    return switch (String.valueOf(type)) {
-      case "LADDER" -> createLadderAction(destinationTile, "ladder");
-      case "SNAKE" -> createSnakeAction(destinationTile, "snake");
-      case "SPECIAL" -> createSpecialAction("special", p -> {
-      });
-      case "RETURN_TO_START" -> createReturnToStartAction(null);
-      case "SKIP_TURN" -> createSkipTurnAction();
-      case "NO_OP" -> NoOperationAction.INSTANCE;
+    return switch (type) {
+      case LADDER -> createLadderAction(destinationTile, description);
+      case SNAKE -> createSnakeAction(destinationTile, description);
+
+      case SPECIAL -> {
+        if (description != null && description.contains("skips turn")) {
+          yield createSkipTurnAction();
+        } else {
+          yield createSpecialAction("special", p -> {
+          });
+        }
+      }
+
+      case RETURN_TO_START -> createReturnToStartAction(destinationTile);
+      case SKIP_TURN -> createSkipTurnAction();
+      case NO_OP -> NoOperationAction.INSTANCE;
       default -> {
         System.out.println("Unknown action type: " + type);
         yield NoOperationAction.INSTANCE; //what does yield do?!?!?!
