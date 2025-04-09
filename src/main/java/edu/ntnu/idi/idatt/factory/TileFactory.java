@@ -19,9 +19,7 @@ public class TileFactory {
    */
   public Tile createTile(int tileId, int row, int column) {
     ExceptionHandling.requirePositive(tileId, "tileId");
-    Tile tile = new Tile(tileId, row, column);
-    tile.setLandAction(new NoOperationAction());
-    return tile;
+    return new Tile(tileId, row, column);
   }
 
   public Tile createTileWithAction(int tileId, int rows, int columns, TileAction action) {

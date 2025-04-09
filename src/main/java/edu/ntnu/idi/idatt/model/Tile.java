@@ -1,172 +1,192 @@
 package edu.ntnu.idi.idatt.model;
 
-import edu.ntnu.idi.idatt.model.playertype.Player;
-import edu.ntnu.idi.idatt.model.actions.TileAction;
-import edu.ntnu.idi.idatt.utils.ExceptionHandling;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.Objects;
 
-/**
- * Represents a tile in a board game, with unique identification,
- * positional information, and potential actions.
- */
+import edu.ntnu.idi.idatt.model.actions.NoOperationAction;
+import edu.ntnu.idi.idatt.model.actions.TileAction;
+import edu.ntnu.idi.idatt.model.playertype.Player;
+import edu.ntnu.idi.idatt.utils.ExceptionHandling;
+
+import java.util.*;
+
 public class Tile {
-  // Immutable properties
   private final int tileId;
   private final int row;
   private final int column;
 
-  // Mutable properties
-  private Tile nextTile;
-  private TileAction landAction;
-  private final List<Player> players;
+  private Tile nextTile;              // Runtime reference
+  private int nextTileId;            // For serialization
+  private TileAction landAction;     // Always set, never null
+
+  private final List<Player> players = new ArrayList<>();
 
   /**
-   * Constructs a new Tile with required positional information.
+   * Constructs a new Tile with the given ID and position.
    *
-   * @param tileId Unique identifier for the tile
-   * @param row Row position of the tile
-   * @param column Column position of the tile
-   * @throws IllegalArgumentException if any parameter is invalid
+   * @param tileId the unique ID of the tile
+   * @param row the row position of the tile
+   * @param column the column position of the tile
+   * @throws IllegalArgumentException if tileId, row, or column is not positive
    */
   public Tile(int tileId, int row, int column) {
-    // Validate input parameters
     ExceptionHandling.requirePositive(tileId, "tileId");
     ExceptionHandling.requirePositive(row, "row");
     ExceptionHandling.requirePositive(column, "column");
 
-    // Initialize immutable fields
     this.tileId = tileId;
     this.row = row;
     this.column = column;
-
-    // Initialize mutable fields
-    this.players = new ArrayList<>();
-    this.landAction = TileAction.NO_OP; // Default no-op action
+    this.landAction = NoOperationAction.INSTANCE;
+    this.nextTileId = -1;
   }
 
   /**
-   * Retrieves the next tile in the sequence.
+   * Returns the tile's unique ID.
    *
-   * @return The next tile, or null if not set
-   */
-  public Tile getNextTile() {
-    return nextTile;
-  }
-
-  /**
-   * Retrieves the unique tile identifier.
-   *
-   * @return The tile's unique ID
+   * @return the tile ID
    */
   public int getTileId() {
     return tileId;
   }
 
   /**
-   * Retrieves the row position of the tile.
+   * Returns the row position of the tile.
    *
-   * @return The tile's row position
+   * @return the row index
    */
   public int getRow() {
     return row;
   }
 
   /**
-   * Retrieves the column position of the tile.
+   * Returns the column position of the tile.
    *
-   * @return The tile's column position
+   * @return the column index
    */
   public int getColumn() {
     return column;
   }
 
   /**
-   * Retrieves the land action for this tile.
+   * Returns the next tile in sequence.
    *
-   * @return Optional containing the land action
+   * @return the next tile
    */
-  public Optional<TileAction> getLandAction() {
-    return landAction == TileAction.NO_OP ? Optional.empty() : Optional.of(landAction);
+  public Tile getNextTile() {
+    return nextTile;
   }
 
   /**
-   * Retrieves an unmodifiable list of players on this tile.
+   * Returns the ID of the next tile.
    *
-   * @return List of players on the tile
+   * @return the next tile ID
+   */
+  public int getNextTileId() {
+    return nextTileId;
+  }
+
+  /**
+   * Returns the type of the action performed when a player lands.
+   *
+   * @return the action type
+   */
+  public ActionType getActionType() {
+    return landAction.getActionType();
+  }
+
+  /**
+   * Returns the action assigned to this tile.
+   *
+   * @return the land action
+   */
+  public TileAction getLandAction() {
+    return landAction;
+  }
+
+  /**
+   * Returns an unmodifiable list of players currently on the tile.
+   *
+   * @return the list of players
    */
   public List<Player> getPlayers() {
     return Collections.unmodifiableList(players);
   }
 
   /**
-   * Sets the land action for the tile.
+   * Sets the next tile and updates the next tile ID accordingly.
    *
-   * @param action The tile action to set
-   * @throws NullPointerException if action is null
-   */
-  public void setLandAction(TileAction action) {
-    this.landAction = action != null ? action : TileAction.NO_OP;
-  }
-
-  /**
-   * Sets the next tile in the sequence.
-   *
-   * @param nextTile The next tile to set
+   * @param nextTile the next tile
    * @throws NullPointerException if nextTile is null
    */
   public void setNextTile(Tile nextTile) {
-    this.nextTile = Objects.requireNonNull(nextTile, "Next tile cannot be null");
+    this.nextTile = Objects.requireNonNull(nextTile);
+    this.nextTileId = nextTile.getTileId();
+  }
+
+  /**
+   * Sets the ID of the next tile. Used for serialization.
+   *
+   * @param nextTileId the ID of the next tile
+   */
+  public void setNextTileId(int nextTileId) {
+    this.nextTileId = nextTileId;
+  }
+
+  /**
+   * Sets the action to be performed when a player lands on this tile.
+   * If null is passed, a no-operation action is used.
+   *
+   * @param action the tile action to set
+   */
+  public void setLandAction(TileAction action) {
+    this.landAction = (action != null) ? action : NoOperationAction.INSTANCE;
   }
 
   /**
    * Adds a player to the tile and performs the land action.
    *
-   * @param player The player landing on the tile
+   * @param player the player landing on the tile
    * @throws NullPointerException if player is null
    */
   public void landPlayer(Player player) {
-    Objects.requireNonNull(player, "Player cannot be null");
-
-    // Add player to the tile
+    Objects.requireNonNull(player);
     players.add(player);
-
-    // Perform land action if exists
     landAction.perform(player);
   }
 
   /**
    * Removes a player from the tile.
    *
-   * @param player The player leaving the tile
+   * @param player the player to remove
    * @throws NullPointerException if player is null
    */
   public void leavePlayer(Player player) {
-    Objects.requireNonNull(player, "Player cannot be null");
+    Objects.requireNonNull(player);
     players.remove(player);
   }
 
   /**
-   * Provides equality comparison based on tile ID.
+   * Compares this tile to another object for equality.
+   * Tiles are considered equal if they have the same tile ID.
    *
-   * @param o The object to compare
-   * @return true if tiles have the same ID, false otherwise
+   * @param o the object to compare
+   * @return true if the objects are equal, false otherwise
    */
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof Tile)) {
+      return false;
+    }
     Tile tile = (Tile) o;
     return tileId == tile.tileId;
   }
 
   /**
-   * Generates a hash code based on tile ID.
+   * Returns the hash code for this tile based on its ID.
    *
-   * @return The hash code
+   * @return the hash code
    */
   @Override
   public int hashCode() {
@@ -174,17 +194,19 @@ public class Tile {
   }
 
   /**
-   * Provides a string representation of the tile.
+   * Returns a string representation of the tile.
    *
-   * @return A descriptive string about the tile
+   * @return the string representation
    */
   @Override
   public String toString() {
-    return "Tile{" +
-        "id=" + tileId +
-        ", row=" + row +
-        ", column=" + column +
-        ", players=" + players.size() +
-        '}';
+    return "Tile{"
+        + "id=" + tileId
+        + ", row=" + row
+        + ", column=" + column
+        + ", nextTileId=" + nextTileId
+        + ", players=" + players.size()
+        + ", actionType=" + getActionType()
+        + '}';
   }
 }
