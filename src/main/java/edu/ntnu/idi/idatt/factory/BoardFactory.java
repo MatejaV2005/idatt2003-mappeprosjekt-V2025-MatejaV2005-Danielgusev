@@ -1,5 +1,7 @@
 package edu.ntnu.idi.idatt.factory;
 
+import edu.ntnu.idi.idatt.DataTransfer.BoardDto;
+import edu.ntnu.idi.idatt.converter.BoardConverter;
 import edu.ntnu.idi.idatt.model.Board;
 import edu.ntnu.idi.idatt.model.Tile;
 import edu.ntnu.idi.idatt.model.actions.TileAction;
@@ -45,6 +47,10 @@ public class BoardFactory {
     Board board = new Board(12, 10);
     assignHardActions(board);
     return board;
+  }
+
+  public Board createBoardFromFile() {
+    return null;
   }
 
   // Assigns ladder actions to an easy board (small board with many ladders)
@@ -174,5 +180,11 @@ public class BoardFactory {
     snake = TileActionFactory.createSnakeAction(
         destination, "slides down to tile " + destination.getTileId());
     start.setLandAction(snake);
+  }
+
+  public Board createBoardFromDto(BoardDto dto) {
+    Board board = BoardConverter.fromDto(dto);
+
+    return board;
   }
 }
