@@ -1,8 +1,11 @@
 package edu.ntnu.idi.idatt.model;
 
+import edu.ntnu.idi.idatt.factory.TileActionFactory;
 import edu.ntnu.idi.idatt.factory.TileFactory;
+import edu.ntnu.idi.idatt.model.actions.TileAction;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,21 +13,15 @@ public class Board {
   private Map<Integer, Tile> tiles;
   private int rows;
   private int columns;
-
-  private Integer nextTileId;
   private transient TileFactory tileFactory;
 
-  // No args constructor for deserializing
   public Board() {
     this.tileFactory = new TileFactory();
   }
 
   public Board(int rows, int columns) {
-    ExceptionHandling.requirePositive(rows, "rows");
-    ExceptionHandling.requirePositive(columns, "columns");
-
-    this.rows = rows;
-    this.columns = columns;
+    setRows(rows);
+    setColumns(columns);
     this.tileFactory = new TileFactory();
 
     this.tiles = new HashMap<>();
@@ -33,7 +30,6 @@ public class Board {
   }
 
   private void initializeTiles() {
-    tiles = new HashMap<>();
     int tileId = 1;
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < columns; j++) {
@@ -50,6 +46,17 @@ public class Board {
       Tile next = tiles.get(i + 1);
       if (current != null && next != null) {
         current.setNextTile(next);
+        current.setNextTileId(next.getTileId());
+      }
+    }
+  }
+
+  // Relink tiles after deserialization,
+  public void relinkTiles() {
+    for (Tile tile : tiles.values()) {
+      int nextTileId = tile.getNextTileId();
+      if (nextTileId != -1 && tiles.containsKey(nextTileId)) {
+        tile.setNextTile(tiles.get(nextTileId));
       }
     }
   }
@@ -79,14 +86,16 @@ public class Board {
   }
 
   public Map<Integer, Tile> getTiles() {
-    return tiles;
+    return Collections.unmodifiableMap(tiles);
   }
 
   public void setRows(int rows) {
+    ExceptionHandling.requirePositive(rows, "rows");
     this.rows = rows;
   }
 
   public void setColumns(int columns) {
+    ExceptionHandling.requirePositive(columns, "columns");
     this.columns = columns;
   }
 
