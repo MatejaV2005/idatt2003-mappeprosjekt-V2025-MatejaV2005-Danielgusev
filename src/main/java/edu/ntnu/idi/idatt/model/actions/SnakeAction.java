@@ -27,7 +27,7 @@ public class SnakeAction implements TileAction{
   public void perform(Player player) {
     //TODO: Add distinguishing features for class
     System.out.println(player.getName() + " " + description);
-    player.placeOnTile(destinationTile);
+    player.setOnCurrentTile(destinationTile);
   }
 
   @Override
