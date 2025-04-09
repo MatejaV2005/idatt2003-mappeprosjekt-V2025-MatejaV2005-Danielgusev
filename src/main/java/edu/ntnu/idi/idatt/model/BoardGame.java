@@ -60,6 +60,7 @@ public class BoardGame {
       throw new IllegalStateException("Cannot add players after the game has started.");
     }
     if (!players.contains(player)) {
+      player.setOnCurrentTile(gameEngine.getStartingTile());
       players.add(player);
       if (currentPlayer == null) {
         currentPlayer = player;
@@ -105,8 +106,12 @@ public class BoardGame {
       throw new IllegalStateException("No current player set. Ensure players were added and game started.");
     }
 
+    // checks and sets skip-turn flag if player lands on skip tile
+    if (currentPlayer.shouldSkipTurn()) {
+      nextPlayer();
+      return;
+    }
 
-    // Delegate the turn logic to the engine
     gameEngine.playTurn(currentPlayer);
 
     // Check for win condition

@@ -1,6 +1,5 @@
 package edu.ntnu.idi.idatt.model;
 
-import edu.ntnu.idi.idatt.factory.BoardFactory;
 import edu.ntnu.idi.idatt.model.playertype.Player;
 
 public class GameEngine {
@@ -17,11 +16,6 @@ public class GameEngine {
   }
 
   public void playTurn(Player currentPlayer) {
-    if (currentPlayer.shouldSkipTurn()) {
-      currentPlayer.setSkipTurn(false);
-      return;
-    }
-
     dice.roll();
     int steps = dice.getTotalDiceValue();
 
@@ -32,9 +26,9 @@ public class GameEngine {
   }
 
   private void updatePlayerPosition(Player currentPlayer, Tile oldTile, Tile newTile) {
-    System.out.println(currentPlayer.getName() + " is at tile " + newTile.getTileId());
+    System.out.println(currentPlayer.getName() + " moves to tile " + newTile.getTileId());
     oldTile.leavePlayer(currentPlayer);
-    currentPlayer.placeOnTile(newTile);
+    currentPlayer.setOnCurrentTile(newTile);
     newTile.landPlayer(currentPlayer);
   }
 
