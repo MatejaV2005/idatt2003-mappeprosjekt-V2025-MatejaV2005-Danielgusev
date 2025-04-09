@@ -1,7 +1,9 @@
 package edu.ntnu.idi.idatt;
 
 import edu.ntnu.idi.idatt.controller.BoardLoader;
+import edu.ntnu.idi.idatt.controller.PlayerLoader;
 import edu.ntnu.idi.idatt.factory.BoardFactory;
+import edu.ntnu.idi.idatt.factory.PlayerFactory;
 import edu.ntnu.idi.idatt.model.Board;
 import edu.ntnu.idi.idatt.model.BoardGame;
 import edu.ntnu.idi.idatt.model.Dice;
@@ -52,16 +54,17 @@ public class BoardGameApp {
     BoardLoader boardLoader = new BoardLoader();
     BoardFactory factory = new BoardFactory();
     BoardLoader loader = new BoardLoader();
+    PlayerLoader playerLoader = new PlayerLoader();
 
 //    Board easyBoard = factory.createEasyBoard();
-//    Board defaultBoard = factory.createNormalBoard();
+//      Board defaultBoard = factory.createNormalBoard();
 //    Board hardBoard = factory.createHardBoard();
 //
 //    loader.saveBoardWithGeneratedName(easyBoard, "Easy");
 //    loader.saveBoardWithGeneratedName(defaultBoard, "Defualt");
 //    loader.saveBoardWithGeneratedName(hardBoard, "Hard");
 
-    Board defaultBoard = loader.loadBoardFromFile("Files/Boards/Defualt_Board_20250407_202351.json");
+    Board defaultBoard = loader.loadBoardFromFile("Files/Boards/Default_Board_20250407_202351.json");
 
     Dice dice = new Dice(2);
 
@@ -69,11 +72,10 @@ public class BoardGameApp {
 
 
 
-    List<Player> players = List.of(
-        new HumanPlayer("player 1", game.getStartingTile()),
-        new HumanPlayer("player 2", game.getStartingTile()),
-        new HumanPlayer("player 3", game.getStartingTile())
-    );
+    List<Player> players = playerLoader.loadPlayers();
+
+
+
 
     for (Player player : players) {
       game.addPlayer(player);
