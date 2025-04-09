@@ -3,11 +3,13 @@ package edu.ntnu.idi.idatt.converter;
 import edu.ntnu.idi.idatt.DataTransfer.ActionDto;
 import edu.ntnu.idi.idatt.factory.TileActionFactory;
 import edu.ntnu.idi.idatt.model.ActionType;
+import edu.ntnu.idi.idatt.model.Tile;
 import edu.ntnu.idi.idatt.model.actions.LadderAction;
 import edu.ntnu.idi.idatt.model.actions.NoOperationAction;
 import edu.ntnu.idi.idatt.model.actions.SnakeAction;
 import edu.ntnu.idi.idatt.model.actions.SpecialAction;
 import edu.ntnu.idi.idatt.model.actions.TileAction;
+import java.util.Map;
 import javax.swing.Action;
 
 public class ActionConverter {
@@ -19,7 +21,7 @@ public class ActionConverter {
         action.getDescription());
   }
 
-  public TileAction fromDto(ActionDto dto) {
+  public TileAction fromDto(ActionDto dto, Map<Integer, Tile> tileMap) {
     if (dto == null) {
       return NoOperationAction.INSTANCE;
     }
@@ -28,20 +30,14 @@ public class ActionConverter {
     int destinationTileId = dto.getDestinationTileId();
     String description = dto.getDescription();
 
-    if (type == ActionType.LADDER) {
-      return TileActionFactory.createLadderAction(destinationTileId, description);
-    } else if (type == ActionType.SNAKE) {
-      return TileActionFactory.createSnakeAction(destinationTileId, description);
-    } else if (type == ActionType.RETURN_TO_START) {
-      return TileActionFactory.createReturnToStartAction(null);
-    } else if (type == ActionType.SKIP_TURN) {
-      return TileActionFactory.createSkipTurnAction();
-    } else if (type == ActionType.SPECIAL) {
-      return TileActionFactory.createSpecialAction(description, p -> {
-      });
-    } else {
-      return NoOperationAction.INSTANCE;
+    Tile destinationTile = tileMap.get(destinationTileId);
+
+    if (destinationTile == null && destinationTileId > 0) {
+      System.err.println("Warning: destination tile with ID " + destinationTileId + " not found.");
     }
+
+    // Use the generic factory method instead of multiple conditionals
+    return TileActionFactory.createActionFromType(type, destinationTile, description);
   }
 
 }
