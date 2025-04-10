@@ -1,0 +1,55 @@
+/* ChooseGameScreen_styles.css */
+
+/* Style for game mode panel headings */
+.game-mode-label {
+  -fx-background-color: #c1b322; /* Golden background */
+  -fx-text-fill: black;
+  -fx-padding: 8px 15px;
+  -fx-font-size: 18px;
+  -fx-font-weight: bold;
+  -fx-border-radius: 5px;
+  -fx-background-radius: 5px;
+}
+
+/* Style for the white box under the heading */
+.white-box {
+  -fx-background-color: #ffffff;
+  -fx-border-color: #000000;
+  -fx-border-width: 1px;
+  -fx-background-radius: 10px;
+  -fx-border-radius: 10px;
+  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 5, 0.0, 0, 1);
+}
+
+/* Style for game panel hover effect */
+.game-panel:hover .white-box {
+  -fx-background-color: #f0f0f0;
+  -fx-cursor: hand;
+  -fx-border-color: #c1b322;
+  -fx-border-width: 2px;
+}
+
+/* Style for the golden back button */
+.golden-button {
+  -fx-background-color: #c1b322;
+  -fx-text-fill: black;
+  -fx-font-size: 16px;
+  -fx-font-weight: bold;
+  -fx-padding: 10px 25px;
+  -fx-background-radius: 8px;
+  -fx-border-radius: 8px;
+  -fx-cursor: hand;
+  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 3, 0.0, 0, 1);
+}
+
+/* Hover effect for the back button */
+.golden-button:hover {
+  -fx-background-color: #d4c746;
+  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 5, 0.0, 0, 2);
+}
+
+/* Pressed effect for the back button */
+.golden-button:pressed {
+  -fx-background-color: #a39a1d;
+  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 2, 0.0, 0, 0);
+}
