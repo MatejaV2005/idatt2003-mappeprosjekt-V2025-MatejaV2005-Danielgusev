@@ -74,7 +74,7 @@
         <version>0.0.8</version>
         <configuration>
           <!-- Fully qualified name of your JavaFX main class -->
-          <mainClass>edu.ntnu.idi.idatt.UserInterface.TitleScreen</mainClass>
+          <mainClass>edu.ntnu.idi.idatt.UserInterface.MainView</mainClass>
         </configuration>
       </plugin>
     </plugins>

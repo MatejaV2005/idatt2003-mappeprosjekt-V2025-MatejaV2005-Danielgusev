@@ -1,0 +1,9 @@
+/* File: TitleScreen-Styles.css */
+.styled-button {
+  -fx-background-radius: 15px;
+  -fx-font-size: 20px;
+  -fx-font-weight: bold;
+  -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #C834FF, #7501B3);
+  -fx-text-fill: white;
+  -fx-effect: dropshadow(gaussian, black, 6, 0.0, 0, 4);
+}
