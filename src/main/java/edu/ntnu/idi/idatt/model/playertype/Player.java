@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.model.playertype;
 
-import edu.ntnu.idi.idatt.model.Tile;
+import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 
 public abstract class Player {
@@ -51,7 +51,7 @@ public abstract class Player {
   }
 
   // abstract method
-  public abstract void move(int steps);
+  public abstract Tile move(int steps);
 
 
   public Tile basicMove(int steps) {

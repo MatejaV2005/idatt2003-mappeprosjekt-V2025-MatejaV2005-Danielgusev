@@ -4,7 +4,6 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 import edu.ntnu.idi.idatt.factory.PlayerFactory;
-import edu.ntnu.idi.idatt.model.Tile;
 import edu.ntnu.idi.idatt.model.playertype.Player;
 import java.io.FileReader;
 import java.io.FileWriter;

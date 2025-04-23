@@ -1,10 +1,8 @@
 package edu.ntnu.idi.idatt.factory;
 
-import edu.ntnu.idi.idatt.model.Tile;
-import edu.ntnu.idi.idatt.model.actions.NoOperationAction;
+import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.model.actions.TileAction;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
-import java.util.Optional;
 
 /**
  * Creates tiles.
