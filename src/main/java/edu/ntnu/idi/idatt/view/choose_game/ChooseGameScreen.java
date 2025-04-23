@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.UserInterface.choose_game;
+package edu.ntnu.idi.idatt.view.choose_game;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import edu.ntnu.idi.idatt.UserInterface.TitleScreen.TitleScreen;
+import edu.ntnu.idi.idatt.view.titleScreen.TitleScreen;
 
 public class ChooseGameScreen {
 
@@ -22,7 +22,7 @@ public class ChooseGameScreen {
     StackPane root = new StackPane();
 
     // 2. Load and display background image
-    String imagePath = "/edu/ntnu/idi/idatt/UserInterface/ChooseGame/Background_choose_game.png";
+    String imagePath = "/edu/ntnu/idi/idatt/view/ChooseGame/Background_choose_game.png";
     Image bgImage = new Image(getClass().getResourceAsStream(imagePath));
     ImageView bgImageView = new ImageView(bgImage);
     bgImageView.setFitWidth(1280);
@@ -63,7 +63,7 @@ public class ChooseGameScreen {
 
     // 10. Create scene and add CSS
     scene = new Scene(root, 1280, 720);
-    String cssPath = "/edu/ntnu/idi/idatt/UserInterface/ChooseGame/ChooseGameScreen_styles.css";
+    String cssPath = "/edu/ntnu/idi/idatt/view/ChooseGame/ChooseGameScreen_styles.css";
     scene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
   }
 

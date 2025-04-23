@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.UserInterface;
+package edu.ntnu.idi.idatt.view;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;

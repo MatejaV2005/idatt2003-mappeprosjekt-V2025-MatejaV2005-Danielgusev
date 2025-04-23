@@ -5,15 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Modified .gitignore file">
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/TitleScreen/TitleScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/TitleScreen.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/GameFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/MainView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/TitleScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/TitleScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/TitleScreen/ButtonBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/titleScreen/ButtonBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/TitleScreen/ButtonDecorator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/titleScreen/ButtonDecorator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/TitleScreen/HoverEffectDecorator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/titleScreen/HoverEffectDecorator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/TitleScreen/TitleScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/titleScreen/TitleScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/choose_game/ChooseGameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/choose_game/ChooseGameScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/TileActionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/TileActionFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/resources/edu/ntnu/idi/idatt/Background_titleScreen.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/edu/ntnu/idi/idatt/UserInterface/TitleScreen/Background_titleScreen.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/resources/edu/ntnu/idi/idatt/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/edu/ntnu/idi/idatt/UserInterface/TitleScreen/logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/player_type/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/player_type/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/UserInterface/ChooseGame/Background_choose_game.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/ChooseGame/Background_choose_game.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/UserInterface/ChooseGame/ChooseGameScreen_styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/ChooseGame/ChooseGameScreen_styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/UserInterface/TitleScreen/Background_titleScreen.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/titleScreen/Background_titleScreen.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/UserInterface/TitleScreen/TitleScreen-Styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/titleScreen/TitleScreen-Styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/UserInterface/TitleScreen/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/titleScreen/logo.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +38,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Features-FactoryDevelopment" />
+        <entry key="$PROJECT_DIR$" value="Boardgame-Refactoring-Issue" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -151,7 +158,7 @@
       <module name="boardgame-V2025-IDATT2003" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.UserInterface.TitleScreen.*" />
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.view.titleScreen.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -160,11 +167,11 @@
       </method>
     </configuration>
     <configuration name="TitleScreen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.UserInterface.TitleScreen.TitleScreen" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.view.titleScreen.TitleScreen" />
       <module name="boardgame-V2025-IDATT2003" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.UserInterface.TitleScreen.*" />
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.view.titleScreen.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -177,7 +184,7 @@
       <module name="boardgame-V2025-IDATT2003" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.UserInterface.TitleScreen.*" />
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.view.titleScreen.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>

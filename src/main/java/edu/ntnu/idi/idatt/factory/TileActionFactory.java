@@ -6,7 +6,7 @@ import edu.ntnu.idi.idatt.model.actions.LadderAction;
 import edu.ntnu.idi.idatt.model.actions.SnakeAction;
 import edu.ntnu.idi.idatt.model.actions.SpecialAction;
 import edu.ntnu.idi.idatt.model.actions.TileAction;
-import edu.ntnu.idi.idatt.model.playertype.Player;
+import edu.ntnu.idi.idatt.model.player_type.Player;
 import java.util.function.Consumer;
 
 public class TileActionFactory {

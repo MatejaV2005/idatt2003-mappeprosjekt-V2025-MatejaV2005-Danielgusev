@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.UserInterface.TitleScreen;
+package edu.ntnu.idi.idatt.view.titleScreen;
 
 import javafx.scene.control.Button;
 

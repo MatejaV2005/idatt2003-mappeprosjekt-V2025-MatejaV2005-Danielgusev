@@ -6,6 +6,7 @@ import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 public abstract class Player {
   private String name;
   private Tile currentTile;
+  private boolean shouldSkipTurn;
 
   protected Player (String name, Tile startingTile) {
     setName(name);
@@ -28,6 +29,14 @@ public abstract class Player {
   }
 
   public abstract void move(int steps);
+
+  public void setSkipTurn(boolean shouldSkip) {
+    this.shouldSkipTurn = shouldSkip;
+  }
+
+  public boolean shouldSkipTurn() {
+    return shouldSkipTurn;
+  }
 
 
   public void placeOnTile(Tile newTile) {

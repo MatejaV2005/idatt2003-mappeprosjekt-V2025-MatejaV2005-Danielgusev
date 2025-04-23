@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.UserInterface.TitleScreen;
+package edu.ntnu.idi.idatt.view.titleScreen;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
@@ -19,7 +19,8 @@ public class TitleScreen extends Application {
     StackPane root = new StackPane();
 
     // Load and display background image from file
-    Image bgImage = new Image(getClass().getResourceAsStream("/edu/ntnu/idi/idatt/UserInterface/TitleScreen/Background_titleScreen.png"));
+    Image bgImage = new Image(getClass().getResourceAsStream(
+        "/edu/ntnu/idi/idatt/view/titleScreen/Background_titleScreen.png"));
     ImageView bgImageView = new ImageView(bgImage);
     bgImageView.setPreserveRatio(false); // Stretch image to fill entire screen
     bgImageView.setFitWidth(1280);
@@ -30,7 +31,8 @@ public class TitleScreen extends Application {
     container.setAlignment(Pos.CENTER);
 
     // Load and show logo from local file
-    Image logoImage = new Image(getClass().getResourceAsStream("/edu/ntnu/idi/idatt/UserInterface/TitleScreen/logo.png"));
+    Image logoImage = new Image(getClass().getResourceAsStream(
+        "/edu/ntnu/idi/idatt/view/titleScreen/logo.png"));
     ImageView logoImageView = new ImageView(logoImage);
     logoImageView.setFitWidth(400);
     logoImageView.setPreserveRatio(true);
@@ -79,7 +81,8 @@ public class TitleScreen extends Application {
 
     // Create the scene and load the external stylesheet.
     Scene scene = new Scene(root, 1280, 720);
-    scene.getStylesheets().add(getClass().getResource("/edu/ntnu/idi/idatt/UserInterface/TitleScreen/TitleScreen-Styles.css").toExternalForm());
+    scene.getStylesheets().add(getClass().getResource(
+        "/edu/ntnu/idi/idatt/view/titleScreen/TitleScreen-Styles.css").toExternalForm());
 
     // Bind the background image size to the scene dimensions.
     bgImageView.fitWidthProperty().bind(scene.widthProperty());

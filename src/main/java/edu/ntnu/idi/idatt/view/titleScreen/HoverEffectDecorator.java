@@ -1,10 +1,6 @@
-package edu.ntnu.idi.idatt.UserInterface.TitleScreen;
+package edu.ntnu.idi.idatt.view.titleScreen;
 
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 
 // A concrete decorator that adds a hover effect to the button
 class HoverEffectDecorator implements ButtonDecorator {
