@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.model.playertype;
 
-import edu.ntnu.idi.idatt.model.Tile;
+import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import java.util.logging.Logger;
 
@@ -12,11 +12,11 @@ public class BotPlayer extends Player {
   }
 
   @Override
-  public void move(int steps) {
+  public Tile move(int steps) {
     ExceptionHandling.requirePositive(steps, "steps");
 
     LOGGER.info("Bot moves " + steps + " steps"); //TODO Add custom Logging Handler for UI, to seperate debugging logger from UI
-    basicMove(steps);
+    return basicMove(steps);
   }
 
 }

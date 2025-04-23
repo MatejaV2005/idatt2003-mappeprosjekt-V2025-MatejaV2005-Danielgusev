@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.model;
+package edu.ntnu.idi.idatt.model.core;
 
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import java.util.ArrayList;

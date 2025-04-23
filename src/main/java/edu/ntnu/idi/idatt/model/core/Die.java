@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.model;
+package edu.ntnu.idi.idatt.model.core;
 
 import java.util.logging.Logger;
 import java.util.Random;
