@@ -3,20 +3,20 @@ package edu.ntnu.idi.idatt;
 import edu.ntnu.idi.idatt.controller.BoardLoader;
 import edu.ntnu.idi.idatt.controller.PlayerLoader;
 import edu.ntnu.idi.idatt.factory.BoardFactory;
-import edu.ntnu.idi.idatt.factory.PlayerFactory;
-import edu.ntnu.idi.idatt.model.Board;
-import edu.ntnu.idi.idatt.model.BoardGame;
-import edu.ntnu.idi.idatt.model.Dice;
-import edu.ntnu.idi.idatt.model.playertype.HumanPlayer;
+import edu.ntnu.idi.idatt.model.core.Board;
+import edu.ntnu.idi.idatt.model.core.BoardGame;
+import edu.ntnu.idi.idatt.model.core.Dice;
+import edu.ntnu.idi.idatt.model.games.SnakesAndLaddersGame;
 import edu.ntnu.idi.idatt.model.playertype.Player;
+import edu.ntnu.idi.idatt.model.strategy.GameStrategy;
+import edu.ntnu.idi.idatt.model.strategy.SnakesAndLaddersStrategy;
 import java.util.List;
 
 public class BoardGameApp {
   private BoardGame game;
+  private GameStrategy strategy;
 
-  public BoardGameApp() {
-
-  }
+  public BoardGameApp() {}
 
   public void start() {
     init();
@@ -51,13 +51,11 @@ public class BoardGameApp {
   }
 
   private void init() {
-    BoardLoader boardLoader = new BoardLoader();
-    BoardFactory factory = new BoardFactory();
     BoardLoader loader = new BoardLoader();
     PlayerLoader playerLoader = new PlayerLoader();
 
 //    Board easyBoard = factory.createEasyBoard();
-//      Board defaultBoard = factory.createNormalBoard();
+//    Board defaultBoard = factory.createNormalBoard();
 //    Board hardBoard = factory.createHardBoard();
 //
 //    loader.saveBoardWithGeneratedName(easyBoard, "Easy");
@@ -68,7 +66,8 @@ public class BoardGameApp {
 
     Dice dice = new Dice(2);
 
-    this.game = new BoardGame(defaultBoard, dice);
+    this.strategy = new SnakesAndLaddersStrategy(defaultBoard, dice);
+    this.game = new SnakesAndLaddersGame(defaultBoard, dice, strategy);
 
 
 
