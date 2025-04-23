@@ -4,16 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Modified .gitignore file">
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/TitleScreen/TitleScreen.java" afterDir="false" />
+    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Created choosegamescreen class and css styles">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/MainView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/TitleScreen.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/TitleScreen/TitleScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/TitleScreen/TitleScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/GameFactory.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/TileActionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/TileActionFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/resources/edu/ntnu/idi/idatt/Background_titleScreen.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/edu/ntnu/idi/idatt/UserInterface/TitleScreen/Background_titleScreen.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/resources/edu/ntnu/idi/idatt/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/edu/ntnu/idi/idatt/UserInterface/TitleScreen/logo.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +22,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Python Script" />
         <option value="Class" />
       </list>
     </option>
@@ -136,6 +135,8 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/UserInterface/ChooseGame" />
+      <recent name="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/utils" />
       <recent name="$PROJECT_DIR$/src/main/java/resources/edu/ntnu/idi/idatt/UserInterface/TitleScreen" />
       <recent name="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/GameScreen" />
       <recent name="$PROJECT_DIR$/src/main/java/resources/edu/ntnu/idi/idatt" />
@@ -262,7 +263,8 @@
       <workItem from="1744029048999" duration="637000" />
       <workItem from="1744205516203" duration="198000" />
       <workItem from="1744206440932" duration="3617000" />
-      <workItem from="1744212701906" duration="2412000" />
+      <workItem from="1744212701906" duration="7591000" />
+      <workItem from="1744292780506" duration="1723000" />
     </task>
     <task id="LOCAL-00001" summary="fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now.">
       <option name="closed" value="true" />
@@ -381,7 +383,28 @@
       <option name="presentableId" value="LOCAL−00015" />
       <updated>1742652473312</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL−00016" summary="Created TitleScreen subclasses and finished Titlescreen without functionality">
+      <option name="closed" value="true" />
+      <created>1744281806805</created>
+      <option name="number" value="LOCAL−00016" />
+      <option name="presentableId" value="LOCAL−00016" />
+      <updated>1744281806805</updated>
+    </task>
+    <task id="LOCAL−00017" summary="Created a mainview class and redirected resource files">
+      <option name="closed" value="true" />
+      <created>1744281864130</created>
+      <option name="number" value="LOCAL−00017" />
+      <option name="presentableId" value="LOCAL−00017" />
+      <updated>1744281864130</updated>
+    </task>
+    <task id="LOCAL−00018" summary="Created choosegamescreen class and css styles">
+      <option name="closed" value="true" />
+      <created>1744296712052</created>
+      <option name="number" value="LOCAL−00018" />
+      <option name="presentableId" value="LOCAL−00018" />
+      <updated>1744296712052</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -418,7 +441,10 @@
     <MESSAGE value="First commit of the titleScreen" />
     <MESSAGE value="First commit of the titleScreen, correct now" />
     <MESSAGE value="TileFactory push" />
-    <option name="LAST_COMMIT_MESSAGE" value="TileFactory push" />
+    <MESSAGE value="Created TitleScreen subclasses and finished Titlescreen without functionality" />
+    <MESSAGE value="Created a mainview class and redirected resource files" />
+    <MESSAGE value="Created choosegamescreen class and css styles" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created choosegamescreen class and css styles" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
