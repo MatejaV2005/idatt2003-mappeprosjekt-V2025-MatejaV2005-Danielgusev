@@ -1,9 +1,8 @@
 package edu.ntnu.idi.idatt.controller;
 
 import edu.ntnu.idi.idatt.filehandler.BoardJsonFileHandler;
-import edu.ntnu.idi.idatt.model.Board;
+import edu.ntnu.idi.idatt.model.core.Board;
 import java.io.File;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Logger;

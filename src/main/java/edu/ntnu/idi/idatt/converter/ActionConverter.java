@@ -3,14 +3,10 @@ package edu.ntnu.idi.idatt.converter;
 import edu.ntnu.idi.idatt.DataTransfer.ActionDto;
 import edu.ntnu.idi.idatt.factory.TileActionFactory;
 import edu.ntnu.idi.idatt.model.ActionType;
-import edu.ntnu.idi.idatt.model.Tile;
-import edu.ntnu.idi.idatt.model.actions.LadderAction;
+import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.model.actions.NoOperationAction;
-import edu.ntnu.idi.idatt.model.actions.SnakeAction;
-import edu.ntnu.idi.idatt.model.actions.SpecialAction;
 import edu.ntnu.idi.idatt.model.actions.TileAction;
 import java.util.Map;
-import javax.swing.Action;
 
 public class ActionConverter {
 

@@ -3,12 +3,11 @@ package edu.ntnu.idi.idatt.converter;
 import edu.ntnu.idi.idatt.DataTransfer.BoardDto;
 import edu.ntnu.idi.idatt.DataTransfer.TileDto;
 import edu.ntnu.idi.idatt.factory.TileFactory;
-import edu.ntnu.idi.idatt.model.Board;
-import edu.ntnu.idi.idatt.model.Tile;
+import edu.ntnu.idi.idatt.model.core.Board;
+import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.model.actions.TileAction;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 public class BoardConverter {
 
@@ -32,12 +31,11 @@ public class BoardConverter {
     board.setRows(boardDto.getRows());
     board.setColumns(boardDto.getColumns());
 
-    TileFactory factory = new TileFactory();
     ActionConverter actionConverter = new ActionConverter();
     Map<Integer, Tile> tilesMap = new HashMap<>();
 
     boardDto.getTiles().forEach((id, dto) -> {
-      Tile tile = factory.createTile(dto.getId(), dto.getRow(), dto.getColumn());
+      Tile tile = TileConverter.fromDto(dto, tilesMap);
       tile.setNextTileId(dto.getNextTileId());
       tilesMap.put(id, tile);
     });

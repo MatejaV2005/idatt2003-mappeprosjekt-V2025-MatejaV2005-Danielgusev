@@ -2,8 +2,8 @@ package edu.ntnu.idi.idatt.factory;
 
 import edu.ntnu.idi.idatt.DataTransfer.BoardDto;
 import edu.ntnu.idi.idatt.converter.BoardConverter;
-import edu.ntnu.idi.idatt.model.Board;
-import edu.ntnu.idi.idatt.model.Tile;
+import edu.ntnu.idi.idatt.model.core.Board;
+import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.model.actions.TileAction;
 
 

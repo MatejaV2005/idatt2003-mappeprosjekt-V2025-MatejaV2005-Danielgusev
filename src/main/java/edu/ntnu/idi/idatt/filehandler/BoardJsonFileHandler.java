@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import edu.ntnu.idi.idatt.DataTransfer.BoardDto;
 import edu.ntnu.idi.idatt.converter.BoardConverter;
 import edu.ntnu.idi.idatt.factory.BoardFactory;
-import edu.ntnu.idi.idatt.model.Board;
+import edu.ntnu.idi.idatt.model.core.Board;
 
 import java.io.FileReader;
 import java.io.FileWriter;
