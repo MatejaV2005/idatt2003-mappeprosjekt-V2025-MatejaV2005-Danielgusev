@@ -1,5 +1,6 @@
-package edu.ntnu.idi.idatt.view.titleScreen;
+package edu.ntnu.idi.idatt.UserInterface.TitleScreen;
 
+import edu.ntnu.idi.idatt.UserInterface.choose_game.ChooseGameScreen;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -19,8 +20,7 @@ public class TitleScreen extends Application {
     StackPane root = new StackPane();
 
     // Load and display background image from file
-    Image bgImage = new Image(getClass().getResourceAsStream(
-        "/edu/ntnu/idi/idatt/view/titleScreen/Background_titleScreen.png"));
+    Image bgImage = new Image(getClass().getResourceAsStream("/edu/ntnu/idi/idatt/UserInterface/TitleScreen/Background_titleScreen.png"));
     ImageView bgImageView = new ImageView(bgImage);
     bgImageView.setPreserveRatio(false); // Stretch image to fill entire screen
     bgImageView.setFitWidth(1280);
@@ -31,8 +31,8 @@ public class TitleScreen extends Application {
     container.setAlignment(Pos.CENTER);
 
     // Load and show logo from local file
-    Image logoImage = new Image(getClass().getResourceAsStream(
-        "/edu/ntnu/idi/idatt/view/titleScreen/logo.png"));
+    Image logoImage = new Image(getClass().getResourceAsStream("/edu/ntnu/idi/idatt"
+        + "/UserInterface/TitleScreen/logo.png"));
     ImageView logoImageView = new ImageView(logoImage);
     logoImageView.setFitWidth(400);
     logoImageView.setPreserveRatio(true);
@@ -59,6 +59,14 @@ public class TitleScreen extends Application {
     Button btnChooseGamemode = new ButtonBuilder().withText("Choose Gamemode").build();
     btnChooseGamemode = hoverDecorator.decorate(btnChooseGamemode);
 
+    btnChooseGamemode.setOnAction(e -> {
+      System.out.println("Choose Gamemode-knappen ble trykket!");
+      // Don't create a new application instance, just create a scene and set it
+      ChooseGameScreen chooseGameScreen = new ChooseGameScreen(primaryStage);
+      Scene gameScene = chooseGameScreen.getScene();
+      primaryStage.setScene(gameScene);
+    });
+
     Button btnSettings = new ButtonBuilder().withText("Settings").build();
     btnSettings = hoverDecorator.decorate(btnSettings);
 
@@ -81,8 +89,8 @@ public class TitleScreen extends Application {
 
     // Create the scene and load the external stylesheet.
     Scene scene = new Scene(root, 1280, 720);
-    scene.getStylesheets().add(getClass().getResource(
-        "/edu/ntnu/idi/idatt/view/titleScreen/TitleScreen-Styles.css").toExternalForm());
+    scene.getStylesheets().add(getClass().getResource("/edu/ntnu/idi/idatt/UserInterface"
+        + "/TitleScreen/TitleScreen-Styles.css").toExternalForm());
 
     // Bind the background image size to the scene dimensions.
     bgImageView.fitWidthProperty().bind(scene.widthProperty());
@@ -93,8 +101,8 @@ public class TitleScreen extends Application {
     primaryStage.setScene(scene);
     primaryStage.show();
   }
-
   public static void main(String[] args) {
     launch(args);
   }
+
 }
