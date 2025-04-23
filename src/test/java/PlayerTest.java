@@ -4,8 +4,8 @@ import edu.ntnu.idi.idatt.model.player_type.Player;
 
 import org.junit.jupiter.api.Test;
 
-import edu.ntnu.idi.idatt.model.Board;
-import edu.ntnu.idi.idatt.model.Tile;
+import edu.ntnu.idi.idatt.model.core.Board;
+import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 
 /**
