@@ -1,9 +1,9 @@
-package edu.ntnu.idi.idatt.view.titleScreen;
+package edu.ntnu.idi.idatt.view.decorator;
 
 import javafx.scene.control.Button;
 
 // A concrete decorator that adds a hover effect to the button
-class HoverEffectDecorator implements ButtonDecorator {
+public class HoverEffectDecorator implements ButtonDecorator {
 
   @Override
   public Button decorate(Button button) {
