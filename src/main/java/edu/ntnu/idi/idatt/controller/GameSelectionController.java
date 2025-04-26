@@ -33,7 +33,8 @@ public class GameSelectionController {
    * @param gameMode The selected game mode
    */
   public void onGameModeSelected(String gameMode) {
-    System.out.println("Selected game mode: " + gameMode);
+    //add logic to distinguish gameSetupScreen
+    navigationController.navigateToGameSetup();
   }
 
   /**
@@ -43,4 +44,6 @@ public class GameSelectionController {
   public void onBackButtonClicked() {
     navigationController.navigateToTitleScreen();
   }
+
+
 }
