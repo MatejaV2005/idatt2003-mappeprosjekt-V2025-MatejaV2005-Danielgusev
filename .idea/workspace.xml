@@ -6,12 +6,21 @@
   <component name="ChangeListManager">
     <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Created choosegamescreen class and css styles">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/MainView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/TitleScreen.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/TitleScreen/TitleScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/TitleScreen/TitleScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/GameFactory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/TileActionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/TileActionFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/GameScreen/StyledButtonBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/MainView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/MainView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/TitleScreen.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/choose_game/ChooseGameScreen.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GameSelectionView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GameSelectionView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/TitleScreenView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/TitleScreenView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/titleScreen/ButtonBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/titleScreen/TitleScreen.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/ChooseGame/Background_choose_game.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/ChooseGame/Background_choose_game.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/ChooseGame/ChooseGameScreen_styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/ChooseGame/ChooseGameScreen_styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/titleScreen/Background_titleScreen.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/TitleScreen/Background_titleScreen.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/titleScreen/TitleScreen-Styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/TitleScreen/TitleScreen-Styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/titleScreen/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/TitleScreen/logo.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +43,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RESET_MODE" value="MIXED" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -135,11 +144,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/UserInterface/ChooseGame" />
-      <recent name="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/utils" />
-      <recent name="$PROJECT_DIR$/src/main/java/resources/edu/ntnu/idi/idatt/UserInterface/TitleScreen" />
-      <recent name="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/UserInterface/GameScreen" />
-      <recent name="$PROJECT_DIR$/src/main/java/resources/edu/ntnu/idi/idatt" />
+      <recent name="C:\mappeprosjekt-vaar2025\boardgame-V2025-IDATT2003\src\main\resources\edu\ntnu\idi\idatt\view\resources\TitleScreen" />
+      <recent name="C:\mappeprosjekt-vaar2025\boardgame-V2025-IDATT2003\src\main\resources\edu\ntnu\idi\idatt\view\resources\ChooseGame" />
+      <recent name="C:\mappeprosjekt-vaar2025\boardgame-V2025-IDATT2003\src\main\resources\edu\ntnu\idi\idatt\view\resources" />
+      <recent name="C:\mappeprosjekt-vaar2025\boardgame-V2025-IDATT2003\src\main\resources\titleScreen" />
+      <recent name="C:\mappeprosjekt-vaar2025\boardgame-V2025-IDATT2003\src\main\resources" />
     </key>
     <key name="MoveInnerDialog.RECENTS_KEY">
       <recent name="edu.ntnu.idi.idatt.model.player_type" />

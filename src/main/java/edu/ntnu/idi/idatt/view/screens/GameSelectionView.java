@@ -25,8 +25,8 @@ public class GameSelectionView {
   private Button backButton;
   private GameSelectionController controller;
 
-  private static final String BACKGROUND_PATH = "/edu/ntnu/idi/idatt/view/resources/chooseGame/Background_choose_game.png";
-  private static final String CSS_PATH = "/edu/ntnu/idi/idatt/view/resources/chooseGame/ChooseGameScreen_styles.css";
+  private static final String BACKGROUND_PATH = "/edu/ntnu/idi/idatt/view/resources/ChooseGame/Background_choose_game.png";
+  private static final String CSS_PATH = "/edu/ntnu/idi/idatt/view/resources/ChooseGame/ChooseGameScreen_styles.css";
 
   /**
    * Constructs the game selection view with all necessary UI components.
