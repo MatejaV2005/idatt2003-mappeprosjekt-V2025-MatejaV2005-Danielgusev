@@ -66,7 +66,6 @@ public class ButtonFactory {
       button.getStyleClass().add("icon-button");
     } catch (Exception e) {
       System.err.println("Failed to load icon for button: " + e.getMessage());
-      // Continue with text-only button rather than crashing
     }
 
     return button;
