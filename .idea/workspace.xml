@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Developed SnakesAndLaddersStrategy, implements GameStrategy" />
+    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Added corresponding styling to classes">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/ButtonFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/ButtonFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GameSetupView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GameSetupView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/GameSetup/gameSetupStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/GameSetup/gameSetupStyle.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,19 +18,21 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Python Script" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Boardgame-Refactoring-Issue" />
+        <entry key="$PROJECT_DIR$" value="Features-FactoryDevelopment" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RESET_MODE" value="MIXED" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -61,8 +68,8 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
-                    <option name="branchName" value="Boardgame-Refactoring-Issue" />
-                    <option name="lastUsedInstant" value="1745401538" />
+                    <option name="branchName" value="Mateja-features" />
+                    <option name="lastUsedInstant" value="1740512644" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="main" />
@@ -112,34 +119,39 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "git-widget-placeholder": "Features",
+    "git-widget-placeholder": "userinterface-features",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/matej/.ssh/id_rsa",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.inline.completion",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/java/resources/edu/ntnu/idi/idatt" />
+      <recent name="C:\mappeprosjekt-vaar2025\boardgame-V2025-IDATT2003\src\main\resources\edu\ntnu\idi\idatt\view\resources\GameScreen" />
+      <recent name="C:\mappeprosjekt-vaar2025\boardgame-V2025-IDATT2003\src\main\resources\edu\ntnu\idi\idatt\view\resources\TitleScreen" />
+      <recent name="C:\mappeprosjekt-vaar2025\boardgame-V2025-IDATT2003\src\main\resources\edu\ntnu\idi\idatt\view\resources\ChooseGame" />
+      <recent name="C:\mappeprosjekt-vaar2025\boardgame-V2025-IDATT2003\src\main\resources\edu\ntnu\idi\idatt\view\resources" />
+      <recent name="C:\mappeprosjekt-vaar2025\boardgame-V2025-IDATT2003\src\main\resources\titleScreen" />
     </key>
     <key name="MoveInnerDialog.RECENTS_KEY">
       <recent name="edu.ntnu.idi.idatt.model.player_type" />
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.TitleScreen">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.Main" />
       <module name="boardgame-V2025-IDATT2003" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.UserInterface.*" />
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.UserInterface.TitleScreen.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -148,11 +160,11 @@
       </method>
     </configuration>
     <configuration name="TitleScreen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.UserInterface.TitleScreen" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.UserInterface.TitleScreen.TitleScreen" />
       <module name="boardgame-V2025-IDATT2003" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.UserInterface.*" />
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.UserInterface.TitleScreen.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -165,7 +177,7 @@
       <module name="boardgame-V2025-IDATT2003" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.UserInterface.*" />
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.UserInterface.TitleScreen.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -184,10 +196,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
         <item itemvalue="Application.TitleScreen" />
         <item itemvalue="JUnit.PlayerTest" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.fx" />
+        <item itemvalue="JUnit.PlayerTest" />
       </list>
     </recent_temporary>
   </component>
@@ -245,7 +258,13 @@
       <workItem from="1742468937505" duration="349000" />
       <workItem from="1742469828536" duration="741000" />
       <workItem from="1742470910251" duration="1974000" />
-      <workItem from="1745418691036" duration="6402000" />
+      <workItem from="1743079775884" duration="975000" />
+      <workItem from="1744029048999" duration="637000" />
+      <workItem from="1744205516203" duration="198000" />
+      <workItem from="1744206440932" duration="3617000" />
+      <workItem from="1744212701906" duration="7591000" />
+      <workItem from="1744292780506" duration="1723000" />
+      <workItem from="1745610346827" duration="26789000" />
     </task>
     <task id="LOCAL-00001" summary="fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now.">
       <option name="closed" value="true" />
@@ -364,39 +383,172 @@
       <option name="presentableId" value="LOCAL−00015" />
       <updated>1742652473312</updated>
     </task>
-    <task id="LOCAL-00016" summary="Refactoring of BoardGame to match Template pattern">
+    <task id="LOCAL−00016" summary="Created TitleScreen subclasses and finished Titlescreen without functionality">
       <option name="closed" value="true" />
-      <created>1745431700032</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1745431700032</updated>
+      <created>1744281806805</created>
+      <option name="number" value="LOCAL−00016" />
+      <option name="presentableId" value="LOCAL−00016" />
+      <updated>1744281806805</updated>
     </task>
-    <task id="LOCAL-00017" summary="Minor refactoring, moved to package model/core">
+    <task id="LOCAL−00017" summary="Created a mainview class and redirected resource files">
       <option name="closed" value="true" />
-      <created>1745431851333</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1745431851333</updated>
+      <created>1744281864130</created>
+      <option name="number" value="LOCAL−00017" />
+      <option name="presentableId" value="LOCAL−00017" />
+      <updated>1744281864130</updated>
     </task>
-    <task id="LOCAL-00018" summary="Developed a GameStrategy class, effective handling of game logic">
+    <task id="LOCAL−00018" summary="Created choosegamescreen class and css styles">
       <option name="closed" value="true" />
-      <created>1745432452166</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1745432452166</updated>
+      <created>1744296712052</created>
+      <option name="number" value="LOCAL−00018" />
+      <option name="presentableId" value="LOCAL−00018" />
+      <updated>1744296712052</updated>
     </task>
-    <task id="LOCAL-00019" summary="Developed SnakesAndLaddersStrategy, implements GameStrategy">
+    <task id="LOCAL-00019" summary="refactored TitleScreenView, shows elements properly now">
       <option name="closed" value="true" />
-      <created>1745432575628</created>
+      <created>1745610422076</created>
       <option name="number" value="00019" />
       <option name="presentableId" value="LOCAL-00019" />
       <option name="project" value="LOCAL" />
-      <updated>1745432575628</updated>
+      <updated>1745610422076</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Moved to correct paths">
+      <option name="closed" value="true" />
+      <created>1745675599418</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1745675599418</updated>
+    </task>
+    <task id="LOCAL-00021" summary="minor refactoring">
+      <option name="closed" value="true" />
+      <created>1745675655933</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1745675655933</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Made interfaces for Different Observer states">
+      <option name="closed" value="true" />
+      <created>1745684779617</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1745684779617</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Started work on GameSetupView">
+      <option name="closed" value="true" />
+      <created>1745684838546</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1745684838546</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Making different components for SetupView">
+      <option name="closed" value="true" />
+      <created>1745684865091</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1745684865091</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Moved to different directory">
+      <option name="closed" value="true" />
+      <created>1745693483405</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1745693483405</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Created DifficultySelectionPanel component">
+      <option name="closed" value="true" />
+      <created>1745693505543</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1745693505543</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Created GameInfoPanel component">
+      <option name="closed" value="true" />
+      <created>1745693518265</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1745693518265</updated>
+    </task>
+    <task id="LOCAL-00028" summary="GameSelection now navigates to GameSetup through NavigationController">
+      <option name="closed" value="true" />
+      <created>1745693579283</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1745693579283</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Created GameSetupView, started working on CSS and controller">
+      <option name="closed" value="true" />
+      <created>1745693698461</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1745693698461</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Created GameSetupView for game settings">
+      <option name="closed" value="true" />
+      <created>1745693729962</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1745693729962</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Created PlayerManagementPanel component">
+      <option name="closed" value="true" />
+      <created>1745693748360</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1745693748360</updated>
+    </task>
+    <task id="LOCAL-00032" summary="deleted old classes">
+      <option name="closed" value="true" />
+      <created>1745693781717</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1745693781718</updated>
+    </task>
+    <task id="LOCAL-00033" summary="stylesheet for the GameSetupView">
+      <option name="closed" value="true" />
+      <created>1745695036135</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1745695036135</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Corrected path in GameSelectionView">
+      <option name="closed" value="true" />
+      <created>1745740392249</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1745740392249</updated>
+    </task>
+    <task id="LOCAL-00035" summary="minor refactoring">
+      <option name="closed" value="true" />
+      <created>1745740458776</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1745740458776</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Added corresponding styling to classes">
+      <option name="closed" value="true" />
+      <created>1745745286911</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1745745286911</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -414,30 +566,32 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed javaFX-controls plugin in pom.xml file. Added a fx.java class to test if it works. mvn javafx:run command works now." />
-    <MESSAGE value="Test commit, unversioned files" />
-    <MESSAGE value="Test commit" />
-    <MESSAGE value="added BoardGame to VCS-history" />
-    <MESSAGE value="Started working on BoardGame. game-logic will be handled in GameEngine" />
-    <MESSAGE value="Added Class GameEngine, will be responsible for game-logic." />
-    <MESSAGE value="Alot of refactoring, split up classes and methods to corresponds SRP design" />
-    <MESSAGE value="Refactored BoardGame to use a GameEngine for game-logic" />
-    <MESSAGE value="Added a temporary tile with a LadderAction in Method" />
-    <MESSAGE value="Completed Boardgame class. handles only the flow of the game" />
-    <MESSAGE value="Minor refactoring in BotPlayer and HumanPlayer" />
-    <MESSAGE value="Corrected IsWinner method in GameEngine" />
-    <MESSAGE value="Minor refactoring in Player" />
-    <MESSAGE value="Corrected LandPlayer method in Tile" />
     <MESSAGE value="Resolved Merge Conflicts" />
     <MESSAGE value="Refactor: minor cleanUp" />
     <MESSAGE value="First commit of the titleScreen" />
     <MESSAGE value="First commit of the titleScreen, correct now" />
     <MESSAGE value="TileFactory push" />
-    <MESSAGE value="Refactoring of BoardGame to match Template pattern" />
-    <MESSAGE value="Minor refactoring, moved to package model/core" />
-    <MESSAGE value="Developed a GameStrategy class, effective handling of game logic" />
-    <MESSAGE value="Developed SnakesAndLaddersStrategy, implements GameStrategy" />
-    <option name="LAST_COMMIT_MESSAGE" value="Developed SnakesAndLaddersStrategy, implements GameStrategy" />
+    <MESSAGE value="Created TitleScreen subclasses and finished Titlescreen without functionality" />
+    <MESSAGE value="Created a mainview class and redirected resource files" />
+    <MESSAGE value="Created choosegamescreen class and css styles" />
+    <MESSAGE value="refactored TitleScreenView, shows elements properly now" />
+    <MESSAGE value="Moved to correct paths" />
+    <MESSAGE value="Made interfaces for Different Observer states" />
+    <MESSAGE value="Started work on GameSetupView" />
+    <MESSAGE value="Making different components for SetupView" />
+    <MESSAGE value="Moved to different directory" />
+    <MESSAGE value="Created DifficultySelectionPanel component" />
+    <MESSAGE value="Created GameInfoPanel component" />
+    <MESSAGE value="GameSelection now navigates to GameSetup through NavigationController" />
+    <MESSAGE value="Created GameSetupView, started working on CSS and controller" />
+    <MESSAGE value="Created GameSetupView for game settings" />
+    <MESSAGE value="Created PlayerManagementPanel component" />
+    <MESSAGE value="deleted old classes" />
+    <MESSAGE value="stylesheet for the GameSetupView" />
+    <MESSAGE value="Corrected path in GameSelectionView" />
+    <MESSAGE value="minor refactoring" />
+    <MESSAGE value="Added corresponding styling to classes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added corresponding styling to classes" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
