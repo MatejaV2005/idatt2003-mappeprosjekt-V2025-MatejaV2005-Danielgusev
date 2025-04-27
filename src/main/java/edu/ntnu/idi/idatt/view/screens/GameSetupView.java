@@ -10,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -19,13 +20,14 @@ public class GameSetupView {
 
   private final Scene scene;
   private final BorderPane root;
-  private static final String CSS_PATH = "edu/ntnu/idi/idatt/view/resources/GameSetup/gameSetupStyle.css";
+  private static final String CSS_PATH = "/edu/ntnu/idi/idatt/view/resources/GameSetup/gameSetupStyle.css";
 
 
   private final DifficultySelectionPanel difficultySelectionPanel;
   private final PlayerManagementPanel playerManagementPanel;
   private final GameInfoPanel gameInfoPanel;
 
+  private final Label gameLabel;
   private final Button startGameButton;
   private final Button backButton;
   private final HBox bottomActionBar;
@@ -33,6 +35,8 @@ public class GameSetupView {
   public GameSetupView() {
     root = new BorderPane();
     root.setPadding(new Insets(20));
+
+    gameLabel = new Label("");
 
     ButtonFactory buttonFactory = new ButtonFactory();
     difficultySelectionPanel = new DifficultySelectionPanel();

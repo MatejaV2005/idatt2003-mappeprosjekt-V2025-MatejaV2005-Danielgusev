@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.view.screens;
 
-import edu.ntnu.idi.idatt.controller.GameScreenController;
+//import edu.ntnu.idi.idatt.controller.GameScreenController;
 import edu.ntnu.idi.idatt.exceptions.BoardGameResourceException;
 import edu.ntnu.idi.idatt.view.utils.ResourceLoader;
 import javafx.geometry.Insets;
@@ -26,7 +26,7 @@ public class GameScreenView {
   private final GridPane boardGrid;
   private final Button playTurnButton;
   private final VBox scoreboardBox;
-  private GameScreenController controller;
+  //private GameScreenController controller;
 
   // CSS and resource paths
   private static final String CSS_PATH =
@@ -71,10 +71,10 @@ public class GameScreenView {
   /**
    * Wire-up the controller callbacks.
    */
-  public void setController(GameScreenController controller) {
-    this.controller = controller;
-    playTurnButton.setOnAction(e -> controller.onPlayTurn());
-  }
+//  public void setController(GameScreenController controller) {
+//    this.controller = controller;
+//    playTurnButton.setOnAction(e -> controller.onPlayTurn());
+//  }
 
   public Scene getScene() {
     return scene;
