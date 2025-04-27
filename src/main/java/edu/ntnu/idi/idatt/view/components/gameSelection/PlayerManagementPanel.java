@@ -25,14 +25,16 @@ public class PlayerManagementPanel extends BorderPane {
    * @param buttonFactory Factory for creating styled buttons
    */
   public PlayerManagementPanel(ButtonFactory buttonFactory) {
+    this.getStyleClass().add("player-panel");
+
     this.playerTabs = new TabPane();
     initializeTabs();
 
     this.playerListView = new ListView<>();
     playerListView.getItems().addAll("Player 1", "Player 2", "Player 3"); // Dummy data for now
 
-    this.addPlayerButton = buttonFactory.createStandardButton("+ Create New Player");
-    this.savePlayerButton = buttonFactory.createStandardButton("Save Player");
+    this.addPlayerButton = buttonFactory.createSmallButton("+ Create New Player");
+    this.savePlayerButton = buttonFactory.createSmallButton("Save Player");
 
     HBox controlsBox = new HBox(10, savePlayerButton, addPlayerButton);
     controlsBox.setAlignment(Pos.CENTER);

@@ -23,6 +23,8 @@ public class GameInfoPanel extends VBox {
   public GameInfoPanel() {
     super(10); // spacing between elements
 
+    this.getStyleClass().add("info-panel");
+
     // Initialize components
     titleLabel = new Label("Board Summary");
     boardPreview = new ImageView(); // Empty by default; set image later
@@ -36,7 +38,7 @@ public class GameInfoPanel extends VBox {
     rule3 = new Text("- Land on trap: fall");
 
     // Optional: Style elements
-    titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+    titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #ffe470");
     boardPreview.setFitWidth(150);
     boardPreview.setFitHeight(150);
     boardPreview.setPreserveRatio(false);

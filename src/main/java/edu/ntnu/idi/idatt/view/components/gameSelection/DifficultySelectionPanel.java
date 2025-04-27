@@ -18,12 +18,14 @@ public class DifficultySelectionPanel extends VBox {
   public DifficultySelectionPanel() {
     super(20); // spacing between buttons
 
+    this.getStyleClass().add("difficulty-panel");
+
     ButtonFactory buttonFactory = new ButtonFactory();
 
-    easyDifficultyButton = buttonFactory.createStandardButton("Easy");
-    normalDifficultyButton = buttonFactory.createStandardButton("Normal");
-    hardDifficultyButton = buttonFactory.createStandardButton("Hard");
-    uploadBoardButton = buttonFactory.createStandardButton("Upload Board");
+    easyDifficultyButton = buttonFactory.createSmallButton("Easy");
+    normalDifficultyButton = buttonFactory.createSmallButton("Normal");
+    hardDifficultyButton = buttonFactory.createSmallButton("Hard");
+    uploadBoardButton = buttonFactory.createSmallButton("Upload Board");
 
     this.setAlignment(Pos.TOP_CENTER);
 
