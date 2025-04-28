@@ -6,7 +6,7 @@ import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.core.Dice;
 import edu.ntnu.idi.idatt.model.games.SnakesAndLaddersGame;
-import edu.ntnu.idi.idatt.model.playertype.Player;
+import edu.ntnu.idi.idatt.model.core.playertype.Player;
 import edu.ntnu.idi.idatt.model.strategy.GameStrategy;
 import edu.ntnu.idi.idatt.model.strategy.SnakesAndLaddersStrategy;
 import java.util.List;
@@ -50,8 +50,8 @@ public class BoardGameApp {
   }
 
   private void init() {
-    BoardManager loader = new BoardManager();
-    PlayerManager playerLoader = new PlayerManager();
+    BoardManager loader = BoardManager.getInstance();
+    PlayerManager playerLoader = PlayerManager.getInstance();
 
 //    Board easyBoard = factory.createEasyBoard();
 //    Board defaultBoard = factory.createNormalBoard();
@@ -70,7 +70,7 @@ public class BoardGameApp {
 
 
 
-    List<Player> players = playerLoader.loadPlayers();
+    List<Player> players = playerLoader.loadPlayersFromFile();
 
 
 

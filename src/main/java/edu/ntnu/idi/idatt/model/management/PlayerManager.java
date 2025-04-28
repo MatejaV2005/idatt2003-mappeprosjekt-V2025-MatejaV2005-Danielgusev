@@ -1,7 +1,7 @@
 package edu.ntnu.idi.idatt.model.management;
 
 import edu.ntnu.idi.idatt.filehandler.PlayerCsvFileHandler;
-import edu.ntnu.idi.idatt.model.playertype.Player;
+import edu.ntnu.idi.idatt.model.core.playertype.Player;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +46,7 @@ public class PlayerManager {
     return new ArrayList<>(players);
   }
 
-  public List<Player> loadPlayers() {
+  public List<Player> loadPlayersFromFile() {
     try {
       return fileHandler.loadFromFile(PLAYERS_FILE_PATH);
     } catch (Exception e) {
@@ -55,10 +55,11 @@ public class PlayerManager {
     }
   }
 
+  // Will use if there is a search functionality for saved players
   public Optional<Player> loadPlayer(String playerName) {
     ExceptionHandling.requireNonNull("name cant be null or empty", playerName);
 
-    List<Player> players = loadPlayers();
+    List<Player> players = loadPlayersFromFile();
     try {
     return players.stream()
         .filter(p -> p.getName().equals(playerName))
@@ -76,5 +77,11 @@ public class PlayerManager {
       LOGGER.warning("Could not save players to defualt filePath");
       e.printStackTrace();
     }
+  }
+
+
+  // FIX METHOD LATER
+  public void savePlayerToFile(Player player) {
+
   }
 }

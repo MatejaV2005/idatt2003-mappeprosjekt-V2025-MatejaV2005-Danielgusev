@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.model.core;
 
-import edu.ntnu.idi.idatt.model.playertype.Player;
+import edu.ntnu.idi.idatt.model.core.playertype.Player;
 import edu.ntnu.idi.idatt.model.strategy.GameStrategy;
 
 import java.util.List;

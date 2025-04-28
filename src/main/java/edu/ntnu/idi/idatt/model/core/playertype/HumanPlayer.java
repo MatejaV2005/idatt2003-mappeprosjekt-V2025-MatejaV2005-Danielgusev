@@ -1,6 +1,6 @@
-package edu.ntnu.idi.idatt.model.playertype;
+package edu.ntnu.idi.idatt.model.core.playertype;
 
-import static edu.ntnu.idi.idatt.model.playertype.BotPlayer.LOGGER;
+import static edu.ntnu.idi.idatt.model.core.playertype.BotPlayer.LOGGER;
 
 import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;

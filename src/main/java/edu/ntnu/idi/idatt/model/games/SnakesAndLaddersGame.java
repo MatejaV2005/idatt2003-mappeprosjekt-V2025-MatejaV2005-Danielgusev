@@ -4,7 +4,7 @@ import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.core.Dice;
 import edu.ntnu.idi.idatt.model.core.Tile;
-import edu.ntnu.idi.idatt.model.playertype.Player;
+import edu.ntnu.idi.idatt.model.core.playertype.Player;
 import edu.ntnu.idi.idatt.model.strategy.GameStrategy;
 
 public class SnakesAndLaddersGame extends BoardGame {
@@ -16,12 +16,23 @@ public class SnakesAndLaddersGame extends BoardGame {
 
   @Override
   protected void handlePlayerTurn(Player player) {
+    Tile oldTile = player.getCurrentTile();
+
     gameEngine.playTurn(player);
+
+    Tile newTile = player.getCurrentTile();
+
+    notifyPlayerMoved(player, oldTile, newTile);
+
   }
 
   @Override
   protected boolean checkWinCondition(Player player) {
-    return gameEngine.isWinner(player);
+    boolean isWinner = gameEngine.isWinner(player);
+    if (isWinner) {
+      notifyOnGameWon(player);
+    }
+    return isWinner;
   }
 
   // Optional override methods:

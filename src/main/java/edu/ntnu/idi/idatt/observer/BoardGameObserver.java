@@ -1,7 +1,7 @@
 package edu.ntnu.idi.idatt.observer;
 
 import edu.ntnu.idi.idatt.model.core.Tile;
-import edu.ntnu.idi.idatt.model.playertype.Player;
+import edu.ntnu.idi.idatt.model.core.playertype.Player;
 
 public interface BoardGameObserver {
   void onPlayerMoved(Player player, Tile from, Tile to);

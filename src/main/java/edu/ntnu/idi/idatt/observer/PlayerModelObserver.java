@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.observer;
 
-import edu.ntnu.idi.idatt.model.playertype.Player;
+import edu.ntnu.idi.idatt.model.core.playertype.Player;
 import java.util.List;
 
 public interface PlayerModelObserver {

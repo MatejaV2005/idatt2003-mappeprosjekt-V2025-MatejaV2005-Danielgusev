@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.model.playertype;
+package edu.ntnu.idi.idatt.model.core.playertype;
 
 import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;

@@ -3,7 +3,7 @@ package edu.ntnu.idi.idatt.model.core;
 
 import edu.ntnu.idi.idatt.model.actions.NoOperationAction;
 import edu.ntnu.idi.idatt.model.actions.TileAction;
-import edu.ntnu.idi.idatt.model.playertype.Player;
+import edu.ntnu.idi.idatt.model.core.playertype.Player;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 
 import java.util.*;

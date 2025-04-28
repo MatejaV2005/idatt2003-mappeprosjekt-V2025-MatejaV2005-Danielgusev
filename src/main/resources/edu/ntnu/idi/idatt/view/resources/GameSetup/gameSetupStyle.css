@@ -86,6 +86,13 @@
   -fx-background-color: #4d3973; /* Lighter purple on hover */
 }
 
+.difficulty-button:pressed {
+  -fx-background-color: #362355; /* Darker purple when pressed */
+  -fx-scale-x: 0.95;
+  -fx-scale-y: 0.95;
+  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 1, 0.0, 0, 0);
+}
+
 .selected-button {
   -fx-background-color: #cf4b5c; /* Red for selected button, like in the reference */
   -fx-text-fill: white;

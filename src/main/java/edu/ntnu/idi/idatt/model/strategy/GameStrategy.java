@@ -1,7 +1,7 @@
 package edu.ntnu.idi.idatt.model.strategy;
 
 import edu.ntnu.idi.idatt.model.core.Board;
-import edu.ntnu.idi.idatt.model.playertype.Player;
+import edu.ntnu.idi.idatt.model.core.playertype.Player;
 import java.util.List;
 
 public interface GameStrategy {

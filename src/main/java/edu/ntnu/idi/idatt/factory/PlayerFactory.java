@@ -1,8 +1,8 @@
 package edu.ntnu.idi.idatt.factory;
 
 import edu.ntnu.idi.idatt.model.core.Tile;
-import edu.ntnu.idi.idatt.model.playertype.HumanPlayer;
-import edu.ntnu.idi.idatt.model.playertype.Player;
+import edu.ntnu.idi.idatt.model.core.playertype.HumanPlayer;
+import edu.ntnu.idi.idatt.model.core.playertype.Player;
 
 public class PlayerFactory {
 
