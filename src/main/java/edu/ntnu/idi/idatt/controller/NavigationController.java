@@ -1,5 +1,6 @@
 package edu.ntnu.idi.idatt.controller;
 
+import edu.ntnu.idi.idatt.model.management.PlayerManager;
 import edu.ntnu.idi.idatt.view.screens.GameScreenView;
 import edu.ntnu.idi.idatt.view.screens.GameSelectionView;
 import edu.ntnu.idi.idatt.view.screens.GameSetupView;
@@ -15,11 +16,18 @@ public class NavigationController {
   private Scene gameScreenScene;
   // More scenes...
 
+
+  // Player manager for GameSetupController (unsure if i will keep it like this)
+  private final PlayerManager playerManager = PlayerManager.getInstance();
+
   @SuppressWarnings("FieldCanBeLocal")
   private TitleScreenController titleController;
 
   @SuppressWarnings("FieldCanBeLocal")
   private GameSelectionController gameModeController;
+
+  @SuppressWarnings("FieldCanBeLocal")
+  private GameSetupController gameSetupController;
 
   public NavigationController(Stage primaryStage) {
     this.primaryStage = primaryStage;
@@ -40,9 +48,12 @@ public class NavigationController {
     GameScreenView gameScreenView = new GameScreenView();
     this.gameScreenScene = gameScreenView.getScene();
 
+
     // Connect views with their controllers and pass this NavigationController
     titleController = new TitleScreenController(titleScreenView, this);
     gameModeController = new GameSelectionController(gameModeView, this);
+    gameSetupController = new GameSetupController(gameSetupView, this, playerManager);
+
   }
 
   public void navigateToTitleScreen() {
