@@ -1,20 +1,38 @@
-package edu.ntnu.idi.idatt.controller;
+package edu.ntnu.idi.idatt.model.management;
 
 import edu.ntnu.idi.idatt.filehandler.PlayerCsvFileHandler;
 import edu.ntnu.idi.idatt.model.playertype.Player;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-public class PlayerLoader {
-  private static final Logger LOGGER = Logger.getLogger(PlayerLoader.class.getName());
+public class PlayerManager {
+  private static final Logger LOGGER = Logger.getLogger(PlayerManager.class.getName());
   private static final String PLAYERS_FILE_PATH = "Files/Players/players.CSV";
   private final PlayerCsvFileHandler fileHandler;
+  private final List<Player> players;
 
-  public PlayerLoader() {
+  public PlayerManager() {
     this.fileHandler = new PlayerCsvFileHandler();
+    this.players = new ArrayList<>();
   }
+
+  // In-memory management methods
+  public void addPlayer(Player player) {
+    ExceptionHandling.requireNonNull("player cannot be null", player.getName());
+    players.add(player);
+  }
+
+  public void removePlayer(Player player) {
+    players.remove(player);
+  }
+
+  public List<Player> getPlayers() {
+    return new ArrayList<>(players);
+  }
+
 
   public List<Player> loadPlayers() {
     try {
