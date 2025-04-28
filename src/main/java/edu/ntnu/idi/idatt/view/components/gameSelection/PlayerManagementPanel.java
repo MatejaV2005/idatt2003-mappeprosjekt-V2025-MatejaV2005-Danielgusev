@@ -1,6 +1,7 @@
 package edu.ntnu.idi.idatt.view.components.gameSelection;
 
 import edu.ntnu.idi.idatt.factory.ButtonFactory;
+import edu.ntnu.idi.idatt.model.playertype.Player;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -16,6 +17,7 @@ public class PlayerManagementPanel extends BorderPane {
 
   private final TabPane playerTabs;
   private final ListView<String> playerListView; // TODO: Replace String with actual Player later
+  private final ListView<String> savedPlayerListView;
   private final Button addPlayerButton;
   private final Button savePlayerButton;
 
@@ -32,6 +34,9 @@ public class PlayerManagementPanel extends BorderPane {
 
     this.playerListView = new ListView<>();
     playerListView.getItems().addAll("Player 1", "Player 2", "Player 3"); // Dummy data for now
+
+    this.savedPlayerListView = new ListView<>();
+    savedPlayerListView.getItems().addAll("Player 4", "Player 5", "Player 6"); // Dummy data for now
 
     this.addPlayerButton = buttonFactory.createSmallButton("+ Create New Player");
     this.savePlayerButton = buttonFactory.createSmallButton("Save Player");
