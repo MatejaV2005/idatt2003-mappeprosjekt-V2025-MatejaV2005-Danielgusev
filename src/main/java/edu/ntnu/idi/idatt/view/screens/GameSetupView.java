@@ -2,6 +2,7 @@ package edu.ntnu.idi.idatt.view.screens;
 
 import edu.ntnu.idi.idatt.exceptions.BoardGameResourceException;
 import edu.ntnu.idi.idatt.factory.ButtonFactory;
+import edu.ntnu.idi.idatt.observer.PlayerModelObserver;
 import edu.ntnu.idi.idatt.view.components.gameSelection.GameInfoPanel;
 import edu.ntnu.idi.idatt.view.components.gameSelection.DifficultySelectionPanel;
 import edu.ntnu.idi.idatt.view.components.gameSelection.PlayerManagementPanel;
@@ -154,6 +155,7 @@ public class GameSetupView {
       System.err.println("Failed to load CSS: " + e.getMessage());
     }
   }
+
 
   // --- Getters for Controller Access ---
 
