@@ -1,5 +1,6 @@
 package edu.ntnu.idi.idatt.view.screens;
 
+import edu.ntnu.idi.idatt.controller.GameSetupController;
 import edu.ntnu.idi.idatt.exceptions.BoardGameResourceException;
 import edu.ntnu.idi.idatt.factory.ButtonFactory;
 import edu.ntnu.idi.idatt.observer.PlayerModelObserver;
@@ -30,6 +31,7 @@ public class GameSetupView {
 
   private final Scene scene;
   private final BorderPane root;
+  private GameSetupController controller;
   private static final String CSS_PATH = "/edu/ntnu/idi/idatt/view/resources/GameSetup/gameSetupStyle.css";
 
   private final DifficultySelectionPanel difficultySelectionPanel;
@@ -127,22 +129,11 @@ public class GameSetupView {
     root.setCenter(mainContent);
   }
 
-  /**
-   * Updates the game mode label.
-   *
-   * @param gameMode The name of the selected game mode
-   */
-  public void updateGameMode(String gameMode) {
-    gameModeLabel.setText(gameMode + " - Setup");
-  }
 
-  /**
-   * Configures the stage for fullscreen display.
-   *
-   * @param stage The primary stage of the application
-   */
-  public void applyFullscreen(Stage stage) {
-    stage.setMaximized(true);
+
+  public void setController(GameSetupController controller) {
+    this.controller = controller;
+    bindEventHandlers();
   }
 
   /**
@@ -155,7 +146,6 @@ public class GameSetupView {
       System.err.println("Failed to load CSS: " + e.getMessage());
     }
   }
-
 
   // --- Getters for Controller Access ---
 
@@ -181,5 +171,38 @@ public class GameSetupView {
 
   public Button getBackButton() {
     return backButton;
+  }
+
+
+  private void bindEventHandlers() {
+    if (controller == null) {
+      throw new IllegalStateException("Controller must be set before binding event handlers");
+    }
+
+    // Main view buttons
+    startGameButton.setOnAction(e -> controller.onGameStart());
+    backButton.setOnAction(e -> controller.onBack());
+
+    // Difficulty panel buttons
+    difficultySelectionPanel.getEasyDifficultyButton().setOnAction(e -> controller.onDifficultySelected("Easy"));
+    difficultySelectionPanel.getNormalDifficultyButton().setOnAction(e -> controller.onDifficultySelected("Normal"));
+    difficultySelectionPanel.getHardDifficultyButton().setOnAction(e -> controller.onDifficultySelected("Hard"));
+
+    // Player management panel buttons
+    playerManagementPanel.getAddPlayerButton().setOnAction(e -> controller.onAddPlayer());
+    playerManagementPanel.getSavePlayerButton().setOnAction(e -> controller.onSavePlayer());
+
+    playerManagementPanel.getPlayerTabs().getSelectionModel().selectedItemProperty().addListener(
+        (observable, oldTab, newTab) -> {
+          if (newTab == playerManagementPanel.getCurrentPlayersTab()) {
+            controller.onCurrentPlayersTabSelected();
+          } else if (newTab == playerManagementPanel.getSavedPlayersTab()) {
+            controller.onSavedPlayersTabSelected();
+          }
+        }
+    );
+
+
+
   }
 }
