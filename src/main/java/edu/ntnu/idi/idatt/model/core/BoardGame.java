@@ -2,6 +2,8 @@ package edu.ntnu.idi.idatt.model.core;
 
 import edu.ntnu.idi.idatt.model.playertype.Player;
 import edu.ntnu.idi.idatt.model.strategy.GameStrategy;
+import edu.ntnu.idi.idatt.observer.BoardGameObserver;
+import edu.ntnu.idi.idatt.observer.Observable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,7 +16,7 @@ import java.util.Optional;
  * Acts as a facade for interacting with the Board Game system,
  * hiding the complexities of the GameEngine, Board, and Dice.
  */
-public abstract class BoardGame {
+public abstract class BoardGame implements Observable<BoardGameObserver> {
 
   protected final GameEngine gameEngine;
   protected final List<Player> players;
@@ -23,6 +25,8 @@ public abstract class BoardGame {
   protected boolean gameStarted;
   protected boolean gameOver;
   protected int roundCount;
+
+  protected List<BoardGameObserver> observers;
 
   /**
    * Creates a new Board Game.
@@ -36,12 +40,41 @@ public abstract class BoardGame {
     Objects.requireNonNull(dice, "Dice cannot be null");
 
     this.players = new ArrayList<>();
+    this.observers = new ArrayList<>();
     this.currentPlayer = null;
     this.winner = null;
     this.gameStarted = false;
     this.gameOver = false;
     this.roundCount = 0;
     this.gameEngine = createGameEngine(board, strategy);
+  }
+
+  @Override
+  public void addObserver(BoardGameObserver observer) {
+    observers.add(observer);
+  }
+
+  @Override
+  public void removeObserver(BoardGameObserver observer) {
+    observers.remove(observer);
+  }
+
+  public void notifyPlayerMoved(Player player, Tile from, Tile to) {
+    for (BoardGameObserver observer : observers) {
+      observer.onPlayerMoved(player, from, to);
+    }
+  }
+
+  public void notifyOnPlayerAdded(Player player) {
+    for (BoardGameObserver observer : observers) {
+      observer.onPlayerAdded(player);
+    }
+  }
+
+  public void notifyOnGameWon(Player player) {
+    for (BoardGameObserver observer : observers) {
+      observer.onGameWon(player);
+    }
   }
 
   /**
@@ -72,11 +105,14 @@ public abstract class BoardGame {
     if (!players.contains(player)) {
       player.setOnCurrentTile(gameEngine.getStartingTile());
       players.add(player);
+      notifyOnPlayerAdded(player); // notifies subscribed observers
+
       if (currentPlayer == null) {
         currentPlayer = player;
       }
     }
   }
+
 
   /**
    * Starts the game and performs initialization. Requires at least one player.
