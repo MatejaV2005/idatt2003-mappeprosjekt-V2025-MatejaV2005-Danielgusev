@@ -1,13 +1,13 @@
 package edu.ntnu.idi.idatt.factory;
 
-import edu.ntnu.idi.idatt.model.ActionType;
+import edu.ntnu.idi.idatt.model.core.ActionType;
 import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.model.actions.LadderAction;
 import edu.ntnu.idi.idatt.model.actions.NoOperationAction;
 import edu.ntnu.idi.idatt.model.actions.SnakeAction;
 import edu.ntnu.idi.idatt.model.actions.SpecialAction;
 import edu.ntnu.idi.idatt.model.actions.TileAction;
-import edu.ntnu.idi.idatt.model.player_type.Player;
+import edu.ntnu.idi.idatt.model.playertype.Player;
 import java.util.function.Consumer;
 
 public class TileActionFactory {

@@ -1,8 +1,7 @@
 package edu.ntnu.idi.idatt;
 
-import edu.ntnu.idi.idatt.controller.BoardLoader;
-import edu.ntnu.idi.idatt.controller.PlayerLoader;
-import edu.ntnu.idi.idatt.factory.BoardFactory;
+import edu.ntnu.idi.idatt.model.management.BoardManager;
+import edu.ntnu.idi.idatt.model.management.PlayerManager;
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.core.Dice;
@@ -51,8 +50,8 @@ public class BoardGameApp {
   }
 
   private void init() {
-    BoardLoader loader = new BoardLoader();
-    PlayerLoader playerLoader = new PlayerLoader();
+    BoardManager loader = new BoardManager();
+    PlayerManager playerLoader = new PlayerManager();
 
 //    Board easyBoard = factory.createEasyBoard();
 //    Board defaultBoard = factory.createNormalBoard();

@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.model.actions;
 
-import edu.ntnu.idi.idatt.model.ActionType;
+import edu.ntnu.idi.idatt.model.core.ActionType;
 import edu.ntnu.idi.idatt.model.playertype.Player;
 import java.util.function.Consumer;
 

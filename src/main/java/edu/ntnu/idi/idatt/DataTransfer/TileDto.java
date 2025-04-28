@@ -1,7 +1,5 @@
 package edu.ntnu.idi.idatt.DataTransfer;
 
-import edu.ntnu.idi.idatt.model.ActionType;
-
 public class TileDto {
   private final int id;
   private final int row;

@@ -1,7 +1,6 @@
 package edu.ntnu.idi.idatt.model.core;
 
 
-import edu.ntnu.idi.idatt.model.ActionType;
 import edu.ntnu.idi.idatt.model.actions.NoOperationAction;
 import edu.ntnu.idi.idatt.model.actions.TileAction;
 import edu.ntnu.idi.idatt.model.playertype.Player;
