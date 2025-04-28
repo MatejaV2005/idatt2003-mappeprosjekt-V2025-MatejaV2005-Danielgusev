@@ -27,6 +27,12 @@ public class DifficultySelectionPanel extends VBox {
     hardDifficultyButton = buttonFactory.createSmallButton("Hard");
     uploadBoardButton = buttonFactory.createSmallButton("Upload Board");
 
+    easyDifficultyButton.getStyleClass().add("difficulty-button");
+    normalDifficultyButton.getStyleClass().add("difficulty-button");
+    hardDifficultyButton.getStyleClass().add("difficulty-button");
+    uploadBoardButton.getStyleClass().add("difficulty-button");
+
+
     this.setAlignment(Pos.TOP_CENTER);
 
     this.getChildren().addAll(
