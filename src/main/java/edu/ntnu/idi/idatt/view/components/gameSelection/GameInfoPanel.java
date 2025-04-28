@@ -16,9 +16,7 @@ public class GameInfoPanel extends VBox {
   private final Text tilesInfo;
   private final Text difficultyInfo;
   private final Text specialTilesInfo;
-  private final Text rule1;
-  private final Text rule2;
-  private final Text rule3;
+  private final Text rules;
 
   public GameInfoPanel() {
     super(10); // spacing between elements
@@ -33,9 +31,16 @@ public class GameInfoPanel extends VBox {
     difficultyInfo = new Text("Difficulty: Normal");
     specialTilesInfo = new Text("Special Tiles: 5");
 
-    rule1 = new Text("- Roll 2 dice to move");
-    rule2 = new Text("- Land on ladder: climb!");
-    rule3 = new Text("- Land on trap: fall");
+    rules = new Text("Roll 2 dice to move \nLand on Ladder to climb!  \nland on trap and fall!");
+
+    String infoTextStyle = "-fx-font-size: 16px; -fx-font-weight: normal; -fx-fill: #e7c565;";
+    tilesInfo.setStyle(infoTextStyle);
+    difficultyInfo.setStyle(infoTextStyle);
+    specialTilesInfo.setStyle(infoTextStyle);
+
+    // Style for the rule texts
+    String ruleTextStyle = "-fx-font-size: 14px; -fx-font-weight: normal; -fx-fill: white;";
+    rules.setStyle(ruleTextStyle);
 
     // Optional: Style elements
     titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #ffe470");
@@ -50,9 +55,7 @@ public class GameInfoPanel extends VBox {
         tilesInfo,
         difficultyInfo,
         specialTilesInfo,
-        rule1,
-        rule2,
-        rule3
+        rules
     );
   }
 
@@ -70,5 +73,37 @@ public class GameInfoPanel extends VBox {
     tilesInfo.setText("Tiles: " + tiles);
     difficultyInfo.setText("Difficulty: " + difficulty);
     specialTilesInfo.setText("Special Tiles: " + specialTiles);
+  }
+
+  /**
+   * Preset info for Easy difficulty.
+   */
+  public void setEasyModeInfo() {
+    updateGameInfo(60, "Easy", 3);
+    rules.setText("Roll 2 dice to move \nFew traps, many ladders \nGoal: Reach tile 60");
+  }
+
+  /**
+   * Preset info for Normal difficulty.
+   */
+  public void setNormalModeInfo() {
+    updateGameInfo(90, "Normal", 5);
+    rules.setText("Roll 2 dice to move \nBalanced traps and ladders \nGoal: Reach tile 90");
+  }
+
+  /**
+   * Preset info for Hard difficulty.
+   */
+  public void setHardModeInfo() {
+    updateGameInfo(120, "Hard", 10);
+    rules.setText("Roll 2 dice to move \nMany traps, few ladders \nGoal: Reach tile 120");
+  }
+
+  /**
+   * Info for uploading a custom board.
+   */
+  public void setUploadModeInfo() {
+    updateGameInfo(0, "Custom", 0);
+    rules.setText("upload youre own board in JSON format \nPlay custom rules!");
   }
 }
