@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.observer;
 
-public interface Observer<T> {
+public interface Observable<T> {
   void addObserver(T observer);
   void removeObserver(T observer);
 }
