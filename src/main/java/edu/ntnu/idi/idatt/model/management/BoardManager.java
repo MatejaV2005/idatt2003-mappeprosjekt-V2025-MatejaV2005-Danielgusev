@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.controller;
+package edu.ntnu.idi.idatt.model.management;
 
 import edu.ntnu.idi.idatt.filehandler.BoardJsonFileHandler;
 import edu.ntnu.idi.idatt.model.core.Board;
@@ -7,12 +7,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Logger;
 
-public class BoardLoader {
+public class BoardManager {
   private final BoardJsonFileHandler fileHandler;
-  private static final Logger logger = Logger.getLogger(BoardLoader.class.getName());
+  private static final Logger logger = Logger.getLogger(BoardManager.class.getName());
 
 
-  public BoardLoader() {
+  public BoardManager() {
     this.fileHandler = new BoardJsonFileHandler();
   }
 

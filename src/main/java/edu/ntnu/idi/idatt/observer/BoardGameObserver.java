@@ -5,6 +5,7 @@ import edu.ntnu.idi.idatt.model.playertype.Player;
 
 public interface BoardGameObserver {
   void onPlayerMoved(Player player, Tile from, Tile to);
+  void onPlayerAdded(Player player);
   void onGameWon(Player player);
   void onGameStateChanged(Player player);
 }
