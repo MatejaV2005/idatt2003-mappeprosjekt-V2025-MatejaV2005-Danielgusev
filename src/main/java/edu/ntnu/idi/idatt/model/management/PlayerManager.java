@@ -9,14 +9,27 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 public class PlayerManager {
+
+  private static PlayerManager instance = null;
+
   private static final Logger LOGGER = Logger.getLogger(PlayerManager.class.getName());
   private static final String PLAYERS_FILE_PATH = "Files/Players/players.CSV";
   private final PlayerCsvFileHandler fileHandler;
   private final List<Player> players;
 
-  public PlayerManager() {
+  private PlayerManager() {
     this.fileHandler = new PlayerCsvFileHandler();
     this.players = new ArrayList<>();
+  }
+
+
+  // get-method for single-Instance access
+  public static PlayerManager getInstance() {
+    if (instance == null) {
+      instance = new PlayerManager();
+    }
+
+    return instance;
   }
 
   // In-memory management methods
@@ -32,7 +45,6 @@ public class PlayerManager {
   public List<Player> getPlayers() {
     return new ArrayList<>(players);
   }
-
 
   public List<Player> loadPlayers() {
     try {

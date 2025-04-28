@@ -8,13 +8,26 @@ import java.time.format.DateTimeFormatter;
 import java.util.logging.Logger;
 
 public class BoardManager {
+
+  private static BoardManager instance = null;
+
   private final BoardJsonFileHandler fileHandler;
   private static final Logger logger = Logger.getLogger(BoardManager.class.getName());
 
 
-  public BoardManager() {
+  private BoardManager() {
     this.fileHandler = new BoardJsonFileHandler();
   }
+
+  // get-method for single-Instance access
+  public static BoardManager getInstance() {
+    if (instance == null) {
+      instance = new BoardManager();
+    }
+
+    return instance;
+  }
+
 
   public Board loadBoardFromFile(String filePath) {
     return fileHandler.loadFromFile(filePath);
