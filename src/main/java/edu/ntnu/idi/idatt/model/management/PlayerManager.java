@@ -78,10 +78,4 @@ public class PlayerManager {
       e.printStackTrace();
     }
   }
-
-
-  // FIX METHOD LATER
-  public void savePlayerToFile(Player player) {
-
-  }
 }

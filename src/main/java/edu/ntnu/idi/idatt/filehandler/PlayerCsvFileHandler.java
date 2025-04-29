@@ -35,7 +35,7 @@ public class PlayerCsvFileHandler implements FileHandler<List<Player>> {
     } catch (IOException e) {
       e.printStackTrace();
       LOGGER.log(Level.SEVERE, "Error saving players to file: " + filePath, e);
-      //  throw new CsvFileException("Failed to save players to file: " + filePath, e);
+      // throw new CsvFileException("Failed to save players to file: " + filePath, e); TODO: add this exception
     }
   }
 

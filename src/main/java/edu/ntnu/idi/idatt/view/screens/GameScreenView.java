@@ -1,6 +1,7 @@
 package edu.ntnu.idi.idatt.view.screens;
 
 //import edu.ntnu.idi.idatt.controller.GameScreenController;
+import edu.ntnu.idi.idatt.controller.GameScreenController;
 import edu.ntnu.idi.idatt.exceptions.BoardGameResourceException;
 import edu.ntnu.idi.idatt.view.utils.ResourceLoader;
 import javafx.geometry.Insets;
@@ -26,11 +27,10 @@ public class GameScreenView {
   private final GridPane boardGrid;
   private final Button playTurnButton;
   private final VBox scoreboardBox;
-  //private GameScreenController controller;
+  private GameScreenController controller;
 
   // CSS and resource paths
-  private static final String CSS_PATH =
-      "/edu/ntnu/idi/idatt/view/resources/GameScreen/GameScreen_styles.css";
+  private static final String CSS_PATH = "/edu/ntnu/idi/idatt/view/resources/GameScreen/GameScreen_styles.css";
   private static final String[] DICE_IMAGE_PATHS = {
       "/edu/ntnu/idi/idatt/view/resources/GameScreen/dice-1.png",
       "/edu/ntnu/idi/idatt/view/resources/GameScreen/dice-2.png"
@@ -71,10 +71,10 @@ public class GameScreenView {
   /**
    * Wire-up the controller callbacks.
    */
-//  public void setController(GameScreenController controller) {
-//    this.controller = controller;
-//    playTurnButton.setOnAction(e -> controller.onPlayTurn());
-//  }
+  public void setController(GameScreenController controller) {
+    this.controller = controller;
+    playTurnButton.setOnAction(e -> controller.onPlayTurn());
+  }
 
   public Scene getScene() {
     return scene;
