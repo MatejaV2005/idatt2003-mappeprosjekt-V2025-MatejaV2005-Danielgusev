@@ -30,16 +30,16 @@
   -fx-border-radius: 10px;
 }
 
-/* Panel styles with distinct backgrounds */
+/* Panel styles with distinct backgrounds
 .difficulty-panel {
-  -fx-background-color: #2d1f59; /* Darker purple for difficulty panel */
+  -fx-background-color: #2d1f59; /* Darker purple for difficulty panel
   -fx-background-radius: 10px;
-  -fx-border-color: #e7c565; /* Gold border */
+  -fx-border-color: #e7c565; /* Gold border
   -fx-border-width: 2px;
   -fx-border-radius: 8px;
   -fx-padding: 15px;
   -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0, 0, 0);
-}
+}*/
 
 .player-panel {
   -fx-background-color: #313466; /* Blue-purple for player panel */
@@ -63,7 +63,7 @@
 
 /* Button styles */
 .button {
-  -fx-background-color: #3d2963; /* Dark purple */
+  -fx-background-color: #5A075B; /* Dark purple */
   -fx-text-fill: #e7c565; /* Gold text */
   -fx-font-weight: bold;
   -fx-border-color: #e7c565; /* Gold border */
@@ -76,18 +76,18 @@
 
 /* Difficulty buttons */
 .difficulty-button {
-  -fx-background-color: #3d2963; /* Dark purple */
+  -fx-background-color: #5A075B; /* Dark purple */
   -fx-background-radius: 20px;
   -fx-border-radius: 20px;
   -fx-min-height: 40px;
 }
 
 .difficulty-button:hover {
-  -fx-background-color: #4d3973; /* Lighter purple on hover */
+  -fx-background-color: #BE0FC1; /* Lighter purple on hover */
 }
 
 .difficulty-button:pressed {
-  -fx-background-color: #362355; /* Darker purple when pressed */
+  -fx-background-color: #5A075B; /* Darker purple when pressed */
   -fx-scale-x: 0.95;
   -fx-scale-y: 0.95;
   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 1, 0.0, 0, 0);
@@ -99,7 +99,7 @@
 }
 
 .primary-button {
-  -fx-background-color: #453275; /* Purple */
+  -fx-background-color: #5A075B; /* Purple */
   -fx-effect: dropshadow(three-pass-box, rgba(231, 197, 101, 0.4), 5, 0, 0, 0); /* Gold glow */
 }
 
@@ -171,7 +171,7 @@
 }
 
 .remove-button {
-  -fx-background-color: #382c67; /* Dark purple */
+  -fx-background-color: #5A075B; /* Dark purple */
   -fx-text-fill: white;
   -fx-font-weight: bold;
   -fx-padding: 3px 8px;
