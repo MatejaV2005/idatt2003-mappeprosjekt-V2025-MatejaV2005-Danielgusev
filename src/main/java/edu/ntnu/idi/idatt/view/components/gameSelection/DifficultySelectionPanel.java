@@ -3,6 +3,7 @@ package edu.ntnu.idi.idatt.view.components.gameSelection;
 import edu.ntnu.idi.idatt.factory.ButtonFactory;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 /**
@@ -14,13 +15,18 @@ public class DifficultySelectionPanel extends VBox {
   private final Button normalDifficultyButton;
   private final Button hardDifficultyButton;
   private final Button uploadBoardButton;
+  private final Label difficultyLabel;
 
   public DifficultySelectionPanel() {
-    super(20); // spacing between buttons
+    super(20); // spacing between nodes
 
     this.getStyleClass().add("difficulty-panel");
+    this.setAlignment(Pos.TOP_CENTER);
 
     ButtonFactory buttonFactory = new ButtonFactory();
+
+    difficultyLabel = new Label("Difficulty");
+    difficultyLabel.getStyleClass().add("difficulty-label");
 
     easyDifficultyButton = buttonFactory.createSmallButton("Easy");
     normalDifficultyButton = buttonFactory.createSmallButton("Normal");
@@ -32,10 +38,8 @@ public class DifficultySelectionPanel extends VBox {
     hardDifficultyButton.getStyleClass().add("difficulty-button");
     uploadBoardButton.getStyleClass().add("difficulty-button");
 
-
-    this.setAlignment(Pos.TOP_CENTER);
-
     this.getChildren().addAll(
+        difficultyLabel,
         easyDifficultyButton,
         normalDifficultyButton,
         hardDifficultyButton,
@@ -43,7 +47,6 @@ public class DifficultySelectionPanel extends VBox {
     );
   }
 
-  // Optionally, provide public getters if controller needs to bind event handlers
   public Button getEasyDifficultyButton() {
     return easyDifficultyButton;
   }
@@ -58,5 +61,9 @@ public class DifficultySelectionPanel extends VBox {
 
   public Button getUploadBoardButton() {
     return uploadBoardButton;
+  }
+
+  public Label getDifficultyLabel() {
+    return difficultyLabel;
   }
 }

@@ -23,12 +23,15 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * View for the game setup screen where players can select difficulty, manage players,
  * and view board information before starting a game.
  */
 public class GameSetupView {
-
+  private static final Logger LOGGER = Logger.getLogger(GameSetupView.class.getName());
   private final Scene scene;
   private final BorderPane root;
   private GameSetupController controller;
@@ -43,7 +46,11 @@ public class GameSetupView {
   private final Button backButton;
   private final HBox bottomActionBar;
   private final HBox headerBox;
+  private final Label statusLabel;
 
+  /**
+   * Constructs a new GameSetupView with responsive layout.
+   */
   /**
    * Constructs a new GameSetupView with responsive layout.
    */
@@ -59,6 +66,10 @@ public class GameSetupView {
     headerBox.setPadding(new Insets(10, 0, 20, 0));
     headerBox.getStyleClass().add("header-box");
     root.setTop(headerBox);
+
+    // Status label for feedback
+    statusLabel = new Label();
+    statusLabel.getStyleClass().add("status-label");
 
     // Create components using factories and decorators
     ButtonFactory buttonFactory = new ButtonFactory();
@@ -81,10 +92,18 @@ public class GameSetupView {
     Region spacer = new Region();
     HBox.setHgrow(spacer, Priority.ALWAYS);
 
+    // Status message positioned above the action buttons
+    HBox statusBox = new HBox(statusLabel);
+    statusBox.setAlignment(Pos.CENTER);
+    statusBox.setPadding(new Insets(0, 0, 10, 0));
+
     bottomActionBar = new HBox(20, backButton, spacer, startGameButton);
     bottomActionBar.setAlignment(Pos.CENTER);
-    bottomActionBar.setPadding(new Insets(20, 0, 0, 0));
-    root.setBottom(bottomActionBar);
+    bottomActionBar.setPadding(new Insets(10, 0, 0, 0));
+
+    VBox bottomContainer = new VBox(10, statusBox, bottomActionBar);
+    bottomContainer.setPadding(new Insets(10, 0, 0, 0));
+    root.setBottom(bottomContainer);
 
     scene = new Scene(root, 1280, 720);
     applyStylesheets();
@@ -129,8 +148,11 @@ public class GameSetupView {
     root.setCenter(mainContent);
   }
 
-
-
+  /**
+   * Sets the controller for this view.
+   *
+   * @param controller The controller to set
+   */
   public void setController(GameSetupController controller) {
     this.controller = controller;
     bindEventHandlers();
@@ -143,37 +165,93 @@ public class GameSetupView {
     try {
       scene.getStylesheets().add(ResourceLoader.loadCssResource(CSS_PATH));
     } catch (BoardGameResourceException e) {
-      System.err.println("Failed to load CSS: " + e.getMessage());
+      LOGGER.log(Level.SEVERE, "Failed to load CSS: " + e.getMessage(), e);
     }
+  }
+
+  /**
+   * Updates the status message shown at the bottom of the screen.
+   *
+   * @param message The message to display
+   * @param isError Whether the message is an error message
+   */
+  public void updateStatusMessage(String message, boolean isError) {
+    statusLabel.setText(message);
+
+    if (isError) {
+      statusLabel.setStyle("-fx-text-fill: #ff6b6b;");
+    } else {
+      statusLabel.setStyle("-fx-text-fill: #89e075;");
+    }
+  }
+
+  /**
+   * Clears the status message.
+   */
+  public void clearStatusMessage() {
+    statusLabel.setText("");
   }
 
   // --- Getters for Controller Access ---
 
+  /**
+   * Gets the main scene for this view.
+   *
+   * @return The scene
+   */
   public Scene getScene() {
     return scene;
   }
 
+  /**
+   * Gets the difficulty selection panel.
+   *
+   * @return The difficulty selection panel
+   */
   public DifficultySelectionPanel getDifficultySelectionPanel() {
     return difficultySelectionPanel;
   }
 
+  /**
+   * Gets the player management panel.
+   *
+   * @return The player management panel
+   */
   public PlayerManagementPanel getPlayerManagementPanel() {
     return playerManagementPanel;
   }
 
+  /**
+   * Gets the game info panel.
+   *
+   * @return The game info panel
+   */
   public GameInfoPanel getGameInfoPanel() {
     return gameInfoPanel;
   }
 
+  /**
+   * Gets the start game button.
+   *
+   * @return The start game button
+   */
   public Button getStartGameButton() {
     return startGameButton;
   }
 
+  /**
+   * Gets the back button.
+   *
+   * @return The back button
+   */
   public Button getBackButton() {
     return backButton;
   }
 
-
+  /**
+   * Binds event handlers to UI components.
+   * This should be called after the controller is set.
+   */
   private void bindEventHandlers() {
     if (controller == null) {
       throw new IllegalStateException("Controller must be set before binding event handlers");
@@ -187,11 +265,14 @@ public class GameSetupView {
     difficultySelectionPanel.getEasyDifficultyButton().setOnAction(e -> controller.onDifficultySelected("Easy"));
     difficultySelectionPanel.getNormalDifficultyButton().setOnAction(e -> controller.onDifficultySelected("Normal"));
     difficultySelectionPanel.getHardDifficultyButton().setOnAction(e -> controller.onDifficultySelected("Hard"));
+    difficultySelectionPanel.getUploadBoardButton().setOnAction(e -> controller.onUploadBoard());
 
     // Player management panel buttons
     playerManagementPanel.getAddPlayerButton().setOnAction(e -> controller.onAddPlayer());
     playerManagementPanel.getSavePlayerButton().setOnAction(e -> controller.onSavePlayer());
+    playerManagementPanel.getRemovePlayerButton().setOnAction(e -> controller.onRemovePlayer());
 
+    // Listen for tab changes
     playerManagementPanel.getPlayerTabs().getSelectionModel().selectedItemProperty().addListener(
         (observable, oldTab, newTab) -> {
           if (newTab == playerManagementPanel.getCurrentPlayersTab()) {
@@ -201,8 +282,5 @@ public class GameSetupView {
           }
         }
     );
-
-
-
   }
 }
