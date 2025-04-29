@@ -7,6 +7,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -20,15 +22,19 @@ import javafx.scene.layout.HBox;
 
 /**
  * Panel for managing players: adding, saving, and switching between saved/current players.
+ * Includes validation for maximum player limit and visual feedback.
  */
 public class PlayerManagementPanel extends BorderPane {
   private static final Logger LOGGER = Logger.getLogger(PlayerManagementPanel.class.getName());
+  private static final int MAX_PLAYERS = 4; // Maximum number of players allowed
 
   private final TabPane playerTabs;
-  private final ListView<Player> playerListView; // TODO: Replace String with actual Player later
+  private final ListView<Player> playerListView;
   private final ListView<Player> savedPlayerListView;
   private final Button addPlayerButton;
   private final Button savePlayerButton;
+  private final Button removePlayerButton;
+  private final Label statusLabel;
 
   /**
    * Constructs the PlayerManagementPanel using an injected ButtonFactory.
@@ -49,21 +55,40 @@ public class PlayerManagementPanel extends BorderPane {
 
     this.addPlayerButton = buttonFactory.createSmallButton("+ Create New Player");
     this.savePlayerButton = buttonFactory.createSmallButton("Save Player");
+    this.removePlayerButton = buttonFactory.createSmallButton("Remove Player");
 
-    addPlayerButton.getStyleClass().add(".button");
-    savePlayerButton.getStyleClass().add(".button");
+    // Status label for feedback
+    this.statusLabel = new Label("");
+    statusLabel.getStyleClass().add("status-label");
 
+    addPlayerButton.getStyleClass().add("button");
+    savePlayerButton.getStyleClass().add("button");
+    removePlayerButton.getStyleClass().add("button");
 
-    HBox controlsBox = new HBox(10, savePlayerButton, addPlayerButton);
+    HBox controlsBox = new HBox(10, savePlayerButton, addPlayerButton, removePlayerButton);
     controlsBox.setAlignment(Pos.CENTER);
+
+    // VBox for bottom controls including status label
+    HBox statusBox = new HBox(statusLabel);
+    statusBox.setAlignment(Pos.CENTER);
+    statusBox.setPadding(new Insets(5, 0, 0, 0));
+
+    BorderPane bottomContainer = new BorderPane();
+    bottomContainer.setTop(controlsBox);
+    bottomContainer.setBottom(statusBox);
 
     setTop(playerTabs);
     setCenter(playerListView);
-    setBottom(controlsBox);
+    setBottom(bottomContainer);
 
     this.getStyleClass().add("player-management-panel");
-  }
 
+    // Add event handler for the remove button
+    removePlayerButton.setOnAction(e -> removeSelectedPlayer());
+
+    // Initial button state
+    updateButtonStates();
+  }
 
   private void setupPlayerListView(ListView<Player> listView) {
     // Make the rows taller
@@ -100,6 +125,34 @@ public class PlayerManagementPanel extends BorderPane {
         }
       }
     });
+
+    // Add selection change listener to update button states
+    listView.getSelectionModel().selectedItemProperty().addListener(
+        (observable, oldValue, newValue) -> updateButtonStates());
+  }
+
+  /**
+   * Updates the state of buttons based on current selection and player count.
+   */
+  private void updateButtonStates() {
+    // Enable/disable add player button based on player count
+    boolean canAddPlayer = isPlayerLimitReached();
+    addPlayerButton.setDisable(!canAddPlayer);
+
+    // Enable/disable remove button based on selection
+    boolean hasSelection = playerListView.getSelectionModel().getSelectedItem() != null;
+    removePlayerButton.setDisable(!hasSelection);
+
+    // Enable/disable save button based on selection
+    savePlayerButton.setDisable(!hasSelection);
+
+    // Update status message
+    if (!canAddPlayer) {
+      statusLabel.setText("Maximum " + MAX_PLAYERS + " players reached");
+      statusLabel.setStyle("-fx-text-fill: #ff9966;");
+    } else {
+      statusLabel.setText("");
+    }
   }
 
   /**
@@ -131,7 +184,6 @@ public class PlayerManagementPanel extends BorderPane {
     currentPlayers.setClosable(false);
     currentPlayers.setContent(playerListView);
 
-
     Tab savedPlayers = new Tab("Saved Players");
     savedPlayers.setClosable(false);
     savedPlayers.setContent(savedPlayerListView);
@@ -148,6 +200,9 @@ public class PlayerManagementPanel extends BorderPane {
     return savePlayerButton;
   }
 
+  public Button getRemovePlayerButton() {
+    return removePlayerButton;
+  }
 
   // Get-methods for retrieving players
   public ListView<Player> getPlayerListView() {
@@ -179,15 +234,65 @@ public class PlayerManagementPanel extends BorderPane {
     return playerTabs.getTabs().get(1);
   }
 
-  // Methods to manipulate the player list
-  public void addPlayer(Player player) {
+  /**
+   * Adds a player to the current player list.
+   * Validates against the maximum player limit.
+   *
+   * @param player The player to add
+   * @return true if the player was added successfully, false otherwise
+   */
+  public boolean addPlayer(Player player) {
+    if (playerListView.getItems().size() >= MAX_PLAYERS) {
+      showErrorAlert("Player Limit Reached",
+          "Maximum of " + MAX_PLAYERS + " players allowed.");
+      return false;
+    }
+
     playerListView.getItems().add(player);
+    updateButtonStates();
+    return true;
   }
 
+  /**
+   * Removes the currently selected player from the list.
+   */
   public void removeSelectedPlayer() {
     int selectedIndex = playerListView.getSelectionModel().getSelectedIndex();
     if (selectedIndex >= 0) {
       playerListView.getItems().remove(selectedIndex);
+      updateButtonStates();
     }
+  }
+
+  /**
+   * Shows an error alert with the specified title and message.
+   *
+   * @param title The alert title
+   * @param message The alert message
+   */
+  private void showErrorAlert(String title, String message) {
+    Alert alert = new Alert(AlertType.ERROR);
+    alert.setTitle(title);
+    alert.setHeaderText(null);
+    alert.setContentText(message);
+    alert.showAndWait();
+  }
+
+  /**
+   * Gets the number of players currently in the game.
+   *
+   * @return The number of players
+   */
+  public int getPlayerCount() {
+    return playerListView.getItems().size();
+  }
+
+  /**
+   * Checks if the maximum player limit has been reached.
+   *
+   * @return true if the maximum limit has been reached, false otherwise
+   */
+  public boolean isPlayerLimitReached() {
+    return playerListView.getItems().size() >= MAX_PLAYERS;
   }
 }
