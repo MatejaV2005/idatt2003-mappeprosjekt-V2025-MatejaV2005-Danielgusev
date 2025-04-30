@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.exceptions;
 
-public class JsonFileException extends RuntimeException {
+public class JsonFileException extends FileHandlingException {
   /**
    * Constructs a new JsonFileException with the specified detail message.
    *

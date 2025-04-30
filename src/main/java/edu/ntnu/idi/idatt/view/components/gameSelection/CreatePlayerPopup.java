@@ -50,7 +50,7 @@ public class CreatePlayerPopup {
 
     Label iconLabel = new Label("Select Icon:");
     iconComboBox = new ComboBox<>();
-    iconComboBox.getItems().addAll("Hat", "Car", "Dog", "Dragon", "Ship");
+    iconComboBox.getItems().addAll("Hat", "Car", "Dog", "Dragon", "Ship", "Default");
     iconComboBox.setPromptText("Choose an icon");
     iconComboBox.setPrefWidth(200);
 
@@ -129,8 +129,8 @@ public class CreatePlayerPopup {
     String icon = iconComboBox.getValue();
 
     // Validation
-    if (name.isEmpty() || icon == null) {
-      errorLabel.setText("Please enter a name and select an icon.");
+    if (name.isEmpty()) {
+      errorLabel.setText("Please enter a name");;
       return;
     }
 

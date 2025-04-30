@@ -1,5 +1,8 @@
 package edu.ntnu.idi.idatt;
 
+import static edu.ntnu.idi.idatt.model.core.playertype.BotPlayer.LOGGER;
+
+import edu.ntnu.idi.idatt.exceptions.BoardManagementException;
 import edu.ntnu.idi.idatt.model.management.BoardManager;
 import edu.ntnu.idi.idatt.model.management.PlayerManager;
 import edu.ntnu.idi.idatt.model.core.Board;
@@ -10,6 +13,7 @@ import edu.ntnu.idi.idatt.model.core.playertype.Player;
 import edu.ntnu.idi.idatt.model.strategy.GameStrategy;
 import edu.ntnu.idi.idatt.model.strategy.SnakesAndLaddersStrategy;
 import java.util.List;
+import java.util.logging.Level;
 
 public class BoardGameApp {
   private BoardGame game;
@@ -18,7 +22,22 @@ public class BoardGameApp {
   public BoardGameApp() {}
 
   public void start() {
-    init();
+    try {
+      init();
+      runGame();
+    } catch (BoardManagementException e) {
+      LOGGER.log(Level.SEVERE, "Failed to initialize game: " + e.getMessage(), e);
+      System.err.println("Unable to start game: " + e.getMessage());
+      // You might want to add additional error handling here based on your application's needs
+    }
+  }
+
+  private void runGame() {
+    if (game == null) {
+      LOGGER.severe("Cannot run game - game was not initialized properly");
+      return;
+    }
+
     game.startGame();
 
     System.out.println("Game has started!");
@@ -26,7 +45,6 @@ public class BoardGameApp {
     System.out.println("Players: ");
     game.getPlayers().forEach(p ->
         System.out.println("- " + p.getName() + " starting on tile " + p.getCurrentTile().getTileId()));
-
 
     if (game.hasGameStarted()) {
       while (!game.isGameOver()) {
@@ -39,44 +57,39 @@ public class BoardGameApp {
           System.out.println(player.getName() + " is on tile: " + player.getCurrentTile().getTileId());
         }
 
-        System.out.println(); // visual separation between rounds
+        System.out.println();
       }
     }
 
     game.getWinner().ifPresentOrElse(
         winner -> System.out.println("congrats " + winner.getName() + ", YOU WON!"),
         () -> System.out.println("no winner was determined")
-        );
+    );
   }
 
-  private void init() {
-    BoardManager loader = BoardManager.getInstance();
-    PlayerManager playerLoader = PlayerManager.getInstance();
+  private void init() throws BoardManagementException {
+    BoardManager boardManager = BoardManager.getInstance();
+    PlayerManager playerManager = PlayerManager.getInstance();
 
-//    Board easyBoard = factory.createEasyBoard();
-//    Board defaultBoard = factory.createNormalBoard();
-//    Board hardBoard = factory.createHardBoard();
-//
-//    loader.saveBoardWithGeneratedName(easyBoard, "Easy");
-//    loader.saveBoardWithGeneratedName(defaultBoard, "Defualt");
-//    loader.saveBoardWithGeneratedName(hardBoard, "Hard");
+    // Load the default board
+    Board defaultBoard = boardManager.loadBoardFromFile(
+        "Files/Boards/Default_Board_20250407_202351.json");
 
-    Board defaultBoard = loader.loadBoardFromFile("Files/Boards/Default_Board_20250407_202351.json");
-
+    // Initialize dice and game components
     Dice dice = new Dice(2);
-
     this.strategy = new SnakesAndLaddersStrategy(defaultBoard, dice);
     this.game = new SnakesAndLaddersGame(defaultBoard, dice, strategy);
 
-
-
-    List<Player> players = playerLoader.loadPlayersFromFile();
-
-
-
-
-    for (Player player : players) {
-      game.addPlayer(player);
+    // Load and add players (don't throw exception if player loading fails)
+    try {
+      List<Player> players = playerManager.loadPlayersFromFile();
+      for (Player player : players) {
+        game.addPlayer(player);
+      }
+      LOGGER.info("Added " + players.size() + " players to the game");
+    } catch (Exception e) {
+      // Just log the error and continue without players
+      LOGGER.warning("Failed to load players: " + e.getMessage());
     }
   }
 }

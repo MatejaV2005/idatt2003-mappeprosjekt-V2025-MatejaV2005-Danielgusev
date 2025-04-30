@@ -4,14 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Added updateButtonStates for when selecting players">
+    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Updated Manager classes to implement exceptions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Files/Players/players.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/Files/Players/players.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/GameScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/GameScreenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/NavigationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/NavigationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/filehandler/PlayerCsvFileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/filehandler/PlayerCsvFileHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/management/PlayerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/management/PlayerManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GameScreenView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GameScreenView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/BoardGameApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/BoardGameApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/exceptions/JsonFileException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/exceptions/JsonFileException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/filehandler/BoardJsonFileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/filehandler/BoardJsonFileHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/gameSelection/CreatePlayerPopup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/gameSelection/CreatePlayerPopup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/gameSelection/PlayerManagementPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/gameSelection/PlayerManagementPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/GameSetup/gameSetupStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/GameSetup/gameSetupStyle.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +26,9 @@
         <option value="Interface" />
         <option value="CSS File" />
         <option value="Class" />
+        <option value="HTTP Request" />
+        <option value="Dockerfile" />
+        <option value="Exception" />
       </list>
     </option>
   </component>
@@ -111,30 +115,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Application.TitleScreen.executor": "Run",
-    "Application.fx.executor": "Run",
-    "JUnit.PlayerTest.executor": "Run",
-    "Maven.boardgame-V2025-IDATT2003 [clean].executor": "Run",
-    "Maven.boardgame-V2025-IDATT2003 [package].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "git-widget-placeholder": "Observer-issue",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/matej/.ssh/id_rsa",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TitleScreen.executor&quot;: &quot;Run&quot;,
+    &quot;Application.fx.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.boardgame-V2025-IDATT2003 [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.boardgame-V2025-IDATT2003 [package].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Observer-issue&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/matej/.ssh/id_rsa&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\mappeprosjekt-vaar2025\boardgame-V2025-IDATT2003\src\main\resources\edu\ntnu\idi\idatt\view\resources\icons" />
@@ -148,7 +152,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.TitleScreen">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.Main" />
       <module name="boardgame-V2025-IDATT2003" />
@@ -199,9 +203,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.TitleScreen" />
         <item itemvalue="JUnit.PlayerTest" />
-        <item itemvalue="Application.Main" />
         <item itemvalue="Application.fx" />
         <item itemvalue="JUnit.PlayerTest" />
       </list>
@@ -268,98 +272,8 @@
       <workItem from="1744212701906" duration="7591000" />
       <workItem from="1744292780506" duration="1723000" />
       <workItem from="1745610346827" duration="26789000" />
-    </task>
-    <task id="LOCAL-00012" summary="Minor refactoring in Player">
-      <option name="closed" value="true" />
-      <created>1741261984915</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1741261984915</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Corrected LandPlayer method in Tile">
-      <option name="closed" value="true" />
-      <created>1741262047179</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1741262047179</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Refactor: minor cleanUp">
-      <option name="closed" value="true" />
-      <created>1741262230411</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1741262230411</updated>
-    </task>
-    <task id="LOCAL−00015" summary="TileFactory push">
-      <option name="closed" value="true" />
-      <created>1742652473312</created>
-      <option name="number" value="LOCAL−00015" />
-      <option name="presentableId" value="LOCAL−00015" />
-      <updated>1742652473312</updated>
-    </task>
-    <task id="LOCAL−00016" summary="Created TitleScreen subclasses and finished Titlescreen without functionality">
-      <option name="closed" value="true" />
-      <created>1744281806805</created>
-      <option name="number" value="LOCAL−00016" />
-      <option name="presentableId" value="LOCAL−00016" />
-      <updated>1744281806805</updated>
-    </task>
-    <task id="LOCAL−00017" summary="Created a mainview class and redirected resource files">
-      <option name="closed" value="true" />
-      <created>1744281864130</created>
-      <option name="number" value="LOCAL−00017" />
-      <option name="presentableId" value="LOCAL−00017" />
-      <updated>1744281864130</updated>
-    </task>
-    <task id="LOCAL−00018" summary="Created choosegamescreen class and css styles">
-      <option name="closed" value="true" />
-      <created>1744296712052</created>
-      <option name="number" value="LOCAL−00018" />
-      <option name="presentableId" value="LOCAL−00018" />
-      <updated>1744296712052</updated>
-    </task>
-    <task id="LOCAL-00019" summary="refactored TitleScreenView, shows elements properly now">
-      <option name="closed" value="true" />
-      <created>1745610422076</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1745610422076</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Moved to correct paths">
-      <option name="closed" value="true" />
-      <created>1745675599418</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1745675599418</updated>
-    </task>
-    <task id="LOCAL-00021" summary="minor refactoring">
-      <option name="closed" value="true" />
-      <created>1745675655933</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1745675655933</updated>
-    </task>
-    <task id="LOCAL-00022" summary="Made interfaces for Different Observer states">
-      <option name="closed" value="true" />
-      <created>1745684779617</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1745684779617</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Started work on GameSetupView">
-      <option name="closed" value="true" />
-      <created>1745684838546</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1745684838546</updated>
+      <workItem from="1745939476895" duration="1168000" />
+      <workItem from="1745956933061" duration="13941000" />
     </task>
     <task id="LOCAL-00024" summary="Making different components for SetupView">
       <option name="closed" value="true" />
@@ -657,7 +571,103 @@
       <option name="project" value="LOCAL" />
       <updated>1745929257747</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="Extend NavigationController to manage full game lifecycle per now">
+      <option name="closed" value="true" />
+      <created>1745929645436</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1745929645436</updated>
+    </task>
+    <task id="LOCAL-00062" summary="minor changes">
+      <option name="closed" value="true" />
+      <created>1745929693995</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1745929693996</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Added custom PlayerManagementException">
+      <option name="closed" value="true" />
+      <created>1746004151656</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1746004151656</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Added AlertHelper class for general use of alerts">
+      <option name="closed" value="true" />
+      <created>1746005132222</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1746005132222</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Started work on custom fileHandling exceptions">
+      <option name="closed" value="true" />
+      <created>1746007108361</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1746007108361</updated>
+    </task>
+    <task id="LOCAL-00066" summary="made custom fileExceptions for JSON and CSV">
+      <option name="closed" value="true" />
+      <created>1746007693504</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1746007693504</updated>
+    </task>
+    <task id="LOCAL-00067" summary="FileHandler throws exceptions and extensive documentation">
+      <option name="closed" value="true" />
+      <created>1746007819496</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1746007819497</updated>
+    </task>
+    <task id="LOCAL-00068" summary="BoardJsonFileHandler throws custom exceptions">
+      <option name="closed" value="true" />
+      <created>1746009743904</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1746009743904</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Added custom BoardManagementException">
+      <option name="closed" value="true" />
+      <created>1746011872413</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1746011872413</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Refacotring changes made to player panel and class">
+      <option name="closed" value="true" />
+      <created>1746017567423</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1746017567423</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Added custom exceptionHandling to PlayerCSVFileHandler">
+      <option name="closed" value="true" />
+      <created>1746017661561</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1746017661561</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Updated Manager classes to implement exceptions">
+      <option name="closed" value="true" />
+      <created>1746017780662</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1746017780662</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -675,18 +685,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added corresponding styling to classes" />
-    <MESSAGE value="Added a onPlayerAdded method in observer" />
-    <MESSAGE value="Implemented Observable interface to boardGame" />
-    <MESSAGE value="renamed and moved to different path" />
-    <MESSAGE value="minor adjustments" />
-    <MESSAGE value="renamed to &quot;Observable&quot;" />
-    <MESSAGE value="added a listView for savedPlayers" />
-    <MESSAGE value="deprecated classes" />
-    <MESSAGE value="minor adjustment" />
-    <MESSAGE value="moved to correct path" />
-    <MESSAGE value="Manager classes follow singleton design" />
-    <MESSAGE value="Added a bindEventHandlers method" />
     <MESSAGE value="developing GameSetupController, methods not working yet" />
     <MESSAGE value="created player popup for creating players" />
     <MESSAGE value="added styling to each difficulty button" />
@@ -700,7 +698,19 @@
     <MESSAGE value="Made refactoring changes to components of GameSetupView" />
     <MESSAGE value="Initialize default difficulty, players list, and boards directory in GameSetupController constructor" />
     <MESSAGE value="Added updateButtonStates for when selecting players" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added updateButtonStates for when selecting players" />
+    <MESSAGE value="Extend NavigationController to manage full game lifecycle per now" />
+    <MESSAGE value="minor changes" />
+    <MESSAGE value="Added custom PlayerManagementException" />
+    <MESSAGE value="Added AlertHelper class for general use of alerts" />
+    <MESSAGE value="Started work on custom fileHandling exceptions" />
+    <MESSAGE value="made custom fileExceptions for JSON and CSV" />
+    <MESSAGE value="FileHandler throws exceptions and extensive documentation" />
+    <MESSAGE value="BoardJsonFileHandler throws custom exceptions" />
+    <MESSAGE value="Added custom BoardManagementException" />
+    <MESSAGE value="Refacotring changes made to player panel and class" />
+    <MESSAGE value="Added custom exceptionHandling to PlayerCSVFileHandler" />
+    <MESSAGE value="Updated Manager classes to implement exceptions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated Manager classes to implement exceptions" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

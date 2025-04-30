@@ -30,17 +30,6 @@
   -fx-border-radius: 10px;
 }
 
-/* Panel styles with distinct backgrounds
-.difficulty-panel {
-  -fx-background-color: #2d1f59; /* Darker purple for difficulty panel
-  -fx-background-radius: 10px;
-  -fx-border-color: #e7c565; /* Gold border
-  -fx-border-width: 2px;
-  -fx-border-radius: 8px;
-  -fx-padding: 15px;
-  -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0, 0, 0);
-}*/
-
 .player-panel {
   -fx-background-color: #313466; /* Blue-purple for player panel */
   -fx-background-radius: 10px;
@@ -220,4 +209,12 @@
 .golden-button:pressed {
   -fx-background-color: #a39a1d;
   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 2, 0.0, 0, 0);
+}
+
+.player-name-label {
+  -fx-text-fill: white;
+}
+
+.status-label {
+  -fx-text-fill: white;
 }
