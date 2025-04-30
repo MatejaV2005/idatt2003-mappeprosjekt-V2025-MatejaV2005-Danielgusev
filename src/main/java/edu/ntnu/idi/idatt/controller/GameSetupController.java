@@ -1,5 +1,6 @@
 package edu.ntnu.idi.idatt.controller;
 
+import edu.ntnu.idi.idatt.exceptions.PlayerManagementException;
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.management.BoardManager;
 import edu.ntnu.idi.idatt.model.management.PlayerManager;
@@ -8,14 +9,14 @@ import edu.ntnu.idi.idatt.view.components.gameSelection.CreatePlayerPopup;
 import edu.ntnu.idi.idatt.view.components.gameSelection.GameInfoPanel;
 import edu.ntnu.idi.idatt.view.components.gameSelection.PlayerManagementPanel;
 import edu.ntnu.idi.idatt.view.screens.GameSetupView;
+import edu.ntnu.idi.idatt.view.utils.AlertHelper;
+
 import java.io.File;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ListView;
+
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -45,7 +46,8 @@ public class GameSetupController {
    * @param playerManager The player manager for player data handling
    * @param stage The primary stage for displaying dialogs
    */
-  public GameSetupController(GameSetupView view, NavigationController navigationController, PlayerManager playerManager, Stage stage) {
+  public GameSetupController(GameSetupView view, NavigationController navigationController,
+      PlayerManager playerManager, Stage stage) {
     this.view = view;
     this.navigationController = navigationController;
     this.playerManager = playerManager;
@@ -56,9 +58,9 @@ public class GameSetupController {
 
     onDifficultySelected("Normal");
 
-    refreshCurrentPlayersList();
-
     createBoardsDirectory();
+
+    initializeView();
   }
 
   /**
@@ -71,6 +73,39 @@ public class GameSetupController {
   public GameSetupController(GameSetupView view, NavigationController navigationController,
       PlayerManager playerManager) {
     this(view, navigationController, playerManager, null);
+  }
+
+  /**
+   * Initializes the view with player data and sets up event handlers.
+   */
+  private void initializeView() {
+    refreshCurrentPlayersList();
+
+    setupPlayerManagementHandlers();
+  }
+
+  /**
+   * Sets up handlers for player management operations.
+   */
+  private void setupPlayerManagementHandlers() {
+    PlayerManagementPanel panel = view.getPlayerManagementPanel();
+
+    panel.getAddPlayerButton().setOnAction(e -> onAddPlayer());
+
+    panel.getRemovePlayerButton().setOnAction(e -> onRemovePlayer());
+
+    panel.getSavePlayerButton().setOnAction(e -> onSavePlayer());
+
+    panel.getAddSavedPlayerButton().setOnAction(e -> onAddSavedPlayer());
+
+    panel.getPlayerTabs().getSelectionModel().selectedItemProperty().addListener(
+        (obs, oldTab, newTab) -> {
+          if (newTab == panel.getCurrentPlayersTab()) {
+            onCurrentPlayersTabSelected();
+          } else if (newTab == panel.getSavedPlayersTab()) {
+            onSavedPlayersTabSelected();
+          }
+        });
   }
 
   /**
@@ -95,7 +130,7 @@ public class GameSetupController {
     List<Player> players = playerManager.getPlayers();
 
     if (players.size() < MIN_PLAYERS) {
-      showErrorAlert("Not Enough Players",
+      AlertHelper.showErrorAlert("Not Enough Players",
           "Please add at least " + MIN_PLAYERS + " players to start the game.");
       view.updateStatusMessage("Need at least " + MIN_PLAYERS + " players to start", true);
       return;
@@ -105,11 +140,10 @@ public class GameSetupController {
 
     try {
       navigationController.startNewGame(selectedDifficulty.toLowerCase());
-
       LOGGER.log(Level.INFO, "Starting new game with difficulty: {0}", selectedDifficulty);
     } catch (Exception e) {
       LOGGER.log(Level.SEVERE, "Error starting game", e);
-      showErrorAlert("Game Start Error", "Could not start game: " + e.getMessage());
+      AlertHelper.showErrorAlert("Game Start Error", "Could not start game: " + e.getMessage());
     }
   }
 
@@ -118,6 +152,7 @@ public class GameSetupController {
    */
   public void onBack() {
     navigationController.navigateToGameSelection();
+    playerManager.clearCurrentPlayers();
   }
 
   /**
@@ -148,8 +183,10 @@ public class GameSetupController {
    * Opens dialog to add a new player.
    */
   public void onAddPlayer() {
-    if (playerManager.getPlayers().size() >= MAX_PLAYERS) {
-      showErrorAlert("Player Limit Reached",
+    PlayerManagementPanel panel = view.getPlayerManagementPanel();
+
+    if (panel.isPlayerLimitReached()) {
+      AlertHelper.showErrorAlert("Player Limit Reached",
           "Maximum of " + MAX_PLAYERS + " players allowed.");
       view.updateStatusMessage("Maximum " + MAX_PLAYERS + " players reached", true);
       return;
@@ -160,15 +197,20 @@ public class GameSetupController {
 
     result.ifPresent(player -> {
       try {
+        boolean playerExists = playerManager.getPlayers().stream()
+            .anyMatch(p -> p.getName().equals(player.getName()));
+
+        if (playerExists) {
+          view.updateStatusMessage("Player " + player.getName() + " already exists", true);
+          return;
+        }
+
         playerManager.addPlayer(player);
         view.updateStatusMessage("Player " + player.getName() + " added", false);
         refreshCurrentPlayersList();
-
-        // Update button states based on player count
-        updateButtonStates();
-      } catch (Exception e) {
+      } catch (PlayerManagementException e) {
         LOGGER.log(Level.WARNING, "Failed to add player: {0}", e.getMessage());
-        showErrorAlert("Add Player Failed", e.getMessage());
+        AlertHelper.showErrorAlert("Add Player Failed", e.getMessage());
       }
     });
   }
@@ -178,14 +220,12 @@ public class GameSetupController {
    */
   public void onRemovePlayer() {
     PlayerManagementPanel panel = view.getPlayerManagementPanel();
-    Player selectedPlayer = panel.getPlayerListView().getSelectionModel().getSelectedItem();
+    Player selectedPlayer = panel.getSelectedCurrentPlayer();
 
-    if (selectedPlayer != null) {
+    if (selectedPlayer != null && panel.confirmPlayerRemoval(selectedPlayer)) {
       playerManager.removePlayer(selectedPlayer);
       refreshCurrentPlayersList();
       view.updateStatusMessage("Player " + selectedPlayer.getName() + " removed", false);
-
-      updateButtonStates();
     }
   }
 
@@ -194,32 +234,68 @@ public class GameSetupController {
    */
   public void onSavePlayer() {
     PlayerManagementPanel panel = view.getPlayerManagementPanel();
-    Player selectedPlayer = panel.getPlayerListView().getSelectionModel().getSelectedItem();
+    Player selectedPlayer = panel.getSelectedCurrentPlayer();
 
     if (selectedPlayer == null) {
-      showErrorAlert("No Player Selected", "Please select a player to save.");
+      AlertHelper.showErrorAlert("No Player Selected", "Please select a player to save.");
       return;
     }
 
     try {
-      // Check if player is already saved
-      List<Player> savedPlayers = playerManager.loadPlayersFromFile();
-      boolean alreadySaved = savedPlayers.stream()
+      boolean saved = playerManager.savePlayer(selectedPlayer);
+
+      if (saved) {
+        view.updateStatusMessage("Player " + selectedPlayer.getName() + " saved", false);
+        if (panel.getPlayerTabs().getSelectionModel().getSelectedItem() == panel.getSavedPlayersTab()) {
+          loadSavedPlayers();
+        }
+      } else {
+        view.updateStatusMessage("Player " + selectedPlayer.getName() + " already saved", true);
+      }
+    } catch (PlayerManagementException e) {
+      LOGGER.log(Level.SEVERE, "Failed to save player", e);
+      AlertHelper.showErrorAlert("Save Failed", "Could not save player: " + e.getMessage());
+    }
+  }
+
+  /**
+   * Handles adding a selected saved player to current players.
+   */
+  public void onAddSavedPlayer() {
+    PlayerManagementPanel panel = view.getPlayerManagementPanel();
+    Player selectedPlayer = panel.getSelectedSavedPlayer();
+
+    if (selectedPlayer == null) {
+      AlertHelper.showErrorAlert("No Player Selected", "Please select a saved player to add.");
+      return;
+    }
+
+    try {
+      boolean playerAlreadyAdded = playerManager.getPlayers().stream()
           .anyMatch(p -> p.getName().equals(selectedPlayer.getName()));
 
-      if (alreadySaved) {
-        view.updateStatusMessage("Player " + selectedPlayer.getName() + " already saved", true);
+      if (playerAlreadyAdded) {
+        view.updateStatusMessage("Player " + selectedPlayer.getName() + " is already in the game", true);
         return;
       }
 
-      savedPlayers.add(selectedPlayer);
-      playerManager.savePlayers(savedPlayers);
+      if (panel.isPlayerLimitReached()) {
+        AlertHelper.showErrorAlert("Player Limit Reached",
+            "Maximum of " + MAX_PLAYERS + " players allowed.");
+        view.updateStatusMessage("Maximum " + MAX_PLAYERS + " players reached", true);
+        return;
+      }
 
-      view.updateStatusMessage("Player " + selectedPlayer.getName() + " saved", false);
-      onSavedPlayersTabSelected();
-    } catch (Exception e) {
-      LOGGER.log(Level.SEVERE, "Failed to save player", e);
-      showErrorAlert("Save Failed", "Could not save player: " + e.getMessage());
+      playerManager.addPlayer(selectedPlayer);
+      view.updateStatusMessage("Added " + selectedPlayer.getName() + " to the game", false);
+
+      // Switch to current players tab and refresh
+      panel.showCurrentPlayers();
+      refreshCurrentPlayersList();
+
+    } catch (PlayerManagementException e) {
+      LOGGER.log(Level.SEVERE, "Failed to add saved player", e);
+      AlertHelper.showErrorAlert("Add Player Failed", "Could not add player: " + e.getMessage());
     }
   }
 
@@ -254,29 +330,46 @@ public class GameSetupController {
         LOGGER.log(Level.INFO, "Loaded custom board from: {0}", selectedFile.getAbsolutePath());
       } catch (Exception e) {
         LOGGER.log(Level.SEVERE, "Failed to load board file", e);
-        showErrorAlert("Board Load Error", "Failed to load board file: " + e.getMessage());
+        AlertHelper.showErrorAlert("Board Load Error", "Failed to load board file: " + e.getMessage());
         view.updateStatusMessage("Failed to load board", true);
       }
     }
   }
 
   /**
-   * Refreshes the current players tab with updated data from the player manager.
+   * Refreshes the current players list with updated data from the player manager.
    */
   private void refreshCurrentPlayersList() {
     PlayerManagementPanel panel = view.getPlayerManagementPanel();
-    panel.getPlayerListView().getItems().clear();
 
     List<Player> currentPlayers = playerManager.getPlayers();
-    for (Player player : currentPlayers) {
-      panel.getPlayerListView().getItems().add(player);
-    }
+    panel.updateCurrentPlayersList(currentPlayers);
 
     if (currentPlayers.isEmpty()) {
       LOGGER.info("Current players list is empty");
     }
+  }
 
-    updateButtonStates();
+  /**
+   * Loads saved players from file and updates the UI.
+   */
+  private void loadSavedPlayers() {
+    try {
+      List<Player> savedPlayers = playerManager.loadPlayersFromFile();
+      PlayerManagementPanel panel = view.getPlayerManagementPanel();
+      panel.updateSavedPlayersList(savedPlayers);
+
+      // Update status based on loaded players
+      if (savedPlayers.isEmpty()) {
+        view.updateStatusMessage("No saved players found", false);
+      } else {
+        view.updateStatusMessage(savedPlayers.size() + " players available", false);
+      }
+    } catch (Exception e) {
+      LOGGER.log(Level.SEVERE, "Error loading saved players", e);
+      AlertHelper.showErrorAlert("Load Error", "Could not load saved players: " + e.getMessage());
+      view.updateStatusMessage("Failed to load saved players", true);
+    }
   }
 
   /**
@@ -286,84 +379,14 @@ public class GameSetupController {
     PlayerManagementPanel panel = view.getPlayerManagementPanel();
     refreshCurrentPlayersList();
     panel.showCurrentPlayers();
-
-    updateButtonStates();
   }
 
   /**
    * Handles when the Saved Players tab is selected.
    */
   public void onSavedPlayersTabSelected() {
+    loadSavedPlayers();
     PlayerManagementPanel panel = view.getPlayerManagementPanel();
-
-    try {
-      List<Player> savedPlayers = playerManager.loadPlayersFromFile();
-
-      // Update the saved players list view
-      ListView<Player> savedPlayersListView = panel.getSavedPlayerListView();
-      savedPlayersListView.getItems().clear();
-
-      for (Player player : savedPlayers) {
-        savedPlayersListView.getItems().add(player);
-      }
-
-      panel.showSavedPlayers();
-
-      if (savedPlayers.isEmpty()) {
-        view.updateStatusMessage("No saved players found", false);
-      } else {
-        view.updateStatusMessage(savedPlayers.size() + " players loaded", false);
-      }
-    } catch (Exception e) {
-      LOGGER.log(Level.SEVERE, "Error loading saved players", e);
-      showErrorAlert("Load Error", "Could not load saved players: " + e.getMessage());
-      view.updateStatusMessage("Failed to load saved players", true);
-    }
-
-    updateButtonStates();
-  }
-
-  /**
-   * Updates button states based on player count and selection.
-   */
-  private void updateButtonStates() {
-    PlayerManagementPanel panel = view.getPlayerManagementPanel();
-
-    boolean canAddPlayer = playerManager.getPlayers().size() < MAX_PLAYERS;
-    panel.getAddPlayerButton().setDisable(!canAddPlayer);
-
-    boolean isCurrentPlayersTab = panel.getPlayerTabs().getSelectionModel().getSelectedItem() == panel.getCurrentPlayersTab();
-    boolean hasCurrentSelection = isCurrentPlayersTab &&
-        panel.getPlayerListView().getSelectionModel().getSelectedItem() != null;
-
-    panel.getRemovePlayerButton().setDisable(!hasCurrentSelection);
-    panel.getSavePlayerButton().setDisable(!hasCurrentSelection);
-
-    if (!canAddPlayer) {
-      view.updateStatusMessage("Maximum " + MAX_PLAYERS + " players reached", true);
-    } else if (playerManager.getPlayers().isEmpty() && isCurrentPlayersTab) {
-      view.updateStatusMessage("Add players to begin", false);
-    } else if (isCurrentPlayersTab) {
-      view.updateStatusMessage(playerManager.getPlayers().size() + " player(s) added", false);
-    }
-  }
-
-  /**
-   * Shows an error alert dialog.
-   *
-   * @param title The dialog title
-   * @param message The error message
-   */
-  private void showErrorAlert(String title, String message) {
-    if (stage == null) {
-      LOGGER.warning("Stage is null, cannot show alert: " + title + " - " + message);
-      return;
-    }
-
-    Alert alert = new Alert(AlertType.ERROR);
-    alert.setTitle(title);
-    alert.setHeaderText(null);
-    alert.setContentText(message);
-    alert.showAndWait();
+    panel.showSavedPlayers();
   }
 }
