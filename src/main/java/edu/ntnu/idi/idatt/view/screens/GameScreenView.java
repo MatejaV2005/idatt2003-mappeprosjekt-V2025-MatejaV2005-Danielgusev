@@ -1,7 +1,7 @@
 package edu.ntnu.idi.idatt.view.screens;
 
 //import edu.ntnu.idi.idatt.controller.GameScreenController;
-import edu.ntnu.idi.idatt.controller.GameScreenController;
+import edu.ntnu.idi.idatt.controller.BoardGameController;
 import edu.ntnu.idi.idatt.exceptions.BoardGameResourceException;
 import edu.ntnu.idi.idatt.view.utils.ResourceLoader;
 import javafx.geometry.Insets;
@@ -11,8 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
 /**
  * View component for the main game screen.
@@ -27,7 +25,7 @@ public class GameScreenView {
   private final GridPane boardGrid;
   private final Button playTurnButton;
   private final VBox scoreboardBox;
-  private GameScreenController controller;
+  private BoardGameController controller;
 
   // CSS and resource paths
   private static final String CSS_PATH = "/edu/ntnu/idi/idatt/view/resources/GameScreen/GameScreen_styles.css";
@@ -71,7 +69,7 @@ public class GameScreenView {
   /**
    * Wire-up the controller callbacks.
    */
-  public void setController(GameScreenController controller) {
+  public void setController(BoardGameController controller) {
     this.controller = controller;
     playTurnButton.setOnAction(e -> controller.onPlayTurn());
   }

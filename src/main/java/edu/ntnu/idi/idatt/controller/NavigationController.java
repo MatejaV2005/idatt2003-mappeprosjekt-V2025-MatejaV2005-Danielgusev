@@ -3,13 +3,11 @@ package edu.ntnu.idi.idatt.controller;
 import edu.ntnu.idi.idatt.factory.BoardGameFactory;
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.BoardGame;
-import edu.ntnu.idi.idatt.model.core.playertype.Player;
 import edu.ntnu.idi.idatt.model.management.PlayerManager;
 import edu.ntnu.idi.idatt.view.screens.GameScreenView;
 import edu.ntnu.idi.idatt.view.screens.GameSelectionView;
 import edu.ntnu.idi.idatt.view.screens.GameSetupView;
 import edu.ntnu.idi.idatt.view.screens.TitleScreenView;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.Scene;
@@ -28,7 +26,7 @@ public class NavigationController {
   private Scene titleScene;
   private Scene gameSelectionScene;
   private Scene gameSetupScene;
-  private Scene gameScreenScene;
+  private Scene boardGameScene;
   // More scenes...
 
   // Player manager for GameSetupController
@@ -46,7 +44,7 @@ public class NavigationController {
   private GameSetupController gameSetupController;
 
   @SuppressWarnings("FieldCanBeLocal")
-  private GameScreenController gameScreenController;
+  private BoardGameController gameScreenController;
 
   /**
    * Creates a new NavigationController.
@@ -73,7 +71,7 @@ public class NavigationController {
     this.gameSetupScene = gameSetupView.getScene();
 
     GameScreenView gameScreenView = new GameScreenView();
-    this.gameScreenScene = gameScreenView.getScene();
+    this.boardGameScene = gameScreenView.getScene();
 
     // Connect views with their controllers and pass this NavigationController
     titleController = new TitleScreenController(titleScreenView, this);
@@ -105,6 +103,10 @@ public class NavigationController {
   public void navigateToGameSetup() {
     primaryStage.setScene(gameSetupScene);
     primaryStage.setTitle("Board Game - Setup");
+
+    gameSetupController.refreshCurrentPlayersList();
+    playerManager.clearCurrentPlayers();
+
   }
 
   /**
@@ -130,16 +132,16 @@ public class NavigationController {
 
       // Initialize the game screen controller with the new board game
       GameScreenView gameScreenView = new GameScreenView();
-      this.gameScreenScene = gameScreenView.getScene();
+      this.boardGameScene = gameScreenView.getScene();
 
-      gameScreenController = new GameScreenController(
+      gameScreenController = new BoardGameController(
           gameScreenView,
           currentBoardGame,
           this
       );
 
       // Navigate to the game screen
-      primaryStage.setScene(gameScreenScene);
+      primaryStage.setScene(boardGameScene);
       primaryStage.setTitle("Board Game - Playing");
     } catch (Exception e) {
       LOGGER.log(Level.SEVERE, "Error starting new game", e);
@@ -171,16 +173,16 @@ public class NavigationController {
 
       // Initialize the game screen controller with the new board game
       GameScreenView gameScreenView = new GameScreenView();
-      this.gameScreenScene = gameScreenView.getScene();
+      this.boardGameScene = gameScreenView.getScene();
 
-      gameScreenController = new GameScreenController(
+      gameScreenController = new BoardGameController(
           gameScreenView,
           currentBoardGame,
           this
       );
 
       // Navigate to the game screen
-      primaryStage.setScene(gameScreenScene);
+      primaryStage.setScene(boardGameScene);
       primaryStage.setTitle("Board Game - Custom Game");
     } catch (Exception e) {
       LOGGER.log(Level.SEVERE, "Error starting custom game", e);

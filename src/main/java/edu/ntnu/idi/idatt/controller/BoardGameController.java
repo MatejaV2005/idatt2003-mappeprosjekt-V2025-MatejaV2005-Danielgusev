@@ -12,8 +12,8 @@ import javafx.application.Platform;
  * Controls the interactions on the game screen.
  * Connects the GameScreenView to the BoardGame and handles user input.
  */
-public class GameScreenController {
-  private static final Logger LOGGER = Logger.getLogger(GameScreenController.class.getName());
+public class BoardGameController {
+  private static final Logger LOGGER = Logger.getLogger(BoardGameController.class.getName());
 
   protected final GameScreenView view;
   protected final BoardGame boardGame;
@@ -26,7 +26,7 @@ public class GameScreenController {
    * @param boardGame The board game model.
    * @param navigationController The controller for screen navigation.
    */
-  public GameScreenController(GameScreenView view, BoardGame boardGame, NavigationController navigationController) {
+  public BoardGameController(GameScreenView view, BoardGame boardGame, NavigationController navigationController) {
     if (view == null || boardGame == null || navigationController == null) {
       throw new IllegalArgumentException("View, BoardGame, and NavigationController cannot be null.");
     }

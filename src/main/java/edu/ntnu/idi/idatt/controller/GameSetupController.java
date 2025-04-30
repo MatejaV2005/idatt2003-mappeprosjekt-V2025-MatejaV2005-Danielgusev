@@ -152,7 +152,6 @@ public class GameSetupController {
    */
   public void onBack() {
     navigationController.navigateToGameSelection();
-    playerManager.clearCurrentPlayers();
   }
 
   /**
@@ -339,7 +338,7 @@ public class GameSetupController {
   /**
    * Refreshes the current players list with updated data from the player manager.
    */
-  private void refreshCurrentPlayersList() {
+  public void refreshCurrentPlayersList() {
     PlayerManagementPanel panel = view.getPlayerManagementPanel();
 
     List<Player> currentPlayers = playerManager.getPlayers();
