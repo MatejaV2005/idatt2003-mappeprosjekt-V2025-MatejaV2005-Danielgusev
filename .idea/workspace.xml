@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Updated Manager classes to implement exceptions">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/GameScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/BoardGameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/NavigationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/NavigationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GameScreenView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GameScreenView.java" afterDir="false" />
-    </list>
+    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="minor refactoring" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -270,14 +265,6 @@
       <workItem from="1745610346827" duration="26789000" />
       <workItem from="1745939476895" duration="1168000" />
       <workItem from="1745956933061" duration="13941000" />
-    </task>
-    <task id="LOCAL-00024" summary="Making different components for SetupView">
-      <option name="closed" value="true" />
-      <created>1745684865091</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1745684865091</updated>
     </task>
     <task id="LOCAL-00025" summary="Moved to different directory">
       <option name="closed" value="true" />
@@ -663,7 +650,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746017780662</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="minor refactoring">
+      <option name="closed" value="true" />
+      <created>1746032333176</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1746032333177</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -684,7 +679,6 @@
     <MESSAGE value="developing GameSetupController, methods not working yet" />
     <MESSAGE value="created player popup for creating players" />
     <MESSAGE value="added styling to each difficulty button" />
-    <MESSAGE value="minor refactoring" />
     <MESSAGE value="refactored PlayerManagementPanel to have more functionality" />
     <MESSAGE value="Controller handles some input from the view, more to add" />
     <MESSAGE value="added more navigations to controller" />
@@ -706,7 +700,8 @@
     <MESSAGE value="Refacotring changes made to player panel and class" />
     <MESSAGE value="Added custom exceptionHandling to PlayerCSVFileHandler" />
     <MESSAGE value="Updated Manager classes to implement exceptions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated Manager classes to implement exceptions" />
+    <MESSAGE value="minor refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor refactoring" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
