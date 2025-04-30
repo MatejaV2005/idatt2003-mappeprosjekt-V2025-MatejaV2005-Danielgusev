@@ -5,7 +5,6 @@ import edu.ntnu.idi.idatt.exceptions.BoardGameResourceException;
 import edu.ntnu.idi.idatt.factory.ButtonFactory;
 import edu.ntnu.idi.idatt.observer.PlayerModelObserver;
 import edu.ntnu.idi.idatt.view.components.gameSelection.GameInfoPanel;
-import edu.ntnu.idi.idatt.view.components.gameSelection.DifficultySelectionPanel;
 import edu.ntnu.idi.idatt.view.components.gameSelection.PlayerManagementPanel;
 import edu.ntnu.idi.idatt.view.decorator.ButtonDecorator;
 import edu.ntnu.idi.idatt.view.decorator.HoverEffectDecorator;
@@ -15,6 +14,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -32,25 +33,28 @@ import java.util.logging.Logger;
  */
 public class GameSetupView {
   private static final Logger LOGGER = Logger.getLogger(GameSetupView.class.getName());
-  private final Scene scene;
-  private final BorderPane root;
   private GameSetupController controller;
+  private static final String BACKGROUND_PATH = "/edu/ntnu/idi/idatt/view/resources/GameScreen/Background.png";
   private static final String CSS_PATH = "/edu/ntnu/idi/idatt/view/resources/GameSetup/gameSetupStyle.css";
 
-  private final DifficultySelectionPanel difficultySelectionPanel;
+  private final StackPane stackRoot;
+  private final Scene scene;
+  private final BorderPane root;
+
   private final PlayerManagementPanel playerManagementPanel;
   private final GameInfoPanel gameInfoPanel;
 
-  private final Label gameModeLabel;
+  // Difficulty buttons (now standalone)
+  private final Button easyDifficultyButton;
+  private final Button normalDifficultyButton;
+  private final Button hardDifficultyButton;
+  private final Button uploadBoardButton;
+
   private final Button startGameButton;
   private final Button backButton;
   private final HBox bottomActionBar;
-  private final HBox headerBox;
   private final Label statusLabel;
 
-  /**
-   * Constructs a new GameSetupView with responsive layout.
-   */
   /**
    * Constructs a new GameSetupView with responsive layout.
    */
@@ -58,13 +62,19 @@ public class GameSetupView {
     root = new BorderPane();
     root.setPadding(new Insets(20));
 
-    gameModeLabel = new Label("Snakes & Ladders - Setup");
+    stackRoot = new StackPane();
+    setupBackground();
+    stackRoot.getChildren().add(root);
+
+    // Create the main header label without the box
+    Label gameModeLabel = new Label("Snakes & Ladders - Setup");
     gameModeLabel.getStyleClass().add("game-mode-title");
 
-    headerBox = new HBox(gameModeLabel);
+    HBox headerBox = new HBox(gameModeLabel);
     headerBox.setAlignment(Pos.CENTER);
     headerBox.setPadding(new Insets(10, 0, 20, 0));
-    headerBox.getStyleClass().add("header-box");
+    // Removed the header-box style class to eliminate the box
+
     root.setTop(headerBox);
 
     // Status label for feedback
@@ -75,11 +85,22 @@ public class GameSetupView {
     ButtonFactory buttonFactory = new ButtonFactory();
     ButtonDecorator decorator = new HoverEffectDecorator();
 
-    difficultySelectionPanel = new DifficultySelectionPanel();
+    // Create difficulty buttons directly without the panel
+    easyDifficultyButton = decorator.decorate(buttonFactory.createStandardButton("Easy"));
+    normalDifficultyButton = decorator.decorate(buttonFactory.createStandardButton("Normal"));
+    hardDifficultyButton = decorator.decorate(buttonFactory.createStandardButton("Hard"));
+    uploadBoardButton = decorator.decorate(buttonFactory.createStandardButton("Upload Board"));
+
+    // Style difficulty buttons
+    easyDifficultyButton.getStyleClass().add("difficulty-button");
+    normalDifficultyButton.getStyleClass().add("difficulty-button");
+    hardDifficultyButton.getStyleClass().add("difficulty-button");
+    uploadBoardButton.getStyleClass().add("difficulty-button");
+
     playerManagementPanel = new PlayerManagementPanel(buttonFactory);
     gameInfoPanel = new GameInfoPanel();
 
-    // Create buttons with decorator
+    // Create action buttons with decorator
     startGameButton = decorator.decorate(buttonFactory.createStandardButton("Start Game"));
     startGameButton.getStyleClass().add("primary-button");
 
@@ -105,26 +126,66 @@ public class GameSetupView {
     bottomContainer.setPadding(new Insets(10, 0, 0, 0));
     root.setBottom(bottomContainer);
 
-    scene = new Scene(root, 1280, 720);
+    scene = new Scene(stackRoot, 1280, 720);
     applyStylesheets();
+  }
+
+  private void setupBackground() {
+    try {
+      Image bg = ResourceLoader.loadImage(BACKGROUND_PATH);
+      ImageView iv = new ImageView(bg);
+      iv.setPreserveRatio(false);
+      // make the BG fill the view at all times
+      iv.fitWidthProperty().bind(stackRoot.widthProperty());
+      iv.fitHeightProperty().bind(stackRoot.heightProperty());
+      // add it *first*, so everything else is on top
+      stackRoot.getChildren().add(iv);
+    } catch (BoardGameResourceException e) {
+      LOGGER.log(Level.WARNING, "Could not load background, using solid color", e);
+      stackRoot.setStyle("-fx-background-color: #1a1a2e;");
+    }
   }
 
   /**
    * Sets up the responsive layout for the main components.
-   * Uses proportional sizing (25%, 50%, 25%) for the three panels.
+   * Now with difficulty buttons directly in the layout and game info directly included.
    */
   private void setupResponsiveLayout() {
+    // Create difficulty header
+    Label difficultyHeaderLabel = new Label("Game Difficulty");
+    difficultyHeaderLabel.getStyleClass().add("game-mode-title");
+
+    // Create difficulty buttons container
+    VBox difficultyButtonsContainer = new VBox(15);
+    difficultyButtonsContainer.getStyleClass().add("difficulty-buttons-container");
+    difficultyButtonsContainer.getChildren().addAll(
+        difficultyHeaderLabel,
+        easyDifficultyButton,
+        normalDifficultyButton,
+        hardDifficultyButton,
+        uploadBoardButton
+    );
+    difficultyButtonsContainer.setAlignment(Pos.CENTER);
+    difficultyButtonsContainer.setPadding(new Insets(20));
+
+    // Create the right side content with game info (no panel wrapper)
+    VBox gameInfoContent = new VBox(15);
+    gameInfoContent.getChildren().addAll(gameInfoPanel);
+    gameInfoContent.setAlignment(Pos.CENTER);
+    gameInfoContent.setPadding(new Insets(20));
+
+    // Main content layout
     HBox mainContent = new HBox(20);
     mainContent.setPadding(new Insets(10));
 
-    StackPane leftWrapper = new StackPane(difficultySelectionPanel);
+    StackPane leftWrapper = new StackPane(difficultyButtonsContainer);
     StackPane centerWrapper = new StackPane(playerManagementPanel);
-    StackPane rightWrapper = new StackPane(gameInfoPanel);
+    StackPane rightWrapper = new StackPane(gameInfoContent);
 
     // Apply styling to wrappers
     leftWrapper.getStyleClass().add("panel-wrapper");
     centerWrapper.getStyleClass().add("panel-wrapper");
-    rightWrapper.getStyleClass().add("panel-wrapper");
+    // Removed panel-wrapper class from rightWrapper to eliminate the border
 
     mainContent.getChildren().addAll(leftWrapper, centerWrapper, rightWrapper);
 
@@ -140,7 +201,6 @@ public class GameSetupView {
     centerWrapper.setMinWidth(400);
     rightWrapper.setMinWidth(200);
 
-    difficultySelectionPanel.prefHeightProperty().bind(mainContent.heightProperty());
     playerManagementPanel.prefHeightProperty().bind(mainContent.heightProperty());
     gameInfoPanel.prefHeightProperty().bind(mainContent.heightProperty());
 
@@ -204,12 +264,39 @@ public class GameSetupView {
   }
 
   /**
-   * Gets the difficulty selection panel.
+   * Gets the easy difficulty button.
    *
-   * @return The difficulty selection panel
+   * @return The easy difficulty button
    */
-  public DifficultySelectionPanel getDifficultySelectionPanel() {
-    return difficultySelectionPanel;
+  public Button getEasyDifficultyButton() {
+    return easyDifficultyButton;
+  }
+
+  /**
+   * Gets the normal difficulty button.
+   *
+   * @return The normal difficulty button
+   */
+  public Button getNormalDifficultyButton() {
+    return normalDifficultyButton;
+  }
+
+  /**
+   * Gets the hard difficulty button.
+   *
+   * @return The hard difficulty button
+   */
+  public Button getHardDifficultyButton() {
+    return hardDifficultyButton;
+  }
+
+  /**
+   * Gets the upload board button.
+   *
+   * @return The upload board button
+   */
+  public Button getUploadBoardButton() {
+    return uploadBoardButton;
   }
 
   /**
@@ -261,11 +348,11 @@ public class GameSetupView {
     startGameButton.setOnAction(e -> controller.onGameStart());
     backButton.setOnAction(e -> controller.onBack());
 
-    // Difficulty panel buttons
-    difficultySelectionPanel.getEasyDifficultyButton().setOnAction(e -> controller.onDifficultySelected("Easy"));
-    difficultySelectionPanel.getNormalDifficultyButton().setOnAction(e -> controller.onDifficultySelected("Normal"));
-    difficultySelectionPanel.getHardDifficultyButton().setOnAction(e -> controller.onDifficultySelected("Hard"));
-    difficultySelectionPanel.getUploadBoardButton().setOnAction(e -> controller.onUploadBoard());
+    // Difficulty buttons
+    easyDifficultyButton.setOnAction(e -> controller.onDifficultySelected("Easy"));
+    normalDifficultyButton.setOnAction(e -> controller.onDifficultySelected("Normal"));
+    hardDifficultyButton.setOnAction(e -> controller.onDifficultySelected("Hard"));
+    uploadBoardButton.setOnAction(e -> controller.onUploadBoard());
 
     // Player management panel buttons
     playerManagementPanel.getAddPlayerButton().setOnAction(e -> controller.onAddPlayer());
