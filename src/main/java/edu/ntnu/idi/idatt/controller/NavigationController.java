@@ -4,7 +4,7 @@ import edu.ntnu.idi.idatt.factory.BoardGameFactory;
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.management.PlayerManager;
-import edu.ntnu.idi.idatt.view.screens.GameScreenView;
+import edu.ntnu.idi.idatt.view.screens.BoardGameView;
 import edu.ntnu.idi.idatt.view.screens.GameSelectionView;
 import edu.ntnu.idi.idatt.view.screens.GameSetupView;
 import edu.ntnu.idi.idatt.view.screens.TitleScreenView;
@@ -70,7 +70,7 @@ public class NavigationController {
     GameSetupView gameSetupView = new GameSetupView();
     this.gameSetupScene = gameSetupView.getScene();
 
-    GameScreenView gameScreenView = new GameScreenView();
+    BoardGameView gameScreenView = new BoardGameView();
     this.boardGameScene = gameScreenView.getScene();
 
     // Connect views with their controllers and pass this NavigationController
@@ -104,9 +104,8 @@ public class NavigationController {
     primaryStage.setScene(gameSetupScene);
     primaryStage.setTitle("Board Game - Setup");
 
-    gameSetupController.refreshCurrentPlayersList();
     playerManager.clearCurrentPlayers();
-
+    gameSetupController.refreshCurrentPlayersList();
   }
 
   /**
@@ -131,11 +130,11 @@ public class NavigationController {
       currentBoardGame.startGame();
 
       // Initialize the game screen controller with the new board game
-      GameScreenView gameScreenView = new GameScreenView();
-      this.boardGameScene = gameScreenView.getScene();
+      BoardGameView boardGameView = new BoardGameView();
+      this.boardGameScene = boardGameView.getScene();
 
       gameScreenController = new BoardGameController(
-          gameScreenView,
+          boardGameView,
           currentBoardGame,
           this
       );
@@ -172,11 +171,11 @@ public class NavigationController {
       currentBoardGame.startGame();
 
       // Initialize the game screen controller with the new board game
-      GameScreenView gameScreenView = new GameScreenView();
-      this.boardGameScene = gameScreenView.getScene();
+      BoardGameView boardGameView = new BoardGameView();
+      this.boardGameScene = boardGameView.getScene();
 
       gameScreenController = new BoardGameController(
-          gameScreenView,
+          boardGameView,
           currentBoardGame,
           this
       );
