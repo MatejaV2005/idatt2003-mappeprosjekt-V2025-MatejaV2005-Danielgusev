@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="minor refactoring" />
+    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="minor refactoring">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/BoardGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/BoardGameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/GameSetupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/GameSetupController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/observer/PlayerModelObserver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GameScreenView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/BoardGameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GameSetupView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GameSetupView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/GameSetup/gameSetupStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/GameSetup/gameSetupStyle.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -106,30 +114,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Application.TitleScreen.executor": "Run",
-    "Application.fx.executor": "Run",
-    "JUnit.PlayerTest.executor": "Run",
-    "Maven.boardgame-V2025-IDATT2003 [clean].executor": "Run",
-    "Maven.boardgame-V2025-IDATT2003 [package].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "git-widget-placeholder": "Features",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/matej/.ssh/id_rsa",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TitleScreen.executor&quot;: &quot;Run&quot;,
+    &quot;Application.fx.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.boardgame-V2025-IDATT2003 [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.boardgame-V2025-IDATT2003 [package].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Features&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/matej/.ssh/id_rsa&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\mappeprosjekt-vaar2025\boardgame-V2025-IDATT2003\src\main\resources\edu\ntnu\idi\idatt\view\resources\icons" />
@@ -265,38 +273,7 @@
       <workItem from="1745610346827" duration="26789000" />
       <workItem from="1745939476895" duration="1168000" />
       <workItem from="1745956933061" duration="13941000" />
-    </task>
-    <task id="LOCAL-00025" summary="Moved to different directory">
-      <option name="closed" value="true" />
-      <created>1745693483405</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1745693483405</updated>
-    </task>
-    <task id="LOCAL-00026" summary="Created DifficultySelectionPanel component">
-      <option name="closed" value="true" />
-      <created>1745693505543</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1745693505543</updated>
-    </task>
-    <task id="LOCAL-00027" summary="Created GameInfoPanel component">
-      <option name="closed" value="true" />
-      <created>1745693518265</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1745693518265</updated>
-    </task>
-    <task id="LOCAL-00028" summary="GameSelection now navigates to GameSetup through NavigationController">
-      <option name="closed" value="true" />
-      <created>1745693579283</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1745693579283</updated>
+      <workItem from="1746097600511" duration="8730000" />
     </task>
     <task id="LOCAL-00029" summary="Created GameSetupView, started working on CSS and controller">
       <option name="closed" value="true" />
@@ -658,7 +635,39 @@
       <option name="project" value="LOCAL" />
       <updated>1746032333177</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="workspace.xml">
+      <option name="closed" value="true" />
+      <created>1746032392027</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1746032392027</updated>
+    </task>
+    <task id="LOCAL-00075" summary=" Upgrade PlayerManagementPanel to use TableView with auto-expiring status message">
+      <option name="closed" value="true" />
+      <created>1746121702364</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1746121702364</updated>
+    </task>
+    <task id="LOCAL-00076" summary="removed observer from Player">
+      <option name="closed" value="true" />
+      <created>1746122958278</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1746122958278</updated>
+    </task>
+    <task id="LOCAL-00077" summary="minor refactoring">
+      <option name="closed" value="true" />
+      <created>1746122982547</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1746122982547</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -676,9 +685,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="developing GameSetupController, methods not working yet" />
-    <MESSAGE value="created player popup for creating players" />
-    <MESSAGE value="added styling to each difficulty button" />
     <MESSAGE value="refactored PlayerManagementPanel to have more functionality" />
     <MESSAGE value="Controller handles some input from the view, more to add" />
     <MESSAGE value="added more navigations to controller" />
@@ -700,6 +706,9 @@
     <MESSAGE value="Refacotring changes made to player panel and class" />
     <MESSAGE value="Added custom exceptionHandling to PlayerCSVFileHandler" />
     <MESSAGE value="Updated Manager classes to implement exceptions" />
+    <MESSAGE value="workspace.xml" />
+    <MESSAGE value=" Upgrade PlayerManagementPanel to use TableView with auto-expiring status message" />
+    <MESSAGE value="removed observer from Player" />
     <MESSAGE value="minor refactoring" />
     <option name="LAST_COMMIT_MESSAGE" value="minor refactoring" />
   </component>
