@@ -352,7 +352,7 @@ public class GameSetupController {
   /**
    * Loads saved players from file and updates the UI.
    */
-  private void loadSavedPlayers() {
+  public void loadSavedPlayers() {
     try {
       List<Player> savedPlayers = playerManager.loadPlayersFromFile();
       PlayerManagementPanel panel = view.getPlayerManagementPanel();
@@ -388,4 +388,6 @@ public class GameSetupController {
     PlayerManagementPanel panel = view.getPlayerManagementPanel();
     panel.showSavedPlayers();
   }
+
+
 }

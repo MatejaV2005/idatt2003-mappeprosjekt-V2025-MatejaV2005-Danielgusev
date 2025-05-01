@@ -3,7 +3,6 @@ package edu.ntnu.idi.idatt.view.screens;
 import edu.ntnu.idi.idatt.controller.GameSetupController;
 import edu.ntnu.idi.idatt.exceptions.BoardGameResourceException;
 import edu.ntnu.idi.idatt.factory.ButtonFactory;
-import edu.ntnu.idi.idatt.observer.PlayerModelObserver;
 import edu.ntnu.idi.idatt.view.components.gameSelection.GameInfoPanel;
 import edu.ntnu.idi.idatt.view.components.gameSelection.PlayerManagementPanel;
 import edu.ntnu.idi.idatt.view.decorator.ButtonDecorator;
@@ -22,7 +21,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

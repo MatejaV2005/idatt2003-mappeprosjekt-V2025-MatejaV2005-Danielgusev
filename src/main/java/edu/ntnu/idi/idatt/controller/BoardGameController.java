@@ -2,7 +2,7 @@ package edu.ntnu.idi.idatt.controller;
 
 import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.core.playertype.Player;
-import edu.ntnu.idi.idatt.view.screens.GameScreenView;
+import edu.ntnu.idi.idatt.view.screens.BoardGameView;
 import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -15,7 +15,7 @@ import javafx.application.Platform;
 public class BoardGameController {
   private static final Logger LOGGER = Logger.getLogger(BoardGameController.class.getName());
 
-  protected final GameScreenView view;
+  protected final BoardGameView view;
   protected final BoardGame boardGame;
   protected final NavigationController navigationController;
 
@@ -26,7 +26,7 @@ public class BoardGameController {
    * @param boardGame The board game model.
    * @param navigationController The controller for screen navigation.
    */
-  public BoardGameController(GameScreenView view, BoardGame boardGame, NavigationController navigationController) {
+  public BoardGameController(BoardGameView view, BoardGame boardGame, NavigationController navigationController) {
     if (view == null || boardGame == null || navigationController == null) {
       throw new IllegalArgumentException("View, BoardGame, and NavigationController cannot be null.");
     }

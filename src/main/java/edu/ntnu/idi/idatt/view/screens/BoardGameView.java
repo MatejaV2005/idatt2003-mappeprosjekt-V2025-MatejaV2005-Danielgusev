@@ -17,7 +17,7 @@ import javafx.scene.layout.*;
  * Builds the board, play-turn button, scoreboard and dice display.
  * Styling is entirely in GameScreen_styles.css.
  */
-public class GameScreenView {
+public class BoardGameView {
 
   private Scene scene;
   private final StackPane root;
@@ -34,7 +34,7 @@ public class GameScreenView {
       "/edu/ntnu/idi/idatt/view/resources/GameScreen/dice-2.png"
   };
 
-  public GameScreenView() {
+  public BoardGameView() {
     // Root container
     root = new StackPane();
     layout = new BorderPane();
