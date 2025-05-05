@@ -1,10 +1,13 @@
 package edu.ntnu.idi.idatt.controller;
 
+import static edu.ntnu.idi.idatt.view.utils.AlertHelper.showErrorAlert;
+
 import edu.ntnu.idi.idatt.factory.BoardGameFactory;
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.BoardGame;
+import edu.ntnu.idi.idatt.model.core.GameType;
 import edu.ntnu.idi.idatt.model.management.PlayerManager;
-import edu.ntnu.idi.idatt.view.screens.GameScreenView;
+import edu.ntnu.idi.idatt.view.screens.GenericBoardGameView;
 import edu.ntnu.idi.idatt.view.screens.GameSelectionView;
 import edu.ntnu.idi.idatt.view.screens.GameSetupView;
 import edu.ntnu.idi.idatt.view.screens.TitleScreenView;
@@ -70,7 +73,7 @@ public class NavigationController {
     GameSetupView gameSetupView = new GameSetupView();
     this.gameSetupScene = gameSetupView.getScene();
 
-    GameScreenView gameScreenView = new GameScreenView();
+    GenericBoardGameView gameScreenView = new GenericBoardGameView();
     this.boardGameScene = gameScreenView.getScene();
 
     // Connect views with their controllers and pass this NavigationController
@@ -114,14 +117,13 @@ public class NavigationController {
    *
    * @param difficulty The game difficulty
    */
-  public void startNewGame(String difficulty) {
+  public void startNewGame(GameType game, String difficulty) {
     LOGGER.log(Level.INFO, "Starting new game with difficulty: {0}", difficulty);
 
     try {
-      // Create a new board game using the factory
-      currentBoardGame = boardGameFactory.createSnakesAndLaddersGame();
+      currentBoardGame = boardGameFactory.createGame(game, difficulty);
 
-      // Add players from the player manager to the board game
+
       playerManager.getPlayers().forEach(player -> {
         currentBoardGame.addPlayer(player);
         LOGGER.log(Level.INFO, "Added player: {0}", player.getName());
@@ -131,11 +133,11 @@ public class NavigationController {
       currentBoardGame.startGame();
 
       // Initialize the game screen controller with the new board game
-      GameScreenView gameScreenView = new GameScreenView();
-      this.boardGameScene = gameScreenView.getScene();
+      GenericBoardGameView genericBoardGameView = new GenericBoardGameView();
+      this.boardGameScene = genericBoardGameView.getScene();
 
       gameScreenController = new BoardGameController(
-          gameScreenView,
+          genericBoardGameView,
           currentBoardGame,
           this
       );
@@ -172,11 +174,11 @@ public class NavigationController {
       currentBoardGame.startGame();
 
       // Initialize the game screen controller with the new board game
-      GameScreenView gameScreenView = new GameScreenView();
-      this.boardGameScene = gameScreenView.getScene();
+      GenericBoardGameView genericBoardGameView = new GenericBoardGameView();
+      this.boardGameScene = genericBoardGameView.getScene();
 
       gameScreenController = new BoardGameController(
-          gameScreenView,
+          genericBoardGameView,
           currentBoardGame,
           this
       );
@@ -204,17 +206,5 @@ public class NavigationController {
     System.out.println("navigated to settings");
   }
 
-  /**
-   * Shows an error alert dialog.
-   *
-   * @param title The alert title
-   * @param message The error message
-   */
-  private void showErrorAlert(String title, String message) {
-    Alert alert = new Alert(AlertType.ERROR);
-    alert.setTitle(title);
-    alert.setHeaderText(null);
-    alert.setContentText(message);
-    alert.showAndWait();
-  }
+
 }
