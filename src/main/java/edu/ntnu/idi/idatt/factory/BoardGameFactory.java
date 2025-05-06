@@ -24,7 +24,7 @@ public class BoardGameFactory {
     }
   }
 
-  private BoardGame createSnakesAndLaddersGame(String difficulty) {
+  public BoardGame createSnakesAndLaddersGame(String difficulty) {
     Board board = switch (difficulty.toLowerCase()) {
       case "easy" -> boardFactory.createEasyBoard();
       case "normal" -> boardFactory.createNormalBoard();
@@ -35,5 +35,12 @@ public class BoardGameFactory {
     Dice dice = new Dice(2);
     GameStrategy strategy = new SnakesAndLaddersStrategy(board, dice);
     return new SnakesAndLaddersGame(board, dice, strategy);
+  }
+
+  // New overload:
+  public BoardGame createSnakesAndLaddersGame(Board customBoard) {
+    Dice dice = new Dice(2);
+    GameStrategy strategy = new SnakesAndLaddersStrategy(customBoard, dice);
+    return new SnakesAndLaddersGame(customBoard, dice, strategy);
   }
 }
