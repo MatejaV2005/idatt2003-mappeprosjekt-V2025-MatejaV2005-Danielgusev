@@ -50,7 +50,7 @@ import javafx.scene.layout.VBox;
  * @version 1.0
  */
 public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
-  private static final Logger LOG = Logger.getLogger(GenericBoardGameView.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(GenericBoardGameView.class.getName());
   private static final String CSS_PATH = "/edu/ntnu/idi/idatt/view/resources/GameScreen/GameScreen_styles.css";
 
   private final Scene scene;
@@ -100,12 +100,12 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
       // Create scene with layout
       this.scene = new Scene(root, 1280, 720);
       loadStyles();
-      LOG.info("GenericBoardGameView constructed successfully");
+      LOGGER.info("GenericBoardGameView constructed successfully");
     } catch (NullPointerException e) {
-      LOG.log(Level.SEVERE, "Failed to initialize UI component", e);
+      LOGGER.log(Level.SEVERE, "Failed to initialize UI component", e);
       throw new IllegalStateException("Failed to initialize essential UI components", e);
     } catch (Exception e) {
-      LOG.log(Level.SEVERE, "Unexpected error during view construction", e);
+      LOGGER.log(Level.SEVERE, "Unexpected error during view construction", e);
       throw new IllegalStateException("Failed to construct game view", e);
     }
   }
@@ -146,14 +146,14 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
     try {
       String css = ResourceLoader.loadCssResource(CSS_PATH);
       scene.getStylesheets().add(css);
-      LOG.info("Successfully loaded CSS stylesheet: " + CSS_PATH);
+      LOGGER.info("Successfully loaded CSS stylesheet: " + CSS_PATH);
     } catch (BoardGameResourceException e) {
-      LOG.log(Level.WARNING, "Could not load CSS: " + e.getMessage(), e);
+      LOGGER.log(Level.WARNING, "Could not load CSS: " + e.getMessage(), e);
       // Instead of throwing, we'll continue with default styles
       AlertHelper.showWarningAlert("Style Warning",
           "Game styles could not be loaded. Using default JavaFX styles.");
     } catch (Exception e) {
-      LOG.log(Level.SEVERE, "Unexpected error loading CSS resources", e);
+      LOGGER.log(Level.SEVERE, "Unexpected error loading CSS resources", e);
       throw new CssLoadException("Failed to load critical UI resources", e);
     }
   }
@@ -178,7 +178,7 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
   public void setController(BoardGameController controller) {
     this.controller = Objects.requireNonNull(controller, "Controller cannot be null");
     bindEventHandlers();
-    LOG.info("Controller successfully bound to view");
+    LOGGER.info("Controller successfully bound to view");
   }
 
   /**
@@ -189,16 +189,16 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
     if (playTurnButton != null) {
       playTurnButton.setOnAction(e -> {
         try {
-          LOG.fine("Play turn button clicked");
-          playTurnButton.setDisable(true); // Prevent multiple clicks
+          LOGGER.fine("Play turn button clicked");
+          playTurnButton.setDisable(true);
           if (controller != null) {
             controller.onPlayTurn();
           } else {
-            LOG.warning("Controller is null when play turn button was clicked");
+            LOGGER.warning("Controller is null when play turn button was clicked");
             playTurnButton.setDisable(false); // Re-enable button if controller is null
           }
         } catch (Exception ex) {
-          LOG.log(Level.SEVERE, "Error processing turn", ex);
+          LOGGER.log(Level.SEVERE, "Error processing turn", ex);
           AlertHelper.showErrorAlert("Turn Error",
               "An error occurred while processing the turn: " + ex.getMessage());
           playTurnButton.setDisable(false); // Re-enable button on error
@@ -219,9 +219,9 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
     try {
       game.addObserver(this);
       refreshAll(game);
-      LOG.info("View successfully initialized with game model");
+      LOGGER.info("View successfully initialized with game model");
     } catch (Exception e) {
-      LOG.log(Level.SEVERE, "Failed to initialize view with game model", e);
+      LOGGER.log(Level.SEVERE, "Failed to initialize view with game model", e);
       AlertHelper.showErrorAlert("Initialization Error",
           "Failed to initialize game view: " + e.getMessage());
       throw new IllegalStateException("View initialization failed", e);
@@ -239,7 +239,7 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
   @Override
   public void onPlayerMoved(Player player, Tile from, Tile to) {
     if (player == null || to == null) {
-      LOG.warning("Received invalid player move notification: player=" +
+      LOGGER.warning("Received invalid player move notification: player=" +
           (player == null ? "null" : player.getName()) + ", to=" + (to == null ? "null" : to.getTileId()));
       return;
     }
@@ -256,7 +256,7 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
   @Override
   public void onPlayerAdded(Player player) {
     if (player == null) {
-      LOG.warning("Received notification of null player being added");
+      LOGGER.warning("Received notification of null player being added");
       return;
     }
 
@@ -271,9 +271,9 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
         if (gameInfoPanel != null) {
           gameInfoPanel.logEvent(player.getName() + " joined the game.");
         }
-        LOG.fine("Added player to view: " + player.getName());
+        LOGGER.fine("Added player to view: " + player.getName());
       } catch (Exception e) {
-        LOG.log(Level.WARNING, "Error adding player to view: " + player.getName(), e);
+        LOGGER.log(Level.WARNING, "Error adding player to view: " + player.getName(), e);
       }
     });
   }
@@ -298,7 +298,7 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
   @Override
   public void onGameWon(Player winner) {
     if (winner == null) {
-      LOG.warning("Received game won notification with null winner");
+      LOGGER.warning("Received game won notification with null winner");
       return;
     }
 
@@ -314,7 +314,7 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
   @Override
   public void update(BoardGame game) {
     if (game == null) {
-      LOG.warning("Received update notification with null game");
+      LOGGER.warning("Received update notification with null game");
       return;
     }
 
@@ -323,12 +323,12 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
         // For targeted updates, use refreshPartial instead of refreshAll for better performance
         refreshPartial(game);
       } catch (Exception e) {
-        LOG.log(Level.WARNING, "Error updating view from game model", e);
+        LOGGER.log(Level.WARNING, "Error updating view from game model", e);
         // If partial refresh fails, try full refresh as fallback
         try {
           refreshAll(game);
         } catch (Exception ex) {
-          LOG.log(Level.SEVERE, "Critical error during view refresh", ex);
+          LOGGER.log(Level.SEVERE, "Critical error during view refresh", ex);
           AlertHelper.showErrorAlert("View Error",
               "Failed to update game view. Please restart the game.");
         }
@@ -366,13 +366,13 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
         gameInfoPanel.updateMoveInfo(player, to);
       }
 
-      LOG.fine(player.getName() + " moved from " +
+      LOGGER.fine(player.getName() + " moved from " +
           (from != null ? from.getTileId() : "start") + " to " + to.getTileId());
 
       // Let onGameStateChanged handle turn changes - don't call handleTurnChange here
       // to avoid duplicating updates or conflicting with the model state
     } catch (Exception e) {
-      LOG.log(Level.WARNING, "Error handling player move in view", e);
+      LOGGER.log(Level.WARNING, "Error handling player move in view", e);
     }
   }
 
@@ -407,10 +407,10 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
         dicePanel.resetDiceDisplay();
       }
 
-      LOG.fine("Turn changed to: " + (current != null ? current.getName() : "none") +
+      LOGGER.fine("Turn changed to: " + (current != null ? current.getName() : "none") +
           ", can play: " + canPlay);
     } catch (Exception e) {
-      LOG.log(Level.WARNING, "Error handling turn change in view", e);
+      LOGGER.log(Level.WARNING, "Error handling turn change in view", e);
     }
   }
 
@@ -432,7 +432,7 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
           dicePanel.setDisabledVisual(true);
         } catch (Exception e) {
           // If this method doesn't exist or fails, just log and continue
-          LOG.log(Level.FINE, "Could not set disabled visual on dice panel", e);
+          LOGGER.log(Level.FINE, "Could not set disabled visual on dice panel", e);
         }
       }
 
@@ -441,9 +441,9 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
       }
 
       AlertHelper.showInfoAlert("Game Over!", winner.getName() + " is the winner!");
-      LOG.info("Game won by: " + winner.getName());
+      LOGGER.info("Game won by: " + winner.getName());
     } catch (Exception e) {
-      LOG.log(Level.WARNING, "Error handling game win in view", e);
+      LOGGER.log(Level.WARNING, "Error handling game win in view", e);
       // Ensure user is notified of winner even if UI update fails
       AlertHelper.showInfoAlert("Game Over!",
           "The game has ended. " + winner.getName() + " is the winner!");
@@ -469,7 +469,7 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
         if (board != null && players != null) {
           boardComponent.initializeBoard(board, players);
         } else {
-          LOG.warning("Cannot initialize board with null board or players list");
+          LOGGER.warning("Cannot initialize board with null board or players list");
         }
       }
 
@@ -480,9 +480,9 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
       // Update turn state and controls
       handleTurnChange(game.getCurrentPlayer());
 
-      LOG.fine("Full view refresh completed successfully");
+      LOGGER.fine("Full view refresh completed successfully");
     } catch (Exception e) {
-      LOG.log(Level.WARNING, "Error during full view refresh", e);
+      LOGGER.log(Level.WARNING, "Error during full view refresh", e);
       throw new IllegalStateException("Failed to refresh game view", e);
     }
   }
@@ -495,7 +495,7 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
    */
   private void refreshPartial(BoardGame game) {
     if (game == null) {
-      LOG.warning("Cannot perform partial refresh with null game model");
+      LOGGER.warning("Cannot perform partial refresh with null game model");
       return;
     }
 
@@ -523,9 +523,9 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
       // Update turn state and controls
       handleTurnChange(game.getCurrentPlayer());
 
-      LOG.fine("Partial view refresh completed successfully");
+      LOGGER.fine("Partial view refresh completed successfully");
     } catch (Exception e) {
-      LOG.log(Level.WARNING, "Error during partial view refresh", e);
+      LOGGER.log(Level.WARNING, "Error during partial view refresh", e);
       // Let caller handle the exception if needed
       throw e;
     }
