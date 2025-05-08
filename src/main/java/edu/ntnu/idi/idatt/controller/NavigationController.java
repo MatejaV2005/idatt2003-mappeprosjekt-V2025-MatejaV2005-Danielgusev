@@ -169,7 +169,7 @@ public class NavigationController {
 
     if (playerManager != null) {
       playerManager.getPlayers().forEach(player -> {
-        if (player != null) { // Add null check for player from manager
+        if (player != null) {
           currentBoardGame.addPlayer(player);
         } else {
           LOG.warning("Attempted to add a null player from PlayerManager.");
@@ -177,13 +177,13 @@ public class NavigationController {
       });
     }
 
-    currentBoardGame.startGame(); // Starts the model's game logic
+    currentBoardGame.startGame();
 
     GenericBoardGameView gameView = viewFactory.createViewFor(currentBoardGame.getGameType());
-    gameView.initializeView(currentBoardGame);
+    this.boardGameScene = gameView.getScene();
 
     this.gameScreenController = new BoardGameController(gameView, currentBoardGame, this);
-    this.boardGameScene = gameView.getScene();
+    gameView.initializeView(currentBoardGame);
 
     primaryStage.setScene(boardGameScene);
     primaryStage.setTitle("Board Game • Playing " + currentBoardGame.getGameType());
