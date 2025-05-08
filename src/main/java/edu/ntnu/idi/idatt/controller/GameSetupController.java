@@ -2,6 +2,7 @@ package edu.ntnu.idi.idatt.controller;
 
 import edu.ntnu.idi.idatt.exceptions.PlayerManagementException;
 import edu.ntnu.idi.idatt.model.core.Board;
+import edu.ntnu.idi.idatt.model.core.GameType;
 import edu.ntnu.idi.idatt.model.management.BoardManager;
 import edu.ntnu.idi.idatt.model.management.PlayerManager;
 import edu.ntnu.idi.idatt.model.core.playertype.Player;
@@ -34,9 +35,10 @@ public class GameSetupController {
   private final NavigationController navigationController;
   private final PlayerManager playerManager;
   private final BoardManager boardManager;
-  private String selectedDifficulty = "Normal"; // Default difficulty
+  private GameType selectedGame = GameType.SNAKES_AND_LADDERS; // Default difficulty
   private final Stage stage;
   private Board customBoard = null;
+  private String selectedDifficulty = "normal";
 
   /**
    * Constructs a GameSetupController.
@@ -139,7 +141,7 @@ public class GameSetupController {
     view.clearStatusMessage();
 
     try {
-      navigationController.startNewGame(selectedDifficulty.toLowerCase());
+      navigationController.startNewGame(selectedGame, selectedDifficulty);
       LOGGER.log(Level.INFO, "Starting new game with difficulty: {0}", selectedDifficulty);
     } catch (Exception e) {
       LOGGER.log(Level.SEVERE, "Error starting game", e);
@@ -322,7 +324,7 @@ public class GameSetupController {
       try {
         customBoard = boardManager.loadBoardFromFile(selectedFile.getAbsolutePath());
 
-        this.selectedDifficulty = "Custom";
+        //this.selectedDifficulty = "Custom";
         view.getGameInfoPanel().setUploadModeInfo();
         view.updateStatusMessage("Custom board loaded: " + selectedFile.getName(), false);
 
