@@ -24,7 +24,7 @@ public class BoardGameFactory {
     }
   }
 
-  public BoardGame createSnakesAndLaddersGame(String difficulty) {
+  private BoardGame createSnakesAndLaddersGame(String difficulty) {
     Board board = switch (difficulty.toLowerCase()) {
       case "easy" -> boardFactory.createEasyBoard();
       case "normal" -> boardFactory.createNormalBoard();
