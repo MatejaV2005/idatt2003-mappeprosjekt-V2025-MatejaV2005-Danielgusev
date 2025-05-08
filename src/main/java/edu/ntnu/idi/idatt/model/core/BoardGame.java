@@ -18,6 +18,9 @@ import java.util.Optional;
  */
 public abstract class BoardGame implements Observable<BoardGameObserver> {
 
+  protected final Dice dice; // <-- NYTT FELT for å holde på terningene
+  protected final Board board; // <-- NYTT FELT for å holde på brettet (hentet fra GameEngine)
+
   protected final GameEngine gameEngine;
   protected final List<Player> players;
   protected Player currentPlayer;
@@ -46,7 +49,10 @@ public abstract class BoardGame implements Observable<BoardGameObserver> {
     this.gameStarted = false;
     this.gameOver = false;
     this.roundCount = 0;
+
     this.gameEngine = createGameEngine(board, strategy);
+    this.board = gameEngine.getBoard();
+    this.dice = dice;
   }
 
   @Override
@@ -232,6 +238,11 @@ public abstract class BoardGame implements Observable<BoardGameObserver> {
    */
   protected abstract boolean checkWinCondition(Player player);
 
+  /**
+   * Returns the corresponding GameType for the game
+   */
+  public abstract GameType getGameType();
+
 
 
   // --- Facade Getters for Client to Query State ---
@@ -252,6 +263,27 @@ public abstract class BoardGame implements Observable<BoardGameObserver> {
    */
   public Player getCurrentPlayer() {
     return currentPlayer;
+  }
+
+
+  /**
+   * Gets the game board associated with this game instance.
+   * The board contains all the tiles and their arrangement.
+   *
+   * @return The current {@link Board} object.
+   */
+  public Board getBoard() {
+    return this.board;
+  }
+
+
+  /**
+   * Gets the {@link Dice} object used in this game instance.
+   * Alias for getDice() to match usage in GenericBoardGameView.
+   * @return The {@link Dice} object reflecting the last roll.
+   */
+  public Dice getLastDiceRoll() {
+    return dice;
   }
 
   /**
