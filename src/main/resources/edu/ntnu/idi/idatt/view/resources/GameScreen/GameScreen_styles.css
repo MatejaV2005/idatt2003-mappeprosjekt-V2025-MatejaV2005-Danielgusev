@@ -7,7 +7,6 @@
   -fx-background-image: url("Background.png");
   -fx-background-size: cover;
   -fx-padding: 20;                       /* leave room for the gold border */
-  -fx-border-image-source: url("Frame_gold.png");
   -fx-border-image-slice: 20;            /* slice values depend on your frame asset */
   -fx-border-image-repeat: stretch;
   -fx-border-image-width: 20;
@@ -117,10 +116,58 @@
   -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.4), 4, 0, 0, 2);
 }
 
-/* 10) Any custom font-face import (if you have a TTF in resources/fonts/) */
-/*
-@font-face {
-  font-family: "YourGameFont";
-  src: url("fonts/YourGameFont-Regular.ttf");
-}
+
+
+/*CurrentPlayerPanel styling ---------------------------
 */
+
+
+.current-player-panel {
+  -fx-background-color: rgba(0, 0, 0, 0.3); /* Lett gjennomsiktig mørk bakgrunn */
+  -fx-background-radius: 8px;
+  -fx-padding: 15px;
+  -fx-border-color: rgba(255, 255, 255, 0.2); /* Diskret kantlinje */
+  -fx-border-radius: 8px;
+  -fx-border-width: 1px;
+}
+
+.panel-title {
+  -fx-font-size: 18px;
+  -fx-font-weight: bold;
+  -fx-text-fill: white;
+  -fx-padding-bottom: 10px;
+  -fx-border-width: 0 0 1 0;
+  -fx-border-color: rgba(255, 255, 255, 0.2);
+}
+
+.player-list-container {
+  /* Styling for containeren som holder radene, om nødvendig */
+}
+
+.player-row {
+  -fx-padding: 5px;
+  -fx-background-radius: 4px;
+  -fx-background-color: transparent;
+  -fx-transition: background-color 0.3s ease-in-out;
+}
+
+.player-row-highlight {
+  -fx-background-color: rgba(255, 255, 150, 0.4);
+}
+
+.player-icon {
+  /* Styling for ImageView, hvis nødvendig */
+}
+
+.player-number {
+  -fx-font-size: 16px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #FFD700;
+  -fx-min-width: 25px;
+  -fx-alignment: center-right;
+}
+
+.player-name-display {
+  -fx-font-size: 16px;
+  -fx-text-fill: white;
+}
