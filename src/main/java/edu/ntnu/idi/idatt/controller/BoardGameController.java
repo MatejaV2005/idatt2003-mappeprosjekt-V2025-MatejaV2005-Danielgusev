@@ -32,6 +32,7 @@ public class BoardGameController {
    * @throws NullPointerException if any argument is null.
    */
   public BoardGameController(GenericBoardGameView view, BoardGame boardGame, NavigationController navigationController) {
+    // Use Objects.requireNonNull for clearer null checks
     this.view = Objects.requireNonNull(view, "View cannot be null in BoardGameController constructor.");
     this.boardGame = Objects.requireNonNull(boardGame, "BoardGame cannot be null in BoardGameController constructor.");
     this.navigationController = Objects.requireNonNull(navigationController, "NavigationController cannot be null in BoardGameController constructor.");
@@ -84,7 +85,31 @@ public class BoardGameController {
    * Includes game over status, current player, player positions, and round count.
    */
   protected void logCurrentGameState() {
+    if (boardGame == null) {
+      LOGGER.warning("Cannot log game state: boardGame model is null.");
+      return;
+    }
+    try {
+      LOGGER.info("--- Current Game State ---");
+      LOGGER.info("Game Over: " + boardGame.isGameOver());
+      Player currentPlayer = boardGame.getCurrentPlayer();
+      LOGGER.info("Current Player: " + (currentPlayer != null ? currentPlayer.getName() : "None"));
 
+      if (boardGame.getPlayers() != null) {
+        for (Player p : boardGame.getPlayers()) {
+          if (p != null) {
+            LOGGER.info("  - " + p.getName() + " at tile " +
+                (p.getCurrentTile() != null ? p.getCurrentTile().getTileId() : "unknown"));
+          }
+        }
+      } else {
+        LOGGER.warning("Player list is null in boardGame model.");
+      }
+      LOGGER.info("Round: " + boardGame.getRoundCount());
+      LOGGER.info("--------------------------");
+    } catch (Exception e) {
+      LOGGER.log(Level.SEVERE, "Error logging game state", e);
+    }
   }
 
 
@@ -97,8 +122,15 @@ public class BoardGameController {
 
   }
 
-
+  /**
+   * Provides access to the underlying {@link BoardGame} model instance.
+   * This allows other parts of the application (like the view, although discouraged
+   * for direct model manipulation) or potentially other controllers to query the game state.
+   *
+   * @return The {@link BoardGame} instance being controlled. Never null after successful construction.
+   */
   public BoardGame getBoardGame() {
-
+    // boardGame is final and checked in constructor, should not be null here.
+    return boardGame;
   }
 }
