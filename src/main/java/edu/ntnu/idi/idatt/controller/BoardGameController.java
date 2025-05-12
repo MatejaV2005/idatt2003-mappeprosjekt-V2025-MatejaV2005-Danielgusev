@@ -3,104 +3,102 @@ package edu.ntnu.idi.idatt.controller;
 import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.core.playertype.Player;
 import edu.ntnu.idi.idatt.view.screens.GenericBoardGameView;
-import java.util.Optional;
-import java.util.logging.Logger;
+import edu.ntnu.idi.idatt.view.utils.AlertHelper;
+import java.util.Objects;
 import java.util.logging.Level;
-import javafx.application.Platform;
+import java.util.logging.Logger;
+
 
 /**
- * Controls the interactions on the game screen.
- * Connects the GameScreenView to the BoardGame and handles user input.
+ * Controller responsible for handling user interactions within the main game screen ({@link GenericBoardGameView}).
+ * It acts as the intermediary between the game view and the game model ({@link BoardGame}),
+ * translating user actions (like button clicks) into calls on the game model.
+ * It also coordinates with the {@link NavigationController} for screen transitions away from the game screen.
  */
 public class BoardGameController {
   private static final Logger LOGGER = Logger.getLogger(BoardGameController.class.getName());
 
-  protected final GenericBoardGameView view;
-  protected final BoardGame boardGame;
-  protected final NavigationController navigationController;
+  private final GenericBoardGameView view;
+  private final BoardGame boardGame;
+  private final NavigationController navigationController;
 
   /**
-   * Constructor for GameScreenController.
+   * Constructs a new BoardGameController.
+   * Establishes connections between the view, model, and navigation logic.
    *
-   * @param view The associated GameScreenView.
-   * @param boardGame The board game model.
-   * @param navigationController The controller for screen navigation.
+   * @param view The associated {@link GenericBoardGameView}. Must not be null.
+   * @param boardGame The {@link BoardGame} model instance. Must not be null.
+   * @param navigationController The {@link NavigationController} for handling screen changes. Must not be null.
+   * @throws NullPointerException if any argument is null.
    */
   public BoardGameController(GenericBoardGameView view, BoardGame boardGame, NavigationController navigationController) {
-    if (view == null || boardGame == null || navigationController == null) {
-      throw new IllegalArgumentException("View, BoardGame, and NavigationController cannot be null.");
-    }
-    this.view = view;
-    this.boardGame = boardGame;
-    this.navigationController = navigationController;
+    this.view = Objects.requireNonNull(view, "View cannot be null in BoardGameController constructor.");
+    this.boardGame = Objects.requireNonNull(boardGame, "BoardGame cannot be null in BoardGameController constructor.");
+    this.navigationController = Objects.requireNonNull(navigationController, "NavigationController cannot be null in BoardGameController constructor.");
 
+    // Set this controller instance on the view so the view can call methods like onPlayTurn()
     this.view.setController(this);
 
-    initializeGameView();
+    initializeGameView(); // Perform any initial setup related to the controller/view link
   }
 
   /**
-   * Initializes the view or performs any setup needed when the game screen loads.
+   * Performs any initial setup needed when the controller and view are linked.
+   * Currently logs the initialization and the initial game state.
    */
   protected void initializeGameView() {
-    LOGGER.info("GameScreenController initialized. Updating view with initial state.");
-    logCurrentGameState();
+    LOGGER.info("BoardGameController initialized and linked with view.");
+    logCurrentGameState(); // Log the state when the game screen is first shown
   }
 
   /**
-   * Handles the action triggered when the "Play Turn" button is clicked in the view.
+   * Handles the user action of initiating the next turn, typically triggered by a button click.
+   * It instructs the {@link BoardGame} model to advance the game state by one turn.
+   * Includes basic error handling if the turn cannot be played.
    */
   public void onPlayTurn() {
+    LOGGER.fine("onPlayTurn() called.");
+    try {
+      if (boardGame != null && !boardGame.isGameOver()) {
+        boardGame.playNextTurn();
+        logCurrentGameState();
+      } else if (boardGame != null && boardGame.isGameOver()) {
+        LOGGER.warning("Attempted to play turn, but game is already over.");
 
+      } else {
+        LOGGER.severe("Cannot play turn: boardGame model is null.");
+      }
+    } catch (IllegalStateException e) {
+      LOGGER.log(Level.SEVERE, "Error executing playNextTurn: " + e.getMessage(), e);
+      AlertHelper.showErrorAlert("Game Error", "Could not play turn: " + e.getMessage());
+    } catch (Exception e) {
+      LOGGER.log(Level.SEVERE, "Unexpected error during onPlayTurn", e);
+      AlertHelper.showErrorAlert("Unexpected Error", "An unexpected error occurred: " + e.getMessage());
+    }
   }
 
-  /**
-   * Executes the core logic for a single player's turn.
-   */
-  protected void executePlayerTurn() {
-
-  }
+  // executePlayerTurn() is removed as the logic is within boardGame.playNextTurn()
 
   /**
-   * Logs the current state of the game for debugging.
+   * Logs the current state of the game model for debugging purposes.
+   * Includes game over status, current player, player positions, and round count.
    */
   protected void logCurrentGameState() {
-    LOGGER.info("--- Current Game State ---");
-    LOGGER.info("Game Over: " + boardGame.isGameOver());
-
-    Player currentPlayer = boardGame.getCurrentPlayer();
-    LOGGER.info("Current Player: " + (currentPlayer != null ? currentPlayer.getName() : "None"));
-
-    // Log player positions
-    for (Player p : boardGame.getPlayers()) {
-      LOGGER.info("  - " + p.getName() + " at tile " +
-          (p.getCurrentTile() != null ? p.getCurrentTile().getTileId() : "unknown"));
-    }
-
-    LOGGER.info("Round: " + boardGame.getRoundCount());
-    LOGGER.info("--------------------------");
-  }
-
-  /**
-   * Handles the end of the game.
-   */
-  protected void handleGameOver() {
 
   }
 
+
   /**
-   * Navigates the user back to the game selection screen.
+   * Handles the user action to navigate away from the game screen, typically back
+   * to the game selection or main menu. Delegates the navigation task to the
+   * {@link NavigationController}.
    */
   public void onBackToMenu() {
 
   }
 
-  /**
-   * Provides access to the underlying BoardGame model.
-   *
-   * @return The BoardGame instance being controlled.
-   */
+
   public BoardGame getBoardGame() {
-    return boardGame;
+
   }
 }
