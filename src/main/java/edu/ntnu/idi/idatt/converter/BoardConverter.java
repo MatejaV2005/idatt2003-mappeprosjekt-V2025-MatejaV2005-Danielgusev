@@ -2,10 +2,9 @@ package edu.ntnu.idi.idatt.converter;
 
 import edu.ntnu.idi.idatt.DataTransfer.BoardDto;
 import edu.ntnu.idi.idatt.DataTransfer.TileDto;
-import edu.ntnu.idi.idatt.factory.TileFactory;
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.Tile;
-import edu.ntnu.idi.idatt.model.actions.TileAction;
+import edu.ntnu.idi.idatt.model.core.actions.TileAction;
 import java.util.HashMap;
 import java.util.Map;
 

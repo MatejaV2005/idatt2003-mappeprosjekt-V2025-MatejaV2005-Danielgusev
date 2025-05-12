@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.model.actions;
+package edu.ntnu.idi.idatt.model.core.actions;
 
 import edu.ntnu.idi.idatt.model.core.ActionType;
 import edu.ntnu.idi.idatt.model.core.Tile;

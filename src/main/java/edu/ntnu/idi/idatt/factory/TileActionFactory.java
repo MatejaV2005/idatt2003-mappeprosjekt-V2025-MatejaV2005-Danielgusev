@@ -2,11 +2,11 @@ package edu.ntnu.idi.idatt.factory;
 
 import edu.ntnu.idi.idatt.model.core.ActionType;
 import edu.ntnu.idi.idatt.model.core.Tile;
-import edu.ntnu.idi.idatt.model.actions.LadderAction;
-import edu.ntnu.idi.idatt.model.actions.NoOperationAction;
-import edu.ntnu.idi.idatt.model.actions.SnakeAction;
-import edu.ntnu.idi.idatt.model.actions.SpecialAction;
-import edu.ntnu.idi.idatt.model.actions.TileAction;
+import edu.ntnu.idi.idatt.model.core.actions.LadderAction;
+import edu.ntnu.idi.idatt.model.core.actions.NoOperationAction;
+import edu.ntnu.idi.idatt.model.core.actions.SnakeAction;
+import edu.ntnu.idi.idatt.model.core.actions.SpecialAction;
+import edu.ntnu.idi.idatt.model.core.actions.TileAction;
 import edu.ntnu.idi.idatt.model.core.playertype.Player;
 import java.util.function.Consumer;
 

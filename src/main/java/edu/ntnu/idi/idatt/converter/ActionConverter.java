@@ -4,8 +4,8 @@ import edu.ntnu.idi.idatt.DataTransfer.ActionDto;
 import edu.ntnu.idi.idatt.factory.TileActionFactory;
 import edu.ntnu.idi.idatt.model.core.ActionType;
 import edu.ntnu.idi.idatt.model.core.Tile;
-import edu.ntnu.idi.idatt.model.actions.NoOperationAction;
-import edu.ntnu.idi.idatt.model.actions.TileAction;
+import edu.ntnu.idi.idatt.model.core.actions.NoOperationAction;
+import edu.ntnu.idi.idatt.model.core.actions.TileAction;
 import java.util.Map;
 
 public class ActionConverter {

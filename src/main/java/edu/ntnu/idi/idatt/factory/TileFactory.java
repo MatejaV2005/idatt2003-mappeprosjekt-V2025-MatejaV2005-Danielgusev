@@ -1,7 +1,7 @@
 package edu.ntnu.idi.idatt.factory;
 
 import edu.ntnu.idi.idatt.model.core.Tile;
-import edu.ntnu.idi.idatt.model.actions.TileAction;
+import edu.ntnu.idi.idatt.model.core.actions.TileAction;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 
 /**
