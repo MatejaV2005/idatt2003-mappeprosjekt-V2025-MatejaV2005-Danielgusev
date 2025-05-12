@@ -19,7 +19,7 @@ public class GameEngine {
   }
 
 
-  
+
   public Board getBoard() {
     return this.board;
   }
