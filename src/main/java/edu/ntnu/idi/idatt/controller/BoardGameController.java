@@ -32,15 +32,13 @@ public class BoardGameController {
    * @throws NullPointerException if any argument is null.
    */
   public BoardGameController(GenericBoardGameView view, BoardGame boardGame, NavigationController navigationController) {
-    // Use Objects.requireNonNull for clearer null checks
     this.view = Objects.requireNonNull(view, "View cannot be null in BoardGameController constructor.");
     this.boardGame = Objects.requireNonNull(boardGame, "BoardGame cannot be null in BoardGameController constructor.");
     this.navigationController = Objects.requireNonNull(navigationController, "NavigationController cannot be null in BoardGameController constructor.");
 
-    // Set this controller instance on the view so the view can call methods like onPlayTurn()
     this.view.setController(this);
 
-    initializeGameView(); // Perform any initial setup related to the controller/view link
+    initializeGameView();
   }
 
   /**
@@ -49,7 +47,7 @@ public class BoardGameController {
    */
   protected void initializeGameView() {
     LOGGER.info("BoardGameController initialized and linked with view.");
-    logCurrentGameState(); // Log the state when the game screen is first shown
+    logCurrentGameState();
   }
 
   /**
@@ -77,8 +75,6 @@ public class BoardGameController {
       AlertHelper.showErrorAlert("Unexpected Error", "An unexpected error occurred: " + e.getMessage());
     }
   }
-
-  // executePlayerTurn() is removed as the logic is within boardGame.playNextTurn()
 
   /**
    * Logs the current state of the game model for debugging purposes.
@@ -119,7 +115,13 @@ public class BoardGameController {
    * {@link NavigationController}.
    */
   public void onBackToMenu() {
-
+    LOGGER.info("onBackToMenu() called. Navigating back.");
+    if (navigationController != null) {
+      navigationController.navigateToGameSelection(); // Or navigateToTitleScreen()
+    } else {
+      LOGGER.severe("Cannot navigate back to menu: navigationController is null.");
+      AlertHelper.showErrorAlert("Navigation Error", "Cannot go back to the menu at this time.");
+    }
   }
 
   /**
@@ -130,7 +132,6 @@ public class BoardGameController {
    * @return The {@link BoardGame} instance being controlled. Never null after successful construction.
    */
   public BoardGame getBoardGame() {
-    // boardGame is final and checked in constructor, should not be null here.
     return boardGame;
   }
 }
