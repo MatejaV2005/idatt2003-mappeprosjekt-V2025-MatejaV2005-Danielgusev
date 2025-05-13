@@ -165,6 +165,17 @@ public class Tile {
   }
 
   /**
+   * Checks if this tile has an action that moves the player to another tile.
+   *
+   * @return true if this tile has a movement action, false otherwise
+   */
+  public boolean isActionTile() {
+    return landAction != null &&
+        landAction.getActionType() != ActionType.NO_OP &&
+        landAction.getDestinationTileId() > 0;
+  }
+
+  /**
    * Compares this tile to another object for equality.
    * Tiles are considered equal if they have the same tile ID.
    *
