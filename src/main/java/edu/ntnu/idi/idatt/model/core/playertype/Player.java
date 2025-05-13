@@ -90,15 +90,15 @@ public abstract class Player implements Observable<PlayerModelObserver> {
   public Tile basicMove(int steps) {
     ExceptionHandling.requirePositive(steps, "steps");
 
-    Tile newTile = currentTile;
+    Tile destinationTile = this.getCurrentTile();
 
     for (int i = 0; i < steps; i++) {
-      if (newTile.getNextTile() != null) { //check for if the player is at the end of the board
-        newTile = newTile.getNextTile();
+      if (destinationTile.getNextTile() != null) { //check for if the player is at the end of the board
+        destinationTile = destinationTile.getNextTile();
       }
     }
 
-    return newTile;
+    return destinationTile;
   }
 
 
