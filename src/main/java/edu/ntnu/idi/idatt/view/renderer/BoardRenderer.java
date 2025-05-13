@@ -14,4 +14,5 @@ public interface BoardRenderer {
 
   void updatePlayerTokenPosition(Node playerTokenNode, Tile targetTile, Pane boardPane);
 
+  void placePlayerTokenAtTile(Node playerTokenNode, Tile tile, Pane boardPane);
 }
