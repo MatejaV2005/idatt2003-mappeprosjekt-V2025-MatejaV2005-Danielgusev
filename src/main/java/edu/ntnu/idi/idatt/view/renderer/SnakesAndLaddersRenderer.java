@@ -4,14 +4,18 @@ import edu.ntnu.idi.idatt.model.core.ActionType;
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.model.core.playertype.Player;
-import edu.ntnu.idi.idatt.model.actions.TileAction;
+import edu.ntnu.idi.idatt.model.core.actions.TileAction;
 
+import edu.ntnu.idi.idatt.view.utils.PlayerTokenData;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.Interpolator;
+import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -50,8 +54,9 @@ public class SnakesAndLaddersRenderer implements BoardRenderer {
 
   private static final Duration MOVE_ANIMATION_DURATION = Duration.millis(400);
 
-  private static final Color LIGHT_TILE_COLOR = Color.web("#BFA6B9");
-  private static final Color DARK_TILE_COLOR  = Color.web("#5D3B5C");
+
+  private static final Color LIGHT_TILE_COLOR = Color.web("#5D3B5C");
+  private static final Color DARK_TILE_COLOR  = Color.web("#BFA6B9");
 
 
   // Define action-specific colors
@@ -59,7 +64,6 @@ public class SnakesAndLaddersRenderer implements BoardRenderer {
   private static final Color SNAKE_COLOR = Color.web("#D32F2F");
   private static final Color SPECIAL_COLOR = Color.web("#42A5F5");
 
-  private static final double ACTION_LINE_WIDTH_FACTOR = 0.12;
   private static final double TILE_STROKE_WIDTH = 0.5;
 
   private static final Color TILE_STROKE_COLOR = Color.web("#556B2F", 0.4);
@@ -174,15 +178,50 @@ public class SnakesAndLaddersRenderer implements BoardRenderer {
   }
 
   /**
-   * {@inheritDoc}
-   * Moves the player token node to the center of the target tile using a smooth
-   * {@link TranslateTransition}. The target position is calculated based on the
-   * tile's center and the token's dimensions, ensuring it's visually centered on the tile.
-   * This method uses the original, smoother animation logic.
+   * Sets the initial position of a player token at the specified tile without animation.
+   * This should be used when first placing tokens on the board.
    *
-   * @param playerTokenNode The {@link Node} representing the player's token. Cannot be null.
-   * @param targetTile The {@link Tile} to move the token to. Cannot be null.
-   * @param boardPane The parent {@link Pane} containing the board. Cannot be null.
+   * @param playerTokenNode The player token node to position
+   * @param tile The tile where the player should be placed
+   */
+  @Override
+  public void placePlayerTokenAtTile(Node playerTokenNode, Tile tile, Pane boardPane) {
+    Objects.requireNonNull(playerTokenNode, "playerTokenNode cannot be null for initial placement");
+    Objects.requireNonNull(tile, "tile cannot be null for initial placement");
+
+    int tileId = tile.getTileId();
+    Point2D tileCenter = tileCenterPositions.get(tileId);
+
+    if (tileCenter == null) {
+      LOGGER.warning("Missing position for tile " + tileId + " during initial placement. Calculating fallback position.");
+      tileCenter = calculateCenterFallback(tile);
+      if (tileCenter == null) {
+        LOGGER.severe("Unable to place player token at tile " + tileId + " due to missing position data.");
+        return;
+      }
+    }
+
+    double tokenWidth = playerTokenNode.getBoundsInLocal().getWidth();
+    double tokenHeight = playerTokenNode.getBoundsInLocal().getHeight();
+
+    playerTokenNode.setLayoutX(tileCenter.getX() - tokenWidth / 2.0);
+    playerTokenNode.setLayoutY(tileCenter.getY() - tokenHeight / 2.0);
+    playerTokenNode.setTranslateX(0);
+    playerTokenNode.setTranslateY(0);
+
+    Player player = (Player)playerTokenNode.getUserData();
+    playerTokenNode.setUserData(new PlayerTokenData(player, tileId));
+    LOGGER.fine("Player token directly placed at tile " + tileId);
+  }
+
+  /**
+   * {@inheritDoc}
+   * Moves the player token node through each intermediate tile to reach the target tile,
+   * creating a sequential animation that shows the token "walking" the path.
+   *
+   * @param playerTokenNode The {@link Node} representing the player's token.
+   * @param targetTile The final {@link Tile} to move the token to.
+   * @param boardPane The parent {@link Pane} containing the board.
    * @throws NullPointerException if any argument is null.
    */
   @Override
@@ -191,49 +230,136 @@ public class SnakesAndLaddersRenderer implements BoardRenderer {
     Objects.requireNonNull(targetTile, "targetTile cannot be null for position update");
     Objects.requireNonNull(boardPane, "boardPane context cannot be null for position update");
 
-    Point2D targetCenter = tileCenterPositions.get(targetTile.getTileId());
-
-    if (targetCenter == null) {
-      LOGGER.log(Level.WARNING, "Renderer Warning: Could not find pre-calculated center for Tile ID: " + targetTile.getTileId() + ". Attempting fallback.");
-      targetCenter = calculateCenterFallback(targetTile);
-      if (targetCenter == null) {
-        LOGGER.severe("Fallback position calculation failed. Cannot position token for tile " + targetTile.getTileId() +
-            ". Placing at default offset.");
-        playerTokenNode.setLayoutX(offsetX + calculatedTileSize / 4.0);
-        playerTokenNode.setLayoutY(offsetY + calculatedTileSize / 4.0);
-        return;
-      }
+    Player player;
+    if (playerTokenNode.getUserData() instanceof PlayerTokenData) {
+      player = ((PlayerTokenData)playerTokenNode.getUserData()).getPlayer();
+    } else {
+      player = (Player)playerTokenNode.getUserData();
     }
+    String playerName = (player != null) ? player.getName() : "Unknown Player";
+
+    int currentTileId = getCurrentTileId(playerTokenNode);
+    int targetTileId = targetTile.getTileId();
+
+    playerTokenNode.setUserData(new PlayerTokenData(player, targetTileId));
+
+    LOGGER.info("Moving " + playerName + " from tile " + currentTileId + " to tile " + targetTileId);
+
+    List<Integer> path = calculatePath(currentTileId, targetTileId);
+
+    SequentialTransition sequentialTransition = new javafx.animation.SequentialTransition();
 
     double tokenWidth = playerTokenNode.getBoundsInLocal().getWidth();
     double tokenHeight = playerTokenNode.getBoundsInLocal().getHeight();
-    double targetLayoutX = targetCenter.getX() - tokenWidth / 2.0;
-    double targetLayoutY = targetCenter.getY() - tokenHeight / 2.0;
 
-    TranslateTransition tt = new TranslateTransition(MOVE_ANIMATION_DURATION, playerTokenNode);
-    tt.setInterpolator(Interpolator.EASE_BOTH);
+    double currentX = playerTokenNode.getLayoutX();
+    double currentY = playerTokenNode.getLayoutY();
 
-    // calculate delta for translation (animation logci)
-    double currentLayoutX = playerTokenNode.getLayoutX();
-    double currentLayoutY = playerTokenNode.getLayoutY();
-    double currentTranslateX = playerTokenNode.getTranslateX();
-    double currentTranslateY = playerTokenNode.getTranslateY();
+    for (int i = 0; i < path.size(); i++) {
+      int tileId = path.get(i);
+      Point2D targetCenter = tileCenterPositions.get(tileId);
+      if (targetCenter == null) {
+        LOGGER.warning("Missing position for tile " + tileId + ". Skipping in animation.");
+        continue;
+      }
 
-    tt.setToX(targetLayoutX - currentLayoutX + currentTranslateX);
-    tt.setToY(targetLayoutY - currentLayoutY + currentTranslateY);
+      double targetX = targetCenter.getX() - tokenWidth / 2.0;
+      double targetY = targetCenter.getY() - tokenHeight / 2.0;
 
-    Player p = (Player) playerTokenNode.getUserData();
-    String playerName = (p != null) ? p.getName() : "Unknown Player";
-    LOGGER.finer("Animating token for " + playerName + " to target layout ("+ String.format("%.2f", targetLayoutX) + ", " + String.format("%.2f", targetLayoutY) + ")");
+      TranslateTransition tt = new TranslateTransition(MOVE_ANIMATION_DURATION, playerTokenNode);
+      tt.setInterpolator(Interpolator.EASE_BOTH);
 
-    tt.setOnFinished(e -> {
-      playerTokenNode.setLayoutX(targetLayoutX);
-      playerTokenNode.setLayoutY(targetLayoutY);
-      playerTokenNode.setTranslateX(0);
-      playerTokenNode.setTranslateY(0);
-      LOGGER.finer("Animation finished for " + playerName + ", snapped to final position.");
-    });
-    tt.play();
+      // Calculate translation amounts
+      double translateX = targetX - currentX;
+      double translateY = targetY - currentY;
+
+      tt.setFromX(0);
+      tt.setFromY(0);
+      tt.setToX(translateX);
+      tt.setToY(translateY);
+
+      final int thisStepTileId = tileId;
+      final double finalTargetX = targetX;
+      final double finalTargetY = targetY;
+
+      tt.setOnFinished(e -> {
+        // Reset the translate properties and update layout for next animation
+        playerTokenNode.setLayoutX(finalTargetX);
+        playerTokenNode.setLayoutY(finalTargetY);
+        playerTokenNode.setTranslateX(0);
+        playerTokenNode.setTranslateY(0);
+        LOGGER.finer("Reached intermediate tile " + thisStepTileId);
+      });
+
+      sequentialTransition.getChildren().add(tt);
+
+      currentX = targetX;
+      currentY = targetY;
+    }
+
+    // Start the animation sequence
+    sequentialTransition.play();
+  }
+
+  /**
+   * Updated version of getCurrentTileId that uses the stored PlayerTokenData
+   */
+  private int getCurrentTileId(Node playerTokenNode) {
+    if (playerTokenNode.getUserData() instanceof PlayerTokenData) {
+      return ((PlayerTokenData)playerTokenNode.getUserData()).getCurrentTileId();
+    }
+
+    double tokenX = playerTokenNode.getLayoutX() + playerTokenNode.getTranslateX() +
+        playerTokenNode.getBoundsInLocal().getWidth() / 2.0;
+    double tokenY = playerTokenNode.getLayoutY() + playerTokenNode.getTranslateY() +
+        playerTokenNode.getBoundsInLocal().getHeight() / 2.0;
+
+    int closestTile = 0;
+    double minDistance = Double.MAX_VALUE;
+
+    for (Map.Entry<Integer, Point2D> entry : tileCenterPositions.entrySet()) {
+      Point2D tileCenter = entry.getValue();
+      double distance = Math.sqrt(
+          Math.pow(tokenX - tileCenter.getX(), 2) + Math.pow(tokenY - tileCenter.getY(), 2)
+      );
+
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestTile = entry.getKey();
+      }
+    }
+
+    return closestTile;
+  }
+
+  /**
+   * Calculates the path of tiles to visit when moving from start to end tile.
+   *
+   * @param startTileId The starting tile ID
+   * @param endTileId The ending tile ID
+   * @return A list of tile IDs representing the path
+   */
+  private List<Integer> calculatePath(int startTileId, int endTileId) {
+    List<Integer> path = new ArrayList<>();
+
+    if (startTileId == endTileId) {
+      path.add(endTileId);
+      return path;
+    }
+
+    if (endTileId > startTileId) {
+      // Moving forward
+      for (int i = startTileId + 1; i <= endTileId; i++) {
+        path.add(i);
+      }
+    } else {
+      // Moving backward (for special actions like snakes)
+      for (int i = startTileId - 1; i >= endTileId; i--) {
+        path.add(i);
+      }
+    }
+
+    return path;
   }
 
   /**
@@ -253,58 +379,88 @@ public class SnakesAndLaddersRenderer implements BoardRenderer {
    */
   private void createTileVisual(Pane boardPane, Tile tile) {
     int tileId = tile.getTileId();
-    Point2D position = calculateTopLeftWithOffset(tile.getRow(), tile.getColumn());
+    int logicalRow = tile.getRow();
+    int logicalCol = tile.getColumn();
 
+    Point2D topLeftWithOffset = calculateTopLeftWithOffset(logicalRow, logicalCol);
+
+    Rectangle tileBg = new Rectangle(calculatedTileSize, calculatedTileSize);
     TileAction action = tile.getLandAction();
-    Color tileColor = ((tile.getRow() + tile.getColumn()) % 2 == 0) ? LIGHT_TILE_COLOR : DARK_TILE_COLOR; // Default
+    Color tileFillColor;
 
+    // Prioritize special action colors
+    boolean hasSpecialColor = false;
     if (action != null) {
-      ActionType actionType = action.getActionType();
-      switch (actionType) {
-        case LADDER -> tileColor = LADDER_COLOR;
-        case SNAKE -> tileColor = SNAKE_COLOR;
-        case SPECIAL, RETURN_TO_START, SKIP_TURN -> tileColor = SPECIAL_COLOR;
-        default -> { /* Keep default color */ }
+      switch (action.getActionType()) {
+        case LADDER:
+          tileFillColor = LADDER_COLOR;
+          hasSpecialColor = true;
+          break;
+        case SNAKE:
+          tileFillColor = SNAKE_COLOR;
+          hasSpecialColor = true;
+          break;
+        case SPECIAL:
+        case RETURN_TO_START:
+        case SKIP_TURN:
+          tileFillColor = SPECIAL_COLOR;
+          hasSpecialColor = true;
+          break;
+        case NO_OP:
+        default:
+          // No special color, will use alternating logic below
+          tileFillColor = null; // Explicitly null to trigger default logic
+          break;
       }
+    } else {
+      // Action is null, use alternating logic below
+      tileFillColor = null;
+      LOGGER.warning("Tile " + tileId + " has a null TileAction. Using default background color logic.");
     }
 
-    // Create visual components
-    Rectangle tileBg = new Rectangle(calculatedTileSize, calculatedTileSize);
-    tileBg.setFill(tileColor);
+    // If no special color was assigned, use the standard alternating pattern based on tileId
+    if (!hasSpecialColor) {
+      // Standard pattern: Tile 1 light, Tile 2 dark, Tile 3 light...
+      // Corresponds to: odd tileId -> LIGHT_TILE_COLOR, even tileId -> DARK_TILE_COLOR
+      tileFillColor = (tileId % 2 != 0) ? LIGHT_TILE_COLOR : DARK_TILE_COLOR;
+    }
+
+    // Apply the determined color
+    tileBg.setFill(tileFillColor);
     tileBg.setStroke(TILE_STROKE_COLOR);
     tileBg.setStrokeWidth(TILE_STROKE_WIDTH);
 
     Label tileLabel = new Label(String.valueOf(tileId));
-    tileLabel.setFont(Font.font("Arial", FontWeight.BOLD, calculatedTileSize * TILE_NUMBER_FONT_FACTOR));
-    tileLabel.setTextFill(TILE_NUMBER_COLOR);
+    double fontSize = Math.max(8.0, calculatedTileSize * TILE_NUMBER_FONT_FACTOR);
+    tileLabel.setFont(Font.font("Arial", FontWeight.BOLD, fontSize));
+    tileLabel.setTextFill(TILE_NUMBER_COLOR); // White text
 
-    // Assemble and position the tile
     StackPane tileNode = new StackPane(tileBg, tileLabel);
-    tileNode.setLayoutX(position.getX());
-    tileNode.setLayoutY(position.getY());
+    tileNode.setLayoutX(topLeftWithOffset.getX());
+    tileNode.setLayoutY(topLeftWithOffset.getY());
     tileNode.setUserData(tileId);
+
     boardPane.getChildren().add(tileNode);
 
-    // Store center position for player tokens and connecting lines
-    tileCenterPositions.put(tileId, new Point2D(
-        position.getX() + calculatedTileSize / 2.0,
-        position.getY() + calculatedTileSize / 2.0
-    ));
+    Point2D center = new Point2D(
+        topLeftWithOffset.getX() + calculatedTileSize / 2.0,
+        topLeftWithOffset.getY() + calculatedTileSize / 2.0
+    );
+    tileCenterPositions.put(tileId, center);
   }
 
-  /**
-   * Calculates the top-left (x, y) coordinate for a tile's visual representation,
-   * taking into account the global {@code offsetX} and {@code offsetY} for centering the grid.
-   * The calculation also inverts the logical row to match JavaFX's top-left origin.
-   *
-   * @param logicalRow The 0-indexed row of the tile from the board model (bottom-up).
-   * @param logicalCol The 0-indexed column of the tile from the board model (left-to-right).
-   * @return A {@link Point2D} representing the top-left (x,y) for drawing the tile.
-   */
+
   private Point2D calculateTopLeftWithOffset(int logicalRow, int logicalCol) {
     int visualRow = (numRows - 1) - logicalRow;
-    double x = offsetX + (logicalCol * calculatedTileSize);
     double y = offsetY + (visualRow * calculatedTileSize);
+    double x;
+    if (logicalRow % 2 == 0) {
+      x = offsetX + (logicalCol * calculatedTileSize);
+    } else {
+      int visualCol = (numCols - 1) - logicalCol;
+      x = offsetX + (visualCol * calculatedTileSize);
+    }
+
     return new Point2D(x, y);
   }
 
@@ -363,21 +519,19 @@ public class SnakesAndLaddersRenderer implements BoardRenderer {
 
         if (startCenter != null && endCenter != null) {
           Line line = new Line(startCenter.getX(), startCenter.getY(), endCenter.getX(), endCenter.getY());
-          line.setStrokeWidth(Math.max(1.0, calculatedTileSize * ACTION_LINE_WIDTH_FACTOR)); // Ensure minimum width
-          line.setOpacity(0.7);
+          line.setStrokeWidth(10.0);
+          line.setOpacity(.5);
           line.setMouseTransparent(true);
 
           if (action.getActionType() == ActionType.LADDER) {
             line.setStroke(LADDER_COLOR);
             line.getStrokeDashArray().addAll(Math.max(1.0, calculatedTileSize * 0.15), Math.max(1.0, calculatedTileSize * 0.1));
-          } else { // SNAKE
+          } else {
             line.setStroke(SNAKE_COLOR);
           }
           boardPane.getChildren().add(line);
-          line.toBack(); // Ensure lines are drawn behind player tokens
         } else {
-          LOGGER.warning("Could not draw snake/ladder from tile " + startTileId + " to " + endTileId +
-              ": Missing center position(s). Start: " + startCenter + ", End: " + endCenter);
+          LOGGER.warning("Could not draw snake/ladder from tile " + startTileId + " to " + endTileId + ": Missing center position(s). Start: " + startCenter + ", End: " + endCenter);
         }
       }
     }
