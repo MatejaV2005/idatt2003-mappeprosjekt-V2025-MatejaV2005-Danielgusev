@@ -183,32 +183,7 @@ public class BoardComponent extends Pane {
     });
   }
 
-  /**
-   * Animates a player moving from an action tile (like a snake or ladder) to a destination tile.
-   * This is separate from regular movement and is typically called after the initial movement
-   * animation completes when a player lands on an action tile.
-   *
-   * @param player The player whose token should be animated
-   * @param fromActionTile The action tile where the player landed
-   * @param toDestinationTile The destination tile where the action sends the player
-   */
-  public void animateActionTileEffect(Player player, Tile fromActionTile, Tile toDestinationTile) {
-    ExceptionHandling.requireNonNull(player, "player cannot be null");
-    ExceptionHandling.requireNonNull(fromActionTile, "fromActionTile cannot be null");
-    ExceptionHandling.requireNonNull(toDestinationTile, "toDestinationTile cannot be null");
 
-    LOGGER.fine("Animating action tile effect for " + player.getName() + " from " +
-        fromActionTile.getTileId() + " to " + toDestinationTile.getTileId());
-
-    Platform.runLater(() -> {
-      Node tokenNode = playerTokens.get(player);
-      if (tokenNode != null) {
-        renderer.animateActionTileEffect(tokenNode, fromActionTile, toDestinationTile, this, null);
-      } else {
-        LOGGER.warning("Cannot animate action tile effect: No token found for player " + player.getName());
-      }
-    });
-  }
 
   /**
    * Removes a player's visual token from the board display and internal tracking.
