@@ -15,7 +15,4 @@ public interface BoardRenderer {
   void updatePlayerTokenPosition(Node playerTokenNode, Tile targetTile, Pane boardPane, Runnable onAnimationComplete);
 
   void placePlayerTokenAtTile(Node playerTokenNode, Tile tile, Pane boardPane);
-
-  void animateActionTileEffect(Node playerTokenNode, Tile fromTile, Tile toTile,
-      Pane boardPane, Runnable onAnimationComplete);
 }
