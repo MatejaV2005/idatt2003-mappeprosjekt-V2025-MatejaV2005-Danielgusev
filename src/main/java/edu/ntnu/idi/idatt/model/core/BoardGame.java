@@ -83,6 +83,15 @@ public abstract class BoardGame implements Observable<BoardGameObserver> {
     }
   }
 
+  // New notification method for action tile effects
+  public void notifyActionTileEffect(Player player, Tile fromActionTile, Tile toDestinationTile) {
+    for (BoardGameObserver observer : observers) {
+      if (observer != null) {
+        observer.onActionTileEffect(player, fromActionTile, toDestinationTile);
+      }
+    }
+  }
+
   /**
    * Factory method for creating the appropriate GameEngine.
    * Subclasses can override to provide specific GameEngine implementations.
