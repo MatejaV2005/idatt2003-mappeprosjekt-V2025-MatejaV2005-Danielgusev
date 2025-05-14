@@ -224,8 +224,9 @@ public class SnakesAndLaddersRenderer implements BoardRenderer {
    * @param boardPane The parent {@link Pane} containing the board.
    * @throws NullPointerException if any argument is null.
    */
+
   @Override
-  public void updatePlayerTokenPosition(Node playerTokenNode, Tile targetTile, Pane boardPane) {
+  public void updatePlayerTokenPosition(Node playerTokenNode, Tile targetTile, Pane boardPane, Runnable onAnimationComplete) {
     Objects.requireNonNull(playerTokenNode, "playerTokenNode cannot be null for position update");
     Objects.requireNonNull(targetTile, "targetTile cannot be null for position update");
     Objects.requireNonNull(boardPane, "boardPane context cannot be null for position update");
@@ -297,8 +298,106 @@ public class SnakesAndLaddersRenderer implements BoardRenderer {
       currentY = targetY;
     }
 
+    // At the end of the method where you play the sequence:
+    sequentialTransition.setOnFinished(e -> {
+      if (onAnimationComplete != null) {
+        onAnimationComplete.run();
+      }
+    });
+
     // Start the animation sequence
     sequentialTransition.play();
+  }
+
+  @Override
+  public void animateActionTileEffect(Node playerTokenNode, Tile fromTile, Tile toTile,
+      Pane boardPane, Runnable onAnimationComplete) {
+    Objects.requireNonNull(playerTokenNode,
+        "playerTokenNode cannot be null for action tile animation");
+    Objects.requireNonNull(fromTile, "fromTile cannot be null for action tile animation");
+    Objects.requireNonNull(toTile, "toTile cannot be null for action tile animation");
+    Objects.requireNonNull(boardPane, "boardPane cannot be null for action tile animation");
+
+    Player player;
+    if (playerTokenNode.getUserData() instanceof PlayerTokenData) {
+      player = ((PlayerTokenData) playerTokenNode.getUserData()).getPlayer();
+    } else {
+      player = (Player) playerTokenNode.getUserData();
+    }
+    String playerName = (player != null) ? player.getName() : "Unknown Player";
+
+    int fromTileId = fromTile.getTileId();
+    int toTileId = toTile.getTileId();
+
+    LOGGER.info(
+        "Animating " + playerName + " from action tile " + fromTileId + " to destination tile "
+            + toTileId);
+
+    // Update the user data with the new destination tile ID
+    playerTokenNode.setUserData(new PlayerTokenData(player, toTileId));
+
+    // Get positions for animation
+    Point2D fromCenter = tileCenterPositions.get(fromTileId);
+    Point2D toCenter = tileCenterPositions.get(toTileId);
+
+    if (fromCenter == null) {
+      LOGGER.warning("Missing position for 'from' tile " + fromTileId + ". Using fallback.");
+      fromCenter = calculateCenterFallback(fromTile);
+    }
+
+    if (toCenter == null) {
+      LOGGER.warning("Missing position for 'to' tile " + toTileId + ". Using fallback.");
+      toCenter = calculateCenterFallback(toTile);
+    }
+
+    if (fromCenter == null || toCenter == null) {
+      LOGGER.severe("Cannot animate action tile effect due to missing position data.");
+      if (onAnimationComplete != null) {
+        onAnimationComplete.run();
+      }
+      return;
+    }
+
+    double tokenWidth = playerTokenNode.getBoundsInLocal().getWidth();
+    double tokenHeight = playerTokenNode.getBoundsInLocal().getHeight();
+
+    // Current position
+    double currentX = playerTokenNode.getLayoutX();
+    double currentY = playerTokenNode.getLayoutY();
+
+    // Target position
+    double targetX = toCenter.getX() - tokenWidth / 2.0;
+    double targetY = toCenter.getY() - tokenHeight / 2.0;
+
+    // Create a specialized animation for action tiles that's more dramatic
+    TranslateTransition tt = new TranslateTransition(Duration.millis(800), playerTokenNode);
+    tt.setInterpolator(Interpolator.SPLINE(0.2, 0.8, 0.2, 1.0)); // More dramatic curve
+
+    // Calculate translation amounts
+    double translateX = targetX - currentX;
+    double translateY = targetY - currentY;
+
+    tt.setFromX(0);
+    tt.setFromY(0);
+    tt.setToX(translateX);
+    tt.setToY(translateY);
+
+    // Handle animation completion
+    tt.setOnFinished(e -> {
+      // Reset the translate properties and update layout
+      playerTokenNode.setLayoutX(targetX);
+      playerTokenNode.setLayoutY(targetY);
+      playerTokenNode.setTranslateX(0);
+      playerTokenNode.setTranslateY(0);
+      LOGGER.fine("Action tile animation completed from tile " + fromTileId + " to " + toTileId);
+
+      if (onAnimationComplete != null) {
+        onAnimationComplete.run();
+      }
+    });
+
+    // Start the animation
+    tt.play();
   }
 
   /**
