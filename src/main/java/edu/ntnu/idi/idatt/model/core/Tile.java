@@ -171,8 +171,7 @@ public class Tile {
    */
   public boolean isActionTile() {
     return landAction != null &&
-        landAction.getActionType() != ActionType.NO_OP &&
-        landAction.getDestinationTileId() > 0;
+        landAction.getActionType() != ActionType.NO_OP;
   }
 
   /**
