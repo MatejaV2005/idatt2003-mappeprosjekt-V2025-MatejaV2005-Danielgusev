@@ -4,11 +4,11 @@ import edu.ntnu.idi.idatt.model.core.playertype.Player;
 
 public class PlayerTokenData {
   private final Player player;
-  private final int currentTileId;
+  private  int currentTileId;
 
   public PlayerTokenData(Player player, int currentTileId) {
     this.player = player;
-    this.currentTileId = currentTileId;
+    setCurrentTileId(currentTileId);
   }
 
   public Player getPlayer() {
@@ -16,6 +16,11 @@ public class PlayerTokenData {
   }
 
   public int getCurrentTileId() {
+    return currentTileId;
+  }
+
+  public int setCurrentTileId(int tileId) {
+    this.currentTileId = tileId;
     return currentTileId;
   }
 }
