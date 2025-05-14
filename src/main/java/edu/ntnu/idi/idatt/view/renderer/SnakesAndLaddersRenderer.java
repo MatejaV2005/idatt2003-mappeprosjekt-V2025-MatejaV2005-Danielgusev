@@ -226,179 +226,145 @@ public class SnakesAndLaddersRenderer implements BoardRenderer {
    */
 
   @Override
-  public void updatePlayerTokenPosition(Node playerTokenNode, Tile targetTile, Pane boardPane, Runnable onAnimationComplete) {
-    Objects.requireNonNull(playerTokenNode, "playerTokenNode cannot be null for position update");
-    Objects.requireNonNull(targetTile, "targetTile cannot be null for position update");
-    Objects.requireNonNull(boardPane, "boardPane context cannot be null for position update");
+  public void updatePlayerTokenPosition(
+      Node playerTokenNode,
+      Tile targetTile,
+      Pane boardPane,
+      Runnable onAnimationComplete
+  ) {
+    Objects.requireNonNull(playerTokenNode);
+    Objects.requireNonNull(targetTile);
+    Objects.requireNonNull(boardPane);
 
-    Player player;
-    if (playerTokenNode.getUserData() instanceof PlayerTokenData) {
-      player = ((PlayerTokenData)playerTokenNode.getUserData()).getPlayer();
-    } else {
-      player = (Player)playerTokenNode.getUserData();
-    }
-    String playerName = (player != null) ? player.getName() : "Unknown Player";
+    // 1. Read where we really are now:
+    PlayerTokenData data = (PlayerTokenData) playerTokenNode.getUserData();
+    int startId = data.getCurrentTileId();
+    int endId   = targetTile.getTileId();
 
-    int currentTileId = getCurrentTileId(playerTokenNode);
-    int targetTileId = targetTile.getTileId();
+    // 2. Lookup path & centers
+    List<Integer> path = calculatePath(startId, endId);
+    Point2D startCenter = tileCenterPositions.get(startId);
+    Point2D endCenter   = tileCenterPositions.get(endId);
+    if (startCenter == null || endCenter == null) return;
 
-    playerTokenNode.setUserData(new PlayerTokenData(player, targetTileId));
+    // 3. Build the sequence
+    SequentialTransition seq = new SequentialTransition();
+    seq.getChildren().addAll(
+        buildWalkTransitions(playerTokenNode, path, startCenter)
+    );
 
-    LOGGER.info("Moving " + playerName + " from tile " + currentTileId + " to tile " + targetTileId);
-
-    List<Integer> path = calculatePath(currentTileId, targetTileId);
-
-    SequentialTransition sequentialTransition = new javafx.animation.SequentialTransition();
-
-    double tokenWidth = playerTokenNode.getBoundsInLocal().getWidth();
-    double tokenHeight = playerTokenNode.getBoundsInLocal().getHeight();
-
-    double currentX = playerTokenNode.getLayoutX();
-    double currentY = playerTokenNode.getLayoutY();
-
-    for (int i = 0; i < path.size(); i++) {
-      int tileId = path.get(i);
-      Point2D targetCenter = tileCenterPositions.get(tileId);
-      if (targetCenter == null) {
-        LOGGER.warning("Missing position for tile " + tileId + ". Skipping in animation.");
-        continue;
-      }
-
-      double targetX = targetCenter.getX() - tokenWidth / 2.0;
-      double targetY = targetCenter.getY() - tokenHeight / 2.0;
-
-      TranslateTransition tt = new TranslateTransition(MOVE_ANIMATION_DURATION, playerTokenNode);
-      tt.setInterpolator(Interpolator.EASE_BOTH);
-
-      // Calculate translation amounts
-      double translateX = targetX - currentX;
-      double translateY = targetY - currentY;
-
-      tt.setFromX(0);
-      tt.setFromY(0);
-      tt.setToX(translateX);
-      tt.setToY(translateY);
-
-      final int thisStepTileId = tileId;
-      final double finalTargetX = targetX;
-      final double finalTargetY = targetY;
-
-      tt.setOnFinished(e -> {
-        // Reset the translate properties and update layout for next animation
-        playerTokenNode.setLayoutX(finalTargetX);
-        playerTokenNode.setLayoutY(finalTargetY);
-        playerTokenNode.setTranslateX(0);
-        playerTokenNode.setTranslateY(0);
-        LOGGER.finer("Reached intermediate tile " + thisStepTileId);
+    TileAction action = targetTile.getLandAction();
+    if (action != null && action.getDestinationTileId() > 0 && action.getDestinationTileId() != endId) {
+      Point2D jumpCenter = tileCenterPositions.get(action.getDestinationTileId());
+      seq.getChildren().add(
+          buildJumpTransition(playerTokenNode, endCenter, jumpCenter)
+      );
+      // Final tile is the action‐destination
+      seq.setOnFinished(e -> {
+        updateTokenData(playerTokenNode, action.getDestinationTileId());
+        if (onAnimationComplete != null) onAnimationComplete.run();
       });
-
-      sequentialTransition.getChildren().add(tt);
-
-      currentX = targetX;
-      currentY = targetY;
-    }
-
-    // At the end of the method where you play the sequence:
-    sequentialTransition.setOnFinished(e -> {
-      if (onAnimationComplete != null) {
-        onAnimationComplete.run();
-      }
-    });
-
-    // Start the animation sequence
-    sequentialTransition.play();
-  }
-
-  @Override
-  public void animateActionTileEffect(Node playerTokenNode, Tile fromTile, Tile toTile,
-      Pane boardPane, Runnable onAnimationComplete) {
-    Objects.requireNonNull(playerTokenNode,
-        "playerTokenNode cannot be null for action tile animation");
-    Objects.requireNonNull(fromTile, "fromTile cannot be null for action tile animation");
-    Objects.requireNonNull(toTile, "toTile cannot be null for action tile animation");
-    Objects.requireNonNull(boardPane, "boardPane cannot be null for action tile animation");
-
-    Player player;
-    if (playerTokenNode.getUserData() instanceof PlayerTokenData) {
-      player = ((PlayerTokenData) playerTokenNode.getUserData()).getPlayer();
     } else {
-      player = (Player) playerTokenNode.getUserData();
-    }
-    String playerName = (player != null) ? player.getName() : "Unknown Player";
-
-    int fromTileId = fromTile.getTileId();
-    int toTileId = toTile.getTileId();
-
-    LOGGER.info(
-        "Animating " + playerName + " from action tile " + fromTileId + " to destination tile "
-            + toTileId);
-
-    // Update the user data with the new destination tile ID
-    playerTokenNode.setUserData(new PlayerTokenData(player, toTileId));
-
-    // Get positions for animation
-    Point2D fromCenter = tileCenterPositions.get(fromTileId);
-    Point2D toCenter = tileCenterPositions.get(toTileId);
-
-    if (fromCenter == null) {
-      LOGGER.warning("Missing position for 'from' tile " + fromTileId + ". Using fallback.");
-      fromCenter = calculateCenterFallback(fromTile);
+      // Final tile is the target tile
+      seq.setOnFinished(e -> {
+        updateTokenData(playerTokenNode, endId);
+        if (onAnimationComplete != null) onAnimationComplete.run();
+      });
     }
 
-    if (toCenter == null) {
-      LOGGER.warning("Missing position for 'to' tile " + toTileId + ". Using fallback.");
-      toCenter = calculateCenterFallback(toTile);
-    }
-
-    if (fromCenter == null || toCenter == null) {
-      LOGGER.severe("Cannot animate action tile effect due to missing position data.");
-      if (onAnimationComplete != null) {
-        onAnimationComplete.run();
-      }
-      return;
-    }
-
-    double tokenWidth = playerTokenNode.getBoundsInLocal().getWidth();
-    double tokenHeight = playerTokenNode.getBoundsInLocal().getHeight();
-
-    // Current position
-    double currentX = playerTokenNode.getLayoutX();
-    double currentY = playerTokenNode.getLayoutY();
-
-    // Target position
-    double targetX = toCenter.getX() - tokenWidth / 2.0;
-    double targetY = toCenter.getY() - tokenHeight / 2.0;
-
-    // Create a specialized animation for action tiles that's more dramatic
-    TranslateTransition tt = new TranslateTransition(Duration.millis(800), playerTokenNode);
-    tt.setInterpolator(Interpolator.SPLINE(0.2, 0.8, 0.2, 1.0)); // More dramatic curve
-
-    // Calculate translation amounts
-    double translateX = targetX - currentX;
-    double translateY = targetY - currentY;
-
-    tt.setFromX(0);
-    tt.setFromY(0);
-    tt.setToX(translateX);
-    tt.setToY(translateY);
-
-    // Handle animation completion
-    tt.setOnFinished(e -> {
-      // Reset the translate properties and update layout
-      playerTokenNode.setLayoutX(targetX);
-      playerTokenNode.setLayoutY(targetY);
-      playerTokenNode.setTranslateX(0);
-      playerTokenNode.setTranslateY(0);
-      LOGGER.fine("Action tile animation completed from tile " + fromTileId + " to " + toTileId);
-
-      if (onAnimationComplete != null) {
-        onAnimationComplete.run();
-      }
-    });
-
-    // Start the animation
-    tt.play();
+    seq.play();
   }
+
+  private List<TranslateTransition> buildWalkTransitions(
+      Node token,
+      List<Integer> path,
+      Point2D startPos
+  ) {
+    List<TranslateTransition> steps = new ArrayList<>();
+    Point2D currentPos = startPos;
+
+    for (int nextId : path) {
+      Point2D nextCenter = tileCenterPositions.get(nextId);
+      if (nextCenter == null) break;
+
+      // Make effectively-final snapshots for the lambdas:
+      final Point2D fromPos = currentPos;
+      final Point2D toPos   = nextCenter;
+
+      double dx = toPos.getX() - fromPos.getX();
+      double dy = toPos.getY() - fromPos.getY();
+
+      Duration dur = MOVE_ANIMATION_DURATION;
+
+      if (dx != 0 && dy != 0) {
+        // Horizontal step
+        TranslateTransition h = new TranslateTransition(dur, token);
+        h.setFromX(0); h.setFromY(0);
+        h.setToX(dx);  h.setToY(0);
+        h.setInterpolator(Interpolator.EASE_BOTH);
+        h.setOnFinished(e ->
+            commitTokenPosition(token, new Point2D(fromPos.getX() + dx, fromPos.getY()))
+        );
+
+        // Vertical step
+        TranslateTransition v = new TranslateTransition(dur, token);
+        v.setFromX(0); v.setFromY(0);
+        v.setToX(0);   v.setToY(dy);
+        v.setInterpolator(Interpolator.EASE_BOTH);
+        v.setOnFinished(e ->
+            commitTokenPosition(token, new Point2D(fromPos.getX() + dx, fromPos.getY() + dy))
+        );
+
+        steps.add(h);
+        steps.add(v);
+      } else {
+        // Straight move
+        TranslateTransition s = new TranslateTransition(dur, token);
+        s.setFromX(0); s.setFromY(0);
+        s.setToX(dx);  s.setToY(dy);
+        s.setInterpolator(Interpolator.EASE_BOTH);
+        s.setOnFinished(e -> commitTokenPosition(token, toPos));
+
+        steps.add(s);
+      }
+
+      // Update for next iteration
+      currentPos = nextCenter;
+    }
+
+    return steps;
+  }
+
+  private TranslateTransition buildJumpTransition(
+      Node token,
+      Point2D fromCenter,
+      Point2D toCenter
+  ) {
+    double dx = toCenter.getX() - fromCenter.getX();
+    double dy = toCenter.getY() - fromCenter.getY();
+
+    TranslateTransition jump = new TranslateTransition(Duration.millis(800), token);
+    jump.setInterpolator(Interpolator.SPLINE(0.2,0.8,0.2,1.0));
+    jump.setFromX(0); jump.setFromY(0);
+    jump.setToX(dx);  jump.setToY(dy);
+    jump.setOnFinished(e -> commitTokenPosition(token, toCenter));
+    return jump;
+  }
+
+  private void commitTokenPosition(Node token, Point2D center) {
+    token.setLayoutX(center.getX() - token.getBoundsInLocal().getWidth()/2);
+    token.setLayoutY(center.getY() - token.getBoundsInLocal().getHeight()/2);
+    token.setTranslateX(0);
+    token.setTranslateY(0);
+  }
+
+  private void updateTokenData(Node token, int finalTileId) {
+    PlayerTokenData old = (PlayerTokenData)token.getUserData();
+    token.setUserData(new PlayerTokenData(old.getPlayer(), finalTileId));
+  }
+
+
+
 
   /**
    * Updated version of getCurrentTileId that uses the stored PlayerTokenData
