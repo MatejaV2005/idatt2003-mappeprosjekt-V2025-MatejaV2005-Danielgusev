@@ -31,8 +31,8 @@ public class SnakesAndLaddersStrategy implements GameStrategy {
     Tile oldTile = player.getCurrentTile();
     Tile newTile = player.move(steps);
 
-    System.out.println(player.getName() + " moves to tile " + newTile.getTileId());
-    updatePlayerPosition(player, oldTile, newTile);
+    oldTile.leavePlayer(player);
+    player.setOnCurrentTile(newTile);
   }
 
   @Override
