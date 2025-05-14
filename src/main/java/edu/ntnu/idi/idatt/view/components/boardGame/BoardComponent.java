@@ -90,24 +90,14 @@ public class BoardComponent extends Pane {
     });
   }
 
-  /**
-   * Adds a visual token representation for a single player to the board.
-   * If the player already has a token, its position is updated instead.
-   * The token is created using the BoardRenderer, added to this Pane,
-   * stored internally, and positioned on the player's current tile.
-   * Ensures UI updates occur on the JavaFX Application Thread.
-   *
-   * @param player The player for whom to add a visual token.
-   * @throws NullPointerException if player is null.
-   */
   public void addPlayerVisual(Player player) {
     ExceptionHandling.requireNonNull(player, "Player cannot be null");
     Tile currentTile = player.getCurrentTile();
     if (currentTile == null) {
       LOGGER.warning("Cannot add visual for player " + player.getName() + ": Player has no current tile set.");
       if (currentBoard != null) {
-        currentTile = currentBoard.getTileById(1);
-        if(currentTile != null) {
+        currentTile = currentBoard.getTileById(1); // Ensure tile 1 is used as the default
+        if (currentTile != null) {
           LOGGER.info("Placing player " + player.getName() + " on starting tile (ID 1).");
         } else {
           LOGGER.severe("Cannot place player " + player.getName() + " on starting tile: Tile 1 not found.");
@@ -132,7 +122,8 @@ public class BoardComponent extends Pane {
       playerTokens.put(player, tokenNode);
       this.getChildren().add(tokenNode);
       LOGGER.fine("Added visual token for player: " + player.getName());
-      renderer.updatePlayerTokenPosition(tokenNode, placementTile, this);
+
+      renderer.placePlayerTokenAtTile(tokenNode, placementTile, this);
     });
   }
 
@@ -148,9 +139,21 @@ public class BoardComponent extends Pane {
    * @throws NullPointerException if player or toTile is null.
    */
   public void updatePlayerVisual(Player player, Tile fromTile, Tile toTile) {
-    ExceptionHandling.requireNonNull(toTile, "toTile cannot be null"); // fromTile can be null if starting
-    LOGGER.fine("Updating visual for " + player.getName() + " from " + (fromTile != null ? fromTile.getTileId() : "start") + " to " + toTile.getTileId());
-    updatePlayerVisual(player, toTile);
+    ExceptionHandling.requireNonNull(toTile, "toTile cannot be null");
+    LOGGER.fine("Updating visual for " + player.getName() + " from " +
+        (fromTile != null ? fromTile.getTileId() : "start") + " to " + toTile.getTileId());
+
+    // Store whether this is a tile that will have an action effect
+    boolean hasActionEffect = toTile.isActionTile() && toTile.getLandAction() != null &&
+        toTile.getLandAction().getDestinationTileId() != toTile.getTileId();
+
+    Platform.runLater(() -> {
+      Node tokenNode = playerTokens.get(player);
+      if (tokenNode != null) {
+        // Move to the initial destination with a callback if there's going to be an action effect
+        renderer.updatePlayerTokenPosition(tokenNode, toTile, this, hasActionEffect ? null : null);
+      }
+    });
   }
 
   /**
@@ -173,9 +176,36 @@ public class BoardComponent extends Pane {
         if (this.getWidth() <= 0 || this.getHeight() <= 0) {
           LOGGER.warning("BoardComponent size not determined during updatePlayerVisual. Animation might be incorrect.");
         }
-        renderer.updatePlayerTokenPosition(tokenNode, newTile, this);
+        renderer.updatePlayerTokenPosition(tokenNode, newTile, this, null);
       } else {
         LOGGER.warning("Cannot update visual for player " + player.getName() + ": token not found in map.");
+      }
+    });
+  }
+
+  /**
+   * Animates a player moving from an action tile (like a snake or ladder) to a destination tile.
+   * This is separate from regular movement and is typically called after the initial movement
+   * animation completes when a player lands on an action tile.
+   *
+   * @param player The player whose token should be animated
+   * @param fromActionTile The action tile where the player landed
+   * @param toDestinationTile The destination tile where the action sends the player
+   */
+  public void animateActionTileEffect(Player player, Tile fromActionTile, Tile toDestinationTile) {
+    ExceptionHandling.requireNonNull(player, "player cannot be null");
+    ExceptionHandling.requireNonNull(fromActionTile, "fromActionTile cannot be null");
+    ExceptionHandling.requireNonNull(toDestinationTile, "toDestinationTile cannot be null");
+
+    LOGGER.fine("Animating action tile effect for " + player.getName() + " from " +
+        fromActionTile.getTileId() + " to " + toDestinationTile.getTileId());
+
+    Platform.runLater(() -> {
+      Node tokenNode = playerTokens.get(player);
+      if (tokenNode != null) {
+        renderer.animateActionTileEffect(tokenNode, fromActionTile, toDestinationTile, this, null);
+      } else {
+        LOGGER.warning("Cannot animate action tile effect: No token found for player " + player.getName());
       }
     });
   }
