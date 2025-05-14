@@ -25,6 +25,30 @@ public class SnakesAndLaddersGame extends BoardGame {
 
     notifyPlayerMoved(player, oldTile, newTile);
 
+    if (newTile.isActionTile()) {
+      handleSpecialTileAction(player, newTile);
+    }
+  }
+
+  @Override
+  protected void handleSpecialTileAction(Player player, Tile actionTile) {
+    Tile destinationTile = null;
+
+    if (actionTile.getLandAction() != null) {
+      int destId = actionTile.getLandAction().getDestinationTileId();
+      if (destId > 0) {
+        destinationTile = board.getTileById(destId);
+      }
+    }
+
+    if (destinationTile != null && !destinationTile.equals(actionTile)) {
+      notifyActionTileEffect(player, actionTile, destinationTile);
+
+      actionTile.leavePlayer(player);
+      player.setOnCurrentTile(destinationTile);
+
+      destinationTile.landPlayer(player);
+    }
   }
 
   @Override
@@ -36,18 +60,15 @@ public class SnakesAndLaddersGame extends BoardGame {
     return isWinner;
   }
 
-  // Optional override methods:
-
-  @Override
-  protected void handleSpecialTileAction(Player player, Tile tile) {
-    // Snakes and ladders specific tile handling
-    // (for ladder movements, snake movements, etc.)
+  private void updatePlayerPosition(Player player, Tile destTile, Tile actionTile) {
+    actionTile.leavePlayer(player);
+    player.setOnCurrentTile(destTile);
+    destTile.landPlayer(player);
   }
 
   @Override
   protected void initializeGameState() {
-    // Any special initialization for Snakes and Ladders
-    // (setting up specific board configurations, etc.)
+
   }
 
   @Override
