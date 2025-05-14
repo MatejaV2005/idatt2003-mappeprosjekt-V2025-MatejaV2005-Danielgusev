@@ -46,7 +46,7 @@ import javafx.scene.layout.VBox;
  * The view follows the MVC (Model-View-Controller) pattern and provides
  * methods to update the UI in response to model changes.
  *
- * @author NTNU IDATT2003 Student
+ * @author NTNU IDATT2003 Studentnavn (foreløpig)
  * @version 1.0
  */
 public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
@@ -149,7 +149,6 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
       LOGGER.info("Successfully loaded CSS stylesheet: " + CSS_PATH);
     } catch (BoardGameResourceException e) {
       LOGGER.log(Level.WARNING, "Could not load CSS: " + e.getMessage(), e);
-      // Instead of throwing, we'll continue with default styles
       AlertHelper.showWarningAlert("Style Warning",
           "Game styles could not be loaded. Using default JavaFX styles.");
     } catch (Exception e) {
@@ -190,12 +189,8 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
       playTurnButton.setOnAction(e -> {
         try {
           LOGGER.fine("Play turn button clicked");
-          playTurnButton.setDisable(true);
           if (controller != null) {
             controller.onPlayTurn();
-          } else {
-            LOGGER.warning("Controller is null when play turn button was clicked");
-            playTurnButton.setDisable(false); // Re-enable button if controller is null
           }
         } catch (Exception ex) {
           LOGGER.log(Level.SEVERE, "Error processing turn", ex);
@@ -247,6 +242,25 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
     Platform.runLater(() -> handleMove(player, from, to));
   }
 
+  @Override
+  public void onActionTileEffect(Player player, Tile fromActionTile, Tile toDestinationTile) {
+    Platform.runLater(() -> {
+      if (boardComponent != null) {
+        boardComponent.animateActionTileEffect(player, fromActionTile, toDestinationTile);
+      }
+
+      if (gameInfoPanel != null) {
+        if (fromActionTile.getActionType() != null) {
+          if (fromActionTile.getTileId() < toDestinationTile.getTileId()) {
+            gameInfoPanel.logEvent(player.getName() + " climbed a ladder from " + fromActionTile.getTileId() + " to " + toDestinationTile.getTileId() + "!");
+          } else {
+            gameInfoPanel.logEvent(player.getName() + " slid down a snake from " + fromActionTile.getTileId() + " to " + toDestinationTile.getTileId() + "!");
+          }
+        }
+      }
+    });
+  }
+
   /**
    * Handles notification that a player has been added to the game.
    * Updates the board visualization and player list.
@@ -278,16 +292,7 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
     });
   }
 
-  /**
-   * Handles notification that the game state has changed.
-   * Updates the current player highlight, turn info, and play turn button state.
-   *
-   * @param current the player whose turn it is now
-   */
-  @Override
-  public void onGameStateChanged(Player current) {
-    Platform.runLater(() -> handleTurnChange(current));
-  }
+
 
   /**
    * Handles notification that the game has been won.
@@ -368,9 +373,6 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
 
       LOGGER.fine(player.getName() + " moved from " +
           (from != null ? from.getTileId() : "start") + " to " + to.getTileId());
-
-      // Let onGameStateChanged handle turn changes - don't call handleTurnChange here
-      // to avoid duplicating updates or conflicting with the model state
     } catch (Exception e) {
       LOGGER.log(Level.WARNING, "Error handling player move in view", e);
     }
@@ -385,12 +387,11 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
   private void handleTurnChange(Player current) {
     try {
       // Determine if the game is in a playable state
-      boolean canPlay = controller != null &&
-          controller.getBoardGame() != null &&
-          !controller.getBoardGame().isGameOver() &&
-          current != null;
+      boolean canPlay = controller != null
+          && controller.getBoardGame() != null
+          && !controller.getBoardGame().isGameOver()
+          && current != null;
 
-      // Update UI components
       if (playTurnButton != null) {
         playTurnButton.setDisable(!canPlay);
       }
@@ -477,7 +478,6 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
         currentPlayerPanel.initialize(game.getPlayers());
       }
 
-      // Update turn state and controls
       handleTurnChange(game.getCurrentPlayer());
 
       LOGGER.fine("Full view refresh completed successfully");
@@ -500,12 +500,10 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
     }
 
     try {
-      // Update board visualizations if needed
       if (boardComponent != null) {
         boardComponent.updateBoardVisuals();
       }
 
-      // Update current player highlight
       if (currentPlayerPanel != null) {
         currentPlayerPanel.updateCurrentPlayerHighlight(game.getCurrentPlayer());
       }
