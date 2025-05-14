@@ -243,20 +243,13 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
   }
 
   @Override
-  public void onActionTileEffect(Player player, Tile fromActionTile, Tile toDestinationTile) {
+  public void onActionTileEffect(Player player, Tile from, Tile to) {
     Platform.runLater(() -> {
-      if (boardComponent != null) {
-        boardComponent.animateActionTileEffect(player, fromActionTile, toDestinationTile);
-      }
-
       if (gameInfoPanel != null) {
-        if (fromActionTile.getActionType() != null) {
-          if (fromActionTile.getTileId() < toDestinationTile.getTileId()) {
-            gameInfoPanel.logEvent(player.getName() + " climbed a ladder from " + fromActionTile.getTileId() + " to " + toDestinationTile.getTileId() + "!");
-          } else {
-            gameInfoPanel.logEvent(player.getName() + " slid down a snake from " + fromActionTile.getTileId() + " to " + toDestinationTile.getTileId() + "!");
-          }
-        }
+        String msg = (from.getTileId() < to.getTileId())
+            ? player.getName() + " climbed a ladder..."
+            : player.getName() + " slid down a snake...";
+        gameInfoPanel.logEvent(msg);
       }
     });
   }
