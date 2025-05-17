@@ -93,8 +93,11 @@
   -fx-background-color: rgba(255, 255, 150, 0.3);
 }
 
-.player-icon {
-
+.current-player-row {
+  -fx-background-color: rgba(255, 255, 0, 0.3); /* Light yellow highlight */
+  -fx-border-color: #ffc107;
+  -fx-border-width: 2px;
+  -fx-border-radius: 4px;
 }
 
 .player-number {
