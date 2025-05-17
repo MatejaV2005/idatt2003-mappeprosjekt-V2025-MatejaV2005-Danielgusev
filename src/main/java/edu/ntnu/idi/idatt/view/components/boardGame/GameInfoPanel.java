@@ -103,30 +103,20 @@ public class GameInfoPanel extends VBox {
    * Updates the move/action label to show the result of a player's movement.
    * Now correctly displays source and destination tile IDs.
    */
-  public void updateMoveInfo(Player player, Tile toTile) {
+  public void updateMoveInfo(Player player, Tile fromTile, Tile toTile) {
     Platform.runLater(() -> {
-      if (player == null || toTile == null) {
+      if (player == null || fromTile == null || toTile == null) {
         moveActionInfoLabel.setText("");
         return;
       }
+      int fromId = fromTile.getTileId();
+      int toId   = toTile.getTileId();
 
-      // Get the previous tile ID directly from the Player object
-      int fromTileId = 0;  // Default start position
-      Tile fromTile = player.getCurrentTile();
-      if (fromTile != null) {
-        fromTileId = fromTile.getTileId();
-      }
-
-      int destinationTileId = toTile.getTileId();
-
-      // Only show movement info if the positions are different
-      if (fromTileId != destinationTileId) {
-        moveActionInfoLabel.setText("⏩ " + player.getName() + " moved from tile " +
-            fromTileId + " to tile " + destinationTileId);
-      } else {
-        moveActionInfoLabel.setText("🔄 " + player.getName() + " remains at tile " + destinationTileId);
-      }
-
+      moveActionInfoLabel.setText(
+          "⏩ " + player.getName() +
+              " moved from tile " + fromId +
+              " to tile " + toId
+      );
       LOGGER.fine("Move info updated for " + player.getName());
     });
   }
@@ -165,19 +155,6 @@ public class GameInfoPanel extends VBox {
     });
   }
 
-  /**
-   * Updates the move/action label when a player skips a turn.
-   */
-  public void updateSkippedTurnInfo(Player player) {
-    Platform.runLater(() -> {
-      if (player == null) {
-        moveActionInfoLabel.setText("");
-        return;
-      }
-      moveActionInfoLabel.setText("⏸️ " + player.getName() + " skips their turn.");
-      LOGGER.fine("Skipped turn info updated for " + player.getName());
-    });
-  }
 
   /**
    * Updates the main status label to indicate whose turn it is.
@@ -189,8 +166,6 @@ public class GameInfoPanel extends VBox {
         return;
       }
       turnInfoLabel.setText("👉 It's " + currentPlayer.getName() + "'s turn");
-      diceInfoLabel.setText("");
-      moveActionInfoLabel.setText("");
       LOGGER.fine("Turn info updated for " + currentPlayer.getName());
     });
   }
