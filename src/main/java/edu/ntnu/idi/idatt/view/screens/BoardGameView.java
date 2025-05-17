@@ -9,5 +9,4 @@ public interface BoardGameView {
 
   void setController(BoardGameController controller);
 
-  void update(BoardGame boardGame);
 }

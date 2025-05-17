@@ -25,7 +25,6 @@ public class LadderAction implements TileAction {
 
   @Override
   public void perform(Player player) {
-    //TODO: add distinguishing features for
     System.out.println(player.getName() + " " + description);
     player.setOnCurrentTile(destinationTile);
   }

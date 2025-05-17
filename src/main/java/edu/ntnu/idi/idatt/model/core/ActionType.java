@@ -11,7 +11,7 @@ public enum ActionType {
   SPECIAL("Special", "A special event occurred!"), // Generic special
   RETURN_TO_START("ReturnToStart", "Oh no! Back to the start."),
   SKIP_TURN("SkipTurn", "Miss a turn!"),
-  NO_OP("NoOp", ""); // No operation usually has no visible description
+  NO_OP("NoOp", "");
 
   private final String jsonValue;
   private final String defaultDescription;
@@ -52,7 +52,6 @@ public enum ActionType {
    */
   public static ActionType fromJsonValue(String value) {
     if (value == null) {
-      // Consider logging a warning if a null value is common and unexpected
       return NO_OP;
     }
 
@@ -61,8 +60,7 @@ public enum ActionType {
         return type;
       }
     }
-    // Log a warning for unrecognized values, as this might indicate a data issue
-    // System.err.println("Warning: Unknown action type string: " + value + ", defaulting to NO_OP");
+
     return NO_OP;
   }
 }
