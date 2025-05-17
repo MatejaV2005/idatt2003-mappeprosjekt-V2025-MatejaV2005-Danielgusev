@@ -15,7 +15,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color; // For fallback icon color
 import javafx.scene.shape.Circle; // For fallback icon shape
@@ -26,9 +25,7 @@ import javafx.scene.shape.Circle; // For fallback icon shape
  * This panel is typically placed on the side of the main game board view.
  */
 public class CurrentPlayerPanel extends VBox {
-
   private static final Logger LOGGER = Logger.getLogger(CurrentPlayerPanel.class.getName());
-  private static final String HIGHLIGHT_STYLE_CLASS = "player-row-highlight";
   private static final double ICON_SIZE = 32.0; // Size for the player icons
 
   private final Map<Player, HBox> playerRowMap = new HashMap<>();
@@ -145,7 +142,6 @@ public class CurrentPlayerPanel extends VBox {
     if (iconImage != null && !iconImage.isError()) {
       iconView.setImage(iconImage);
     } else {
-      // Fallback: Use a default visual (e.g., a colored circle)
       LOGGER.warning("Using fallback icon for piece type: " + pieceType);
       try {
         Image defaultIcon = resourceLoader.loadImage("/edu/ntnu/idi/idatt/view/resources/icons/default.png");
@@ -172,24 +168,40 @@ public class CurrentPlayerPanel extends VBox {
    * @param currentPlayer The player whose turn it is now.
    */
   public void updateCurrentPlayerHighlight(Player currentPlayer) {
-    if (currentlyHighlightedRow != null) {
-      currentlyHighlightedRow.getStyleClass().remove(HIGHLIGHT_STYLE_CLASS);
-      currentlyHighlightedRow = null;
+    if (currentPlayer == null) {
+      LOGGER.warning("Cannot highlight null player. Clearing any existing highlight.");
+      if (currentlyHighlightedRow != null) {
+        currentlyHighlightedRow.getStyleClass().remove("current-player-row");
+        LOGGER.fine("Removed highlight from previously highlighted row (player was null).");
+        currentlyHighlightedRow = null;
+      }
+      return;
     }
 
-    if (currentPlayer != null) {
-      HBox rowToHighlight = playerRowMap.get(currentPlayer);
-      if (rowToHighlight != null) {
-        if (!rowToHighlight.getStyleClass().contains(HIGHLIGHT_STYLE_CLASS)) {
-          rowToHighlight.getStyleClass().add(HIGHLIGHT_STYLE_CLASS);
-        }
-        currentlyHighlightedRow = rowToHighlight;
-        LOGGER.fine("Highlighted player row for: " + currentPlayer.getName());
-      } else {
-        LOGGER.warning("Could not find player row to highlight for player: " + currentPlayer.getName());
+    LOGGER.info("CurrentPlayerPanel.updateCurrentPlayerHighlight: Attempting to highlight player - Name: " + currentPlayer.getName() + " (Object: " + currentPlayer.toString() + ", HashCode: " + currentPlayer.hashCode() + ")");
+
+    HBox rowToDeselect = currentlyHighlightedRow;
+
+    HBox newRowToHighlight = playerRowMap.get(currentPlayer);
+
+    if (newRowToHighlight == null) {
+      LOGGER.warning("Could not find row for player: " + currentPlayer.getName() + ". Player object used for lookup: " + currentPlayer.toString());
+      if (rowToDeselect != null) {
+        rowToDeselect.getStyleClass().remove("current-player-row");
+        LOGGER.fine("Removed highlight from previously highlighted row (new row not found).");
       }
+      currentlyHighlightedRow = null; // No new row to be the current one
     } else {
-      LOGGER.fine("Removed highlight as currentPlayer is null.");
+      if (rowToDeselect != null && rowToDeselect != newRowToHighlight) {
+        rowToDeselect.getStyleClass().remove("current-player-row");
+        LOGGER.fine("Removed highlight from previously highlighted row: " + (rowToDeselect.getChildren().get(2) instanceof Label ? ((Label)rowToDeselect.getChildren().get(2)).getText() : "Unknown"));
+      }
+
+      if (!newRowToHighlight.getStyleClass().contains("current-player-row")) {
+        newRowToHighlight.getStyleClass().add("current-player-row");
+      }
+      currentlyHighlightedRow = newRowToHighlight;
+      LOGGER.info("Successfully highlighted current player: " + currentPlayer.getName());
     }
   }
 
