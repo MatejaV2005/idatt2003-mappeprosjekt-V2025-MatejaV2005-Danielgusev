@@ -7,22 +7,18 @@ import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.model.core.actions.TileAction;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class BoardConverter {
+  private static final Logger LOGGER = java.util.logging.Logger.getLogger(BoardConverter.class.getName());
 
   public static BoardDto toDto(Board board) {
     Map<Integer, Tile> fromBoard = board.getTiles();
-
     int rows = board.getRows();
     int cols = board.getColumns();
-
     Map<Integer, TileDto> boardMap = new HashMap<>();
-
     fromBoard.forEach((id, tile) -> boardMap.put(id, TileConverter.toDto(tile)));
-
-    BoardDto boardDto = new BoardDto(boardMap, rows, cols);
-
-    return boardDto;
+    return new BoardDto(boardMap, rows, cols);
   }
 
   public static Board fromDto(BoardDto boardDto) {
@@ -34,16 +30,20 @@ public class BoardConverter {
     Map<Integer, Tile> tilesMap = new HashMap<>();
 
     boardDto.getTiles().forEach((id, dto) -> {
-      Tile tile = TileConverter.fromDto(dto, tilesMap);
-      tile.setNextTileId(dto.getNextTileId());
-      tilesMap.put(id, tile);
+      Tile tile = TileConverter.fromDto(dto);
+      if (tile != null) {
+        tilesMap.put(id, tile);
+      } else {
+        LOGGER.warning("Tile with id " + id + " not found in tilesMap during action setting phase.");
+      }
     });
 
     boardDto.getTiles().forEach((id, dto) -> {
       Tile tile = tilesMap.get(id);
-      TileAction action = actionConverter.fromDto(dto.getAction(), tilesMap);
-      tile.setLandAction(action);
-
+      if (tile != null && dto.getAction() != null) {
+        TileAction action = actionConverter.fromDto(dto.getAction(), tilesMap);
+        tile.setLandAction(action);
+      }
     });
 
     board.setTiles(tilesMap);
