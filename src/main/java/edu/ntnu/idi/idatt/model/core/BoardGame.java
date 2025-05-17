@@ -92,6 +92,17 @@ public abstract class BoardGame implements Observable<BoardGameObserver> {
     }
   }
 
+  // Add this method to your BoardGame.java class
+  protected void notifyObserversOfStateChange() {
+    List<BoardGameObserver> observersCopy = new ArrayList<>(this.observers);
+    for (BoardGameObserver observer : observersCopy) {
+      if (observer != null) {
+        // This will call GenericBoardGameView.update(this)
+        observer.onGameStateUpdated(this);
+      }
+    }
+  }
+
   /**
    * Factory method for creating the appropriate GameEngine.
    * Subclasses can override to provide specific GameEngine implementations.
@@ -181,8 +192,8 @@ public abstract class BoardGame implements Observable<BoardGameObserver> {
 
     // Check if player should skip this turn
     if (currentPlayer.shouldSkipTurn()) {
-      currentPlayer.setSkipTurn(false); // Reset the skip flag
       advanceToNextPlayer();
+
       return;
     }
 
@@ -195,6 +206,7 @@ public abstract class BoardGame implements Observable<BoardGameObserver> {
       this.winner = currentPlayer;
     } else {
       advanceToNextPlayer();
+      notifyObserversOfStateChange();
     }
   }
 
