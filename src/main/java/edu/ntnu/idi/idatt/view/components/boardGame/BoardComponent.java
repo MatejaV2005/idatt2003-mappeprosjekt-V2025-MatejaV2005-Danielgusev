@@ -143,14 +143,12 @@ public class BoardComponent extends Pane {
     LOGGER.fine("Updating visual for " + player.getName() + " from " +
         (fromTile != null ? fromTile.getTileId() : "start") + " to " + toTile.getTileId());
 
-    // Store whether this is a tile that will have an action effect
     boolean hasActionEffect = toTile.isActionTile() && toTile.getLandAction() != null &&
         toTile.getLandAction().getDestinationTileId() != toTile.getTileId();
 
     Platform.runLater(() -> {
       Node tokenNode = playerTokens.get(player);
       if (tokenNode != null) {
-        // Move to the initial destination with a callback if there's going to be an action effect
         renderer.updatePlayerTokenPosition(tokenNode, toTile, this, hasActionEffect ? null : null);
       }
     });
@@ -179,6 +177,38 @@ public class BoardComponent extends Pane {
         renderer.updatePlayerTokenPosition(tokenNode, newTile, this, null);
       } else {
         LOGGER.warning("Cannot update visual for player " + player.getName() + ": token not found in map.");
+      }
+    });
+  }
+
+
+  /**
+   * Updates the visual position of a player's token, animating the movement,
+   * and runs the given Runnable when the animation completes.
+   */
+  public void updatePlayerVisual(
+      Player player,
+      Tile fromTile,
+      Tile toTile,
+      Runnable onAnimationComplete
+  ) {
+    ExceptionHandling.requireNonNull(toTile, "toTile cannot be null");
+    LOGGER.fine("Updating visual for " + player.getName() + " from " +
+        (fromTile != null ? fromTile.getTileId() : "start") +
+        " to " + toTile.getTileId());
+
+    Platform.runLater(() -> {
+      Node tokenNode = playerTokens.get(player);
+      if (tokenNode != null) {
+        renderer.updatePlayerTokenPosition(
+            tokenNode,
+            toTile,
+            this,
+            onAnimationComplete
+        );
+      } else {
+        LOGGER.warning("Cannot update visual for player "
+            + player.getName() + ": token not found in map.");
       }
     });
   }
