@@ -5,6 +5,7 @@ import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.core.Dice;
 import edu.ntnu.idi.idatt.model.core.GameType;
 import edu.ntnu.idi.idatt.model.core.Tile;
+import edu.ntnu.idi.idatt.model.core.actions.TileAction;
 import edu.ntnu.idi.idatt.model.core.playertype.Player;
 import edu.ntnu.idi.idatt.model.strategy.GameStrategy;
 
@@ -12,7 +13,6 @@ public class SnakesAndLaddersGame extends BoardGame {
 
   public SnakesAndLaddersGame(Board board, Dice dice, GameStrategy SnakesAndLaddersStrategy) {
     super(board, dice, SnakesAndLaddersStrategy);
-    gameEngine.initializeGame(players);
   }
 
   @Override
@@ -26,28 +26,40 @@ public class SnakesAndLaddersGame extends BoardGame {
     notifyPlayerMoved(player, oldTile, newTile);
 
     if (newTile.isActionTile()) {
-      handleSpecialTileAction(player, newTile);
+      handleSpecialTileAction(player, newTile); // newTile is the actionTile
     }
   }
 
   @Override
   protected void handleSpecialTileAction(Player player, Tile actionTile) {
-    Tile destinationTile = null;
-
-    if (actionTile.getLandAction() != null) {
-      int destId = actionTile.getLandAction().getDestinationTileId();
-      if (destId > 0) {
-        destinationTile = board.getTileById(destId);
-      }
+    TileAction landAction = actionTile.getLandAction();
+    if (landAction == null) {
+      return;
     }
 
-    if (destinationTile != null && !destinationTile.equals(actionTile)) {
-      notifyActionTileEffect(player, actionTile, destinationTile);
+    int destId = landAction.getDestinationTileId();
 
-      actionTile.leavePlayer(player);
-      player.setOnCurrentTile(destinationTile);
+    if (destId > 0) {
+      // Handles actions like snakes and ladders that have a specific destination tile ID
+      Tile destinationTile = board.getTileById(destId);
+      if (destinationTile != null && !destinationTile.equals(actionTile)) {
+        notifyActionTileEffect(player, actionTile, destinationTile); // Notify about the upcoming effect
 
-      destinationTile.landPlayer(player);
+        actionTile.leavePlayer(player);
+        player.setOnCurrentTile(destinationTile);
+        destinationTile.landPlayer(player);
+      }
+    } else {
+
+      Tile tileBeforePerformingAction = player.getCurrentTile(); // This is effectively actionTile
+      landAction.perform(player); // Execute the action
+      Tile tileAfterPerformingAction = player.getCurrentTile();
+
+      if (!tileAfterPerformingAction.equals(tileBeforePerformingAction)) {
+        notifyActionTileEffect(player, actionTile, tileAfterPerformingAction);
+      } else {
+        notifyActionTileEffect(player, actionTile, actionTile);
+      }
     }
   }
 
@@ -60,23 +72,16 @@ public class SnakesAndLaddersGame extends BoardGame {
     return isWinner;
   }
 
-  private void updatePlayerPosition(Player player, Tile destTile, Tile actionTile) {
-    actionTile.leavePlayer(player);
-    player.setOnCurrentTile(destTile);
-    destTile.landPlayer(player);
-  }
 
   @Override
   protected void initializeGameState() {
-
+    if (players != null && !players.isEmpty() && board != null && gameEngine != null) {
+      gameEngine.initializeGame(players); // Ensures players are on the start tile
+    }
   }
 
   @Override
   public GameType getGameType() {
     return GameType.SNAKES_AND_LADDERS;
   }
-
-
-
-
 }
