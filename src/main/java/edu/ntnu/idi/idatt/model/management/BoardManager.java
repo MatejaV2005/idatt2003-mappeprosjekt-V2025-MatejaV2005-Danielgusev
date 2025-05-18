@@ -3,6 +3,7 @@ package edu.ntnu.idi.idatt.model.management;
 import edu.ntnu.idi.idatt.exceptions.BoardManagementException;
 import edu.ntnu.idi.idatt.exceptions.FileLoadException;
 import edu.ntnu.idi.idatt.exceptions.FileSaveException;
+import edu.ntnu.idi.idatt.exceptions.InvalidBoardFormatException; // Importer
 import edu.ntnu.idi.idatt.filehandler.BoardJsonFileHandler;
 import edu.ntnu.idi.idatt.model.core.Board;
 import java.io.File;
@@ -11,10 +12,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Manager class for Board entities, handling loading and saving of board configurations.
- * Follows the Singleton pattern to ensure a single point of access to board operations.
- */
 public class BoardManager {
   private static final String BOARDS_DIRECTORY = "Files/Boards";
   private static final Logger LOGGER = Logger.getLogger(BoardManager.class.getName());
@@ -22,19 +19,10 @@ public class BoardManager {
   private static BoardManager instance = null;
   private final BoardJsonFileHandler fileHandler;
 
-  /**
-   * Private constructor to enforce Singleton pattern.
-   * Initializes the file handler.
-   */
   private BoardManager() {
     this.fileHandler = new BoardJsonFileHandler();
   }
 
-  /**
-   * Gets the singleton instance of BoardManager.
-   *
-   * @return The BoardManager instance
-   */
   public static synchronized BoardManager getInstance() {
     if (instance == null) {
       instance = new BoardManager();
@@ -47,9 +35,10 @@ public class BoardManager {
    *
    * @param filePath The path of the file to load
    * @return The loaded Board object
-   * @throws BoardManagementException if loading fails
+   * @throws BoardManagementException if loading fails for general reasons
+   * @throws InvalidBoardFormatException if the board file has an invalid format
    */
-  public Board loadBoardFromFile(String filePath) throws BoardManagementException {
+  public Board loadBoardFromFile(String filePath) throws BoardManagementException, InvalidBoardFormatException {
     if (filePath == null || filePath.isBlank()) {
       throw new IllegalArgumentException("File path cannot be null or empty");
     }
@@ -57,19 +46,15 @@ public class BoardManager {
     try {
       LOGGER.info("Loading board from file: " + filePath);
       return fileHandler.loadFromFile(filePath);
+    } catch (InvalidBoardFormatException e) {
+      LOGGER.log(Level.WARNING, "Invalid board format in file [" + filePath + "]: " + e.getMessage());
+      throw e;
     } catch (FileLoadException e) {
-      LOGGER.log(Level.SEVERE, "Failed to load board from file: " + filePath, e);
+      LOGGER.log(Level.SEVERE, "Failed to load board from file [" + filePath + "]: " + e.getMessage(), e);
       throw new BoardManagementException("Failed to load board: " + e.getMessage(), e);
     }
   }
 
-  /**
-   * Saves a board to a file at the specified path.
-   *
-   * @param board The board to save
-   * @param filePath The path where the file should be saved
-   * @throws BoardManagementException if saving fails
-   */
   public void saveBoardToFile(Board board, String filePath) throws BoardManagementException {
     if (board == null) {
       throw new IllegalArgumentException("Board cannot be null");
@@ -87,13 +72,6 @@ public class BoardManager {
     }
   }
 
-  /**
-   * Saves a board with an automatically generated filename based on type and timestamp.
-   *
-   * @param board The board to save
-   * @param boardType The type of board (used in filename)
-   * @throws BoardManagementException if saving fails or directory creation fails
-   */
   public void saveBoardWithGeneratedName(Board board, String boardType) throws BoardManagementException {
     if (board == null) {
       throw new IllegalArgumentException("Board cannot be null");
@@ -103,7 +81,6 @@ public class BoardManager {
     }
 
     try {
-      // Create boards directory if it doesn't exist
       File directory = new File(BOARDS_DIRECTORY);
       if (!directory.exists()) {
         if (!directory.mkdirs()) {
@@ -111,15 +88,11 @@ public class BoardManager {
         }
       }
 
-      // Generate filename with timestamp
       String fileName = boardType + "_Board_" + LocalDateTime.now()
           .format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")) + ".json";
 
       String fullPath = BOARDS_DIRECTORY + File.separator + fileName;
-
-      // Save the board
       fileHandler.saveToFile(board, fullPath);
-
       LOGGER.info("Board saved successfully as: " + fileName + " in folder: " + BOARDS_DIRECTORY);
     } catch (FileSaveException e) {
       LOGGER.log(Level.SEVERE, "Failed to save board with generated name", e);
@@ -130,11 +103,6 @@ public class BoardManager {
     }
   }
 
-  /**
-   * Gets the default boards directory path.
-   *
-   * @return The path to the boards directory
-   */
   public String getBoardsDirectory() {
     return BOARDS_DIRECTORY;
   }

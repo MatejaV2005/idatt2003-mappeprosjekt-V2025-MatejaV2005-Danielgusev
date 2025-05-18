@@ -72,9 +72,9 @@
       "column": 6,
       "nextTileId": 8,
       "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
+        "actionType": "Ladder",
+        "destinationTileId": 25,
+        "description": "finds a small rickety ladder to 25"
       }
     },
     "8": {
@@ -83,9 +83,9 @@
       "column": 7,
       "nextTileId": 9,
       "action": {
-        "actionType": "Ladder",
-        "destinationTileId": 18,
-        "description": "climbs up to tile 18"
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
       }
     },
     "9": {
@@ -160,9 +160,9 @@
       "column": 4,
       "nextTileId": 16,
       "action": {
-        "actionType": "Snake",
-        "destinationTileId": 2,
-        "description": "slides down to tile 2"
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
       }
     },
     "16": {
@@ -215,9 +215,9 @@
       "column": 9,
       "nextTileId": 21,
       "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
+        "actionType": "Snake",
+        "destinationTileId": 5,
+        "description": "slithers down a treacherous snake to 5"
       }
     },
     "21": {
@@ -237,9 +237,9 @@
       "column": 1,
       "nextTileId": 23,
       "action": {
-        "actionType": "Special",
+        "actionType": "NoOp",
         "destinationTileId": -1,
-        "description": "skips turn"
+        "description": "No operation performed"
       }
     },
     "23": {
@@ -303,9 +303,9 @@
       "column": 7,
       "nextTileId": 29,
       "action": {
-        "actionType": "NoOp",
+        "actionType": "SkipTurn",
         "destinationTileId": -1,
-        "description": "No operation performed"
+        "description": "Miss a turn!"
       }
     },
     "29": {
@@ -358,9 +358,9 @@
       "column": 2,
       "nextTileId": 34,
       "action": {
-        "actionType": "Ladder",
-        "destinationTileId": 58,
-        "description": "climbs up to tile 58"
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
       }
     },
     "34": {
@@ -380,9 +380,9 @@
       "column": 4,
       "nextTileId": 36,
       "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
+        "actionType": "Snake",
+        "destinationTileId": 12,
+        "description": "slithers down a treacherous snake to 12"
       }
     },
     "36": {
@@ -435,9 +435,9 @@
       "column": 9,
       "nextTileId": 41,
       "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
+        "actionType": "Snake",
+        "destinationTileId": 18,
+        "description": "slithers down a treacherous snake to 18"
       }
     },
     "41": {
@@ -457,9 +457,9 @@
       "column": 1,
       "nextTileId": 43,
       "action": {
-        "actionType": "Snake",
-        "destinationTileId": 16,
-        "description": "slides down to tile 16"
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
       }
     },
     "43": {
@@ -512,9 +512,9 @@
       "column": 6,
       "nextTileId": 48,
       "action": {
-        "actionType": "Special",
+        "actionType": "NoOp",
         "destinationTileId": -1,
-        "description": "skips turn"
+        "description": "No operation performed"
       }
     },
     "48": {
@@ -545,9 +545,9 @@
       "column": 9,
       "nextTileId": 51,
       "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
+        "actionType": "Ladder",
+        "destinationTileId": 75,
+        "description": "struggles up a weathered ladder to 75"
       }
     },
     "51": {
@@ -578,9 +578,9 @@
       "column": 2,
       "nextTileId": 54,
       "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
+        "actionType": "Snake",
+        "destinationTileId": 30,
+        "description": "slithers down a treacherous snake to 30"
       }
     },
     "54": {
@@ -633,9 +633,9 @@
       "column": 7,
       "nextTileId": 59,
       "action": {
-        "actionType": "NoOp",
+        "actionType": "SkipTurn",
         "destinationTileId": -1,
-        "description": "No operation performed"
+        "description": "Miss a turn!"
       }
     },
     "59": {
@@ -688,9 +688,9 @@
       "column": 2,
       "nextTileId": 64,
       "action": {
-        "actionType": "Ladder",
-        "destinationTileId": 86,
-        "description": "climbs up to tile 86"
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
       }
     },
     "64": {
@@ -710,9 +710,9 @@
       "column": 4,
       "nextTileId": 66,
       "action": {
-        "actionType": "NoOp",
+        "actionType": "ReturnToStart",
         "destinationTileId": -1,
-        "description": "No operation performed"
+        "description": "Oh no! Back to the start."
       }
     },
     "66": {
@@ -721,9 +721,9 @@
       "column": 5,
       "nextTileId": 67,
       "action": {
-        "actionType": "Special",
+        "actionType": "NoOp",
         "destinationTileId": -1,
-        "description": "skips turn"
+        "description": "No operation performed"
       }
     },
     "67": {
@@ -754,9 +754,9 @@
       "column": 8,
       "nextTileId": 70,
       "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
+        "actionType": "Snake",
+        "destinationTileId": 48,
+        "description": "slithers down a treacherous snake to 48"
       }
     },
     "70": {
@@ -765,9 +765,9 @@
       "column": 9,
       "nextTileId": 71,
       "action": {
-        "actionType": "Snake",
-        "destinationTileId": 55,
-        "description": "slides down to tile 55"
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
       }
     },
     "71": {
@@ -853,9 +853,9 @@
       "column": 7,
       "nextTileId": 79,
       "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
+        "actionType": "Snake",
+        "destinationTileId": 59,
+        "description": "slithers down a treacherous snake to 59"
       }
     },
     "79": {
@@ -897,9 +897,9 @@
       "column": 1,
       "nextTileId": 83,
       "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
+        "actionType": "Snake",
+        "destinationTileId": 61,
+        "description": "slithers down a treacherous snake to 61"
       }
     },
     "83": {
@@ -963,9 +963,9 @@
       "column": 7,
       "nextTileId": 89,
       "action": {
-        "actionType": "NoOp",
+        "actionType": "SkipTurn",
         "destinationTileId": -1,
-        "description": "No operation performed"
+        "description": "Miss a turn!"
       }
     },
     "89": {
@@ -1007,9 +1007,9 @@
       "column": 1,
       "nextTileId": 93,
       "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
+        "actionType": "Snake",
+        "destinationTileId": 51,
+        "description": "slithers down a treacherous snake to 51"
       }
     },
     "93": {
@@ -1051,9 +1051,9 @@
       "column": 5,
       "nextTileId": 97,
       "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
+        "actionType": "Snake",
+        "destinationTileId": 72,
+        "description": "slithers down a treacherous snake to 72"
       }
     },
     "97": {
@@ -1084,14 +1084,234 @@
       "column": 8,
       "nextTileId": 100,
       "action": {
-        "actionType": "NoOp",
+        "actionType": "ReturnToStart",
         "destinationTileId": -1,
-        "description": "No operation performed"
+        "description": "Oh no! Back to the start."
       }
     },
     "100": {
       "id": 100,
       "row": 9,
+      "column": 9,
+      "nextTileId": 101,
+      "action": {
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
+      }
+    },
+    "101": {
+      "id": 101,
+      "row": 10,
+      "column": 0,
+      "nextTileId": 102,
+      "action": {
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
+      }
+    },
+    "102": {
+      "id": 102,
+      "row": 10,
+      "column": 1,
+      "nextTileId": 103,
+      "action": {
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
+      }
+    },
+    "103": {
+      "id": 103,
+      "row": 10,
+      "column": 2,
+      "nextTileId": 104,
+      "action": {
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
+      }
+    },
+    "104": {
+      "id": 104,
+      "row": 10,
+      "column": 3,
+      "nextTileId": 105,
+      "action": {
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
+      }
+    },
+    "105": {
+      "id": 105,
+      "row": 10,
+      "column": 4,
+      "nextTileId": 106,
+      "action": {
+        "actionType": "Snake",
+        "destinationTileId": 85,
+        "description": "slithers down a treacherous snake to 85"
+      }
+    },
+    "106": {
+      "id": 106,
+      "row": 10,
+      "column": 5,
+      "nextTileId": 107,
+      "action": {
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
+      }
+    },
+    "107": {
+      "id": 107,
+      "row": 10,
+      "column": 6,
+      "nextTileId": 108,
+      "action": {
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
+      }
+    },
+    "108": {
+      "id": 108,
+      "row": 10,
+      "column": 7,
+      "nextTileId": 109,
+      "action": {
+        "actionType": "SkipTurn",
+        "destinationTileId": -1,
+        "description": "Miss a turn!"
+      }
+    },
+    "109": {
+      "id": 109,
+      "row": 10,
+      "column": 8,
+      "nextTileId": 110,
+      "action": {
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
+      }
+    },
+    "110": {
+      "id": 110,
+      "row": 10,
+      "column": 9,
+      "nextTileId": 111,
+      "action": {
+        "actionType": "Snake",
+        "destinationTileId": 70,
+        "description": "slithers down a treacherous snake to 70"
+      }
+    },
+    "111": {
+      "id": 111,
+      "row": 11,
+      "column": 0,
+      "nextTileId": 112,
+      "action": {
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
+      }
+    },
+    "112": {
+      "id": 112,
+      "row": 11,
+      "column": 1,
+      "nextTileId": 113,
+      "action": {
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
+      }
+    },
+    "113": {
+      "id": 113,
+      "row": 11,
+      "column": 2,
+      "nextTileId": 114,
+      "action": {
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
+      }
+    },
+    "114": {
+      "id": 114,
+      "row": 11,
+      "column": 3,
+      "nextTileId": 115,
+      "action": {
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
+      }
+    },
+    "115": {
+      "id": 115,
+      "row": 11,
+      "column": 4,
+      "nextTileId": 116,
+      "action": {
+        "actionType": "Snake",
+        "destinationTileId": 40,
+        "description": "tumbles all the way down a giant snake to 40"
+      }
+    },
+    "116": {
+      "id": 116,
+      "row": 11,
+      "column": 5,
+      "nextTileId": 117,
+      "action": {
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
+      }
+    },
+    "117": {
+      "id": 117,
+      "row": 11,
+      "column": 6,
+      "nextTileId": 118,
+      "action": {
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
+      }
+    },
+    "118": {
+      "id": 118,
+      "row": 11,
+      "column": 7,
+      "nextTileId": 119,
+      "action": {
+        "actionType": "Snake",
+        "destinationTileId": 90,
+        "description": "slithers down a treacherous snake to 90"
+      }
+    },
+    "119": {
+      "id": 119,
+      "row": 11,
+      "column": 8,
+      "nextTileId": 120,
+      "action": {
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
+      }
+    },
+    "120": {
+      "id": 120,
+      "row": 11,
       "column": 9,
       "nextTileId": -1,
       "action": {
@@ -1101,6 +1321,6 @@
       }
     }
   },
-  "rows": 10,
+  "rows": 12,
   "columns": 10
 }

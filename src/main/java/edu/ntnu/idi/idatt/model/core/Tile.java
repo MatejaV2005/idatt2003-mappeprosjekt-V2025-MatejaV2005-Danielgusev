@@ -1,8 +1,8 @@
 package edu.ntnu.idi.idatt.model.core;
 
 
-import edu.ntnu.idi.idatt.model.actions.NoOperationAction;
-import edu.ntnu.idi.idatt.model.actions.TileAction;
+import edu.ntnu.idi.idatt.model.core.actions.NoOperationAction;
+import edu.ntnu.idi.idatt.model.core.actions.TileAction;
 import edu.ntnu.idi.idatt.model.core.playertype.Player;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 
@@ -162,6 +162,16 @@ public class Tile {
   public void leavePlayer(Player player) {
     Objects.requireNonNull(player);
     players.remove(player);
+  }
+
+  /**
+   * Checks if this tile has an action that moves the player to another tile.
+   *
+   * @return true if this tile has a movement action, false otherwise
+   */
+  public boolean isActionTile() {
+    return landAction != null &&
+        landAction.getActionType() != ActionType.NO_OP;
   }
 
   /**

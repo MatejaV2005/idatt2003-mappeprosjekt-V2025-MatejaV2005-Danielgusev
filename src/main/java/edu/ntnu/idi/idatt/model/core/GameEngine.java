@@ -18,6 +18,13 @@ public class GameEngine {
     return board.getTileById(1);
   }
 
+
+
+  public Board getBoard() {
+    return this.board;
+  }
+
+
   public void playTurn(Player currentPlayer) {
     strategy.executePlayerTurn(currentPlayer);
   }

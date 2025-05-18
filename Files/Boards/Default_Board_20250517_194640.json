@@ -83,9 +83,9 @@
       "column": 7,
       "nextTileId": 9,
       "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
+        "actionType": "Ladder",
+        "destinationTileId": 28,
+        "description": "climbs a ladder to tile 28"
       }
     },
     "9": {
@@ -138,9 +138,9 @@
       "column": 2,
       "nextTileId": 14,
       "action": {
-        "actionType": "Snake",
-        "destinationTileId": 1,
-        "description": "slides down to tile 1"
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
       }
     },
     "14": {
@@ -149,9 +149,9 @@
       "column": 3,
       "nextTileId": 15,
       "action": {
-        "actionType": "Ladder",
-        "destinationTileId": 68,
-        "description": "climbs up to tile 68"
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
       }
     },
     "15": {
@@ -162,7 +162,7 @@
       "action": {
         "actionType": "Snake",
         "destinationTileId": 2,
-        "description": "slides down to tile 2"
+        "description": "slides down a snake to tile 2"
       }
     },
     "16": {
@@ -237,9 +237,9 @@
       "column": 1,
       "nextTileId": 23,
       "action": {
-        "actionType": "NoOp",
+        "actionType": "SkipTurn",
         "destinationTileId": -1,
-        "description": "No operation performed"
+        "description": "Miss a turn!"
       }
     },
     "23": {
@@ -358,9 +358,9 @@
       "column": 2,
       "nextTileId": 34,
       "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
+        "actionType": "Ladder",
+        "destinationTileId": 58,
+        "description": "climbs a ladder to tile 58"
       }
     },
     "34": {
@@ -457,9 +457,9 @@
       "column": 1,
       "nextTileId": 43,
       "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
+        "actionType": "Snake",
+        "destinationTileId": 16,
+        "description": "slides down a snake to tile 16"
       }
     },
     "43": {
@@ -490,9 +490,9 @@
       "column": 4,
       "nextTileId": 46,
       "action": {
-        "actionType": "Snake",
-        "destinationTileId": 22,
-        "description": "slides down to tile 22"
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
       }
     },
     "46": {
@@ -512,9 +512,9 @@
       "column": 6,
       "nextTileId": 48,
       "action": {
-        "actionType": "NoOp",
+        "actionType": "SkipTurn",
         "destinationTileId": -1,
-        "description": "No operation performed"
+        "description": "Miss a turn!"
       }
     },
     "48": {
@@ -655,9 +655,9 @@
       "column": 9,
       "nextTileId": 61,
       "action": {
-        "actionType": "Ladder",
-        "destinationTileId": 100,
-        "description": "climbs up to tile 100"
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
       }
     },
     "61": {
@@ -688,9 +688,9 @@
       "column": 2,
       "nextTileId": 64,
       "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
+        "actionType": "Ladder",
+        "destinationTileId": 86,
+        "description": "climbs a ladder to tile 86"
       }
     },
     "64": {
@@ -765,9 +765,9 @@
       "column": 9,
       "nextTileId": 71,
       "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
+        "actionType": "Snake",
+        "destinationTileId": 55,
+        "description": "slides down a snake to tile 55"
       }
     },
     "71": {
@@ -809,9 +809,9 @@
       "column": 3,
       "nextTileId": 75,
       "action": {
-        "actionType": "Snake",
-        "destinationTileId": 55,
-        "description": "slides down to tile 55"
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
       }
     },
     "75": {
@@ -842,9 +842,9 @@
       "column": 6,
       "nextTileId": 78,
       "action": {
-        "actionType": "NoOp",
+        "actionType": "SkipTurn",
         "destinationTileId": -1,
-        "description": "No operation performed"
+        "description": "Miss a turn!"
       }
     },
     "78": {
@@ -1073,9 +1073,9 @@
       "column": 7,
       "nextTileId": 99,
       "action": {
-        "actionType": "Snake",
-        "destinationTileId": 40,
-        "description": "slides down to tile 40"
+        "actionType": "NoOp",
+        "destinationTileId": -1,
+        "description": "No operation performed"
       }
     },
     "99": {
@@ -1093,226 +1093,6 @@
       "id": 100,
       "row": 9,
       "column": 9,
-      "nextTileId": 101,
-      "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
-      }
-    },
-    "101": {
-      "id": 101,
-      "row": 10,
-      "column": 0,
-      "nextTileId": 102,
-      "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
-      }
-    },
-    "102": {
-      "id": 102,
-      "row": 10,
-      "column": 1,
-      "nextTileId": 103,
-      "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
-      }
-    },
-    "103": {
-      "id": 103,
-      "row": 10,
-      "column": 2,
-      "nextTileId": 104,
-      "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
-      }
-    },
-    "104": {
-      "id": 104,
-      "row": 10,
-      "column": 3,
-      "nextTileId": 105,
-      "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
-      }
-    },
-    "105": {
-      "id": 105,
-      "row": 10,
-      "column": 4,
-      "nextTileId": 106,
-      "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
-      }
-    },
-    "106": {
-      "id": 106,
-      "row": 10,
-      "column": 5,
-      "nextTileId": 107,
-      "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
-      }
-    },
-    "107": {
-      "id": 107,
-      "row": 10,
-      "column": 6,
-      "nextTileId": 108,
-      "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
-      }
-    },
-    "108": {
-      "id": 108,
-      "row": 10,
-      "column": 7,
-      "nextTileId": 109,
-      "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
-      }
-    },
-    "109": {
-      "id": 109,
-      "row": 10,
-      "column": 8,
-      "nextTileId": 110,
-      "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
-      }
-    },
-    "110": {
-      "id": 110,
-      "row": 10,
-      "column": 9,
-      "nextTileId": 111,
-      "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
-      }
-    },
-    "111": {
-      "id": 111,
-      "row": 11,
-      "column": 0,
-      "nextTileId": 112,
-      "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
-      }
-    },
-    "112": {
-      "id": 112,
-      "row": 11,
-      "column": 1,
-      "nextTileId": 113,
-      "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
-      }
-    },
-    "113": {
-      "id": 113,
-      "row": 11,
-      "column": 2,
-      "nextTileId": 114,
-      "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
-      }
-    },
-    "114": {
-      "id": 114,
-      "row": 11,
-      "column": 3,
-      "nextTileId": 115,
-      "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
-      }
-    },
-    "115": {
-      "id": 115,
-      "row": 11,
-      "column": 4,
-      "nextTileId": 116,
-      "action": {
-        "actionType": "Snake",
-        "destinationTileId": 95,
-        "description": "slides down to tile 95"
-      }
-    },
-    "116": {
-      "id": 116,
-      "row": 11,
-      "column": 5,
-      "nextTileId": 117,
-      "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
-      }
-    },
-    "117": {
-      "id": 117,
-      "row": 11,
-      "column": 6,
-      "nextTileId": 118,
-      "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
-      }
-    },
-    "118": {
-      "id": 118,
-      "row": 11,
-      "column": 7,
-      "nextTileId": 119,
-      "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
-      }
-    },
-    "119": {
-      "id": 119,
-      "row": 11,
-      "column": 8,
-      "nextTileId": 120,
-      "action": {
-        "actionType": "NoOp",
-        "destinationTileId": -1,
-        "description": "No operation performed"
-      }
-    },
-    "120": {
-      "id": 120,
-      "row": 11,
-      "column": 9,
       "nextTileId": -1,
       "action": {
         "actionType": "NoOp",
@@ -1321,6 +1101,6 @@
       }
     }
   },
-  "rows": 12,
+  "rows": 10,
   "columns": 10
 }

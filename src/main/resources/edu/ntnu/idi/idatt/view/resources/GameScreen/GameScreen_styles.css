@@ -1,126 +1,142 @@
-/* File: ChooseGameScreen_styles.css
-   Path: /edu/ntnu/idi/idatt/view/resources/GameScreen/GameScreen_styles.css
-*/
-
-/* 1) Root background: dark leather texture with gold frame */
 .root {
   -fx-background-image: url("Background.png");
   -fx-background-size: cover;
-  -fx-padding: 20;                       /* leave room for the gold border */
-  -fx-border-image-source: url("Frame_gold.png");
-  -fx-border-image-slice: 20;            /* slice values depend on your frame asset */
-  -fx-border-image-repeat: stretch;
-  -fx-border-image-width: 20;
+  -fx-background-color: #1a1a2e;
 }
 
-/* 2) The main board container */
-.board {
-  -fx-background-radius: 20;
+.board-component {
   -fx-background-color: transparent;
-  -fx-padding: 10;
 }
 
-/* 3) The 9×10 grid of tiles */
-.board-grid {
-  -fx-hgap: 0;
-  -fx-vgap: 0;
-  -fx-padding: 10;
+.game-info-panel, .current-player-panel, .dice-panel {
+  -fx-background-color: rgba(0, 0, 0, 0.4);
+  -fx-background-radius: 8px;
+  -fx-padding: 15px;
+  -fx-border-color: rgba(255, 255, 255, 0.2);
+  -fx-border-radius: 8px;
+  -fx-border-width: 1px;
 }
 
-/* 4) Individual tile cells */
-.cell {
-  -fx-alignment: center;
-  -fx-pref-width: 60;
-  -fx-pref-height: 60;
-  -fx-font-size: 20px;
-  -fx-font-family: "Arial";                /* replace with your game-font if you import one */
-  -fx-text-fill: white;
-}
-.cell.even {  /* even-numbered tiles */
-  -fx-background-color: #6A1B9A;           /* deep purple */
-}
-.cell.odd {   /* odd-numbered tiles */
-  -fx-background-color: #D1C4E9;           /* light lavender */
-}
-
-/* 5) “Play Turn” button */
-.button-play-turn {
-  -fx-background-radius: 15px;
-  -fx-font-size: 24px;
-  -fx-font-weight: bold;
-  -fx-font-family: "Arial";                /* swap in your custom font if available */
-  -fx-text-fill: #F5E663;                  /* pale gold text */
-  -fx-background-color:
-      linear-gradient(from 0% 0% to 0% 100%, #C834FF, #7501B3);
-  -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.5), 8, 0, 0, 4);
-  -fx-padding: 12 24;
-}
-.button-play-turn:hover {
-  -fx-opacity: 0.9;
-}
-
-/* 6) Right-hand scoreboard panel */
-.scoreboard {
-  -fx-background-color: transparent;
-  -fx-padding: 20;
-  -fx-spacing: 10;
-}
-
-/* 6a) Player entries */
-.player-entry {
-  -fx-font-family: "Arial";
+.panel-title {
   -fx-font-size: 18px;
+  -fx-font-weight: bold;
   -fx-text-fill: white;
-  -fx-alignment: center-left;
+  -fx-padding-bottom: 10px;
+  -fx-border-width: 0 0 1 0;
+  -fx-border-color: rgba(255, 255, 255, 0.2);
+  -fx-alignment: center;
 }
 
-/* 6b) Ordinal numbers: gold, silver, bronze, white */
-.ordinal-1 {
-  -fx-font-family: "Georgia";
-  -fx-font-size: 24px;
-  -fx-text-fill: gold;
-}
-.ordinal-2 {
-  -fx-font-family: "Georgia";
-  -fx-font-size: 24px;
-  -fx-text-fill: silver;
-}
-.ordinal-3 {
-  -fx-font-family: "Georgia";
-  -fx-font-size: 24px;
-  -fx-text-fill: peru;    /* bronze-ish */
-}
-.ordinal-4 {
-  -fx-font-family: "Georgia";
-  -fx-font-size: 24px;
+.game-info-panel .label {
   -fx-text-fill: white;
+  -fx-font-size: 14px;
+  -fx-wrap-text: true;
 }
 
-/* 7) Separator line */
-.separator {
-  -fx-border-color: rgba(255,255,255,0.3);
-  -fx-border-width: 1 0 0 0;
-  -fx-padding: 10 0;
+.info-label-turn {
+  -fx-font-weight: bold;
+}
+.info-label-dice {
+
+}
+.info-label-move {
+
 }
 
-/* 8) “You rolled:” label */
-.you-rolled {
-  -fx-font-family: "Arial";
-  -fx-font-size: 20px;
+.game-log-scrollpane {
+  -fx-background: transparent;
+  -fx-background-color: transparent;
+}
+.game-log-container {
+
+}
+.game-log-entry {
   -fx-text-fill: white;
+  -fx-font-size: 13px;
 }
 
-/* 9) Dice images */
+.dice-panel-title {
+  -fx-font-size: 16px;
+  -fx-font-weight: bold;
+  -fx-text-fill: white;
+  -fx-padding-bottom: 5px;
+}
+
 .dice-image {
-  -fx-fit-width: 80px;
+  -fx-fit-width: 60px;
+  -fx-fit-height: 60px;
   -fx-preserve-ratio: true;
-  -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.4), 4, 0, 0, 2);
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0, 0, 2);
 }
 
-/* 10) Any custom font-face import (if you have a TTF in resources/fonts/) */
-/*
-@font-face {
-  font-family: "YourGameFont";
-  src: url("fonts/YourGameFont-Regular.ttf");
+.dice-sum-label {
+  -fx-font-size: 14px;
+  -fx-text-fill: white;
+  -fx-padding-top: 5px;
 }
-*/
+
+.current-player-panel .panel-title {
+
+}
+
+.player-list-container {
+
+}
+
+.player-row {
+  -fx-padding: 5px 0;
+  -fx-background-radius: 4px;
+  -fx-background-color: transparent;
+}
+
+.player-row-highlight {
+  -fx-background-color: rgba(255, 255, 150, 0.3);
+}
+
+.current-player-row {
+  -fx-background-color: rgba(255, 255, 0, 0.3); /* Light yellow highlight */
+  -fx-border-color: #ffc107;
+  -fx-border-width: 2px;
+  -fx-border-radius: 4px;
+}
+
+.player-number {
+  -fx-font-size: 16px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #FFD700;
+  -fx-min-width: 25px;
+  -fx-alignment: center-right;
+}
+
+.player-name-display {
+  -fx-font-size: 16px;
+  -fx-text-fill: white;
+}
+
+.play-turn-button {
+  -fx-background-radius: 10px;
+  -fx-font-size: 20px;
+  -fx-font-weight: bold;
+  -fx-text-fill: white;
+  -fx-background-color:
+      linear-gradient(from 0% 0% to 0% 100%, #8e44ad, #5e3370);
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 0, 3);
+  -fx-padding: 10 20;
+  -fx-cursor: hand;
+}
+
+.play-turn-button:hover {
+  -fx-background-color:
+      linear-gradient(from 0% 0% to 0% 100%, #9b59b6, #6a407b);
+}
+
+.play-turn-button:pressed {
+  -fx-background-color:
+      linear-gradient(from 0% 0% to 0% 100%, #5e3370, #8e44ad);
+  -fx-effect: innershadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 1);
+}
+
+.play-turn-button:disabled {
+  -fx-opacity: 0.6;
+  -fx-effect: none;
+}

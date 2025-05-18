@@ -18,6 +18,9 @@ import java.util.Optional;
  */
 public abstract class BoardGame implements Observable<BoardGameObserver> {
 
+  protected final Dice dice; // <-- NYTT FELT for å holde på terningene
+  protected final Board board; // <-- NYTT FELT for å holde på brettet (hentet fra GameEngine)
+
   protected final GameEngine gameEngine;
   protected final List<Player> players;
   protected Player currentPlayer;
@@ -46,7 +49,10 @@ public abstract class BoardGame implements Observable<BoardGameObserver> {
     this.gameStarted = false;
     this.gameOver = false;
     this.roundCount = 0;
+
     this.gameEngine = createGameEngine(board, strategy);
+    this.board = gameEngine.getBoard();
+    this.dice = dice;
   }
 
   @Override
@@ -72,8 +78,30 @@ public abstract class BoardGame implements Observable<BoardGameObserver> {
   }
 
   public void notifyOnGameWon(Player player) {
+    this.gameOver = true;
+    this.winner = player;
     for (BoardGameObserver observer : observers) {
       observer.onGameWon(player);
+    }
+  }
+
+  // New notification method for action tile effects
+  public void notifyActionTileEffect(Player player, Tile fromActionTile, Tile toDestinationTile) {
+    for (BoardGameObserver observer : observers) {
+      if (observer != null) {
+        observer.onActionTileEffect(player, fromActionTile, toDestinationTile);
+      }
+    }
+  }
+
+  // Add this method to your BoardGame.java class
+  protected void notifyObserversOfStateChange() {
+    List<BoardGameObserver> observersCopy = new ArrayList<>(this.observers);
+    for (BoardGameObserver observer : observersCopy) {
+      if (observer != null) {
+        // This will call GenericBoardGameView.update(this)
+        observer.onGameStateUpdated(this);
+      }
     }
   }
 
@@ -166,8 +194,12 @@ public abstract class BoardGame implements Observable<BoardGameObserver> {
 
     // Check if player should skip this turn
     if (currentPlayer.shouldSkipTurn()) {
-      currentPlayer.setSkipTurn(false); // Reset the skip flag
+      Player playerWhoWasSkipped = currentPlayer;
+      playerWhoWasSkipped.setSkipTurn(false);
+
       advanceToNextPlayer();
+      notifyObserversOfStateChange();
+
       return;
     }
 
@@ -180,6 +212,7 @@ public abstract class BoardGame implements Observable<BoardGameObserver> {
       this.winner = currentPlayer;
     } else {
       advanceToNextPlayer();
+      notifyObserversOfStateChange();
     }
   }
 
@@ -215,6 +248,7 @@ public abstract class BoardGame implements Observable<BoardGameObserver> {
     }
   }
 
+
   /**
    * Hook method for handling a player's turn.
    * Subclasses must implement with game-specific turn logic.
@@ -231,6 +265,11 @@ public abstract class BoardGame implements Observable<BoardGameObserver> {
    * @return true if the player has won, false otherwise
    */
   protected abstract boolean checkWinCondition(Player player);
+
+  /**
+   * Returns the corresponding GameType for the game
+   */
+  public abstract GameType getGameType();
 
 
 
@@ -252,6 +291,27 @@ public abstract class BoardGame implements Observable<BoardGameObserver> {
    */
   public Player getCurrentPlayer() {
     return currentPlayer;
+  }
+
+
+  /**
+   * Gets the game board associated with this game instance.
+   * The board contains all the tiles and their arrangement.
+   *
+   * @return The current {@link Board} object.
+   */
+  public Board getBoard() {
+    return this.board;
+  }
+
+
+  /**
+   * Gets the {@link Dice} object used in this game instance.
+   * Alias for getDice() to match usage in GenericBoardGameView.
+   * @return The {@link Dice} object reflecting the last roll.
+   */
+  public Dice getLastDiceRoll() {
+    return dice;
   }
 
   /**

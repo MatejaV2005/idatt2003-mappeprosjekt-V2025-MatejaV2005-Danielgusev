@@ -2,9 +2,12 @@ package edu.ntnu.idi.idatt.factory;
 
 import edu.ntnu.idi.idatt.DataTransfer.BoardDto;
 import edu.ntnu.idi.idatt.converter.BoardConverter;
+import edu.ntnu.idi.idatt.exceptions.InvalidBoardFormatException;
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.Tile;
-import edu.ntnu.idi.idatt.model.actions.TileAction;
+import edu.ntnu.idi.idatt.model.core.actions.TileAction;
+
+
 
 
 public class BoardFactory {
@@ -12,7 +15,6 @@ public class BoardFactory {
   private TileFactory tileFactory;
 
   public BoardFactory() {
-    // Instantiate the TileFactory for creating tiles (if needed)
     this.tileFactory = new TileFactory();
   }
 
@@ -28,7 +30,8 @@ public class BoardFactory {
   }
 
   /**
-   * Creates a normal board: a default board (90 tiles) with an equal number of ladders and snakes.
+   * Creates a normal board: a default board (100 tiles, assuming 10x10 now)
+   * with an equal number of ladders and snakes, plus some skip turn tiles.
    *
    * @return a new Board instance configured as a normal board.
    */
@@ -39,7 +42,8 @@ public class BoardFactory {
   }
 
   /**
-   * Creates a hard board: a larger board (120 tiles) with more snakes than ladders.
+   * Creates a hard board: a larger board (120 tiles) with significantly more snakes
+   * than ladders, and other penalty actions.
    *
    * @return a new Board instance configured as a hard board.
    */
@@ -49,142 +53,143 @@ public class BoardFactory {
     return board;
   }
 
-  public Board createBoardFromFile() {
-    return null;
-  }
 
-  // Assigns ladder actions to an easy board (small board with many ladders)
   private void assignEasyActions(Board board) {
-    Tile start = board.getTileById(3);
-    Tile destination = board.getTileById(13);
-    TileAction ladder = TileActionFactory.createLadderAction(
-        destination, "climbs up to tile " + destination.getTileId());
-    start.setLandAction(ladder);
+    Tile startTile;
+    Tile destinationTile;
+    TileAction action;
 
-    start = board.getTileById(15);
-    destination = board.getTileById(37);
-    ladder = TileActionFactory.createLadderAction(
-        destination, "climbs up to tile " + destination.getTileId());
-    start.setLandAction(ladder);
+    startTile = board.getTileById(3);
+    destinationTile = board.getTileById(13);
+    action = TileActionFactory.createLadderAction(
+        destinationTile, "climbs a short ladder to tile " + destinationTile.getTileId());
+    startTile.setLandAction(action);
 
-    start = board.getTileById(32);
-    destination = board.getTileById(45);
-    ladder = TileActionFactory.createLadderAction(
-        destination, "climbs up to tile " + destination.getTileId());
-    start.setLandAction(ladder);
 
-    start = board.getTileById(28);
-    destination = board.getTileById(20);
-    TileAction snake = TileActionFactory.createSnakeAction(
-        destination, "slides down to tile " + destination.getTileId());
-    start.setLandAction(snake);
+
+    startTile = board.getTileById(15);
+    destinationTile = board.getTileById(37);
+    action = TileActionFactory.createLadderAction(
+        destinationTile, "climbs a long ladder to tile " + destinationTile.getTileId());
+    startTile.setLandAction(action);
+
+    startTile = board.getTileById(32);
+    destinationTile = board.getTileById(45);
+    action = TileActionFactory.createLadderAction(
+        destinationTile, "climbs a medium ladder to tile " + destinationTile.getTileId());
+    startTile.setLandAction(action);
+
+    startTile = board.getTileById(28);
+    destinationTile = board.getTileById(20);
+    action = TileActionFactory.createSnakeAction(
+        destinationTile, "slides down a pesky snake to tile " + destinationTile.getTileId());
+    startTile.setLandAction(action);
   }
 
-  // Assigns an equal number of ladder and snake actions for a normal board (90 tiles)
   private void assignNormalActions(Board board) {
-    Tile start = board.getTileById(8);
-    Tile destination = board.getTileById(18);
-    TileAction ladder = TileActionFactory.createLadderAction(
-        destination, "climbs up to tile " + destination.getTileId());
-    start.setLandAction(ladder);
+    Tile startTile;
+    Tile destinationTile;
+    TileAction action;
 
-    start = board.getTileById(33);
-    destination = board.getTileById(58);
-    ladder = TileActionFactory.createLadderAction(
-        destination, "climbs up to tile " + destination.getTileId());
-    start.setLandAction(ladder);
+    startTile = board.getTileById(8);
+    destinationTile = board.getTileById(28);
+    action = TileActionFactory.createLadderAction(
+        destinationTile, "climbs a ladder to tile " + destinationTile.getTileId());
+    startTile.setLandAction(action);
 
-    start = board.getTileById(63);
-    destination = board.getTileById(86);
-    ladder = TileActionFactory.createLadderAction(
-        destination, "climbs up to tile " + destination.getTileId());
-    start.setLandAction(ladder);
+    startTile = board.getTileById(33);
+    destinationTile = board.getTileById(58);
+    action = TileActionFactory.createLadderAction(
+        destinationTile, "climbs a ladder to tile " + destinationTile.getTileId());
+    startTile.setLandAction(action);
 
-    start = board.getTileById(15);
-    destination = board.getTileById(2);
-    TileAction snake = TileActionFactory.createSnakeAction(
-        destination, "slides down to tile " + destination.getTileId());
-    start.setLandAction(snake);
+    startTile = board.getTileById(63);
+    destinationTile = board.getTileById(86);
+    action = TileActionFactory.createLadderAction(
+        destinationTile, "climbs a ladder to tile " + destinationTile.getTileId());
+    startTile.setLandAction(action);
 
-    start = board.getTileById(42);
-    destination = board.getTileById(16);
-    snake = TileActionFactory.createSnakeAction(
-        destination, "slides down to tile " + destination.getTileId());
-    start.setLandAction(snake);
+    startTile = board.getTileById(15);
+    destinationTile = board.getTileById(2);
+    action = TileActionFactory.createSnakeAction(
+        destinationTile, "slides down a snake to tile " + destinationTile.getTileId());
+    startTile.setLandAction(action);
 
-    start = board.getTileById(70);
-    destination = board.getTileById(55);
-    snake = TileActionFactory.createSnakeAction(
-        destination, "slides down to tile " + destination.getTileId());
-    start.setLandAction(snake);
+    startTile = board.getTileById(42);
+    destinationTile = board.getTileById(16);
+    action = TileActionFactory.createSnakeAction(
+        destinationTile, "slides down a snake to tile " + destinationTile.getTileId());
+    startTile.setLandAction(action);
 
-    start = board.getTileById(22);
-    TileAction skipTurnAction = TileActionFactory.createSkipTurnAction();
-    start.setLandAction(skipTurnAction);
+    startTile = board.getTileById(70);
+    destinationTile = board.getTileById(55);
+    action = TileActionFactory.createSnakeAction(
+        destinationTile, "slides down a snake to tile " + destinationTile.getTileId());
+    startTile.setLandAction(action);
 
-    start = board.getTileById(47);
-    skipTurnAction = TileActionFactory.createSkipTurnAction();
-    start.setLandAction(skipTurnAction);
-
-    start = board.getTileById(66);
-    skipTurnAction = TileActionFactory.createSkipTurnAction();
-    start.setLandAction(skipTurnAction);
+    // Skip Turn Actions
+    action = TileActionFactory.createSkipTurnAction();
+    board.getTileById(22).setLandAction(action);
+    board.getTileById(47).setLandAction(action);
+    board.getTileById(77).setLandAction(action);
   }
 
-  // Assigns fewer ladder actions and more snake actions for a hard board (120 tiles)
   private void assignHardActions(Board board) {
-    Tile start = board.getTileById(14);
-    Tile destination = board.getTileById(68);
-    TileAction ladder = TileActionFactory.createLadderAction(
-        destination, "climbs up to tile " + destination.getTileId());
-    start.setLandAction(ladder);
+    Tile startTile;
+    Tile destinationTile;
+    TileAction action;
+    Tile firstTile = board.getTileById(1);
 
-    start = board.getTileById(60);
-    destination = board.getTileById(100);
-    ladder = TileActionFactory.createLadderAction(
-        destination, "climbs up to tile " + destination.getTileId());
-    start.setLandAction(ladder);
+    startTile = board.getTileById(7);
+    destinationTile = board.getTileById(25);
+    action = TileActionFactory.createLadderAction(
+        destinationTile, "finds a small rickety ladder to " + destinationTile.getTileId());
+    startTile.setLandAction(action);
 
-    start = board.getTileById(15);
-    destination = board.getTileById(2);
-    TileAction snake = TileActionFactory.createSnakeAction(
-        destination, "slides down to tile " + destination.getTileId());
-    start.setLandAction(snake);
+    startTile = board.getTileById(50);
+    destinationTile = board.getTileById(75);
+    action = TileActionFactory.createLadderAction(
+        destinationTile, "struggles up a weathered ladder to " + destinationTile.getTileId());
+    startTile.setLandAction(action);
 
-    start = board.getTileById(13);
-    destination = board.getTileById(1);
-    snake = TileActionFactory.createSnakeAction(
-        destination, "slides down to tile " + destination.getTileId());
-    start.setLandAction(snake);
+    int[][] snakePositions = {
+        {20, 5}, {35, 12}, {53, 30}, {40, 18}, {69, 48}, {78, 59},
+        {82, 61}, {92, 51}, {96, 72}, {105, 85}, {110, 70}, {118, 90}
+    };
 
-    start = board.getTileById(45);
-    destination = board.getTileById(22);
-    snake = TileActionFactory.createSnakeAction(
-        destination, "slides down to tile " + destination.getTileId());
-    start.setLandAction(snake);
+    for (int[] pos : snakePositions) {
+      startTile = board.getTileById(pos[0]);
+      destinationTile = board.getTileById(pos[1]);
+      action = TileActionFactory.createSnakeAction(
+          destinationTile, "slithers down a treacherous snake to " + destinationTile.getTileId());
+      startTile.setLandAction(action);
+    }
 
-    start = board.getTileById(74);
-    destination = board.getTileById(55);
-    snake = TileActionFactory.createSnakeAction(
-        destination, "slides down to tile " + destination.getTileId());
-    start.setLandAction(snake);
+    int[] skipTurnTiles = {28, 58, 88, 108};
+    action = TileActionFactory.createSkipTurnAction();
+    for (int tileId : skipTurnTiles) {
+      board.getTileById(tileId).setLandAction(action);
+    }
 
-    start = board.getTileById(98);
-    destination = board.getTileById(40);
-    snake = TileActionFactory.createSnakeAction(
-        destination, "slides down to tile " + destination.getTileId());
-    start.setLandAction(snake);
 
-    start = board.getTileById(115);
-    destination = board.getTileById(95);
-    snake = TileActionFactory.createSnakeAction(
-        destination, "slides down to tile " + destination.getTileId());
-    start.setLandAction(snake);
+    action = TileActionFactory.createReturnToStartAction(firstTile);
+    board.getTileById(65).setLandAction(action);
+    board.getTileById(99).setLandAction(action);
+
+    startTile = board.getTileById(115);
+    destinationTile = board.getTileById(40);
+    action = TileActionFactory.createSnakeAction(
+        destinationTile, "tumbles all the way down a giant snake to " + destinationTile.getTileId());
+    startTile.setLandAction(action);
   }
 
-  public Board createBoardFromDto(BoardDto dto) {
-    Board board = BoardConverter.fromDto(dto);
-
-    return board;
+  /**
+   * Creates a Board instance from a Data Transfer Object
+   *
+   * @param dto The BoardDto containing board data.
+   * @return A new Board instance.
+   */
+  public Board createBoardFromDto(BoardDto dto) throws InvalidBoardFormatException {
+    return BoardConverter.fromDto(dto);
   }
 }

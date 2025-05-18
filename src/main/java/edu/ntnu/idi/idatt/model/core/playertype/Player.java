@@ -4,7 +4,7 @@ import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 
 
-public abstract class Player{
+public abstract class Player {
   private final String name;
   private Tile currentTile;
   private final String pieceType;
@@ -56,17 +56,14 @@ public abstract class Player{
   public Tile basicMove(int steps) {
     ExceptionHandling.requirePositive(steps, "steps");
 
-    Tile newTile = currentTile;
+    Tile destinationTile = this.getCurrentTile();
 
     for (int i = 0; i < steps; i++) {
-      if (newTile.getNextTile() != null) { //check for if the player is at the end of the board
-        newTile = newTile.getNextTile();
+      if (destinationTile.getNextTile() != null) { //check for if the player is at the end of the board
+        destinationTile = destinationTile.getNextTile();
       }
     }
 
-    return newTile;
+    return destinationTile;
   }
-
-
-
 }

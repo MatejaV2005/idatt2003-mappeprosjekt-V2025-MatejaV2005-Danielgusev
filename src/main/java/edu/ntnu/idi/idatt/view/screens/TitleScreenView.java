@@ -163,7 +163,6 @@ public class TitleScreenView {
     }
 
     btnChooseGamemode.setOnAction(e -> controller.onChooseGameMode());
-    btnSettings.setOnAction(e -> controller.onSettings());
     btnQuitGame.setOnAction(e -> controller.onQuitGame());
   }
 }

@@ -2,6 +2,7 @@ package edu.ntnu.idi.idatt.view.components.gameSelection;
 
 import edu.ntnu.idi.idatt.model.core.playertype.HumanPlayer;
 import edu.ntnu.idi.idatt.model.core.playertype.Player;
+import edu.ntnu.idi.idatt.view.utils.ResourceLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -32,11 +33,14 @@ public class CreatePlayerPopup {
   private final ImageView iconPreview;
   private Player createdPlayer;
   private final Label errorLabel;
+  private final ResourceLoader resourceLoader;
 
   /**
    * Constructs a new player creation popup dialog.
    */
   public CreatePlayerPopup() {
+    this.resourceLoader = new ResourceLoader();
+
     popupStage = new Stage();
     popupStage.initModality(Modality.APPLICATION_MODAL);
     popupStage.setTitle("Create New Player");
@@ -110,7 +114,7 @@ public class CreatePlayerPopup {
     if (selectedIcon != null) {
       String iconPath = "/edu/ntnu/idi/idatt/view/resources/icons/" + selectedIcon.toLowerCase() + ".png";
       try {
-        Image image = new Image(getClass().getResourceAsStream(iconPath));
+        Image image = resourceLoader.loadImage(iconPath);
         iconPreview.setImage(image);
       } catch (Exception e) {
         // If icon loading fails, clear the preview

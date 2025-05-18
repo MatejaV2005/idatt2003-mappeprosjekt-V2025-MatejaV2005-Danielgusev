@@ -4,14 +4,67 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="minor refactoring">
+    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Resolved Merge conflict">
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/exceptions/CssLoadException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/exceptions/InvalidBoardFormatException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/GameViewFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/GameType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/GameInfoPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/WinDialog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/renderer/BoardRenderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/renderer/SnakesAndLaddersRenderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GenericBoardGameView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/utils/PlayerTokenData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/Dice/dice-five.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/Dice/dice-four.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/Dice/dice-one.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/Dice/dice-six.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/Dice/dice-three.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/Dice/dice-two.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Files/Boards/Default_Board_20250407_202351.json" beforeDir="false" afterPath="$PROJECT_DIR$/Files/Boards/Default_Board_20250517_194640.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Files/Boards/Easy_Board_20250407_202351.json" beforeDir="false" afterPath="$PROJECT_DIR$/Files/Boards/Easy_Board_20250517_194640.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Files/Boards/Hard_Board_20250407_202351.json" beforeDir="false" afterPath="$PROJECT_DIR$/Files/Boards/Hard_Board_20250517_180054.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Files/Players/players.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/Files/Players/players.CSV" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/BoardGameApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/BoardGameApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/BoardGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/BoardGameController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/GameSetupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/GameSetupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/observer/PlayerModelObserver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GameScreenView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/BoardGameView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GameSetupView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GameSetupView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/GameSetup/gameSetupStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/GameSetup/gameSetupStyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/NavigationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/NavigationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/TitleScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/TitleScreenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/converter/ActionConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/converter/ActionConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/converter/BoardConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/converter/BoardConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/converter/TileConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/converter/TileConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardGameFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardGameFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/TileActionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/TileActionFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/TileFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/TileFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/filehandler/BoardJsonFileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/filehandler/BoardJsonFileHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/actions/LadderAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/LadderAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/actions/NoOperationAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/NoOperationAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/actions/SnakeAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/SnakeAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/actions/SpecialAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/SpecialAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/actions/TileAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/TileAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/ActionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/ActionType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/BoardGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/BoardGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/GameEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/Tile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/playertype/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/playertype/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/games/SnakesAndLaddersGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/games/SnakesAndLaddersGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/management/BoardManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/management/BoardManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/strategy/SnakesAndLaddersStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/strategy/SnakesAndLaddersStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/observer/BoardGameObserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/observer/BoardGameObserver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/utils/ExceptionHandling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/utils/ExceptionHandling.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/BoardComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/BoardComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/BoardInfoPanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/CurrentPlayerPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/CurrentPlayerPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/DicePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/DicePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/TileComponent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/gameSelection/CreatePlayerPopup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/gameSelection/CreatePlayerPopup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/BoardGameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/BoardGameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/TitleScreenView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/TitleScreenView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/GameScreen/GameScreen_styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/GameScreen/GameScreen_styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/TileTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TileTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,19 +75,20 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
-        <option value="Interface" />
         <option value="CSS File" />
-        <option value="Class" />
         <option value="HTTP Request" />
         <option value="Dockerfile" />
+        <option value="Interface" />
+        <option value="Enum" />
         <option value="Exception" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Features-FactoryDevelopment" />
+        <entry key="$PROJECT_DIR$" value="Features" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -74,8 +128,8 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
-                    <option name="branchName" value="Mateja-features" />
-                    <option name="lastUsedInstant" value="1740512644" />
+                    <option name="branchName" value="BoardGame-view-controller-issue" />
+                    <option name="lastUsedInstant" value="1746123235" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="main" />
@@ -114,31 +168,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TitleScreen.executor&quot;: &quot;Run&quot;,
-    &quot;Application.fx.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlayerTest.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.boardgame-V2025-IDATT2003 [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.boardgame-V2025-IDATT2003 [package].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Features&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/matej/.ssh/id_rsa&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Application.TitleScreen.executor": "Run",
+    "Application.fx.executor": "Run",
+    "JUnit.PlayerTest.executor": "Run",
+    "Maven.boardgame-V2025-IDATT2003 [clean].executor": "Run",
+    "Maven.boardgame-V2025-IDATT2003 [package].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "git-widget-placeholder": "Merging Features",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/mappeprosjekt-vaar2025/boardgame-V2025-IDATT2003/src/main/resources/edu/ntnu/idi/idatt/view/resources/Dice",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\mappeprosjekt-vaar2025\boardgame-V2025-IDATT2003\src\main\resources\edu\ntnu\idi\idatt\view\resources\Dice" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\mappeprosjekt-vaar2025\boardgame-V2025-IDATT2003\src\main\resources\edu\ntnu\idi\idatt\view\resources\icons" />
       <recent name="C:\mappeprosjekt-vaar2025\boardgame-V2025-IDATT2003\src\main\resources\edu\ntnu\idi\idatt\view\resources\GameScreen" />
@@ -273,401 +330,416 @@
       <workItem from="1745610346827" duration="26789000" />
       <workItem from="1745939476895" duration="1168000" />
       <workItem from="1745956933061" duration="13941000" />
-      <workItem from="1746097600511" duration="8730000" />
+      <workItem from="1746179428554" duration="9265000" />
+      <workItem from="1746203842691" duration="25000" />
+      <workItem from="1746203977923" duration="9290000" />
+      <workItem from="1746277007891" duration="298000" />
+      <workItem from="1746467979838" duration="18059000" />
+      <workItem from="1746700616699" duration="12827000" />
+      <workItem from="1746732825402" duration="3138000" />
+      <workItem from="1747058720165" duration="2672000" />
+      <workItem from="1747061445163" duration="1918000" />
+      <workItem from="1747128008967" duration="24341000" />
+      <workItem from="1747293844829" duration="3413000" />
+      <workItem from="1747408365370" duration="2996000" />
+      <workItem from="1747411886837" duration="5838000" />
+      <workItem from="1747491309437" duration="2233000" />
+      <workItem from="1747493600138" duration="27983000" />
+      <workItem from="1747578719638" duration="476000" />
     </task>
-    <task id="LOCAL-00029" summary="Created GameSetupView, started working on CSS and controller">
+    <task id="LOCAL-00118" summary="Enhance GameInfoPanel UI and feedback with icons, layout, and detailed messages">
       <option name="closed" value="true" />
-      <created>1745693698461</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
+      <created>1747128602485</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
       <option name="project" value="LOCAL" />
-      <updated>1745693698461</updated>
+      <updated>1747128602485</updated>
     </task>
-    <task id="LOCAL-00030" summary="Created GameSetupView for game settings">
+    <task id="LOCAL-00119" summary="added IsActionTile method to check for actionTIles">
       <option name="closed" value="true" />
-      <created>1745693729962</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
+      <created>1747130870334</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
       <option name="project" value="LOCAL" />
-      <updated>1745693729962</updated>
+      <updated>1747130870334</updated>
     </task>
-    <task id="LOCAL-00031" summary="Created PlayerManagementPanel component">
+    <task id="LOCAL-00120" summary="added interface method for animating actionTileEffects, updatePlayerVisualToken also has a new signature (Runnable)">
       <option name="closed" value="true" />
-      <created>1745693748360</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
+      <created>1747213327171</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
       <option name="project" value="LOCAL" />
-      <updated>1745693748360</updated>
+      <updated>1747213327171</updated>
     </task>
-    <task id="LOCAL-00032" summary="deleted old classes">
+    <task id="LOCAL-00121" summary="Added new observer method to notify if tile is an ActionTile">
       <option name="closed" value="true" />
-      <created>1745693781717</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
+      <created>1747213362567</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
       <option name="project" value="LOCAL" />
-      <updated>1745693781718</updated>
+      <updated>1747213362567</updated>
     </task>
-    <task id="LOCAL-00033" summary="stylesheet for the GameSetupView">
+    <task id="LOCAL-00122" summary="new observer method for notifying action tiles">
       <option name="closed" value="true" />
-      <created>1745695036135</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
+      <created>1747213394438</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
       <option name="project" value="LOCAL" />
-      <updated>1745695036135</updated>
+      <updated>1747213394438</updated>
     </task>
-    <task id="LOCAL-00034" summary="Corrected path in GameSelectionView">
+    <task id="LOCAL-00123" summary="HandlePlayerTurn checks for if newTile is action tile. developed hook method for handling Action tiles">
       <option name="closed" value="true" />
-      <created>1745740392249</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
+      <created>1747213450899</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
       <option name="project" value="LOCAL" />
-      <updated>1745740392249</updated>
+      <updated>1747213450899</updated>
     </task>
-    <task id="LOCAL-00035" summary="minor refactoring">
+    <task id="LOCAL-00124" summary="Added method for animating ActionTileEffect">
       <option name="closed" value="true" />
-      <created>1745740458776</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
+      <created>1747213839789</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
       <option name="project" value="LOCAL" />
-      <updated>1745740458776</updated>
+      <updated>1747213839789</updated>
     </task>
-    <task id="LOCAL-00036" summary="Added corresponding styling to classes">
+    <task id="LOCAL-00125" summary="minor refactoring of executePlayerTurn">
       <option name="closed" value="true" />
-      <created>1745745286911</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
+      <created>1747213891135</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
       <option name="project" value="LOCAL" />
-      <updated>1745745286911</updated>
+      <updated>1747213891135</updated>
     </task>
-    <task id="LOCAL-00037" summary="Added a onPlayerAdded method in observer">
+    <task id="LOCAL-00126" summary="added method in tile to check if its an actionTile">
       <option name="closed" value="true" />
-      <created>1745836775660</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
+      <created>1747213932080</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
       <option name="project" value="LOCAL" />
-      <updated>1745836775660</updated>
+      <updated>1747213932080</updated>
     </task>
-    <task id="LOCAL-00038" summary="Implemented Observable interface to boardGame">
+    <task id="LOCAL-00127" summary="added a set method for current tile id">
       <option name="closed" value="true" />
-      <created>1745836839361</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
+      <created>1747213962261</created>
+      <option name="number" value="00127" />
+      <option name="presentableId" value="LOCAL-00127" />
       <option name="project" value="LOCAL" />
-      <updated>1745836839361</updated>
+      <updated>1747213962261</updated>
     </task>
-    <task id="LOCAL-00039" summary="renamed and moved to different path">
+    <task id="LOCAL-00128" summary="implemented on ActionTileEffect from BoardGameObserver interface">
       <option name="closed" value="true" />
-      <created>1745836890104</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
+      <created>1747214018471</created>
+      <option name="number" value="00128" />
+      <option name="presentableId" value="LOCAL-00128" />
       <option name="project" value="LOCAL" />
-      <updated>1745836890104</updated>
+      <updated>1747214018471</updated>
     </task>
-    <task id="LOCAL-00040" summary="minor adjustments">
+    <task id="LOCAL-00129" summary="added method to the boardComponent that calls its renderer to animate action effect">
       <option name="closed" value="true" />
-      <created>1745836979659</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
+      <created>1747214068764</created>
+      <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
       <option name="project" value="LOCAL" />
-      <updated>1745836979659</updated>
+      <updated>1747214068764</updated>
     </task>
-    <task id="LOCAL-00041" summary="renamed to &quot;Observable&quot;">
+    <task id="LOCAL-00130" summary="unimportant changes">
       <option name="closed" value="true" />
-      <created>1745837007871</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
+      <created>1747214100002</created>
+      <option name="number" value="00130" />
+      <option name="presentableId" value="LOCAL-00130" />
       <option name="project" value="LOCAL" />
-      <updated>1745837007871</updated>
+      <updated>1747214100002</updated>
     </task>
-    <task id="LOCAL-00042" summary="added a listView for savedPlayers">
+    <task id="LOCAL-00131" summary="removed animateActionTileEffect from interface">
       <option name="closed" value="true" />
-      <created>1745837039651</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
+      <created>1747229733363</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
       <option name="project" value="LOCAL" />
-      <updated>1745837039651</updated>
+      <updated>1747229733363</updated>
     </task>
-    <task id="LOCAL-00043" summary="deprecated classes">
+    <task id="LOCAL-00132" summary="removed animateActionTileEffect method from BoardComponent">
       <option name="closed" value="true" />
-      <created>1745837100208</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
+      <created>1747229793279</created>
+      <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
       <option name="project" value="LOCAL" />
-      <updated>1745837100208</updated>
+      <updated>1747229793279</updated>
     </task>
-    <task id="LOCAL-00044" summary="minor adjustment">
+    <task id="LOCAL-00133">
       <option name="closed" value="true" />
-      <created>1745837124281</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
+      <created>1747229855630</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
       <option name="project" value="LOCAL" />
-      <updated>1745837124281</updated>
+      <updated>1747229855630</updated>
     </task>
-    <task id="LOCAL-00045" summary="moved to correct path">
+    <task id="LOCAL-00134" summary="refactored onActionTileEffect method">
       <option name="closed" value="true" />
-      <created>1745837138047</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
+      <created>1747229898443</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
       <option name="project" value="LOCAL" />
-      <updated>1745837138047</updated>
+      <updated>1747229898443</updated>
     </task>
-    <task id="LOCAL-00046" summary="Manager classes follow singleton design">
+    <task id="LOCAL-00135" summary="updated boardFactory to create harder boards, refactored and improved code">
       <option name="closed" value="true" />
-      <created>1745843648917</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
+      <created>1747410456089</created>
+      <option name="number" value="00135" />
+      <option name="presentableId" value="LOCAL-00135" />
       <option name="project" value="LOCAL" />
-      <updated>1745843648918</updated>
+      <updated>1747410456090</updated>
     </task>
-    <task id="LOCAL-00047" summary="Added a bindEventHandlers method">
+    <task id="LOCAL-00136" summary="Added extensive JavaDoc, and description field for general descriptions">
       <option name="closed" value="true" />
-      <created>1745845072173</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
+      <created>1747495815062</created>
+      <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
       <option name="project" value="LOCAL" />
-      <updated>1745845072173</updated>
+      <updated>1747495815063</updated>
     </task>
-    <task id="LOCAL-00048" summary="developing GameSetupController, methods not working yet">
+    <task id="LOCAL-00137" summary="added field specificType to distinguish specific types of Actions passed through general SpecialAction">
       <option name="closed" value="true" />
-      <created>1745845105037</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
+      <created>1747495869638</created>
+      <option name="number" value="00137" />
+      <option name="presentableId" value="LOCAL-00137" />
       <option name="project" value="LOCAL" />
-      <updated>1745845105037</updated>
+      <updated>1747495869639</updated>
     </task>
-    <task id="LOCAL-00049" summary="created player popup for creating players">
+    <task id="LOCAL-00138" summary="Tile converter has more separeted concern and doesnt directly set actions in FromDto method">
       <option name="closed" value="true" />
-      <created>1745868768490</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
+      <created>1747506040301</created>
+      <option name="number" value="00138" />
+      <option name="presentableId" value="LOCAL-00138" />
       <option name="project" value="LOCAL" />
-      <updated>1745868768490</updated>
+      <updated>1747506040301</updated>
     </task>
-    <task id="LOCAL-00050" summary="added styling to each difficulty button">
+    <task id="LOCAL-00139" summary="Enhance TileActionFactory with Javadoc, null checks, logging, and default ActionType descriptions. Refactored for more general creation of special tiles">
       <option name="closed" value="true" />
-      <created>1745868916197</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
+      <created>1747506413863</created>
+      <option name="number" value="00139" />
+      <option name="presentableId" value="LOCAL-00139" />
       <option name="project" value="LOCAL" />
-      <updated>1745868916198</updated>
+      <updated>1747506413863</updated>
     </task>
-    <task id="LOCAL-00051" summary="minor refactoring">
+    <task id="LOCAL-00140" summary="removed old JSON boards">
       <option name="closed" value="true" />
-      <created>1745869139221</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
+      <created>1747506431099</created>
+      <option name="number" value="00140" />
+      <option name="presentableId" value="LOCAL-00140" />
       <option name="project" value="LOCAL" />
-      <updated>1745869139221</updated>
+      <updated>1747506431099</updated>
     </task>
-    <task id="LOCAL-00052" summary="refactored PlayerManagementPanel to have more functionality">
+    <task id="LOCAL-00141" summary="added a onGameStateUpdated method">
       <option name="closed" value="true" />
-      <created>1745869309658</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
+      <created>1747506960267</created>
+      <option name="number" value="00141" />
+      <option name="presentableId" value="LOCAL-00141" />
       <option name="project" value="LOCAL" />
-      <updated>1745869309658</updated>
+      <updated>1747506960267</updated>
     </task>
-    <task id="LOCAL-00053" summary="Controller handles some input from the view, more to add">
+    <task id="LOCAL-00142" summary="BoardConverter now is responsible for linking and setting actions">
       <option name="closed" value="true" />
-      <created>1745869403719</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
+      <created>1747506992639</created>
+      <option name="number" value="00142" />
+      <option name="presentableId" value="LOCAL-00142" />
       <option name="project" value="LOCAL" />
-      <updated>1745869403719</updated>
+      <updated>1747506992641</updated>
     </task>
-    <task id="LOCAL-00054" summary="added more navigations to controller">
+    <task id="LOCAL-00143" summary="added observer method to notify of State change">
       <option name="closed" value="true" />
-      <created>1745869604950</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
+      <created>1747507013296</created>
+      <option name="number" value="00143" />
+      <option name="presentableId" value="LOCAL-00143" />
       <option name="project" value="LOCAL" />
-      <updated>1745869604951</updated>
+      <updated>1747507013296</updated>
     </task>
-    <task id="LOCAL-00055" summary="minor refactoring of paths">
+    <task id="LOCAL-00144" summary="minor refactoring of updatePlayerVisual method">
       <option name="closed" value="true" />
-      <created>1745869710362</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
+      <created>1747507046253</created>
+      <option name="number" value="00144" />
+      <option name="presentableId" value="LOCAL-00144" />
       <option name="project" value="LOCAL" />
-      <updated>1745869710362</updated>
+      <updated>1747507046253</updated>
     </task>
-    <task id="LOCAL-00056" summary="added icons">
+    <task id="LOCAL-00145" summary="Updated to actually highlight current players correctly">
       <option name="closed" value="true" />
-      <created>1745869733618</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
+      <created>1747507099105</created>
+      <option name="number" value="00145" />
+      <option name="presentableId" value="LOCAL-00145" />
       <option name="project" value="LOCAL" />
-      <updated>1745869733619</updated>
+      <updated>1747507099105</updated>
     </task>
-    <task id="LOCAL-00057" summary="created BoardGameFactory, not fully implemented">
+    <task id="LOCAL-00146" summary="Minor refactoring of class">
       <option name="closed" value="true" />
-      <created>1745923576019</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
+      <created>1747507146009</created>
+      <option name="number" value="00146" />
+      <option name="presentableId" value="LOCAL-00146" />
       <option name="project" value="LOCAL" />
-      <updated>1745923576020</updated>
+      <updated>1747507146009</updated>
     </task>
-    <task id="LOCAL-00058" summary="Made refactoring changes to components of GameSetupView">
+    <task id="LOCAL-00147" summary="removed playerModelObserver">
       <option name="closed" value="true" />
-      <created>1745928821231</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
+      <created>1747507162196</created>
+      <option name="number" value="00147" />
+      <option name="presentableId" value="LOCAL-00147" />
       <option name="project" value="LOCAL" />
-      <updated>1745928821231</updated>
+      <updated>1747507162196</updated>
     </task>
-    <task id="LOCAL-00059" summary="Initialize default difficulty, players list, and boards directory in GameSetupController constructor">
+    <task id="LOCAL-00148" summary="handles action tiles of special type too now">
       <option name="closed" value="true" />
-      <created>1745929204061</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
+      <created>1747507254638</created>
+      <option name="number" value="00148" />
+      <option name="presentableId" value="LOCAL-00148" />
       <option name="project" value="LOCAL" />
-      <updated>1745929204061</updated>
+      <updated>1747507254638</updated>
     </task>
-    <task id="LOCAL-00060" summary="Added updateButtonStates for when selecting players">
+    <task id="LOCAL-00149" summary="Introduce async move animations via animationRunning flag and callback; improve playTurnButton and dicePanel state management through game state notification">
       <option name="closed" value="true" />
-      <created>1745929257747</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
+      <created>1747507552787</created>
+      <option name="number" value="00149" />
+      <option name="presentableId" value="LOCAL-00149" />
       <option name="project" value="LOCAL" />
-      <updated>1745929257747</updated>
+      <updated>1747507552787</updated>
     </task>
-    <task id="LOCAL-00061" summary="Extend NavigationController to manage full game lifecycle per now">
+    <task id="LOCAL-00150" summary="enhanced CSS styling for player rows">
       <option name="closed" value="true" />
-      <created>1745929645436</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
+      <created>1747507575939</created>
+      <option name="number" value="00150" />
+      <option name="presentableId" value="LOCAL-00150" />
       <option name="project" value="LOCAL" />
-      <updated>1745929645436</updated>
+      <updated>1747507575939</updated>
     </task>
-    <task id="LOCAL-00062" summary="minor changes">
+    <task id="LOCAL-00151" summary="minor refactoring, not of value">
       <option name="closed" value="true" />
-      <created>1745929693995</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
+      <created>1747507609230</created>
+      <option name="number" value="00151" />
+      <option name="presentableId" value="LOCAL-00151" />
       <option name="project" value="LOCAL" />
-      <updated>1745929693996</updated>
+      <updated>1747507609230</updated>
     </task>
-    <task id="LOCAL-00063" summary="Added custom PlayerManagementException">
+    <task id="LOCAL-00152" summary="saved imporved board styles to JSON">
       <option name="closed" value="true" />
-      <created>1746004151656</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
+      <created>1747507639251</created>
+      <option name="number" value="00152" />
+      <option name="presentableId" value="LOCAL-00152" />
       <option name="project" value="LOCAL" />
-      <updated>1746004151656</updated>
+      <updated>1747507639251</updated>
     </task>
-    <task id="LOCAL-00064" summary="Added AlertHelper class for general use of alerts">
+    <task id="LOCAL-00153" summary="Simplified ActionConverter, now it uses factory, drops extra validations and fallback to NoOp">
       <option name="closed" value="true" />
-      <created>1746005132222</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
+      <created>1747567009359</created>
+      <option name="number" value="00153" />
+      <option name="presentableId" value="LOCAL-00153" />
       <option name="project" value="LOCAL" />
-      <updated>1746005132222</updated>
+      <updated>1747567009359</updated>
     </task>
-    <task id="LOCAL-00065" summary="Started work on custom fileHandling exceptions">
+    <task id="LOCAL-00154" summary="Exception for invalid JSON board formats">
       <option name="closed" value="true" />
-      <created>1746007108361</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
+      <created>1747567042443</created>
+      <option name="number" value="00154" />
+      <option name="presentableId" value="LOCAL-00154" />
       <option name="project" value="LOCAL" />
-      <updated>1746007108361</updated>
+      <updated>1747567042443</updated>
     </task>
-    <task id="LOCAL-00066" summary="made custom fileExceptions for JSON and CSV">
+    <task id="LOCAL-00155" summary="win dialog class for handling winner announcements, resetting games and going to menu">
       <option name="closed" value="true" />
-      <created>1746007693504</created>
-      <option name="number" value="00066" />
-      <option name="presentableId" value="LOCAL-00066" />
+      <created>1747567073364</created>
+      <option name="number" value="00155" />
+      <option name="presentableId" value="LOCAL-00155" />
       <option name="project" value="LOCAL" />
-      <updated>1746007693504</updated>
+      <updated>1747567073364</updated>
     </task>
-    <task id="LOCAL-00067" summary="FileHandler throws exceptions and extensive documentation">
+    <task id="LOCAL-00156" summary="refactored fromDto method to drop strict DTO validations and simplify tile/action mapping">
       <option name="closed" value="true" />
-      <created>1746007819496</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
+      <created>1747567189401</created>
+      <option name="number" value="00156" />
+      <option name="presentableId" value="LOCAL-00156" />
       <option name="project" value="LOCAL" />
-      <updated>1746007819497</updated>
+      <updated>1747567189401</updated>
     </task>
-    <task id="LOCAL-00068" summary="BoardJsonFileHandler throws custom exceptions">
+    <task id="LOCAL-00157" summary="refactored BoardJsonFileHandler to handle exceptions concerning wrongly formatted JSON boards">
       <option name="closed" value="true" />
-      <created>1746009743904</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
+      <created>1747567425996</created>
+      <option name="number" value="00157" />
+      <option name="presentableId" value="LOCAL-00157" />
       <option name="project" value="LOCAL" />
-      <updated>1746009743904</updated>
+      <updated>1747567425996</updated>
     </task>
-    <task id="LOCAL-00069" summary="Added custom BoardManagementException">
+    <task id="LOCAL-00158" summary="BoardManager handles invalidBoardFormatException">
       <option name="closed" value="true" />
-      <created>1746011872413</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
+      <created>1747567463693</created>
+      <option name="number" value="00158" />
+      <option name="presentableId" value="LOCAL-00158" />
       <option name="project" value="LOCAL" />
-      <updated>1746011872413</updated>
+      <updated>1747567463693</updated>
     </task>
-    <task id="LOCAL-00070" summary="Refacotring changes made to player panel and class">
+    <task id="LOCAL-00159" summary="GameSetupController handles choosing uploaded boards">
       <option name="closed" value="true" />
-      <created>1746017567423</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
+      <created>1747567603404</created>
+      <option name="number" value="00159" />
+      <option name="presentableId" value="LOCAL-00159" />
       <option name="project" value="LOCAL" />
-      <updated>1746017567423</updated>
+      <updated>1747567603404</updated>
     </task>
-    <task id="LOCAL-00071" summary="Added custom exceptionHandling to PlayerCSVFileHandler">
+    <task id="LOCAL-00160" summary="minor refactoring of TileActionFactory">
       <option name="closed" value="true" />
-      <created>1746017661561</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
+      <created>1747567706408</created>
+      <option name="number" value="00160" />
+      <option name="presentableId" value="LOCAL-00160" />
       <option name="project" value="LOCAL" />
-      <updated>1746017661561</updated>
+      <updated>1747567706408</updated>
     </task>
-    <task id="LOCAL-00072" summary="Updated Manager classes to implement exceptions">
+    <task id="LOCAL-00161" summary="added new animateTokenDirectly to handle immediate transition in BoardRenderer">
       <option name="closed" value="true" />
-      <created>1746017780662</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
+      <created>1747567746290</created>
+      <option name="number" value="00161" />
+      <option name="presentableId" value="LOCAL-00161" />
       <option name="project" value="LOCAL" />
-      <updated>1746017780662</updated>
+      <updated>1747567746290</updated>
     </task>
-    <task id="LOCAL-00073" summary="minor refactoring">
+    <task id="LOCAL-00162" summary="Added implementation of animateTokenDirectly">
       <option name="closed" value="true" />
-      <created>1746032333176</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
+      <created>1747567866533</created>
+      <option name="number" value="00162" />
+      <option name="presentableId" value="LOCAL-00162" />
       <option name="project" value="LOCAL" />
-      <updated>1746032333177</updated>
+      <updated>1747567866533</updated>
     </task>
-    <task id="LOCAL-00074" summary="workspace.xml">
+    <task id="LOCAL-00163" summary="Added implementation of animateTokenDirectly in BoardComponent, but non functioning yet">
       <option name="closed" value="true" />
-      <created>1746032392027</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
+      <created>1747567891448</created>
+      <option name="number" value="00163" />
+      <option name="presentableId" value="LOCAL-00163" />
       <option name="project" value="LOCAL" />
-      <updated>1746032392027</updated>
+      <updated>1747567891448</updated>
     </task>
-    <task id="LOCAL-00075" summary=" Upgrade PlayerManagementPanel to use TableView with auto-expiring status message">
+    <task id="LOCAL-00164" summary="added a resetGameForRestart method for when needing to re-instantiate starting instance of game">
       <option name="closed" value="true" />
-      <created>1746121702364</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
+      <created>1747568004100</created>
+      <option name="number" value="00164" />
+      <option name="presentableId" value="LOCAL-00164" />
       <option name="project" value="LOCAL" />
-      <updated>1746121702364</updated>
+      <updated>1747568004100</updated>
     </task>
-    <task id="LOCAL-00076" summary="removed observer from Player">
+    <task id="LOCAL-00165" summary="BoardGameController has methods for handling post-win actions of a game">
       <option name="closed" value="true" />
-      <created>1746122958278</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
+      <created>1747568069474</created>
+      <option name="number" value="00165" />
+      <option name="presentableId" value="LOCAL-00165" />
       <option name="project" value="LOCAL" />
-      <updated>1746122958278</updated>
+      <updated>1747568069474</updated>
     </task>
-    <task id="LOCAL-00077" summary="minor refactoring">
+    <task id="LOCAL-00166" summary="implemented restartGame method for restarting game in navigation controller">
       <option name="closed" value="true" />
-      <created>1746122982547</created>
-      <option name="number" value="00077" />
-      <option name="presentableId" value="LOCAL-00077" />
+      <created>1747568138483</created>
+      <option name="number" value="00166" />
+      <option name="presentableId" value="LOCAL-00166" />
       <option name="project" value="LOCAL" />
-      <updated>1746122982547</updated>
+      <updated>1747568138483</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <option name="localTasksCounter" value="167" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -685,32 +757,32 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactored PlayerManagementPanel to have more functionality" />
-    <MESSAGE value="Controller handles some input from the view, more to add" />
-    <MESSAGE value="added more navigations to controller" />
-    <MESSAGE value="minor refactoring of paths" />
-    <MESSAGE value="added icons" />
-    <MESSAGE value="created BoardGameFactory, not fully implemented" />
-    <MESSAGE value="Made refactoring changes to components of GameSetupView" />
-    <MESSAGE value="Initialize default difficulty, players list, and boards directory in GameSetupController constructor" />
-    <MESSAGE value="Added updateButtonStates for when selecting players" />
-    <MESSAGE value="Extend NavigationController to manage full game lifecycle per now" />
-    <MESSAGE value="minor changes" />
-    <MESSAGE value="Added custom PlayerManagementException" />
-    <MESSAGE value="Added AlertHelper class for general use of alerts" />
-    <MESSAGE value="Started work on custom fileHandling exceptions" />
-    <MESSAGE value="made custom fileExceptions for JSON and CSV" />
-    <MESSAGE value="FileHandler throws exceptions and extensive documentation" />
-    <MESSAGE value="BoardJsonFileHandler throws custom exceptions" />
-    <MESSAGE value="Added custom BoardManagementException" />
-    <MESSAGE value="Refacotring changes made to player panel and class" />
-    <MESSAGE value="Added custom exceptionHandling to PlayerCSVFileHandler" />
-    <MESSAGE value="Updated Manager classes to implement exceptions" />
-    <MESSAGE value="workspace.xml" />
-    <MESSAGE value=" Upgrade PlayerManagementPanel to use TableView with auto-expiring status message" />
-    <MESSAGE value="removed observer from Player" />
-    <MESSAGE value="minor refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="minor refactoring" />
+    <MESSAGE value="minor refactoring of updatePlayerVisual method" />
+    <MESSAGE value="Updated to actually highlight current players correctly" />
+    <MESSAGE value="Minor refactoring of class" />
+    <MESSAGE value="removed playerModelObserver" />
+    <MESSAGE value="handles action tiles of special type too now" />
+    <MESSAGE value="Introduce async move animations via animationRunning flag and callback; improve playTurnButton and dicePanel state management through game state notification" />
+    <MESSAGE value="enhanced CSS styling for player rows" />
+    <MESSAGE value="minor refactoring, not of value" />
+    <MESSAGE value="saved imporved board styles to JSON" />
+    <MESSAGE value="Simplified ActionConverter, now it uses factory, drops extra validations and fallback to NoOp" />
+    <MESSAGE value="Exception for invalid JSON board formats" />
+    <MESSAGE value="win dialog class for handling winner announcements, resetting games and going to menu" />
+    <MESSAGE value="refactored fromDto method to drop strict DTO validations and simplify tile/action mapping" />
+    <MESSAGE value="refactored BoardJsonFileHandler to handle exceptions concerning wrongly formatted JSON boards" />
+    <MESSAGE value="BoardManager handles invalidBoardFormatException" />
+    <MESSAGE value="GameSetupController handles choosing uploaded boards" />
+    <MESSAGE value="minor refactoring of TileActionFactory" />
+    <MESSAGE value="added new animateTokenDirectly to handle immediate transition in BoardRenderer" />
+    <MESSAGE value="Added implementation of animateTokenDirectly" />
+    <MESSAGE value="Added implementation of animateTokenDirectly in BoardComponent, but non functioning yet" />
+    <MESSAGE value="added a resetGameForRestart method for when needing to re-instantiate starting instance of game" />
+    <MESSAGE value="BoardGameController has methods for handling post-win actions of a game" />
+    <MESSAGE value="implemented restartGame method for restarting game in navigation controller" />
+    <MESSAGE value="minor refactoring and renaming" />
+    <MESSAGE value="Resolved Merge conflict" />
+    <option name="LAST_COMMIT_MESSAGE" value="Resolved Merge conflict" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

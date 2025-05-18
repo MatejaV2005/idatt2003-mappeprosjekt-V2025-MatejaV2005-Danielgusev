@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.model.actions;
+package edu.ntnu.idi.idatt.model.core.actions;
 
 import edu.ntnu.idi.idatt.model.core.ActionType;
 import edu.ntnu.idi.idatt.model.core.playertype.Player;
@@ -7,10 +7,13 @@ import java.util.function.Consumer;
 public class SpecialAction implements TileAction {
   private final Consumer<Player> action;
   private final String description;
+  private final ActionType specificType;
 
-  public SpecialAction(String description, Consumer<Player> action) {
+
+  public SpecialAction(String description, Consumer<Player> action, ActionType specificType) {
     this.description = description;
     this.action = action;
+    this.specificType = specificType;
 
   }
 
@@ -22,7 +25,7 @@ public class SpecialAction implements TileAction {
 
   @Override
   public ActionType getActionType() {
-    return ActionType.SPECIAL;
+    return this.specificType;
   }
 
   @Override

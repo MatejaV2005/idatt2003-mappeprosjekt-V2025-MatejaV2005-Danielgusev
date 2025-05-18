@@ -1,7 +1,10 @@
 package edu.ntnu.idi.idatt.controller;
 
+import edu.ntnu.idi.idatt.exceptions.BoardManagementException;
+import edu.ntnu.idi.idatt.exceptions.InvalidBoardFormatException;
 import edu.ntnu.idi.idatt.exceptions.PlayerManagementException;
 import edu.ntnu.idi.idatt.model.core.Board;
+import edu.ntnu.idi.idatt.model.core.GameType;
 import edu.ntnu.idi.idatt.model.management.BoardManager;
 import edu.ntnu.idi.idatt.model.management.PlayerManager;
 import edu.ntnu.idi.idatt.model.core.playertype.Player;
@@ -34,9 +37,10 @@ public class GameSetupController {
   private final NavigationController navigationController;
   private final PlayerManager playerManager;
   private final BoardManager boardManager;
-  private String selectedDifficulty = "Normal"; // Default difficulty
+  private GameType selectedGame = GameType.SNAKES_AND_LADDERS; // Default difficulty
   private final Stage stage;
   private Board customBoard = null;
+  private String selectedDifficulty = "normal";
 
   /**
    * Constructs a GameSetupController.
@@ -139,8 +143,14 @@ public class GameSetupController {
     view.clearStatusMessage();
 
     try {
-      navigationController.startNewGame(selectedDifficulty.toLowerCase());
-      LOGGER.log(Level.INFO, "Starting new game with difficulty: {0}", selectedDifficulty);
+      if ("custom".equalsIgnoreCase(this.selectedDifficulty) && this.customBoard != null) {
+        LOGGER.log(Level.INFO, "Starting game with custom uploaded board.");
+        navigationController.startCustomGame(this.customBoard);
+      } else {
+        LOGGER.log(Level.INFO, "Starting new game with type: {0} and standard difficulty: {1}",
+            new Object[]{selectedGame, this.selectedDifficulty});
+        navigationController.startNewGame(selectedGame, this.selectedDifficulty);
+      }
     } catch (Exception e) {
       LOGGER.log(Level.SEVERE, "Error starting game", e);
       AlertHelper.showErrorAlert("Game Start Error", "Could not start game: " + e.getMessage());
@@ -152,6 +162,17 @@ public class GameSetupController {
    */
   public void onBack() {
     navigationController.navigateToGameSelection();
+  }
+
+  public void refreshPlayerListViews() {
+    LOGGER.info("GameSetupController: Forcing refresh of player list views.");
+    onCurrentPlayersTabSelected();
+
+    PlayerManagementPanel panel = view.getPlayerManagementPanel();
+    if (panel.getPlayerTabs().getSelectionModel().getSelectedItem() == panel.getSavedPlayersTab()) {
+      onSavedPlayersTabSelected();
+    }
+    view.clearStatusMessage();
   }
 
   /**
@@ -320,17 +341,27 @@ public class GameSetupController {
     File selectedFile = fileChooser.showOpenDialog(stage);
     if (selectedFile != null) {
       try {
-        customBoard = boardManager.loadBoardFromFile(selectedFile.getAbsolutePath());
-
-        this.selectedDifficulty = "Custom";
+        this.customBoard = boardManager.loadBoardFromFile(selectedFile.getAbsolutePath());
+        this.selectedDifficulty = "custom"; // Indikerer at custom board er valgt
         view.getGameInfoPanel().setUploadModeInfo();
         view.updateStatusMessage("Custom board loaded: " + selectedFile.getName(), false);
-
         LOGGER.log(Level.INFO, "Loaded custom board from: {0}", selectedFile.getAbsolutePath());
-      } catch (Exception e) {
-        LOGGER.log(Level.SEVERE, "Failed to load board file", e);
-        AlertHelper.showErrorAlert("Board Load Error", "Failed to load board file: " + e.getMessage());
-        view.updateStatusMessage("Failed to load board", true);
+
+      } catch (InvalidBoardFormatException e) { // Fang det spesifikke unntaket
+        LOGGER.log(Level.WARNING, "Invalid board format: " + e.getMessage(), e);
+        AlertHelper.showErrorAlert("Invalid Board File", e.getMessage()); // Vis den detaljerte feilmeldingen
+        view.updateStatusMessage("Invalid board file: " + e.getMessage(), true);
+        this.customBoard = null;
+        this.selectedDifficulty = "normal"; // Tilbakestill
+        view.getGameInfoPanel().setNormalModeInfo();
+
+      } catch (BoardManagementException e) { // For andre lastingsfeil (f.eks. fil ikke funnet via BoardManager)
+        LOGGER.log(Level.SEVERE, "Failed to load board file: " + e.getMessage(), e);
+        AlertHelper.showErrorAlert("Board Load Error", "Failed to load board: " + e.getMessage());
+        view.updateStatusMessage("Failed to load board: " + e.getMessage(), true);
+        this.customBoard = null;
+        this.selectedDifficulty = "normal";
+        view.getGameInfoPanel().setNormalModeInfo();
       }
     }
   }

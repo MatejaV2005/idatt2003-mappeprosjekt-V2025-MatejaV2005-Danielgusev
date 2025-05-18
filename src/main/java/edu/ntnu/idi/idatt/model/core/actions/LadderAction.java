@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.model.actions;
+package edu.ntnu.idi.idatt.model.core.actions;
 
 import edu.ntnu.idi.idatt.model.core.ActionType;
 import edu.ntnu.idi.idatt.model.core.Tile;
@@ -25,7 +25,6 @@ public class LadderAction implements TileAction {
 
   @Override
   public void perform(Player player) {
-    //TODO: add distinguishing features for
     System.out.println(player.getName() + " " + description);
     player.setOnCurrentTile(destinationTile);
   }

@@ -3,6 +3,7 @@ package edu.ntnu.idi.idatt;
 import static edu.ntnu.idi.idatt.model.core.playertype.BotPlayer.LOGGER;
 
 import edu.ntnu.idi.idatt.exceptions.BoardManagementException;
+import edu.ntnu.idi.idatt.factory.BoardFactory;
 import edu.ntnu.idi.idatt.model.management.BoardManager;
 import edu.ntnu.idi.idatt.model.management.PlayerManager;
 import edu.ntnu.idi.idatt.model.core.Board;
@@ -70,10 +71,12 @@ public class BoardGameApp {
   private void init() throws BoardManagementException {
     BoardManager boardManager = BoardManager.getInstance();
     PlayerManager playerManager = PlayerManager.getInstance();
+    BoardFactory fac = new BoardFactory();
+
+
 
     // Load the default board
-    Board defaultBoard = boardManager.loadBoardFromFile(
-        "Files/Boards/Default_Board_20250407_202351.json");
+    Board defaultBoard = fac.createNormalBoard();
 
     // Initialize dice and game components
     Dice dice = new Dice(2);

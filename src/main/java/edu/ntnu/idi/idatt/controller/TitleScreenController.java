@@ -23,14 +23,6 @@ public class TitleScreenController {
   }
 
   /**
-   * Handles the "Settings" button click.
-   * Navigates to the settings screen.
-   */
-  public void onSettings() {
-    navigationController.navigateToSettings();
-  }
-
-  /**
    * Handles the "Quit Game" button click.
    * Exits the application.
    */

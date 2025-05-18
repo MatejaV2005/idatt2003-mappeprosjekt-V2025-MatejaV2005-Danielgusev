@@ -30,7 +30,7 @@
       "action": {
         "actionType": "Ladder",
         "destinationTileId": 13,
-        "description": "climbs up to tile 13"
+        "description": "climbs a short ladder to tile 13"
       }
     },
     "4": {
@@ -162,7 +162,7 @@
       "action": {
         "actionType": "Ladder",
         "destinationTileId": 37,
-        "description": "climbs up to tile 37"
+        "description": "climbs a long ladder to tile 37"
       }
     },
     "16": {
@@ -305,7 +305,7 @@
       "action": {
         "actionType": "Snake",
         "destinationTileId": 20,
-        "description": "slides down to tile 20"
+        "description": "slides down a pesky snake to tile 20"
       }
     },
     "29": {
@@ -349,7 +349,7 @@
       "action": {
         "actionType": "Ladder",
         "destinationTileId": 45,
-        "description": "climbs up to tile 45"
+        "description": "climbs a medium ladder to tile 45"
       }
     },
     "33": {
