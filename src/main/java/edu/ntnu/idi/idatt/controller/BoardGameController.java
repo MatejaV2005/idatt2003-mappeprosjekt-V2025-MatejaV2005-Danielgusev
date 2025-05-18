@@ -135,17 +135,6 @@ public class BoardGameController {
     return boardGame;
   }
 
-  public void requestRestartGame() {
-    LOGGER.info("BoardGameController: Restart game requested.");
-    if (navigationController != null && boardGame != null) {
-      // Send med nødvendig info for å restarte det *samme* spillet
-      navigationController.restartGame(boardGame.getGameType(), boardGame.getBoard(), boardGame.getPlayers());
-    } else {
-      LOGGER.severe("Cannot restart game: NavigationController or BoardGame model is null.");
-      AlertHelper.showErrorAlert("Error", "Could not restart the game.");
-    }
-  }
-
   public void requestGoToGameSetup() {
     LOGGER.info("BoardGameController: Go to Game Setup requested.");
     if (navigationController != null) {
