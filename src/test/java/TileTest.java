@@ -51,6 +51,7 @@ class TileTest {
     tile = new Tile(1, 0, 0);
     mockPlayer = mock(Player.class);
     mockAction = mock(TileAction.class);
+
   }
 
   @Nested
