@@ -1,219 +1,204 @@
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-import edu.ntnu.idi.idatt.model.player_type.Player;
-
+import edu.ntnu.idi.idatt.model.core.Tile;
+import edu.ntnu.idi.idatt.model.core.playertype.Player;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import edu.ntnu.idi.idatt.model.core.Board;
-import edu.ntnu.idi.idatt.model.core.Tile;
-import edu.ntnu.idi.idatt.utils.ExceptionHandling;
+class PlayerTest {
 
-/**
- * JUnit test class for Player
- */
-public class PlayerTest {
+  private Player player;
+  private Tile mockInitialTile;
+  private Tile mockNextTile;
+  private Tile mockFinalTile;
 
-  // --- Imitation Implementations for Testing -----------------
+  private final String validName = "TestPlayer";
+  private final String validPieceType = "TestPiece";
 
-  /**
-   * ImitationTile simulates a Tile.
-   */
-  private static class ImitationTile extends Tile {
-    private final int id;
-    private ImitationTile next;
-    public boolean leaveCalled = false;
-    public boolean landCalled = false;
+  @BeforeEach
+  void setUp() {
+    player = new Player(validName, validPieceType);
+    mockInitialTile = mock(Tile.class, "InitialTile");
+    mockNextTile = mock(Tile.class, "NextTile");
+    mockFinalTile = mock(Tile.class, "FinalTile");
 
-    public ImitationTile(int id) {
-      super(id);
-      this.id = id;
-    }
-
-    public void setNextTile(ImitationTile next) {
-      this.next = next;
-    }
-
-    @Override
-    public Tile getNextTile() {
-      return next;
-    }
-
-    @Override
-    public void leavePlayer(Player player) {
-      leaveCalled = true;
-    }
-
-    @Override
-    public void landPlayer(Player player) {
-      landCalled = true;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-      if (this == obj)
-        return true;
-      if (obj == null || getClass() != obj.getClass())
-        return false;
-      ImitationTile other = (ImitationTile) obj;
-      return id == other.id;
-    }
-
-    @Override
-    public int hashCode() {
-      return id;
-    }
+    player.setOnCurrentTile(mockInitialTile);
   }
 
-  /**
-   * ImitationBoard simulates a Board that stores ImitationTile instances.
-   * It creates a simple cyclic chain: 1 -> 2 -> 3 -> 1.
-   */
-  private static class ImitationBoard extends Board {
-    public ImitationBoard() {
-      // First, call the Board constructor to create a board with 3 tiles.
-      super(3);
-      // Board.initializeTiles() and Board.linkTiles() have been called.
-      // By default, Board.linkTiles() sets tile 1 -> tile 2 and tile 2 -> tile 3,
-      // but it doesn't set tile 3's next tile. We'll set tile 3's next tile to tile 1 to complete the cycle.
-      Tile tile1 = getTileById(1);
-      Tile tile3 = getTileById(3);
-      tile3.setNextTile(tile1);
+  @Nested
+  @DisplayName("Constructor and Initial State")
+  class ConstructorTests {
+
+    @Test
+    void constructorSetsNameAndPieceTypeAndDefaults() {
+      assertEquals(validName, player.getName());
+      assertEquals(validPieceType, player.getPieceType());
+      assertNull(new Player("P2", "Hat").getCurrentTile(),
+          "New player should not have a currentTile set by constructor.");
+      assertFalse(player.shouldSkipTurn(),
+          "New player should not be set to skip turn by default.");
+    }
+
+    @Test
+    void constructorTrimsNameAndPieceType() {
+      Player p = new Player("  Padded Name  ", "  Padded Piece  ");
+      assertEquals("Padded Name", p.getName());
+      assertEquals("Padded Piece", p.getPieceType());
+    }
+
+    @Test
+    void constructorThrowsForNullName() {
+      var exception = assertThrows(IllegalArgumentException.class,
+          () -> new Player(null, validPieceType));
+      assertEquals("Player name cannot be null or blank", exception.getMessage());
+    }
+
+    @Test
+    void constructorThrowsForBlankName() {
+      var exception = assertThrows(IllegalArgumentException.class,
+          () -> new Player("   ", validPieceType));
+      assertEquals("Player name cannot be null or blank", exception.getMessage());
+    }
+
+    @Test
+    void constructorThrowsForNullPieceType() {
+      var exception = assertThrows(IllegalArgumentException.class,
+          () -> new Player(validName, null));
+      assertEquals("Player piece type cannot be null or blank", exception.getMessage());
+    }
+
+    @Test
+    void constructorThrowsForBlankPieceType() {
+      var exception = assertThrows(IllegalArgumentException.class,
+          () -> new Player(validName, "   "));
+      assertEquals("Player piece type cannot be null or blank", exception.getMessage());
     }
   }
 
+  @Nested
+  @DisplayName("Tile Management")
+  class TileManagementTests {
 
+    @Test
+    void setOnCurrentTileUpdatesTileCorrectly() {
+      assertEquals(mockInitialTile, player.getCurrentTile());
+      player.setOnCurrentTile(mockNextTile);
+      assertEquals(mockNextTile, player.getCurrentTile());
+    }
 
-  /**
-   * DummyBoardGame is a minimal implementation of BoardGame that returns an ImitationBoard.
-   * This dummy implementation is used to bypass the unfinished parts of BoardGame.
-   */
-  private static class DummyBoardGame {
-    public DummyBoardGame() {
-      // Call the parent constructor with a new ImitationBoard instance.
-      super(new ImitationBoard());
+    @Test
+    void setOnCurrentTileThrowsForNullTile() {
+      var exception = assertThrows(IllegalArgumentException.class,
+          () -> player.setOnCurrentTile(null));
+      assertEquals("New tile for player cannot be null.", exception.getMessage());
     }
   }
 
+  @Nested
+  @DisplayName("Skip Turn Functionality")
+  class SkipTurnTests {
 
-  /**
-   * TestPlayer is a concrete subclass of Player used for testing.
-   */
-  private static class TestPlayer extends Player {
-    public TestPlayer(String name, BoardGame game) {
-      super(name, game);
+    @Test
+    void setSkipTurnEnablesSkippingNextTurn() {
+      player.setSkipTurn(true);
+      assertTrue(player.shouldSkipTurn(), "Should skip turn after being set to true.");
     }
 
-    @Override
-    public void move(int steps) {
-      ExceptionHandling.requirePositive(steps, "steps");
-      basicMove(steps);
+    @Test
+    void shouldSkipTurnResetsFlagAfterReturningTrue() {
+      player.setSkipTurn(true);
+      player.shouldSkipTurn(); // First call consumes the flag
+      assertFalse(player.shouldSkipTurn(), "Should not skip turn on subsequent call.");
+    }
+
+    @Test
+    void shouldSkipTurnReturnsFalseIfNeverSetToSkip() {
+      assertFalse(player.shouldSkipTurn());
+    }
+
+    @Test
+    void setSkipTurnToFalseClearsSkipFlag() {
+      player.setSkipTurn(true); // Set to skip
+      player.setSkipTurn(false); // Then clear
+      assertFalse(player.shouldSkipTurn());
     }
   }
 
-  // --- Test Methods --------------------------
+  @Nested
+  @DisplayName("Basic Movement Logic (basicMove)")
+  class BasicMoveTests {
 
-  // Tests that the constructor initializes the player's name and starting tile correctly.
-  @Test
-  void testConstructorAndGetters() {
-    DummyBoardGame game = new DummyBoardGame();
-    TestPlayer player = new TestPlayer("Ole", game);
-    assertEquals("Alice", player.getName());
-    Tile initialTile = game.getBoard().getTileById(1);
-    assertEquals(initialTile, player.getCurrentTile());
-  }
+    @BeforeEach
+    void setUpBasicMove() {
+      // Player er allerede på mockInitialTile fra hoved-setUp
+    }
 
-  // Tests that constructing a player with a null name throws NullPointerException.
-  @Test
-  void testConstructorNullName() {
-    DummyBoardGame game = new DummyBoardGame();
-    assertThrows(NullPointerException.class, () -> new TestPlayer(null, game));
-  }
+    @Test
+    void basicMoveReturnsCorrectDestinationForOneStep() {
+      when(mockInitialTile.getNextTile()).thenReturn(mockNextTile);
 
-  // Tests that constructing a player with a null game throws NullPointerException.
-  @Test
-  void testConstructorNullGame() {
-    assertThrows(NullPointerException.class, () -> new TestPlayer("Hedda", null));
-  }
+      Tile resultTile = player.basicMove(1);
+      assertEquals(mockNextTile, resultTile, "Should move to the next tile.");
+    }
 
-  // Tests that placeOnTile(Tile) properly changes the player's current tile.
-  @Test
-  void testPlaceOnTileObject() {
-    DummyBoardGame game = new DummyBoardGame();
-    TestPlayer player = new TestPlayer("Jens", game);
-    ImitationTile initialTile = (ImitationTile) game.getBoard().getTileById(1);
-    ImitationTile newTile = (ImitationTile) game.getBoard().getTileById(2);
+    @Test
+    void basicMoveReturnsCorrectDestinationForMultipleSteps() {
+      when(mockInitialTile.getNextTile()).thenReturn(mockNextTile);
+      when(mockNextTile.getNextTile()).thenReturn(mockFinalTile);
+      when(mockFinalTile.getNextTile()).thenReturn(null); // End of board path
 
-    // Reset flags to verify method calls.
-    initialTile.leaveCalled = false;
-    newTile.landCalled = false;
+      Tile resultTile = player.basicMove(2);
+      assertEquals(mockFinalTile, resultTile, "Should move two tiles ahead.");
+    }
 
-    player.placeOnTile(newTile);
-    assertEquals(newTile, player.getCurrentTile());
-    assertTrue(initialTile.leaveCalled);
-    assertTrue(newTile.landCalled);
-  }
+    @Test
+    void basicMoveStopsAtLastTileIfStepsExceedBoardEnd() {
+      when(mockInitialTile.getNextTile()).thenReturn(mockNextTile);
+      when(mockNextTile.getNextTile()).thenReturn(null); // mockNextTile is the last in this path
 
-  // Tests that placeOnTile(int) properly changes the player's current tile.
-  @Test
-  void testPlaceOnTileById() {
-    DummyBoardGame game = new DummyBoardGame();
-    TestPlayer player = new TestPlayer("Lisa", game);
-    ImitationTile initialTile = (ImitationTile) game.getBoard().getTileById(1);
-    ImitationTile newTile = (ImitationTile) game.getBoard().getTileById(3);
+      Tile resultTile = player.basicMove(5); // Try to move 5 steps
+      assertEquals(mockNextTile, resultTile, "Should stop at the last available tile.");
+    }
 
-    // Reset flags to verify method calls.
-    initialTile.leaveCalled = false;
-    newTile.landCalled = false;
+    @Test
+    void basicMoveThrowsIfStepsAreZero() {
+      var exception = assertThrows(IllegalArgumentException.class,
+          () -> player.basicMove(0));
+      assertEquals("Number of steps for basicMove must be strictly positive (greater than 0).",
+          exception.getMessage());
+    }
 
-    player.placeOnTile(3);
-    assertEquals(newTile, player.getCurrentTile());
-    assertTrue(initialTile.leaveCalled);
-    assertTrue(newTile.landCalled);
-  }
+    @Test
+    void basicMoveThrowsIfStepsAreNegative() {
+      var exception = assertThrows(IllegalArgumentException.class,
+          () -> player.basicMove(-2));
+      assertEquals("Number of steps for basicMove must be strictly positive (greater than 0).",
+          exception.getMessage());
+    }
 
-  // Test that calling placeOnTile(Tile) with null throws NullPointerException.
-  @Test
-  void testPlaceOnTileNull() {
-    DummyBoardGame game = new DummyBoardGame();
-    TestPlayer player = new TestPlayer("Mateja", game);
-    assertThrows(NullPointerException.class, () -> player.placeOnTile((Tile) null));
-  }
+    @Test
+    void basicMoveThrowsIfPlayerIsNotOnATile() {
+      Player playerNotOnBoard = new Player("Off Roader", "Bike");
 
-  // Test that calling placeOnTile(int) with a non-positive tile ID throws IllegalArgumentException.
-  @Test
-  void testPlaceOnTileWithNonPositiveId() {
-    DummyBoardGame game = new DummyBoardGame();
-    TestPlayer player = new TestPlayer("Eva", game);
-    assertThrows(IllegalArgumentException.class, () -> player.placeOnTile(0));
-    assertThrows(IllegalArgumentException.class, () -> player.placeOnTile(-1));
-  }
+      var exception = assertThrows(IllegalStateException.class,
+          () -> playerNotOnBoard.basicMove(1));
+      assertEquals("Player must be on a tile to perform basicMove.", exception.getMessage());
+    }
 
-  // Tests that basicMove moves the player correctly through the tile chain.
-  @Test
-  void testBasicMove() {
-    DummyBoardGame game = new DummyBoardGame();
-    TestPlayer player = new TestPlayer("Fredrik", game);
-    // Starting at tile 1, moving 2 steps should land on tile 3 (chain: 1 -> 2 -> 3).
-    player.basicMove(2);
-    ImitationTile expectedTile = (ImitationTile) game.getBoard().getTileById(3);
-    assertEquals(expectedTile, player.getCurrentTile());
-  }
+    @Test
+    void basicMoveReturnsCurrentTileIfNoNextTileAndMovingOneStep() {
+      when(mockInitialTile.getNextTile()).thenReturn(null); // Current tile is the last tile
 
-  // Tests that basicMove with non-positive steps throws IllegalArgumentException.
-  @Test
-  void testBasicMoveNonPositiveSteps() {
-    DummyBoardGame game = new DummyBoardGame();
-    TestPlayer player = new TestPlayer("Gro", game);
-    assertThrows(IllegalArgumentException.class, () -> player.basicMove(0));
-    assertThrows(IllegalArgumentException.class, () -> player.basicMove(-3));
-  }
-
-  // Tests that the move method (which calls basicMove) throws an exception for non-positive steps.
-  @Test
-  void testMoveNonPositiveSteps() {
-    DummyBoardGame game = new DummyBoardGame();
-    TestPlayer player = new TestPlayer("Henrik", game);
-    assertThrows(IllegalArgumentException.class, () -> player.move(0));
-    assertThrows(IllegalArgumentException.class, () -> player.move(-2));
+      Tile resultTile = player.basicMove(1);
+      assertEquals(mockInitialTile, resultTile, "Should stay on current tile if it's the last one.");
+    }
   }
 }
