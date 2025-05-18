@@ -10,7 +10,7 @@ public final class ExceptionHandling {
   }
 
 
-  public static void requireNonNull(String input, String fieldName) {
+  public static void requireNonNullOrBlank(String input, String fieldName) {
     if (input == null || input.trim().isBlank()) {
       throw new IllegalArgumentException(fieldName + " cannot be null or blank");
     }
