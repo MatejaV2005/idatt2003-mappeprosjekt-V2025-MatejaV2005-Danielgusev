@@ -2,6 +2,7 @@ package edu.ntnu.idi.idatt.factory;
 
 import edu.ntnu.idi.idatt.DataTransfer.BoardDto;
 import edu.ntnu.idi.idatt.converter.BoardConverter;
+import edu.ntnu.idi.idatt.exceptions.InvalidBoardFormatException;
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.model.core.actions.TileAction;
@@ -188,7 +189,7 @@ public class BoardFactory {
    * @param dto The BoardDto containing board data.
    * @return A new Board instance.
    */
-  public Board createBoardFromDto(BoardDto dto) {
+  public Board createBoardFromDto(BoardDto dto) throws InvalidBoardFormatException {
     return BoardConverter.fromDto(dto);
   }
 }

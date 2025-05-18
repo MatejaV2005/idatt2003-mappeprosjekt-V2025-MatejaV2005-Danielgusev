@@ -40,7 +40,6 @@ public class SnakesAndLaddersGame extends BoardGame {
     int destId = landAction.getDestinationTileId();
 
     if (destId > 0) {
-      // Handles actions like snakes and ladders that have a specific destination tile ID
       Tile destinationTile = board.getTileById(destId);
       if (destinationTile != null && !destinationTile.equals(actionTile)) {
         notifyActionTileEffect(player, actionTile, destinationTile); // Notify about the upcoming effect

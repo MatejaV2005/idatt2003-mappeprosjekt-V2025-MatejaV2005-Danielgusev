@@ -71,12 +71,12 @@ public class BoardGameApp {
   private void init() throws BoardManagementException {
     BoardManager boardManager = BoardManager.getInstance();
     PlayerManager playerManager = PlayerManager.getInstance();
+    BoardFactory fac = new BoardFactory();
 
 
 
     // Load the default board
-    Board defaultBoard = boardManager.loadBoardFromFile(
-        "Files/Boards/Hard_Board_20250517_180054.json");
+    Board defaultBoard = fac.createNormalBoard();
 
     // Initialize dice and game components
     Dice dice = new Dice(2);
