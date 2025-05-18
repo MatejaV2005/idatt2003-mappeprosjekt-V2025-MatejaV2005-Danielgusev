@@ -1,6 +1,9 @@
 package edu.ntnu.idi.idatt.converter;
 
+import static edu.ntnu.idi.idatt.model.core.playertype.BotPlayer.LOGGER;
+
 import edu.ntnu.idi.idatt.DataTransfer.ActionDto;
+import edu.ntnu.idi.idatt.exceptions.InvalidBoardFormatException;
 import edu.ntnu.idi.idatt.factory.TileActionFactory;
 import edu.ntnu.idi.idatt.model.core.ActionType;
 import edu.ntnu.idi.idatt.model.core.Tile;
@@ -17,23 +20,38 @@ public class ActionConverter {
         action.getDescription());
   }
 
-  public TileAction fromDto(ActionDto dto, Map<Integer, Tile> tileMap) {
+  public TileAction fromDto(ActionDto dto, Map<Integer, Tile> tileMap) throws InvalidBoardFormatException {
     if (dto == null) {
       return NoOperationAction.INSTANCE;
     }
 
     ActionType type = ActionType.fromJsonValue(dto.getActionType());
-    int destinationTileId = dto.getDestinationTileId();
-    String description = dto.getDescription();
-
-    Tile destinationTile = tileMap.get(destinationTileId);
-
-    if (destinationTile == null && destinationTileId > 0) {
-      System.err.println("Warning: destination tile with ID " + destinationTileId + " not found.");
+    if (type == ActionType.NO_OP && !"NoOp".equalsIgnoreCase(dto.getActionType()) && dto.getActionType() != null && !dto.getActionType().isEmpty()) {
+      throw new InvalidBoardFormatException("Unknown action type in JSON: '" + dto.getActionType() + "'");
     }
 
-    // Use the generic factory method instead of multiple conditionals
-    return TileActionFactory.createActionFromType(type, destinationTile, description);
+    int destinationTileId = dto.getDestinationTileId();
+    String description = dto.getDescription();
+    Tile destinationTile = null;
+
+    if (destinationTileId > 0) {
+      destinationTile = tileMap.get(destinationTileId);
+      if (destinationTile == null) {
+        if (type == ActionType.LADDER || type == ActionType.SNAKE) {
+          throw new InvalidBoardFormatException("Action '" + type + "' on a tile references a non-existent destination tile ID: " + destinationTileId);
+        }
+        LOGGER.warning("Destination tile with ID " + destinationTileId + " not found for action type " + type + ". Action may not function as expected.");
+      }
+    } else if (type == ActionType.LADDER || type == ActionType.SNAKE) {
+      throw new InvalidBoardFormatException("Action type '" + type + "' requires a valid positive destinationTileId, but got: " + destinationTileId);
+    }
+
+
+    try {
+      return TileActionFactory.createActionFromType(type, destinationTile, description);
+    } catch (NullPointerException | IllegalArgumentException e) { // Fang generelle feil fra factory
+      throw new InvalidBoardFormatException("Failed to create action of type '" + type + "': " + e.getMessage(), e);
+    }
   }
 
 }
