@@ -248,36 +248,6 @@ public abstract class BoardGame implements Observable<BoardGameObserver> {
     }
   }
 
-  public void resetGameForRestart(List<Player> originalPlayers) { // Tar inn de originale spillerne
-    this.gameOver = false;
-    this.winner = null;
-    this.roundCount = 0;
-    this.gameStarted = false;
-
-    for (Player p : new ArrayList<>(this.players)) { // Iterer over en kopi for å unngå ConcurrentModificationException
-      if (p.getCurrentTile() != null) {
-        p.getCurrentTile().leavePlayer(p);
-      }
-      this.players.remove(p); // Fjern fra spillets spillerliste
-    }
-    this.currentPlayer = null;
-
-
-    Tile startTile = getStartingTile(); // Eller board.getTileById(1)
-    for (Player p : originalPlayers) {
-      p.setOnCurrentTile(startTile);
-      p.setSkipTurn(false);
-      addPlayer(p);
-    }
-
-    this.gameStarted = true; // Sett direkte hvis startGame() ikke skal kalles
-    if (!this.players.isEmpty()) {
-      this.currentPlayer = this.players.get(0); // Sett første spiller
-    }
-    initializeGameState(); // Kjør spill-spesifikk initialisering
-
-    notifyObserversOfStateChange(); // Varsle UI om at spillet er nullstilt
-  }
 
   /**
    * Hook method for handling a player's turn.
