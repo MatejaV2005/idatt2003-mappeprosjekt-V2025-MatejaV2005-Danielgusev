@@ -164,6 +164,17 @@ public class GameSetupController {
     navigationController.navigateToGameSelection();
   }
 
+  public void refreshPlayerListViews() {
+    LOGGER.info("GameSetupController: Forcing refresh of player list views.");
+    onCurrentPlayersTabSelected();
+
+    PlayerManagementPanel panel = view.getPlayerManagementPanel();
+    if (panel.getPlayerTabs().getSelectionModel().getSelectedItem() == panel.getSavedPlayersTab()) {
+      onSavedPlayersTabSelected();
+    }
+    view.clearStatusMessage();
+  }
+
   /**
    * Updates game info based on selected difficulty.
    *
