@@ -3,6 +3,7 @@ package edu.ntnu.idi.idatt.view.screens;
 import edu.ntnu.idi.idatt.controller.BoardGameController;
 import edu.ntnu.idi.idatt.exceptions.BoardGameResourceException;
 import edu.ntnu.idi.idatt.exceptions.CssLoadException;
+import edu.ntnu.idi.idatt.model.core.ActionType;
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.core.Dice;
@@ -13,6 +14,7 @@ import edu.ntnu.idi.idatt.view.components.boardGame.BoardComponent;
 import edu.ntnu.idi.idatt.view.components.boardGame.CurrentPlayerPanel;
 import edu.ntnu.idi.idatt.view.components.boardGame.DicePanel;
 import edu.ntnu.idi.idatt.view.components.boardGame.GameInfoPanel;
+import edu.ntnu.idi.idatt.view.components.boardGame.WinDialog;
 import edu.ntnu.idi.idatt.view.renderer.BoardRenderer;
 import edu.ntnu.idi.idatt.view.utils.AlertHelper;
 import edu.ntnu.idi.idatt.view.utils.ResourceLoader;
@@ -27,6 +29,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -161,25 +165,39 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
   @Override
   public void onPlayerMoved(Player player, Tile from, Tile to) {
     if (player == null || to == null) {
-      LOGGER.warning("Received invalid player move notification.");
+      LOGGER.warning("Received invalid player move notification (player or 'to' tile is null).");
+      if (controller != null && controller.getBoardGame() != null) {
+        Platform.runLater(() -> handleTurnChange(controller.getBoardGame().getCurrentPlayer()));
+      }
       return;
     }
+    if (from == null && player.getCurrentTile() != to ) {
+      LOGGER.info(player.getName() + " seems to be already at the destination tile " + to.getTileId() + " or it's an initial placement.");
+    }
+
     Platform.runLater(() -> handleMove(player, from, to));
   }
 
   @Override
   public void onActionTileEffect(Player player, Tile fromTriggerTile, Tile toDestinationTile) {
     Platform.runLater(() -> {
-      if (gameInfoPanel != null && player != null && fromTriggerTile != null && toDestinationTile != null) {
-        String actionDescription;
-        if (fromTriggerTile.getTileId() < toDestinationTile.getTileId()) {
-          actionDescription = "climbed a ladder";
-        } else if (fromTriggerTile.getTileId() > toDestinationTile.getTileId()) {
-          actionDescription = "slid down a snake";
-        } else {
-          actionDescription = "experienced a tile effect";
-        }
-        gameInfoPanel.updateActionInfo(player, actionDescription, toDestinationTile);
+      if (gameInfoPanel == null || player == null || fromTriggerTile == null || fromTriggerTile.getLandAction() == null) {
+        LOGGER.warning("onActionTileEffect called with null parameters or null land action on fromTriggerTile.");
+        return;
+      }
+
+      String actionDescription = fromTriggerTile.getLandAction().getDescription();
+      ActionType type = fromTriggerTile.getLandAction().getActionType();
+
+      if (type == ActionType.SKIP_TURN) {
+        gameInfoPanel.updateActionInfo(player, actionDescription, fromTriggerTile); // Show info on the tile that triggered skip
+      } else {
+        Tile infoTile = (toDestinationTile != null && !toDestinationTile.equals(fromTriggerTile)) ? toDestinationTile : fromTriggerTile;
+        gameInfoPanel.updateActionInfo(player, actionDescription, infoTile);
+      }
+
+      if (type == ActionType.SKIP_TURN) {
+        animationRunning = false;
       }
     });
   }
@@ -217,14 +235,18 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
       LOGGER.warning("onGameStateUpdated: game is null");
       return;
     }
-    LOGGER.info("onGameStateUpdated: current=" +
-        Optional.ofNullable(game.getCurrentPlayer())
-            .map(Player::getName)
-            .orElse("none") +
+    Player newCurrentPlayer = game.getCurrentPlayer();
+    boolean wasSkippedTurn = false;
+
+    LOGGER.info("onGameStateUpdated: new current player=" +
+        Optional.ofNullable(newCurrentPlayer).map(Player::getName).orElse("none") +
         ", animationRunning: " + animationRunning);
 
-    Platform.runLater(() -> handleTurnChange(game.getCurrentPlayer()));
+    if (!animationRunning) {
+      Platform.runLater(() -> handleTurnChange(newCurrentPlayer));
+    }
   }
+
 
   private void handleMove(Player player, Tile from, Tile to) {
     try {
@@ -244,15 +266,30 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
 
         boardComponent.updatePlayerVisual(player, from, to, () -> {
           animationRunning = false;
+          Tile landActionTile = player.getCurrentTile();
+
+          boolean isNonMovingAction = landActionTile.isActionTile() &&
+              (landActionTile.getLandAction().getActionType() == ActionType.SKIP_TURN ||
+                  (landActionTile.getLandAction().getActionType() == ActionType.SPECIAL &&
+                      landActionTile.getLandAction().getDestinationTileId() == -1));
+
+
           if (controller != null && controller.getBoardGame() != null) {
-            Platform.runLater(() -> handleTurnChange(controller.getBoardGame().getCurrentPlayer()));
+            if (!landActionTile.isActionTile() || isNonMovingAction) {
+              LOGGER.fine("Animation complete for move to " + to.getTileId() + ". Updating turn state.");
+              handleTurnChange(controller.getBoardGame().getCurrentPlayer());
+            } else {
+              LOGGER.fine("Animation complete for move to " + to.getTileId() + ". Action tile effect will follow.");
+            }
           } else {
-            LOGGER.warning("Controller or game is null in animation callback, cannot update turn state.");
+            LOGGER.warning("Controller or game is null in move animation callback.");
+            enablePlayButton();
           }
         });
       } else {
+        animationRunning = false;
         if (controller != null && controller.getBoardGame() != null) {
-          Platform.runLater(() -> handleTurnChange(controller.getBoardGame().getCurrentPlayer()));
+          handleTurnChange(controller.getBoardGame().getCurrentPlayer());
         }
       }
 
@@ -315,12 +352,45 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
         }
       }
       if (gameInfoPanel != null) gameInfoPanel.showWinner(winner);
-      AlertHelper.showInfoAlert("Game Over!", winner.getName() + " is the winner!");
-      LOGGER.info("Game won by: " + winner.getName());
+      LOGGER.info("Game won by: " + winner.getName() + ". Displaying WinDialog.");
+
+      Optional<ButtonType> result = getButtonType(winner);
+
+      if (!result.isPresent()) {
+        LOGGER.info("WinDialog was closed without selecting an option (e.g., window 'X' button). Defaulting to main menu.");
+        if (controller != null) {
+          controller.requestGoToMainMenu(); // Default action
+        }
+      }
+
     } catch (Exception e) {
-      LOGGER.log(Level.WARNING, "Error handling game win in view", e);
-      AlertHelper.showInfoAlert("Game Over!", "The game has ended. " + winner.getName() + " is the winner!");
+      LOGGER.log(Level.WARNING, "Error handling game win or displaying WinDialog for winner " + (winner != null ? winner.getName() : "null"), e);
+      AlertHelper.showErrorAlert("Game Over Error", "An error occurred while processing the game end for " + (winner != null ? winner.getName() : "Unknown Player") + ".");
     }
+  }
+
+  private Optional<ButtonType> getButtonType(Player winner) {
+    WinDialog winDialog = new WinDialog(winner.getName());
+    Optional<ButtonType> result = winDialog.showAndWait();
+
+    result.ifPresent(buttonType -> {
+      LOGGER.info("WinDialog closed with ButtonData: " + buttonType.getButtonData());
+      if (controller != null) {
+        if (buttonType.getButtonData() == ButtonBar.ButtonData.OK_DONE) { // Corresponds to "Play Again"
+          LOGGER.info("Player chose 'Play Again'. Requesting game restart.");
+          controller.requestRestartGame();
+        } else if (buttonType.getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) { // Corresponds to "Main Menu"
+          LOGGER.info("Player chose 'Main Menu'. Requesting navigation to main menu.");
+          controller.requestGoToMainMenu();
+        } else {
+          LOGGER.info("WinDialog closed with an unexpected button data: " + buttonType.getButtonData() + ". Defaulting to main menu.");
+          controller.requestGoToMainMenu();
+        }
+      } else {
+        LOGGER.warning("Controller is null, cannot process WinDialog actions.");
+      }
+    });
+    return result;
   }
 
   private void refreshAll(BoardGame game) {
