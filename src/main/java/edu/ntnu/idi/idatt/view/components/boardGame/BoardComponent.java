@@ -181,6 +181,16 @@ public class BoardComponent extends Pane {
     });
   }
 
+  public void animatePlayerTokenDirectly(Player player, Tile fromTileForContext, Tile targetTile, Runnable onAnimationComplete) {
+    Node tokenNode = playerTokens.get(player);
+    if (tokenNode != null) {
+      renderer.animateTokenDirectly(tokenNode, targetTile, this, onAnimationComplete);
+    } else {
+      LOGGER.warning("Cannot animate directly for player " + player.getName() + ": token not found.");
+      if (onAnimationComplete != null) Platform.runLater(onAnimationComplete);
+    }
+  }
+
 
   /**
    * Updates the visual position of a player's token, animating the movement,
