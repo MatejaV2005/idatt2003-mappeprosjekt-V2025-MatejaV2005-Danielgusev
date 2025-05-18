@@ -4,11 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="implemented restartGame method for restarting game in navigation controller">
+    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="minor refactoring, not of any significance">
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/BoardGameApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/BoardGameApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/games/SnakesAndLaddersGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/games/SnakesAndLaddersGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/BoardGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/BoardGameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/GameSetupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/GameSetupController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/NavigationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/NavigationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/BoardGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/BoardGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/utils/ExceptionHandling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/utils/ExceptionHandling.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/BoardComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/BoardComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/WinDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/WinDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GenericBoardGameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GenericBoardGameView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -290,6 +295,7 @@
       <workItem from="1747411886837" duration="5838000" />
       <workItem from="1747491309437" duration="2233000" />
       <workItem from="1747493600138" duration="27983000" />
+      <workItem from="1747578719638" duration="476000" />
     </task>
     <task id="LOCAL-00118" summary="Enhance GameInfoPanel UI and feedback with icons, layout, and detailed messages">
       <option name="closed" value="true" />

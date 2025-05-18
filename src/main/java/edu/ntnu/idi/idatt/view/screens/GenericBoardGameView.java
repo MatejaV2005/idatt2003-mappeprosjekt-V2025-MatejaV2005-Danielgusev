@@ -154,6 +154,7 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
         dicePanel.resetDiceDisplay();
       }
       refreshAll(game);
+      animationRunning = false;
       LOGGER.info("View successfully initialized with game model");
     } catch (Exception e) {
       LOGGER.log(Level.SEVERE, "Failed to initialize view with game model", e);
@@ -378,7 +379,7 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
       if (controller != null) {
         if (buttonType.getButtonData() == ButtonBar.ButtonData.OK_DONE) { // Corresponds to "Play Again"
           LOGGER.info("Player chose 'Play Again'. Requesting game restart.");
-          controller.requestRestartGame();
+          controller.requestGoToGameSetup();
         } else if (buttonType.getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) { // Corresponds to "Main Menu"
           LOGGER.info("Player chose 'Main Menu'. Requesting navigation to main menu.");
           controller.requestGoToMainMenu();
