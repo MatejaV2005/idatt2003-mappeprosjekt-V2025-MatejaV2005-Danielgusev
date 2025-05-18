@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javafx.animation.Interpolator;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -274,6 +275,42 @@ public class SnakesAndLaddersRenderer implements BoardRenderer {
 
     seq.play();
   }
+
+  @Override
+  public void animateTokenDirectly(
+      Node playerTokenNode,
+      Tile targetTile,
+      Pane boardPane,
+      Runnable onAnimationComplete
+  ) {
+    PlayerTokenData data = (PlayerTokenData) playerTokenNode.getUserData();
+    int currentVisualTileId = data.getCurrentTileId(); // Hvor brikken er FØR hoppet
+    int finalDestinationTileId = targetTile.getTileId();
+
+    Point2D currentVisualCenter = tileCenterPositions.get(currentVisualTileId);
+    Point2D finalDestinationCenter = tileCenterPositions.get(finalDestinationTileId);
+
+    if (currentVisualCenter == null || finalDestinationCenter == null) {
+      LOGGER.severe("animateTokenDirectly: Missing tile center for " + currentVisualTileId + " or " + finalDestinationTileId);
+      if (finalDestinationCenter != null) {
+        commitTokenPosition(playerTokenNode, finalDestinationCenter);
+        updateTokenData(playerTokenNode, finalDestinationTileId);
+      }
+      if (onAnimationComplete != null) Platform.runLater(onAnimationComplete);
+      return;
+    }
+
+    TranslateTransition jump = buildJumpTransition(playerTokenNode, currentVisualCenter, finalDestinationCenter);
+    jump.setOnFinished(e -> {
+      // commitTokenPosition skjer allerede inne i din buildJumpTransition
+      updateTokenData(playerTokenNode, finalDestinationTileId);
+      if (onAnimationComplete != null) {
+        onAnimationComplete.run();
+      }
+    });
+    jump.play();
+  }
+
 
   private List<TranslateTransition> buildWalkTransitions(
       Node token,
