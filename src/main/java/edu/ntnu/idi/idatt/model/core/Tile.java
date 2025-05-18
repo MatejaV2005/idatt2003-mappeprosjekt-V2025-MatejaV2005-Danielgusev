@@ -93,13 +93,16 @@ public class Tile {
   /**
    * Sets the next tile in the default sequential path and updates the {@code nextTileId}.
    *
-   * @param nextTile The {@link Tile} object that follows this one. Cannot be null.
-   * @throws IllegalArgumentException if nextTile is null.
+   * @param nextTile The {@link Tile} object that follows this one. Can be null to indicate the end of a sequence.
+   *
    */
   public void setNextTile(Tile nextTile) {
-    ExceptionHandling.requireNonNull(nextTile, "nextTile");
     this.nextTile = nextTile;
-    this.nextTileId = nextTile.getTileId();
+    if (nextTile != null) {
+      this.nextTileId = nextTile.getTileId();
+    } else {
+      this.nextTileId = -1;
+    }
   }
 
   /**
@@ -230,21 +233,5 @@ public class Tile {
     return Objects.hash(tileId);
   }
 
-  /**
-   * Returns a string representation of the tile, including its ID, position,
-   * next tile ID, number of players currently on it, and its action type.
-   *
-   * @return A string representation of this tile.
-   */
-  @Override
-  public String toString() {
-    return "Tile{"
-        + "id=" + tileId
-        + ", row=" + row
-        + ", col=" + column
-        + ", nextId=" + nextTileId
-        + ", playersOn=" + playersOnTile.size()
-        + ", action=" + getActionType()
-        + '}';
-  }
+
 }
