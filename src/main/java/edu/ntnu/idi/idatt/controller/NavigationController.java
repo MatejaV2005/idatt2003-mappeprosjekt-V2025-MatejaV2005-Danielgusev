@@ -7,11 +7,14 @@ import edu.ntnu.idi.idatt.factory.GameViewFactory;
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.core.GameType;
+import edu.ntnu.idi.idatt.model.core.Tile;
+import edu.ntnu.idi.idatt.model.core.playertype.Player;
 import edu.ntnu.idi.idatt.model.management.PlayerManager;
 import edu.ntnu.idi.idatt.view.screens.GameSelectionView;
 import edu.ntnu.idi.idatt.view.screens.GameSetupView;
 import edu.ntnu.idi.idatt.view.screens.GenericBoardGameView;
 import edu.ntnu.idi.idatt.view.screens.TitleScreenView;
+import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -197,5 +200,63 @@ public class NavigationController {
     Platform.exit();
   }
 
+  /**
+   * Restarts the game with the same settings and players.
+   *
+   * @param gameType The type of the game to restart.
+   * @param board The board configuration (can be a standard or custom board).
+   * @param players The list of players who were in the game.
+   */
+  public void restartGame(GameType gameType, Board board, List<Player> players) {
+    Objects.requireNonNull(gameType, "GameType cannot be null for restarting game.");
+    Objects.requireNonNull(board, "Board cannot be null for restarting game.");
+    Objects.requireNonNull(players, "Players list cannot be null for restarting game.");
 
+    if (players.isEmpty()) {
+      LOG.warning("Attempting to restart game with no players. Navigating to game setup instead.");
+      navigateToGameSetup();
+      return;
+    }
+
+    LOG.info("Attempting to restart game: " + gameType + " with " + players.size() + " players.");
+    try {
+      if (currentBoardGame == null || currentBoardGame.getGameType() != gameType) {
+        LOG.info("Creating a new game instance for restart as current game is null or type mismatch.");
+        if (gameType == GameType.SNAKES_AND_LADDERS) {
+          currentBoardGame = gameFactory.createSnakesAndLaddersGame(board);
+        } else {
+          LOG.severe("Restarting unsupported game type: " + gameType);
+          showErrorAlert("Restart Error", "Cannot restart this type of game.");
+          navigateToGameSelection(); // Fallback to a safe screen
+          return;
+        }
+      } else {
+        LOG.info("Reusing existing game instance of type " + gameType + " for restart.");
+      }
+
+      currentBoardGame.resetGameForRestart(players);
+
+      playerManager.clearCurrentPlayers();
+      for (Player p : players) {
+        playerManager.addPlayer(p);
+      }
+
+      GenericBoardGameView gameView = viewFactory.createViewFor(currentBoardGame.getGameType());
+      this.boardGameScene = gameView.getScene();
+
+      this.gameScreenController = new BoardGameController(gameView, currentBoardGame, this);
+
+      gameView.initializeView(currentBoardGame);
+
+      primaryStage.setScene(boardGameScene);
+      primaryStage.setTitle("Board Game • Playing " + currentBoardGame.getGameType() + " (Restarted)");
+
+      LOG.info("Successfully restarted " + gameType + " game.");
+
+    } catch (Exception e) {
+      LOG.log(Level.SEVERE, "Could not restart game of type " + gameType, e);
+      showErrorAlert("Game Restart Error", "Could not restart game: " + e.getMessage());
+      navigateToGameSelection(); // Fallback on any error during restart
+    }
+  }
 }
