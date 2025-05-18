@@ -93,15 +93,15 @@ public class TileActionFactory {
 
     Consumer<Player> logic = player -> {
       Objects.requireNonNull(player, "Player cannot be null for RETURN_TO_START logic");
-      Tile targetStartTile = specificStartingTile; // This is 'targetTile' passed to createReturnToStartAction
+      Tile targetStartTile = specificStartingTile;
 
       if (targetStartTile != null) {
-        Tile currentTile = player.getCurrentTile(); // Get current tile before moving
+        Tile currentTile = player.getCurrentTile();
         if (currentTile != null) {
           currentTile.leavePlayer(player);
         }
         player.setOnCurrentTile(targetStartTile);
-        targetStartTile.landPlayer(player); // Assumes targetStartTile is not null
+        targetStartTile.landPlayer(player);
         LOGGER.fine(player.getName() + " " + desc + " to tile " + targetStartTile.getTileId());
       } else {
         LOGGER.warning("Could not execute RETURN_TO_START for " + player.getName() + ": specificStartingTile was null. " +
@@ -109,7 +109,6 @@ public class TileActionFactory {
             "needs Board context to default to Tile 1.");
       }
     };
-    // The SpecialAction is created with the specific ActionType.RETURN_TO_START
     return new SpecialAction(desc, logic, ActionType.RETURN_TO_START);
   }
 
@@ -119,13 +118,12 @@ public class TileActionFactory {
    * @return A new SpecialAction instance for skipping a turn.
    */
   public static TileAction createSkipTurnAction() {
-    String desc = ActionType.SKIP_TURN.getDefaultDescription(); // Assuming ActionType has getDefaultDescription()
+    String desc = ActionType.SKIP_TURN.getDefaultDescription();
     Consumer<Player> logic = player -> {
       Objects.requireNonNull(player, "Player cannot be null for SKIP_TURN logic");
       player.setSkipTurn(true);
-      LOGGER.fine(player.getName() + " " + desc);
+      LOGGER.fine(player.getName() + " will " + desc);
     };
-    // The SpecialAction is created with the specific ActionType.SKIP_TURN
     return new SpecialAction(desc, logic, ActionType.SKIP_TURN);
   }
 
@@ -153,11 +151,6 @@ public class TileActionFactory {
       case SNAKE -> createSnakeAction(destinationTileId, descToUse);
       case SKIP_TURN -> createSkipTurnAction();
       case RETURN_TO_START -> {
-        // This will create a ReturnToStartAction that expects destinationTileId
-        // to be the ID of the tile to return to. If destinationTileId is -1 (or invalid),
-        // the action will effectively do nothing unless the Tile object for ID 1 is
-        // somehow resolved and passed as 'specificStartingTile' by the caller (ActionConverter).
-        // ActionConverter currently passes null if destinationTileId is -1.
         LOGGER.fine("Creating RETURN_TO_START action. If destinationTileId is -1, specific starting tile must be resolved by caller of this factory method.");
         yield createReturnToStartAction(null); // Will only work if JSON provides a valid destinationTileId for "ReturnToStart" that ActionConverter can resolve to a Tile
       }
