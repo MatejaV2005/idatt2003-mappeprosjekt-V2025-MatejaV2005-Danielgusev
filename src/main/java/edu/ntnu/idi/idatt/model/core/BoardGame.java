@@ -149,7 +149,7 @@ public abstract class BoardGame implements Observable<BoardGameObserver> {
    * general notification typically used after a turn is completed or when significant game state
    * changes occur that are not covered by more specific notifications.
    */
-  protected void notifyObserversOfStateChange() {
+  public void notifyObserversOfStateChange() {
     List<BoardGameObserver> observersCopy = new ArrayList<>(this.observers);
     for (BoardGameObserver observer : observersCopy) {
       observer.onGameStateUpdated(this);

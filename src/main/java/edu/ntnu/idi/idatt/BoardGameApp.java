@@ -1,9 +1,9 @@
 package edu.ntnu.idi.idatt;
 
-import static edu.ntnu.idi.idatt.model.core.playertype.BotPlayer.LOGGER;
 
 import edu.ntnu.idi.idatt.exceptions.BoardManagementException;
 import edu.ntnu.idi.idatt.factory.BoardFactory;
+import edu.ntnu.idi.idatt.model.core.Die;
 import edu.ntnu.idi.idatt.model.management.BoardManager;
 import edu.ntnu.idi.idatt.model.management.PlayerManager;
 import edu.ntnu.idi.idatt.model.core.Board;
@@ -15,10 +15,14 @@ import edu.ntnu.idi.idatt.model.strategy.GameStrategy;
 import edu.ntnu.idi.idatt.model.strategy.SnakesAndLaddersStrategy;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BoardGameApp {
   private BoardGame game;
   private GameStrategy strategy;
+
+  private static final Logger LOGGER = Logger.getLogger(BoardGameApp.class.getName());
+
 
   public BoardGameApp() {}
 
@@ -29,7 +33,6 @@ public class BoardGameApp {
     } catch (BoardManagementException e) {
       LOGGER.log(Level.SEVERE, "Failed to initialize game: " + e.getMessage(), e);
       System.err.println("Unable to start game: " + e.getMessage());
-      // You might want to add additional error handling here based on your application's needs
     }
   }
 

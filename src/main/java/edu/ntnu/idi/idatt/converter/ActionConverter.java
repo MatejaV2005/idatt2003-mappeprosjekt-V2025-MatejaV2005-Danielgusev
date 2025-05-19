@@ -1,6 +1,5 @@
 package edu.ntnu.idi.idatt.converter;
 
-import static edu.ntnu.idi.idatt.model.core.playertype.BotPlayer.LOGGER;
 
 import edu.ntnu.idi.idatt.DataTransfer.ActionDto;
 import edu.ntnu.idi.idatt.exceptions.InvalidBoardFormatException;
@@ -10,8 +9,10 @@ import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.model.core.actions.NoOperationAction;
 import edu.ntnu.idi.idatt.model.core.actions.TileAction;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class ActionConverter {
+  private static final Logger LOGGER = Logger.getLogger(ActionDto.class.getName());
 
   public ActionDto toDto(TileAction action) {
     return new ActionDto(
