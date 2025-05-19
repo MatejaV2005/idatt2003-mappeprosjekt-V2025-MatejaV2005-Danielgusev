@@ -1,6 +1,5 @@
 package edu.ntnu.idi.idatt.view.components.gameSelection;
 
-import edu.ntnu.idi.idatt.model.core.playertype.HumanPlayer;
 import edu.ntnu.idi.idatt.model.core.playertype.Player;
 import edu.ntnu.idi.idatt.view.utils.ResourceLoader;
 import javafx.geometry.Insets;
@@ -149,7 +148,7 @@ public class CreatePlayerPopup {
     }
 
     // Create player and close dialog
-    createdPlayer = new HumanPlayer(name, icon);
+    createdPlayer = new Player(name, icon);
     popupStage.close();
   }
 

@@ -6,7 +6,6 @@ import edu.ntnu.idi.idatt.filehandler.PlayerCsvFileHandler;
 import edu.ntnu.idi.idatt.model.core.playertype.Player;
 import edu.ntnu.idi.idatt.exceptions.PlayerManagementException;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -57,7 +56,7 @@ public class PlayerManager {
    */
   public void addPlayer(Player player) throws PlayerManagementException {
     ExceptionHandling.requireNonNull(player, "player");
-    ExceptionHandling.requireNonNull("Player name cannot be null", player.getName());
+    ExceptionHandling.requireNonNullOrBlank("Player name cannot be null", player.getName());
 
     if (currentPlayers.stream().anyMatch(p -> p.getName().equals(player.getName()))) {
       throw new PlayerManagementException("Player with name '" + player.getName() + "' already exists");
