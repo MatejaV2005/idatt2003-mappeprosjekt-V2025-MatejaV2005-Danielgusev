@@ -15,16 +15,14 @@ import edu.ntnu.idi.idatt.view.screens.TitleScreenView;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform; // For exitApp
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * Manages navigation between different screens (Scenes) of the application,
- * such as the title screen, game selection, game setup, and the main game view.
- * It also orchestrates the initialization and launching of game sessions by
- * coordinating with model factories ({@link BoardGameFactory}) and view factories
- * ({@link GameViewFactory}).
+ * Manages navigation between different screens (Scenes) of the application. It also orchestrates
+ * the initialization and launching of game sessions. This version is adapted to handle dynamic
+ * GameType selection for the setup screen, based on the user's working S&L version.
  */
 public class NavigationController {
   private static final Logger LOG = Logger.getLogger(NavigationController.class.getName());
@@ -37,61 +35,54 @@ public class NavigationController {
 
   private final PlayerManager playerManager = PlayerManager.getInstance();
   private final BoardGameFactory gameFactory = new BoardGameFactory();
-  private final GameViewFactory viewFactory = new GameViewFactory(); // Ny factory
+  private final GameViewFactory viewFactory = new GameViewFactory();
 
-  private BoardGameController gameScreenController; // Holder på den aktive spillkontrolleren
-  private BoardGame currentBoardGame; // Holder på den aktive spillmodellen
-  private GameSetupController gameSetupControllerInstance; // Nytt felt for å holde på instansen
+  private BoardGameController gameScreenController;
+  private BoardGame currentBoardGame;
+  private GameSetupController gameSetupControllerInstance;
+  private GameSetupView gameSetupViewInstance;
 
 
   /**
    * Constructs a NavigationController.
    *
    * @param primaryStage The primary {@link Stage} of the application. Must not be null.
-   * @throws NullPointerException if primaryStage is null.
    */
   public NavigationController(Stage primaryStage) {
     this.primaryStage = Objects.requireNonNull(primaryStage, "PrimaryStage cannot be null.");
-    initializeScenes();
+    initializeScenes(); // Initializes all scenes, including GameSetupView
   }
 
   /**
-   * Initializes all the scenes used by the application, except for the main
-   * board game scene which is created dynamically when a game starts.
-   * It creates instances of the different view controllers.
+   * Initializes all scenes. GameSetupView and its controller are created once here.
+   * The GameSetupView will be reconfigured by GameSetupController when navigating to it.
    */
   private void initializeScenes() {
-    // Title Screen
-    TitleScreenView titleView = new TitleScreenView(); // Assuming this class exists
+    TitleScreenView titleView = new TitleScreenView();
     titleScene = titleView.getScene();
-    new TitleScreenController(titleView, this); // Assuming this class exists
+    new TitleScreenController(titleView, this);
 
-    // Game Selection Screen
-    GameSelectionView selectView = new GameSelectionView(); // Assuming this class exists
+    GameSelectionView selectView = new GameSelectionView();
     gameSelectionScene = selectView.getScene();
-    new GameSelectionController(selectView, this); // Assuming this class exists
+    new GameSelectionController(selectView, this); // This will call the new navigateToGameSetup(GameType)
 
-    // Game Setup Screen
-    GameSetupView setupView = new GameSetupView(); // Assuming this class exists
-    gameSetupScene = setupView.getScene();
-    // GameSetupController needs the stage for FileChooser dialogs
-    this.gameSetupControllerInstance = new GameSetupController(setupView, this, playerManager, primaryStage);
+    this.gameSetupViewInstance = new GameSetupView();
+    this.gameSetupScene = gameSetupViewInstance.getScene();
 
-    LOG.info("Core scenes initialized.");
+    this.gameSetupControllerInstance =
+        new GameSetupController(gameSetupViewInstance, this, playerManager, primaryStage);
+
+    LOG.info("Core scenes initialized (Title, GameSelection, GameSetup).");
   }
 
-  /**
-   * Navigates the application to the title screen.
-   */
+  /** Navigates the application to the title screen. */
   public void navigateToTitleScreen() {
     primaryStage.setScene(titleScene);
     primaryStage.setTitle("Board Game • Title Screen");
     LOG.fine("Navigated to Title Screen.");
   }
 
-  /**
-   * Navigates the application to the game selection screen.
-   */
+  /** Navigates the application to the game selection screen. */
   public void navigateToGameSelection() {
     primaryStage.setScene(gameSelectionScene);
     primaryStage.setTitle("Board Game • Select Game");
@@ -99,47 +90,81 @@ public class NavigationController {
   }
 
   /**
-   * Navigates the application to the game setup screen.
-   * Clears any previously selected players from the {@link PlayerManager}.
+   * Navigates to the Game Setup screen, preparing it for the specified game type.
+   *
+   * @param gameType The {@link GameType} to set up.
    */
-  public void navigateToGameSetup() {
+  public void navigateToGameSetup(GameType gameType) {
+    Objects.requireNonNull(gameType, "GameType cannot be null for game setup.");
+    LOG.info("Navigating to Game Setup for game type: " + gameType);
+
+    if (gameSetupControllerInstance == null || gameSetupViewInstance == null) {
+      LOG.severe("GameSetupController or GameSetupView is null. Cannot navigate to game setup.");
+
+      initializeScenes();
+      if (gameSetupControllerInstance == null || gameSetupViewInstance == null) {
+        showErrorAlert("Critical Error", "Game setup components could not be initialized.");
+        navigateToTitleScreen();
+        return;
+      }
+    }
+
+    gameSetupControllerInstance.prepareGuiForGameType(gameType);
+
     primaryStage.setScene(gameSetupScene);
-    primaryStage.setTitle("Board Game • Game Setup");
+    primaryStage.setTitle("Board Game • " + getGameTypeName(gameType) + " Setup");
+
     if (playerManager != null) {
       playerManager.clearCurrentPlayers();
     }
 
-    if (this.gameSetupControllerInstance != null) {
-      this.gameSetupControllerInstance.refreshPlayerListViews();
-    }
-    LOG.fine("Navigated to Game Setup Screen.");
+    gameSetupControllerInstance.refreshPlayerListViews();
+
+    LOG.fine("Navigated to Game Setup Screen for " + gameType);
   }
 
+
   /**
-   * Starts a new game of the specified type and difficulty.
-   * Creates the game model using {@link BoardGameFactory}, then sets up and shows the game view.
+   * Starts a new game of the specified type and difficulty/configuration.
    *
    * @param type The {@link GameType} of the game to start.
-   * @param difficulty A string representing the game difficulty (e.g., "Easy", "Normal", "Hard").
+   * @param difficultyOrConfig A string representing the game config (e.g., "Easy", "default").
    */
-  public void startNewGame(GameType type, String difficulty) {
+  public void startNewGame(GameType type, String difficultyOrConfig) {
     Objects.requireNonNull(type, "GameType cannot be null for starting a new game.");
-    Objects.requireNonNull(difficulty, "Difficulty cannot be null for starting a new game.");
+    Objects.requireNonNull(
+        difficultyOrConfig, "Difficulty/Config cannot be null for starting a new game.");
 
-    LOG.info("Attempting to start new game: " + type + ", Difficulty: " + difficulty);
+    LOG.info("Attempting to start new game: " + type + ", Config: " + difficultyOrConfig);
     try {
-      currentBoardGame = gameFactory.createGame(type, difficulty);
+      currentBoardGame = gameFactory.createGame(type, difficultyOrConfig);
+
+      if (currentBoardGame == null) {
+        LOG.severe(
+            "BoardGameFactory.createGame returned null for type: "
+                + type
+                + " and config: "
+                + difficultyOrConfig);
+        showErrorAlert(
+            "Game Creation Error",
+            "Failed to create the game model. Please check factory implementation for " + type);
+        navigateToGameSetup(type);
+        return;
+      }
       setupAndShowGameScreen();
-      LOG.log(Level.INFO, "Successfully started new {0} game with difficulty {1}", new Object[]{type, difficulty});
+      LOG.log(
+          Level.INFO,
+          "Successfully initiated new {0} game with config {1}",
+          new Object[] {type, difficultyOrConfig});
     } catch (Exception e) {
       LOG.log(Level.SEVERE, "Could not start new game of type " + type, e);
       showErrorAlert("Game Start Error", "Could not start new game: " + e.getMessage());
+      navigateToGameSetup(type);
     }
   }
 
   /**
    * Starts a new game using a custom {@link Board} configuration.
-   * Creates the game model using {@link BoardGameFactory}, then sets up and shows the game view.
    *
    * @param customBoard The custom {@link Board} to use for the game.
    */
@@ -147,58 +172,94 @@ public class NavigationController {
     Objects.requireNonNull(customBoard, "CustomBoard cannot be null for starting a custom game.");
     LOG.info("Attempting to start custom game.");
     try {
-      currentBoardGame = gameFactory.createSnakesAndLaddersGame(customBoard); // Adjusted to use a more specific factory method
+      currentBoardGame = gameFactory.createSnakesAndLaddersGame(customBoard);
+      if (currentBoardGame == null) {
+        LOG.severe("BoardGameFactory.createSnakesAndLaddersGame returned null for custom board.");
+        showErrorAlert(
+            "Game Creation Error",
+            "Failed to create the custom game model from board factory.");
+        navigateToGameSetup(GameType.SNAKES_AND_LADDERS);
+        return;
+      }
       setupAndShowGameScreen();
       LOG.info("Successfully started custom game.");
     } catch (Exception e) {
       LOG.log(Level.SEVERE, "Could not start custom game.", e);
       showErrorAlert("Game Start Error", "Could not start custom game: " + e.getMessage());
+      navigateToGameSetup(GameType.SNAKES_AND_LADDERS);
     }
   }
 
   /**
-   * Private helper method to set up and display the main game screen.
-   * Adds players from {@link PlayerManager} to the {@code currentBoardGame},
-   * starts the game model, creates the game view using {@link GameViewFactory},
-   * initializes the view, creates the {@link BoardGameController}, and sets the scene.
-   *
-   * @throws IllegalStateException if {@code currentBoardGame} is null.
+   * Private helper method to set up and display the main game screen. This method ensures that the
+   * view is initialized *after* the controller is set up, preserving the working order from your
+   * original version.
    */
   private void setupAndShowGameScreen() {
     if (currentBoardGame == null) {
-      LOG.severe("Cannot setup and show game screen: currentBoardGame is null.");
-      showErrorAlert("Internal Error", "Game model was not initialized.");
-      navigateToGameSetup();
+      LOG.severe(
+          "Cannot setup and show game screen: currentBoardGame is null. "
+              + "This indicates a problem in game creation logic (e.g., BoardGameFactory).");
+      showErrorAlert("Internal Error", "Game model was not initialized by the factory.");
+
+      GameType typeToSetup = (gameSetupControllerInstance != null) ?
+          gameSetupControllerInstance.getCurrentGameType() :
+          GameType.SNAKES_AND_LADDERS;
+      navigateToGameSetup(typeToSetup);
       return;
     }
 
     if (playerManager != null) {
-      playerManager.getPlayers().forEach(player -> {
-        if (player != null) {
-          currentBoardGame.addPlayer(player);
-        } else {
-          LOG.warning("Attempted to add a null player from PlayerManager.");
-        }
-      });
+      playerManager
+          .getPlayers()
+          .forEach(
+              player -> {
+                if (player != null) {
+                  currentBoardGame.addPlayer(player);
+                } else {
+                  LOG.warning("Attempted to add a null player from PlayerManager.");
+                }
+              });
     }
 
     currentBoardGame.startGame();
 
     GenericBoardGameView gameView = viewFactory.createViewFor(currentBoardGame.getGameType());
+    if (gameView == null) {
+      LOG.severe("GameViewFactory returned null for game type: " + currentBoardGame.getGameType());
+      showErrorAlert("UI Error", "Could not create the game screen. Check GameViewFactory.");
+      navigateToGameSetup(currentBoardGame.getGameType());
+      return;
+    }
     this.boardGameScene = gameView.getScene();
 
     this.gameScreenController = new BoardGameController(gameView, currentBoardGame, this);
+
     gameView.initializeView(currentBoardGame);
 
     primaryStage.setScene(boardGameScene);
-    primaryStage.setTitle("Board Game • Playing " + currentBoardGame.getGameType());
+    primaryStage.setTitle("Board Game • Playing " + getGameTypeName(currentBoardGame.getGameType()));
   }
 
-  /**
-   * Exits the application by closing the primary stage.
-   */
+  /** Exits the application by closing the primary stage. */
   public void exitApp() {
     LOG.info("Exiting application.");
     Platform.exit();
+  }
+
+  /**
+   * Helper to get a display-friendly name for a GameType.
+   *
+   * @param gameType The game type.
+   * @return A string representation for UI titles.
+   */
+  private String getGameTypeName(GameType gameType) {
+    if (gameType == null) {
+      return "Game";
+    }
+    return switch (gameType) {
+      case SNAKES_AND_LADDERS -> "Snakes & Ladders";
+      case ASTRO_RALLY -> "Astro Rally";
+    };
   }
 }
