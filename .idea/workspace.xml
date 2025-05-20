@@ -4,67 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Resolved Merge conflict">
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/exceptions/CssLoadException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/exceptions/InvalidBoardFormatException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/GameViewFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/GameType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/GameInfoPanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/WinDialog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/renderer/BoardRenderer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/renderer/SnakesAndLaddersRenderer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GenericBoardGameView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/utils/PlayerTokenData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/Dice/dice-five.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/Dice/dice-four.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/Dice/dice-one.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/Dice/dice-six.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/Dice/dice-three.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/Dice/dice-two.png" afterDir="false" />
+    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Adjusted GameSelectionController to the new GameSelectionView refactor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Files/Boards/Default_Board_20250407_202351.json" beforeDir="false" afterPath="$PROJECT_DIR$/Files/Boards/Default_Board_20250517_194640.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Files/Boards/Easy_Board_20250407_202351.json" beforeDir="false" afterPath="$PROJECT_DIR$/Files/Boards/Easy_Board_20250517_194640.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Files/Boards/Hard_Board_20250407_202351.json" beforeDir="false" afterPath="$PROJECT_DIR$/Files/Boards/Hard_Board_20250517_180054.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Files/Players/players.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/Files/Players/players.CSV" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/BoardGameApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/BoardGameApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/BoardGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/BoardGameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/GameSetupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/GameSetupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/NavigationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/NavigationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/TitleScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/TitleScreenController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/converter/ActionConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/converter/ActionConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/converter/BoardConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/converter/BoardConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/converter/TileConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/converter/TileConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardGameFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardGameFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/TileActionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/TileActionFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/TileFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/TileFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/filehandler/BoardJsonFileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/filehandler/BoardJsonFileHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/actions/LadderAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/LadderAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/actions/NoOperationAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/NoOperationAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/actions/SnakeAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/SnakeAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/actions/SpecialAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/SpecialAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/actions/TileAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/TileAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/ActionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/ActionType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/BoardGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/BoardGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/GameEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/Tile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/PlayerFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/PlayerFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/playertype/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/playertype/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/games/SnakesAndLaddersGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/games/SnakesAndLaddersGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/management/BoardManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/management/BoardManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/strategy/SnakesAndLaddersStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/strategy/SnakesAndLaddersStrategy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/observer/BoardGameObserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/observer/BoardGameObserver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/utils/ExceptionHandling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/utils/ExceptionHandling.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/MainApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/BoardComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/BoardComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/BoardInfoPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/CurrentPlayerPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/CurrentPlayerPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/DicePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/DicePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/TileComponent.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/gameSelection/CreatePlayerPopup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/gameSelection/CreatePlayerPopup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/BoardGameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/BoardGameView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/TitleScreenView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/TitleScreenView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/GameScreen/GameScreen_styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/ntnu/idi/idatt/view/resources/GameScreen/GameScreen_styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/TileTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TileTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/gameSelection/GameInfoPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/gameSelection/GameInfoPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GenericBoardGameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GenericBoardGameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PlayerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PlayerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +41,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RESET_MODE" value="HARD" />
+    <option name="RESET_MODE" value="MIXED" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -179,7 +128,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "git-widget-placeholder": "Merging Features",
+    "git-widget-placeholder": "extended-boardgame-issue",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/mappeprosjekt-vaar2025/boardgame-V2025-IDATT2003/src/main/resources/edu/ntnu/idi/idatt/view/resources/Dice",
     "list.type.of.created.stylesheet": "CSS",
@@ -346,142 +295,6 @@
       <workItem from="1747491309437" duration="2233000" />
       <workItem from="1747493600138" duration="27983000" />
       <workItem from="1747578719638" duration="476000" />
-    </task>
-    <task id="LOCAL-00118" summary="Enhance GameInfoPanel UI and feedback with icons, layout, and detailed messages">
-      <option name="closed" value="true" />
-      <created>1747128602485</created>
-      <option name="number" value="00118" />
-      <option name="presentableId" value="LOCAL-00118" />
-      <option name="project" value="LOCAL" />
-      <updated>1747128602485</updated>
-    </task>
-    <task id="LOCAL-00119" summary="added IsActionTile method to check for actionTIles">
-      <option name="closed" value="true" />
-      <created>1747130870334</created>
-      <option name="number" value="00119" />
-      <option name="presentableId" value="LOCAL-00119" />
-      <option name="project" value="LOCAL" />
-      <updated>1747130870334</updated>
-    </task>
-    <task id="LOCAL-00120" summary="added interface method for animating actionTileEffects, updatePlayerVisualToken also has a new signature (Runnable)">
-      <option name="closed" value="true" />
-      <created>1747213327171</created>
-      <option name="number" value="00120" />
-      <option name="presentableId" value="LOCAL-00120" />
-      <option name="project" value="LOCAL" />
-      <updated>1747213327171</updated>
-    </task>
-    <task id="LOCAL-00121" summary="Added new observer method to notify if tile is an ActionTile">
-      <option name="closed" value="true" />
-      <created>1747213362567</created>
-      <option name="number" value="00121" />
-      <option name="presentableId" value="LOCAL-00121" />
-      <option name="project" value="LOCAL" />
-      <updated>1747213362567</updated>
-    </task>
-    <task id="LOCAL-00122" summary="new observer method for notifying action tiles">
-      <option name="closed" value="true" />
-      <created>1747213394438</created>
-      <option name="number" value="00122" />
-      <option name="presentableId" value="LOCAL-00122" />
-      <option name="project" value="LOCAL" />
-      <updated>1747213394438</updated>
-    </task>
-    <task id="LOCAL-00123" summary="HandlePlayerTurn checks for if newTile is action tile. developed hook method for handling Action tiles">
-      <option name="closed" value="true" />
-      <created>1747213450899</created>
-      <option name="number" value="00123" />
-      <option name="presentableId" value="LOCAL-00123" />
-      <option name="project" value="LOCAL" />
-      <updated>1747213450899</updated>
-    </task>
-    <task id="LOCAL-00124" summary="Added method for animating ActionTileEffect">
-      <option name="closed" value="true" />
-      <created>1747213839789</created>
-      <option name="number" value="00124" />
-      <option name="presentableId" value="LOCAL-00124" />
-      <option name="project" value="LOCAL" />
-      <updated>1747213839789</updated>
-    </task>
-    <task id="LOCAL-00125" summary="minor refactoring of executePlayerTurn">
-      <option name="closed" value="true" />
-      <created>1747213891135</created>
-      <option name="number" value="00125" />
-      <option name="presentableId" value="LOCAL-00125" />
-      <option name="project" value="LOCAL" />
-      <updated>1747213891135</updated>
-    </task>
-    <task id="LOCAL-00126" summary="added method in tile to check if its an actionTile">
-      <option name="closed" value="true" />
-      <created>1747213932080</created>
-      <option name="number" value="00126" />
-      <option name="presentableId" value="LOCAL-00126" />
-      <option name="project" value="LOCAL" />
-      <updated>1747213932080</updated>
-    </task>
-    <task id="LOCAL-00127" summary="added a set method for current tile id">
-      <option name="closed" value="true" />
-      <created>1747213962261</created>
-      <option name="number" value="00127" />
-      <option name="presentableId" value="LOCAL-00127" />
-      <option name="project" value="LOCAL" />
-      <updated>1747213962261</updated>
-    </task>
-    <task id="LOCAL-00128" summary="implemented on ActionTileEffect from BoardGameObserver interface">
-      <option name="closed" value="true" />
-      <created>1747214018471</created>
-      <option name="number" value="00128" />
-      <option name="presentableId" value="LOCAL-00128" />
-      <option name="project" value="LOCAL" />
-      <updated>1747214018471</updated>
-    </task>
-    <task id="LOCAL-00129" summary="added method to the boardComponent that calls its renderer to animate action effect">
-      <option name="closed" value="true" />
-      <created>1747214068764</created>
-      <option name="number" value="00129" />
-      <option name="presentableId" value="LOCAL-00129" />
-      <option name="project" value="LOCAL" />
-      <updated>1747214068764</updated>
-    </task>
-    <task id="LOCAL-00130" summary="unimportant changes">
-      <option name="closed" value="true" />
-      <created>1747214100002</created>
-      <option name="number" value="00130" />
-      <option name="presentableId" value="LOCAL-00130" />
-      <option name="project" value="LOCAL" />
-      <updated>1747214100002</updated>
-    </task>
-    <task id="LOCAL-00131" summary="removed animateActionTileEffect from interface">
-      <option name="closed" value="true" />
-      <created>1747229733363</created>
-      <option name="number" value="00131" />
-      <option name="presentableId" value="LOCAL-00131" />
-      <option name="project" value="LOCAL" />
-      <updated>1747229733363</updated>
-    </task>
-    <task id="LOCAL-00132" summary="removed animateActionTileEffect method from BoardComponent">
-      <option name="closed" value="true" />
-      <created>1747229793279</created>
-      <option name="number" value="00132" />
-      <option name="presentableId" value="LOCAL-00132" />
-      <option name="project" value="LOCAL" />
-      <updated>1747229793279</updated>
-    </task>
-    <task id="LOCAL-00133">
-      <option name="closed" value="true" />
-      <created>1747229855630</created>
-      <option name="number" value="00133" />
-      <option name="presentableId" value="LOCAL-00133" />
-      <option name="project" value="LOCAL" />
-      <updated>1747229855630</updated>
-    </task>
-    <task id="LOCAL-00134" summary="refactored onActionTileEffect method">
-      <option name="closed" value="true" />
-      <created>1747229898443</created>
-      <option name="number" value="00134" />
-      <option name="presentableId" value="LOCAL-00134" />
-      <option name="project" value="LOCAL" />
-      <updated>1747229898443</updated>
     </task>
     <task id="LOCAL-00135" summary="updated boardFactory to create harder boards, refactored and improved code">
       <option name="closed" value="true" />
@@ -739,7 +552,143 @@
       <option name="project" value="LOCAL" />
       <updated>1747568138483</updated>
     </task>
-    <option name="localTasksCounter" value="167" />
+    <task id="LOCAL-00167" summary="chanegd method from requesting gameSetup to GameSelection">
+      <option name="closed" value="true" />
+      <created>1747733571081</created>
+      <option name="number" value="00167" />
+      <option name="presentableId" value="LOCAL-00167" />
+      <option name="project" value="LOCAL" />
+      <updated>1747733571082</updated>
+    </task>
+    <task id="LOCAL-00168" summary="Added AstroRally gameMode">
+      <option name="closed" value="true" />
+      <created>1747733588344</created>
+      <option name="number" value="00168" />
+      <option name="presentableId" value="LOCAL-00168" />
+      <option name="project" value="LOCAL" />
+      <updated>1747733588344</updated>
+    </task>
+    <task id="LOCAL-00169" summary="Ommited method for creating astroRallyGame">
+      <option name="closed" value="true" />
+      <created>1747733616178</created>
+      <option name="number" value="00169" />
+      <option name="presentableId" value="LOCAL-00169" />
+      <option name="project" value="LOCAL" />
+      <updated>1747733616178</updated>
+    </task>
+    <task id="LOCAL-00170" summary="Removed game modes not of use, added astroRally mode">
+      <option name="closed" value="true" />
+      <created>1747733736188</created>
+      <option name="number" value="00170" />
+      <option name="presentableId" value="LOCAL-00170" />
+      <option name="project" value="LOCAL" />
+      <updated>1747733736188</updated>
+    </task>
+    <task id="LOCAL-00171" summary="modified corresponding Logic to be correct">
+      <option name="closed" value="true" />
+      <created>1747733808804</created>
+      <option name="number" value="00171" />
+      <option name="presentableId" value="LOCAL-00171" />
+      <option name="project" value="LOCAL" />
+      <updated>1747733808804</updated>
+    </task>
+    <task id="LOCAL-00172" summary="Refactored NavigationController to handle dynamic navigation for different GameSetups">
+      <option name="closed" value="true" />
+      <created>1747735572796</created>
+      <option name="number" value="00172" />
+      <option name="presentableId" value="LOCAL-00172" />
+      <option name="project" value="LOCAL" />
+      <updated>1747735572797</updated>
+    </task>
+    <task id="LOCAL-00173" summary="Refactored GameSetupView to a simplified layout when choosing AstroRally game, inlined difficulty buttons">
+      <option name="closed" value="true" />
+      <created>1747735756219</created>
+      <option name="number" value="00173" />
+      <option name="presentableId" value="LOCAL-00173" />
+      <option name="project" value="LOCAL" />
+      <updated>1747735756220</updated>
+    </task>
+    <task id="LOCAL-00174" summary="Added new action types for extended AstroRally Game">
+      <option name="closed" value="true" />
+      <created>1747742655885</created>
+      <option name="number" value="00174" />
+      <option name="presentableId" value="LOCAL-00174" />
+      <option name="project" value="LOCAL" />
+      <updated>1747742655886</updated>
+    </task>
+    <task id="LOCAL-00175" summary="Added AstroRally gamemode enum">
+      <option name="closed" value="true" />
+      <created>1747743211341</created>
+      <option name="number" value="00175" />
+      <option name="presentableId" value="LOCAL-00175" />
+      <option name="project" value="LOCAL" />
+      <updated>1747743211341</updated>
+    </task>
+    <task id="LOCAL-00176" summary="made pplayer not abstract, added new fields for astroGame">
+      <option name="closed" value="true" />
+      <created>1747743252841</created>
+      <option name="number" value="00176" />
+      <option name="presentableId" value="LOCAL-00176" />
+      <option name="project" value="LOCAL" />
+      <updated>1747743252841</updated>
+    </task>
+    <task id="LOCAL-00177" summary="removed bot and human player">
+      <option name="closed" value="true" />
+      <created>1747743440695</created>
+      <option name="number" value="00177" />
+      <option name="presentableId" value="LOCAL-00177" />
+      <option name="project" value="LOCAL" />
+      <updated>1747743440695</updated>
+    </task>
+    <task id="LOCAL-00178" summary="ommitted space for BoardGameFactory to create AstroRally">
+      <option name="closed" value="true" />
+      <created>1747744113781</created>
+      <option name="number" value="00178" />
+      <option name="presentableId" value="LOCAL-00178" />
+      <option name="project" value="LOCAL" />
+      <updated>1747744113782</updated>
+    </task>
+    <task id="LOCAL-00179" summary="Refactored navigationController to handle dynamic navigation between different game setups">
+      <option name="closed" value="true" />
+      <created>1747748584079</created>
+      <option name="number" value="00179" />
+      <option name="presentableId" value="LOCAL-00179" />
+      <option name="project" value="LOCAL" />
+      <updated>1747748584079</updated>
+    </task>
+    <task id="LOCAL-00180" summary="Refactored gameSetupView to handle different layouts for gameTypes,">
+      <option name="closed" value="true" />
+      <created>1747749122913</created>
+      <option name="number" value="00180" />
+      <option name="presentableId" value="LOCAL-00180" />
+      <option name="project" value="LOCAL" />
+      <updated>1747749122914</updated>
+    </task>
+    <task id="LOCAL-00181" summary="Refactored GameSetupController, now it has centralized event handling, prepares GUI per game type">
+      <option name="closed" value="true" />
+      <created>1747749617677</created>
+      <option name="number" value="00181" />
+      <option name="presentableId" value="LOCAL-00181" />
+      <option name="project" value="LOCAL" />
+      <updated>1747749617679</updated>
+    </task>
+    <task id="LOCAL-00182" summary="Refactored GameSelectionView to choose ONLY between S&amp;L and AstroValley">
+      <option name="closed" value="true" />
+      <created>1747750147742</created>
+      <option name="number" value="00182" />
+      <option name="presentableId" value="LOCAL-00182" />
+      <option name="project" value="LOCAL" />
+      <updated>1747750147743</updated>
+    </task>
+    <task id="LOCAL-00183" summary="Adjusted GameSelectionController to the new GameSelectionView refactor">
+      <option name="closed" value="true" />
+      <created>1747750192905</created>
+      <option name="number" value="00183" />
+      <option name="presentableId" value="LOCAL-00183" />
+      <option name="project" value="LOCAL" />
+      <updated>1747750192906</updated>
+    </task>
+    <option name="localTasksCounter" value="184" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -757,23 +706,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="minor refactoring of updatePlayerVisual method" />
-    <MESSAGE value="Updated to actually highlight current players correctly" />
-    <MESSAGE value="Minor refactoring of class" />
-    <MESSAGE value="removed playerModelObserver" />
-    <MESSAGE value="handles action tiles of special type too now" />
-    <MESSAGE value="Introduce async move animations via animationRunning flag and callback; improve playTurnButton and dicePanel state management through game state notification" />
-    <MESSAGE value="enhanced CSS styling for player rows" />
-    <MESSAGE value="minor refactoring, not of value" />
-    <MESSAGE value="saved imporved board styles to JSON" />
-    <MESSAGE value="Simplified ActionConverter, now it uses factory, drops extra validations and fallback to NoOp" />
-    <MESSAGE value="Exception for invalid JSON board formats" />
-    <MESSAGE value="win dialog class for handling winner announcements, resetting games and going to menu" />
-    <MESSAGE value="refactored fromDto method to drop strict DTO validations and simplify tile/action mapping" />
-    <MESSAGE value="refactored BoardJsonFileHandler to handle exceptions concerning wrongly formatted JSON boards" />
-    <MESSAGE value="BoardManager handles invalidBoardFormatException" />
-    <MESSAGE value="GameSetupController handles choosing uploaded boards" />
-    <MESSAGE value="minor refactoring of TileActionFactory" />
     <MESSAGE value="added new animateTokenDirectly to handle immediate transition in BoardRenderer" />
     <MESSAGE value="Added implementation of animateTokenDirectly" />
     <MESSAGE value="Added implementation of animateTokenDirectly in BoardComponent, but non functioning yet" />
@@ -782,10 +714,32 @@
     <MESSAGE value="implemented restartGame method for restarting game in navigation controller" />
     <MESSAGE value="minor refactoring and renaming" />
     <MESSAGE value="Resolved Merge conflict" />
-    <option name="LAST_COMMIT_MESSAGE" value="Resolved Merge conflict" />
+    <MESSAGE value="chanegd method from requesting gameSetup to GameSelection" />
+    <MESSAGE value="Added AstroRally gameMode" />
+    <MESSAGE value="Ommited method for creating astroRallyGame" />
+    <MESSAGE value="Removed game modes not of use, added astroRally mode" />
+    <MESSAGE value="modified corresponding Logic to be correct" />
+    <MESSAGE value="Refactored NavigationController to handle dynamic navigation for different GameSetups" />
+    <MESSAGE value="Refactored GameSetupView to a simplified layout when choosing AstroRally game, inlined difficulty buttons" />
+    <MESSAGE value="Added new action types for extended AstroRally Game" />
+    <MESSAGE value="Added AstroRally gamemode enum" />
+    <MESSAGE value="made pplayer not abstract, added new fields for astroGame" />
+    <MESSAGE value="removed bot and human player" />
+    <MESSAGE value="ommitted space for BoardGameFactory to create AstroRally" />
+    <MESSAGE value="Refactored navigationController to handle dynamic navigation between different game setups" />
+    <MESSAGE value="Refactored gameSetupView to handle different layouts for gameTypes," />
+    <MESSAGE value="Refactored GameSetupController, now it has centralized event handling, prepares GUI per game type" />
+    <MESSAGE value="Refactored GameSelectionView to choose ONLY between S&amp;L and AstroValley" />
+    <MESSAGE value="Adjusted GameSelectionController to the new GameSelectionView refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adjusted GameSelectionController to the new GameSelectionView refactor" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/boardgame_V2025_IDATT2003$PlayerTest.ic" NAME="PlayerTest Coverage Results" MODIFIED="1747587745891" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/boardgame_V2025_IDATT2003$TileTest__1_.ic" NAME="TileTest (1) Coverage Results" MODIFIED="1747596525912" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/boardgame_V2025_IDATT2003$BoardTest.ic" NAME="BoardTest Coverage Results" MODIFIED="1747596493749" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
   </component>
 </project>

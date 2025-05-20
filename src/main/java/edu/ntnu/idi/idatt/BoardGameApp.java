@@ -1,6 +1,5 @@
 package edu.ntnu.idi.idatt;
 
-import static edu.ntnu.idi.idatt.model.core.playertype.BotPlayer.LOGGER;
 
 import edu.ntnu.idi.idatt.exceptions.BoardManagementException;
 import edu.ntnu.idi.idatt.factory.BoardFactory;
@@ -15,10 +14,12 @@ import edu.ntnu.idi.idatt.model.strategy.GameStrategy;
 import edu.ntnu.idi.idatt.model.strategy.SnakesAndLaddersStrategy;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BoardGameApp {
   private BoardGame game;
   private GameStrategy strategy;
+  private static final Logger LOGGER = Logger.getLogger(BoardGameApp.class.getName());
 
   public BoardGameApp() {}
 

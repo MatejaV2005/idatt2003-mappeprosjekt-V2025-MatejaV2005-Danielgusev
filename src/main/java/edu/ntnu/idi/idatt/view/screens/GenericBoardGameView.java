@@ -379,7 +379,7 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
       if (controller != null) {
         if (buttonType.getButtonData() == ButtonBar.ButtonData.OK_DONE) { // Corresponds to "Play Again"
           LOGGER.info("Player chose 'Play Again'. Requesting game restart.");
-          controller.requestGoToGameSetup();
+          controller.requestGoToGameSelection();
         } else if (buttonType.getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) { // Corresponds to "Main Menu"
           LOGGER.info("Player chose 'Main Menu'. Requesting navigation to main menu.");
           controller.requestGoToMainMenu();
