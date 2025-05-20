@@ -11,6 +11,10 @@ public enum ActionType {
   SPECIAL("Special", "A special event occurred!"), // Generic special
   RETURN_TO_START("ReturnToStart", "Oh no! Back to the start."),
   SKIP_TURN("SkipTurn", "Miss a turn!"),
+
+  BOOST_PAD("BoostPad", "Speed boost activated for next turn!"),
+  ASTEROID_FIELD("AsteroidField", "Navigating an asteroid field!"),
+
   NO_OP("NoOp", "");
 
   private final String jsonValue;
