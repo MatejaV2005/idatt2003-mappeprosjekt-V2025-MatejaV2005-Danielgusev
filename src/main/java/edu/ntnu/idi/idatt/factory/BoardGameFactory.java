@@ -15,10 +15,8 @@ public class BoardGameFactory {
     switch (gameType) {
       case SNAKES_AND_LADDERS:
         return createSnakesAndLaddersGame(difficulty);
-      case MONOPOLY:
-        throw new UnsupportedOperationException("Monopoly game not yet implemented");
-      case LUDO:
-        throw new UnsupportedOperationException("Ludo game not yet implemented");
+      case ASTRO_RALLY:
+        return createAstroRallyGame();
       default:
         throw new IllegalArgumentException("Unsupported game type: " + gameType);
     }
@@ -42,5 +40,9 @@ public class BoardGameFactory {
     Dice dice = new Dice(2);
     GameStrategy strategy = new SnakesAndLaddersStrategy(customBoard, dice);
     return new SnakesAndLaddersGame(customBoard, dice, strategy);
+  }
+
+  private BoardGame createAstroRallyGame() {
+    return null;
   }
 }
