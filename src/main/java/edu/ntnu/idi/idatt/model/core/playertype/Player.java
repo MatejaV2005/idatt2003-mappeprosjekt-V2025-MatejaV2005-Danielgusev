@@ -4,11 +4,15 @@ import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 
 
-public abstract class Player {
+public class Player {
   private final String name;
   private Tile currentTile;
   private final String pieceType;
   private boolean skipTurn;
+
+  private boolean hasBoostNextTurn = false;
+  private boolean rollOneDieNextTurn = false;
+  private int lapsCompleted = 0;
 
   protected Player (String name, String pieceType) {
     this.name = name;
@@ -43,15 +47,39 @@ public abstract class Player {
     this.skipTurn = skipTurn;
   }
 
+  // Metoder for Astro Rally tilstander
+  public boolean hasBoostNextTurn() {
+    return hasBoostNextTurn;
+  }
+
+  public void setHasBoostNextTurn(boolean hasBoost) {
+    this.hasBoostNextTurn = hasBoost;
+  }
+
+  public boolean shouldRollOneDieNextTurn() {
+    return rollOneDieNextTurn;
+  }
+
+  public void setRollOneDieNextTurn(boolean rollOne) {
+    this.rollOneDieNextTurn = rollOne;
+  }
+
+  public int getLapsCompleted() {
+    return lapsCompleted;
+  }
+
+  public void incrementLapsCompleted() {
+    this.lapsCompleted++;
+  }
+
+  public void resetLapsCompleted() {
+    this.lapsCompleted = 0;
+  }
+
   public void setOnCurrentTile(Tile newTile) {
     ExceptionHandling.requireNonNull(newTile, "tile ");
     this.currentTile = newTile;
-
   }
-
-  // abstract method
-  public abstract Tile move(int steps);
-
 
   public Tile basicMove(int steps) {
     ExceptionHandling.requirePositive(steps, "steps");
