@@ -1,49 +1,64 @@
 package edu.ntnu.idi.idatt.controller;
 
+import edu.ntnu.idi.idatt.model.core.GameType;
 import edu.ntnu.idi.idatt.view.screens.GameSelectionView;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- * Controller for the game mode selection screen.
- * Handles user interactions and navigation related to game selection.
- * Follows MVC pattern by separating business logic from view.
+ * Controller for the game mode selection screen. Handles user interactions and navigation related
+ * to game selection.
  */
 public class GameSelectionController {
+
+  private static final Logger LOG = Logger.getLogger(GameSelectionController.class.getName());
   private final GameSelectionView view;
   private final NavigationController navigationController;
-  //private final BoardGameFactory gameFactory;
 
   /**
    * Constructs a new GameModeSelectionController.
    *
-   * @param view The game selection view this controller manages
-   * @param navigationController The navigation controller for switching screens
+   * @param view The game selection view this controller manages. Must not be null.
+   * @param navigationController The navigation controller for switching screens. Must not be null.
    */
-  public GameSelectionController(GameSelectionView view, NavigationController navigationController) {
-    this.view = view;
-    this.navigationController = navigationController;
-
-    // Set this controller to the view
-    view.setController(this);
+  public GameSelectionController(
+      GameSelectionView view, NavigationController navigationController) {
+    this.view = Objects.requireNonNull(view, "GameSelectionView cannot be null.");
+    this.navigationController =
+        Objects.requireNonNull(navigationController, "NavigationController cannot be null.");
+    this.view.setController(this);
   }
 
   /**
-   * Handles the selection of a game mode.
-   * Prepares to navigate to the difficulty selection or game setup screen.
+   * Handles the selection of a game mode. Determines the {@link GameType} and instructs the {@link
+   * NavigationController} to navigate to the game setup screen, configured for the selected game
+   * type.
    *
-   * @param gameMode The selected game mode
+   * @param gameModeName The string name of the selected game mode (e.g., "Snakes & Ladders", "Astro
+   * Rally"). This should match constants defined in GameSelectionView.
    */
-  public void onGameModeSelected(String gameMode) {
-    //add logic to distinguish gameSetupScreen
-    navigationController.navigateToGameSetup();
+  public void onGameModeSelected(String gameModeName) {
+    LOG.info("Game mode selected by user: " + gameModeName);
+    GameType selectedType;
+
+    if (GameSelectionView.SNAKES_AND_LADDERS.equals(gameModeName)) {
+      selectedType = GameType.SNAKES_AND_LADDERS;
+    } else if (GameSelectionView.ASTRO_RALLY.equals(gameModeName)) {
+      selectedType = GameType.ASTRO_RALLY;
+    } else {
+      LOG.log(
+          Level.WARNING,
+          "Unknown game mode name received from view: {0}. Defaulting to SNAKES_AND_LADDERS.",
+          gameModeName);
+      selectedType = GameType.SNAKES_AND_LADDERS;
+    }
+
+    navigationController.navigateToGameSetup(selectedType);
   }
 
-  /**
-   * Handles the back button click.
-   * Navigates back to the title screen.
-   */
   public void onBackButtonClicked() {
+    LOG.info("Back button clicked on game selection screen. Navigating to title screen.");
     navigationController.navigateToTitleScreen();
   }
-
-
 }
