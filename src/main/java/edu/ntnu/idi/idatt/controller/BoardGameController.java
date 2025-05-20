@@ -135,10 +135,10 @@ public class BoardGameController {
     return boardGame;
   }
 
-  public void requestGoToGameSetup() {
+  public void requestGoToGameSelection() {
     LOGGER.info("BoardGameController: Go to Game Setup requested.");
     if (navigationController != null) {
-      navigationController.navigateToGameSetup(); // Eksisterende metode
+      navigationController.navigateToGameSelection(); // Eksisterende metode
     } else {
       LOGGER.severe("Cannot go to game setup: NavigationController is null.");
     }
