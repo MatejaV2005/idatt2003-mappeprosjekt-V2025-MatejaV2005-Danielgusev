@@ -14,7 +14,7 @@ public class Player {
   private boolean rollOneDieNextTurn = false;
   private int lapsCompleted = 0;
 
-  protected Player (String name, String pieceType) {
+  public Player (String name, String pieceType) {
     this.name = name;
     this.skipTurn = false;
     this.pieceType = pieceType;
