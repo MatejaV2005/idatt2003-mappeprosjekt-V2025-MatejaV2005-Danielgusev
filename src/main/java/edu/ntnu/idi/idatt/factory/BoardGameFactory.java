@@ -4,6 +4,7 @@ import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.core.Dice;
 import edu.ntnu.idi.idatt.model.core.GameType;
+import edu.ntnu.idi.idatt.model.games.AstroRallyGame;
 import edu.ntnu.idi.idatt.model.games.SnakesAndLaddersGame;
 import edu.ntnu.idi.idatt.model.strategy.GameStrategy;
 import edu.ntnu.idi.idatt.model.strategy.SnakesAndLaddersStrategy;
@@ -35,7 +36,6 @@ public class BoardGameFactory {
     return new SnakesAndLaddersGame(board, dice, strategy);
   }
 
-  // New overload:
   public BoardGame createSnakesAndLaddersGame(Board customBoard) {
     Dice dice = new Dice(2);
     GameStrategy strategy = new SnakesAndLaddersStrategy(customBoard, dice);
@@ -43,6 +43,9 @@ public class BoardGameFactory {
   }
 
   private BoardGame createAstroRallyGame() {
-    return null;
+    Board board = boardFactory.createAstroRallyBoard();
+    Dice dice = new Dice(2);
+    GameStrategy strategy = StrategyFactory.createStrategy(GameType.ASTRO_RALLY, board, dice);
+    return new AstroRallyGame(board, dice, strategy);
   }
 }
