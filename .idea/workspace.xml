@@ -168,30 +168,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Application.TitleScreen.executor": "Run",
-    "Application.fx.executor": "Run",
-    "JUnit.PlayerTest.executor": "Run",
-    "Maven.boardgame-V2025-IDATT2003 [clean].executor": "Run",
-    "Maven.boardgame-V2025-IDATT2003 [package].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "git-widget-placeholder": "Merging Features",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/mappeprosjekt-vaar2025/boardgame-V2025-IDATT2003/src/main/resources/edu/ntnu/idi/idatt/view/resources/Dice",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TitleScreen.executor&quot;: &quot;Run&quot;,
+    &quot;Application.fx.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.boardgame-V2025-IDATT2003 [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.boardgame-V2025-IDATT2003 [package].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Merging Features&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/mappeprosjekt-vaar2025/boardgame-V2025-IDATT2003/src/main/resources/edu/ntnu/idi/idatt/view/resources/Dice&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\mappeprosjekt-vaar2025\boardgame-V2025-IDATT2003\src\main\resources\edu\ntnu\idi\idatt\view\resources\Dice" />
@@ -208,50 +208,54 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.Main" />
+  <component name="RunManager" selected="JUnit.SnakesAndLaddersGameTest">
+    <configuration name="BoardGameTest$GameStartTests.startGameThrowsExceptionIfNoPlayers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="boardgame-V2025-IDATT2003" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.UserInterface.TitleScreen.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+      <option name="PACKAGE_NAME" value="boardgames.BoardGameTest" />
+      <option name="MAIN_CLASS_NAME" value="boardgames.BoardGameTest$GameStartTests" />
+      <option name="METHOD_NAME" value="startGameThrowsExceptionIfNoPlayers" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TitleScreen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.UserInterface.TitleScreen.TitleScreen" />
+    <configuration name="BoardGameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="boardgame-V2025-IDATT2003" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.UserInterface.TitleScreen.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+      <option name="PACKAGE_NAME" value="boardgames" />
+      <option name="MAIN_CLASS_NAME" value="boardgames.BoardGameTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="fx" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.UserInterface.fx" />
-      <module name="boardgame-V2025-IDATT2003" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.UserInterface.TitleScreen.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PlayerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BoardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="boardgame-V2025-IDATT2003" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="PlayerTest" />
+      <option name="MAIN_CLASS_NAME" value="BoardTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SnakesAndLaddersGameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="boardgame-V2025-IDATT2003" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.ntnu.idi.idatt.model.games.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.ntnu.idi.idatt.model.games" />
+      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.model.games.SnakesAndLaddersGameTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TileTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="boardgame-V2025-IDATT2003" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TileTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -259,11 +263,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
-        <item itemvalue="Application.TitleScreen" />
-        <item itemvalue="JUnit.PlayerTest" />
-        <item itemvalue="Application.fx" />
-        <item itemvalue="JUnit.PlayerTest" />
+        <item itemvalue="JUnit.TileTest (1)" />
+        <item itemvalue="JUnit.SnakesAndLaddersGameTest" />
+        <item itemvalue="JUnit.BoardTest" />
+        <item itemvalue="JUnit.BoardGameTest$GameStartTests.startGameThrowsExceptionIfNoPlayers" />
+        <item itemvalue="JUnit.BoardGameTest" />
       </list>
     </recent_temporary>
   </component>
