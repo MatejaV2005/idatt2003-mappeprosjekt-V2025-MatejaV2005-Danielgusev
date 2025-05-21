@@ -26,7 +26,7 @@ public class SnakesAndLaddersGame extends BoardGame {
     notifyPlayerMoved(player, oldTile, newTile);
 
     if (newTile.isActionTile()) {
-      handleSpecialTileAction(player, newTile); // newTile is the actionTile
+      handleSpecialTileAction(player, newTile);
     }
   }
 
@@ -42,7 +42,7 @@ public class SnakesAndLaddersGame extends BoardGame {
     if (destId > 0) {
       Tile destinationTile = board.getTileById(destId);
       if (destinationTile != null && !destinationTile.equals(actionTile)) {
-        notifyActionTileEffect(player, actionTile, destinationTile); // Notify about the upcoming effect
+        notifyActionTileEffect(player, actionTile, destinationTile);
 
         actionTile.leavePlayer(player);
         player.setOnCurrentTile(destinationTile);
@@ -50,8 +50,8 @@ public class SnakesAndLaddersGame extends BoardGame {
       }
     } else {
 
-      Tile tileBeforePerformingAction = player.getCurrentTile(); // This is effectively actionTile
-      landAction.perform(player); // Execute the action
+      Tile tileBeforePerformingAction = player.getCurrentTile();
+      landAction.perform(player);
       Tile tileAfterPerformingAction = player.getCurrentTile();
 
       if (!tileAfterPerformingAction.equals(tileBeforePerformingAction)) {

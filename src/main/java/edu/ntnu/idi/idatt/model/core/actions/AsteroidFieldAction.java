@@ -3,8 +3,6 @@ package edu.ntnu.idi.idatt.model.core.actions;
 import edu.ntnu.idi.idatt.model.core.ActionType;
 import edu.ntnu.idi.idatt.model.core.playertype.Player;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
-import java.util.Objects;
-// java.util.Random is no longer needed
 
 public class AsteroidFieldAction implements TileAction {
 

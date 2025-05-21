@@ -10,8 +10,6 @@ public class Player {
   private final String pieceType;
   private boolean skipTurn;
 
-  private boolean hasBoostNextTurn = false;
-  private boolean rollOneDieNextTurn = false;
   private int lapsCompleted = 0;
 
   public Player (String name, String pieceType) {
@@ -20,7 +18,6 @@ public class Player {
     this.pieceType = pieceType;
   }
 
-  // Get-methods
   public String getName() {
     return name;
   }
@@ -41,28 +38,12 @@ public class Player {
     return false;
   }
 
-  // set-methods
 
   public void setSkipTurn(boolean skipTurn) {
     this.skipTurn = skipTurn;
   }
 
-  // Metoder for Astro Rally tilstander
-  public boolean hasBoostNextTurn() {
-    return hasBoostNextTurn;
-  }
 
-  public void setHasBoostNextTurn(boolean hasBoost) {
-    this.hasBoostNextTurn = hasBoost;
-  }
-
-  public boolean shouldRollOneDieNextTurn() {
-    return rollOneDieNextTurn;
-  }
-
-  public void setRollOneDieNextTurn(boolean rollOne) {
-    this.rollOneDieNextTurn = rollOne;
-  }
 
   public int getLapsCompleted() {
     return lapsCompleted;
