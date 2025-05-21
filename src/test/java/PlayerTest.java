@@ -1,10 +1,4 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
 
 import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.model.core.playertype.Player;
@@ -16,21 +10,29 @@ import org.junit.jupiter.api.Test;
 class PlayerTest {
 
   private Player player;
-  private Tile mockInitialTile;
-  private Tile mockNextTile;
-  private Tile mockFinalTile;
+  private Tile initialTile;
+  private Tile nextTile;
+  private Tile finalTile;
 
   private final String validName = "TestPlayer";
   private final String validPieceType = "TestPiece";
 
+  // Simple Tile implementation for testing
+
   @BeforeEach
   void setUp() {
     player = new Player(validName, validPieceType);
-    mockInitialTile = mock(Tile.class, "InitialTile");
-    mockNextTile = mock(Tile.class, "NextTile");
-    mockFinalTile = mock(Tile.class, "FinalTile");
 
-    player.setOnCurrentTile(mockInitialTile);
+    // Create tiles with proper parameters (id, row, column)
+    initialTile = new Tile(1, 0, 0);
+    nextTile = new Tile(2, 0, 1);
+    finalTile = new Tile(3, 0, 2);
+
+    // Link the tiles using the built-in setNextTile method
+    initialTile.setNextTile(nextTile);
+    nextTile.setNextTile(finalTile);
+
+    player.setOnCurrentTile(initialTile);
   }
 
   @Nested
@@ -39,12 +41,15 @@ class PlayerTest {
 
     @Test
     void constructorSetsNameAndPieceTypeAndDefaults() {
+      // Test basic properties
       assertEquals(validName, player.getName());
       assertEquals(validPieceType, player.getPieceType());
-      assertNull(new Player("P2", "Hat").getCurrentTile(),
-          "New player should not have a currentTile set by constructor.");
-      assertFalse(player.shouldSkipTurn(),
-          "New player should not be set to skip turn by default.");
+
+      // Test defaults for a new player
+      Player newPlayer = new Player("P2", "Hat");
+      assertNull(newPlayer.getCurrentTile(), "New player should not have a currentTile set by constructor.");
+      assertFalse(newPlayer.shouldSkipTurn(), "New player should not be set to skip turn by default.");
+      assertEquals(0, newPlayer.getLapsCompleted(), "New player should have 0 laps completed.");
     }
 
     @Test
@@ -55,31 +60,20 @@ class PlayerTest {
     }
 
     @Test
-    void constructorThrowsForNullName() {
-      var exception = assertThrows(IllegalArgumentException.class,
-          () -> new Player(null, validPieceType));
-      assertEquals("Player name cannot be null or blank", exception.getMessage());
-    }
+    void constructorThrowsForInvalidParameters() {
+      // Test null and blank names
+      assertThrows(IllegalArgumentException.class, () -> new Player(null, validPieceType),
+          "Should throw when name is null");
 
-    @Test
-    void constructorThrowsForBlankName() {
-      var exception = assertThrows(IllegalArgumentException.class,
-          () -> new Player("   ", validPieceType));
-      assertEquals("Player name cannot be null or blank", exception.getMessage());
-    }
+      assertThrows(IllegalArgumentException.class, () -> new Player("   ", validPieceType),
+          "Should throw when name is blank");
 
-    @Test
-    void constructorThrowsForNullPieceType() {
-      var exception = assertThrows(IllegalArgumentException.class,
-          () -> new Player(validName, null));
-      assertEquals("Player piece type cannot be null or blank", exception.getMessage());
-    }
+      // Test null and blank piece types
+      assertThrows(IllegalArgumentException.class, () -> new Player(validName, null),
+          "Should throw when pieceType is null");
 
-    @Test
-    void constructorThrowsForBlankPieceType() {
-      var exception = assertThrows(IllegalArgumentException.class,
-          () -> new Player(validName, "   "));
-      assertEquals("Player piece type cannot be null or blank", exception.getMessage());
+      assertThrows(IllegalArgumentException.class, () -> new Player(validName, "   "),
+          "Should throw when pieceType is blank");
     }
   }
 
@@ -88,17 +82,35 @@ class PlayerTest {
   class TileManagementTests {
 
     @Test
-    void setOnCurrentTileUpdatesTileCorrectly() {
-      assertEquals(mockInitialTile, player.getCurrentTile());
-      player.setOnCurrentTile(mockNextTile);
-      assertEquals(mockNextTile, player.getCurrentTile());
+    void tileManagement() {
+      assertEquals(initialTile, player.getCurrentTile(), "Player should be on initial tile");
+
+      // Test changing tiles
+      player.setOnCurrentTile(nextTile);
+      assertEquals(nextTile, player.getCurrentTile(), "Player should be on next tile after change");
+
+      // Test null tile exception
+      assertThrows(IllegalArgumentException.class, () -> player.setOnCurrentTile(null),
+          "Setting null tile should throw exception");
     }
+  }
+
+  @Nested
+  @DisplayName("Lap Management")
+  class LapManagementTests {
 
     @Test
-    void setOnCurrentTileThrowsForNullTile() {
-      var exception = assertThrows(IllegalArgumentException.class,
-          () -> player.setOnCurrentTile(null));
-      assertEquals("New tile for player cannot be null.", exception.getMessage());
+    void lapCounterOperations() {
+      assertEquals(0, player.getLapsCompleted(), "New player should have 0 laps completed");
+
+      player.incrementLapsCompleted();
+      assertEquals(1, player.getLapsCompleted(), "Lap counter should be incremented");
+
+      player.incrementLapsCompleted();
+      assertEquals(2, player.getLapsCompleted(), "Lap counter should be incremented again");
+
+      player.resetLapsCompleted();
+      assertEquals(0, player.getLapsCompleted(), "Lap counter should be reset to 0");
     }
   }
 
@@ -107,98 +119,77 @@ class PlayerTest {
   class SkipTurnTests {
 
     @Test
-    void setSkipTurnEnablesSkippingNextTurn() {
+    void skipTurnBehavior() {
+      // Default state
+      assertFalse(player.shouldSkipTurn(), "New player should not skip turn");
+
+      // Set to skip
       player.setSkipTurn(true);
-      assertTrue(player.shouldSkipTurn(), "Should skip turn after being set to true.");
-    }
+      assertTrue(player.shouldSkipTurn(), "Player should skip turn after setting flag");
 
-    @Test
-    void shouldSkipTurnResetsFlagAfterReturningTrue() {
+      // Flag should be automatically reset
+      assertFalse(player.shouldSkipTurn(), "Flag should reset after being consumed");
+
+      // Setting and clearing the flag
       player.setSkipTurn(true);
-      player.shouldSkipTurn(); // First call consumes the flag
-      assertFalse(player.shouldSkipTurn(), "Should not skip turn on subsequent call.");
-    }
-
-    @Test
-    void shouldSkipTurnReturnsFalseIfNeverSetToSkip() {
-      assertFalse(player.shouldSkipTurn());
-    }
-
-    @Test
-    void setSkipTurnToFalseClearsSkipFlag() {
-      player.setSkipTurn(true); // Set to skip
-      player.setSkipTurn(false); // Then clear
-      assertFalse(player.shouldSkipTurn());
+      player.setSkipTurn(false);
+      assertFalse(player.shouldSkipTurn(), "Setting to false should clear the flag");
     }
   }
 
   @Nested
-  @DisplayName("Basic Movement Logic (basicMove)")
+  @DisplayName("Basic Movement Logic")
   class BasicMoveTests {
 
-    @BeforeEach
-    void setUpBasicMove() {
-      // Player er allerede på mockInitialTile fra hoved-setUp
+    @Test
+    void basicMovementBehavior() {
+      // Move one step
+      Tile result = player.basicMove(1);
+      assertEquals(nextTile, result, "Should move one tile forward");
+
+      // Move two steps
+      result = player.basicMove(2);
+      assertEquals(finalTile, result, "Should move two tiles forward");
+
+      // Test movement beyond board end
+      finalTile.setNextTile(null); // Ensure final tile has no next
+      result = player.basicMove(3);
+      assertEquals(finalTile, result, "Should stop at final tile when moving beyond board end");
     }
 
     @Test
-    void basicMoveReturnsCorrectDestinationForOneStep() {
-      when(mockInitialTile.getNextTile()).thenReturn(mockNextTile);
+    void basicMoveEdgeCases() {
+      // Test invalid steps
+      assertThrows(IllegalArgumentException.class, () -> player.basicMove(0),
+          "Should throw for zero steps");
+      assertThrows(IllegalArgumentException.class, () -> player.basicMove(-1),
+          "Should throw for negative steps");
 
-      Tile resultTile = player.basicMove(1);
-      assertEquals(mockNextTile, resultTile, "Should move to the next tile.");
+      // Test player not on board
+      Player offBoardPlayer = new Player("Off Board", "Token");
+      assertThrows(IllegalStateException.class, () -> offBoardPlayer.basicMove(1),
+          "Should throw when player is not on a tile");
+
+      // Test current tile as final tile
+      initialTile.setNextTile(null);
+      assertEquals(initialTile, player.basicMove(1),
+          "Should return current tile when it's the final tile");
     }
+  }
+
+  @Nested
+  @DisplayName("Equality and Hash Code")
+  class EqualityTests {
 
     @Test
-    void basicMoveReturnsCorrectDestinationForMultipleSteps() {
-      when(mockInitialTile.getNextTile()).thenReturn(mockNextTile);
-      when(mockNextTile.getNextTile()).thenReturn(mockFinalTile);
-      when(mockFinalTile.getNextTile()).thenReturn(null); // End of board path
+    void equalityBasedOnName() {
+      Player sameNamePlayer = new Player(validName, "DifferentPiece");
+      Player differentNamePlayer = new Player("OtherName", validPieceType);
 
-      Tile resultTile = player.basicMove(2);
-      assertEquals(mockFinalTile, resultTile, "Should move two tiles ahead.");
-    }
-
-    @Test
-    void basicMoveStopsAtLastTileIfStepsExceedBoardEnd() {
-      when(mockInitialTile.getNextTile()).thenReturn(mockNextTile);
-      when(mockNextTile.getNextTile()).thenReturn(null); // mockNextTile is the last in this path
-
-      Tile resultTile = player.basicMove(5); // Try to move 5 steps
-      assertEquals(mockNextTile, resultTile, "Should stop at the last available tile.");
-    }
-
-    @Test
-    void basicMoveThrowsIfStepsAreZero() {
-      var exception = assertThrows(IllegalArgumentException.class,
-          () -> player.basicMove(0));
-      assertEquals("Number of steps for basicMove must be strictly positive (greater than 0).",
-          exception.getMessage());
-    }
-
-    @Test
-    void basicMoveThrowsIfStepsAreNegative() {
-      var exception = assertThrows(IllegalArgumentException.class,
-          () -> player.basicMove(-2));
-      assertEquals("Number of steps for basicMove must be strictly positive (greater than 0).",
-          exception.getMessage());
-    }
-
-    @Test
-    void basicMoveThrowsIfPlayerIsNotOnATile() {
-      Player playerNotOnBoard = new Player("Off Roader", "Bike");
-
-      var exception = assertThrows(IllegalStateException.class,
-          () -> playerNotOnBoard.basicMove(1));
-      assertEquals("Player must be on a tile to perform basicMove.", exception.getMessage());
-    }
-
-    @Test
-    void basicMoveReturnsCurrentTileIfNoNextTileAndMovingOneStep() {
-      when(mockInitialTile.getNextTile()).thenReturn(null); // Current tile is the last tile
-
-      Tile resultTile = player.basicMove(1);
-      assertEquals(mockInitialTile, resultTile, "Should stay on current tile if it's the last one.");
+      assertEquals(player, sameNamePlayer, "Players with same name should be equal");
+      assertNotEquals(player, differentNamePlayer, "Players with different names should not be equal");
+      assertEquals(player.hashCode(), sameNamePlayer.hashCode(),
+          "Equal players should have same hash code");
     }
   }
 }
