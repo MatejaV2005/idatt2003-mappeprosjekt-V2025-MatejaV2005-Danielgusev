@@ -77,16 +77,44 @@ public class AstroRallyStrategy implements GameStrategy {
 
   @Override
   public boolean checkWinCondition(Player player) {
+    ExceptionHandling.requireNonNull(player, "Player cannot be null when checking win condition");
 
+    Tile currentTile = player.getCurrentTile();
+    if (currentTile == null) {
+      return false;
+    }
+
+    boolean hasCompletedRequiredLaps = player.getLapsCompleted() >= TOTAL_LAPS_TO_WIN;
+    boolean isOnFinishTile = currentTile.getTileId() == 1;
+
+    return hasCompletedRequiredLaps && isOnFinishTile;
   }
 
   @Override
   public Player determineWinner(List<Player> players) {
-
+    Objects.requireNonNull(players, "Players list cannot be null for determineWinner");
+    for (Player player : players) {
+      if (checkWinCondition(player)) {
+        return player;
+      }
+    }
+    return null;
   }
 
   @Override
   public void InitializeGame(Board board, List<Player> players) {
+    ExceptionHandling.requireNonNull(board, "Board cannot be null for InitializeGame");
+    ExceptionHandling.requireNonNull(players, "Players list cannot be null for InitializeGame");
 
+    Tile startingTile = this.board.getTileById(1);
+    if (startingTile == null) {
+      throw new IllegalStateException("Astro Rally board is missing the starting tile (ID 1).");
+    }
+
+    for (Player player : players) {
+      player.setOnCurrentTile(startingTile);
+      player.resetLapsCompleted();
+      player.setSkipTurn(false);
+    }
   }
 }
