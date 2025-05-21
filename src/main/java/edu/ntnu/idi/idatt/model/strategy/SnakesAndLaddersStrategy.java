@@ -49,12 +49,4 @@ public class SnakesAndLaddersStrategy implements GameStrategy {
       p.setOnCurrentTile(board.getTileById(1));
     }
   }
-
-  private void updatePlayerPosition(Player player, Tile oldTile, Tile newTile) {
-    oldTile.leavePlayer(player);
-    player.setOnCurrentTile(newTile);
-    newTile.landPlayer(player);
-    
-  }
-
 }
