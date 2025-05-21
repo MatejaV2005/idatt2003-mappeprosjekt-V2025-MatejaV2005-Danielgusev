@@ -12,6 +12,7 @@ import java.util.Objects;
  */
 public class Player {
 
+  private int lapsCompleted = 0;
   private final String name;
   private Tile currentTile;
   private final String pieceType;
@@ -35,6 +36,33 @@ public class Player {
     this.pieceType = pieceType.trim();
     this.skipTurn = false;
   }
+
+  /**
+   * Gets the number of laps the player has completed.
+   *
+   * @return The number of laps completed
+   */
+  public int getLapsCompleted() {
+    return lapsCompleted;
+  }
+
+  /**
+   * Resets the player's lap counter to zero.
+   * This is typically called when initializing or restarting a game.
+   */
+  public void resetLapsCompleted() {
+    this.lapsCompleted = 0;
+  }
+
+  /**
+   * Increments the player's lap counter by one.
+   * This is called when a player completes a lap around the board.
+   */
+  public void incrementLapsCompleted() {
+    this.lapsCompleted++;
+  }
+
+
 
   /**
    * Gets the name of the player.

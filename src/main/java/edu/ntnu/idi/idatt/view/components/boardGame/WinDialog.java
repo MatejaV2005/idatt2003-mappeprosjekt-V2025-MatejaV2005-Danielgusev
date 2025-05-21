@@ -13,7 +13,7 @@ public class WinDialog extends Dialog<ButtonType> {
     setTitle("Congratulations!");
     setHeaderText("🎉 " + winnerName + " is the winner! 🎉");
 
-    ButtonType backToGameSetup = new ButtonType("Back to Game Setup", ButtonBar.ButtonData.OK_DONE);
+    ButtonType backToGameSetup = new ButtonType("Back to Game Selection", ButtonBar.ButtonData.OK_DONE);
     ButtonType mainMenu  = new ButtonType("Main Menu", ButtonBar.ButtonData.CANCEL_CLOSE);
     getDialogPane().getButtonTypes().setAll(backToGameSetup, mainMenu);
 

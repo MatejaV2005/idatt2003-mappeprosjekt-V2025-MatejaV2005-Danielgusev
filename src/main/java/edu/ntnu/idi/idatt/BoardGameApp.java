@@ -20,9 +20,7 @@ import java.util.logging.Logger;
 public class BoardGameApp {
   private BoardGame game;
   private GameStrategy strategy;
-
   private static final Logger LOGGER = Logger.getLogger(BoardGameApp.class.getName());
-
 
   public BoardGameApp() {}
 
@@ -83,7 +81,7 @@ public class BoardGameApp {
 
     // Initialize dice and game components
     Dice dice = new Dice(2);
-    this.strategy = new SnakesAndLaddersStrategy(defaultBoard, dice);
+    this.strategy = new SnakesAndLaddersStrategy(dice);
     this.game = new SnakesAndLaddersGame(defaultBoard, dice, strategy);
 
     // Load and add players (don't throw exception if player loading fails)

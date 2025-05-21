@@ -13,23 +13,23 @@ import edu.ntnu.idi.idatt.view.components.gameSelection.GameInfoPanel;
 import edu.ntnu.idi.idatt.view.components.gameSelection.PlayerManagementPanel;
 import edu.ntnu.idi.idatt.view.screens.GameSetupView;
 import edu.ntnu.idi.idatt.view.utils.AlertHelper;
-
 import java.io.File;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
- * Controller for the game setup screen. Manages player selection,
- * difficulty settings, and game initialization.
+ * Controller for the game setup screen. Manages player selection, difficulty/game configuration,
+ * and game initialization based on the selected GameType.
  */
 public class GameSetupController {
   private static final Logger LOGGER = Logger.getLogger(GameSetupController.class.getName());
-  private static final int MIN_PLAYERS = 2;
+  private static final int MIN_PLAYERS_SNAKES_LADDERS = 2;
+  private static final int MIN_PLAYERS_ASTRO_RALLY = 2;
   private static final int MAX_PLAYERS = 4;
   private static final String BOARDS_DIRECTORY = "Files/Boards";
 
@@ -37,119 +37,134 @@ public class GameSetupController {
   private final NavigationController navigationController;
   private final PlayerManager playerManager;
   private final BoardManager boardManager;
-  private GameType selectedGame = GameType.SNAKES_AND_LADDERS; // Default difficulty
   private final Stage stage;
+
+  private GameType currentGameType;
+  private String selectedDifficultyOrConfig;
   private Board customBoard = null;
-  private String selectedDifficulty = "normal";
 
   /**
-   * Constructs a GameSetupController.
+   * Constructs a GameSetupController. This constructor is called once when NavigationController
+   * initializes scenes. The specific game type configuration happens in prepareGuiForGameType.
    *
-   * @param view The game setup view
-   * @param navigationController The navigation controller for screen transitions
-   * @param playerManager The player manager for player data handling
-   * @param stage The primary stage for displaying dialogs
+   * @param view The game setup view.
+   * @param navigationController The navigation controller for screen transitions.
+   * @param playerManager The player manager for player data handling.
+   * @param stage The primary stage for displaying dialogs.
    */
-  public GameSetupController(GameSetupView view, NavigationController navigationController,
-      PlayerManager playerManager, Stage stage) {
-    this.view = view;
-    this.navigationController = navigationController;
-    this.playerManager = playerManager;
-    this.boardManager = BoardManager.getInstance(); // Get singleton instance
+  public GameSetupController(
+      GameSetupView view,
+      NavigationController navigationController,
+      PlayerManager playerManager,
+      Stage stage) {
+    this.view = Objects.requireNonNull(view, "GameSetupView cannot be null.");
+    this.navigationController =
+        Objects.requireNonNull(navigationController, "NavigationController cannot be null.");
+    this.playerManager = Objects.requireNonNull(playerManager, "PlayerManager cannot be null.");
+    this.boardManager = BoardManager.getInstance();
     this.stage = stage;
 
-    view.setController(this);
-
-    onDifficultySelected("Normal");
-
-    createBoardsDirectory();
-
-    initializeView();
-  }
-
-  /**
-   * Alternative constructor without stage parameter.
-   *
-   * @param view The game setup view
-   * @param navigationController The navigation controller for screen transitions
-   * @param playerManager The player manager for player data handling
-   */
-  public GameSetupController(GameSetupView view, NavigationController navigationController,
-      PlayerManager playerManager) {
-    this(view, navigationController, playerManager, null);
-  }
-
-  /**
-   * Initializes the view with player data and sets up event handlers.
-   */
-  private void initializeView() {
-    refreshCurrentPlayersList();
-
+    this.view.setController(this);
     setupPlayerManagementHandlers();
+
+    LOGGER.info("GameSetupController initialized.");
   }
 
   /**
-   * Sets up handlers for player management operations.
+   * Prepares the GUI elements of the GameSetupView based on the selected GameType. This method is
+   * called by the NavigationController when navigating to the setup screen.
+   *
+   * @param gameType The type of game to set up the GUI for.
    */
+  public void prepareGuiForGameType(GameType gameType) {
+    this.currentGameType = Objects.requireNonNull(gameType, "GameType cannot be null for GUI prep.");
+    LOGGER.info("Preparing GameSetup GUI for game type: " + this.currentGameType);
+
+    view.setScreenTitle(getScreenTitleForGameType(this.currentGameType) + " - Setup");
+    GameInfoPanel gameInfoPanelFromView = view.getGameInfoPanel();
+
+    switch (this.currentGameType) {
+      case SNAKES_AND_LADDERS:
+        view.setDifficultyPanelVisible(true);
+        onDifficultySelected("Normal");
+        break;
+      case ASTRO_RALLY:
+        view.setDifficultyPanelVisible(false);
+        this.selectedDifficultyOrConfig = "default";
+        if (gameInfoPanelFromView != null) {
+          gameInfoPanelFromView.setAstroRallyInfo();
+        } else {
+          LOGGER.warning("GameInfoPanel is null in GameSetupView. Cannot set Astro Rally info.");
+        }
+        break;
+      default:
+        LOGGER.log(Level.WARNING, "Unsupported game type for setup GUI: {0}", this.currentGameType);
+        view.setDifficultyPanelVisible(true);
+        onDifficultySelected("Normal");
+        break;
+    }
+    view.clearStatusMessage();
+    customBoard = null;
+  }
+
+  private String getScreenTitleForGameType(GameType gameType) {
+    return switch (gameType) {
+      case SNAKES_AND_LADDERS -> "Snakes & Ladders";
+      case ASTRO_RALLY -> "Astro Rally";
+    };
+  }
+
   private void setupPlayerManagementHandlers() {
     PlayerManagementPanel panel = view.getPlayerManagementPanel();
-
     panel.getAddPlayerButton().setOnAction(e -> onAddPlayer());
-
     panel.getRemovePlayerButton().setOnAction(e -> onRemovePlayer());
-
     panel.getSavePlayerButton().setOnAction(e -> onSavePlayer());
-
     panel.getAddSavedPlayerButton().setOnAction(e -> onAddSavedPlayer());
 
-    panel.getPlayerTabs().getSelectionModel().selectedItemProperty().addListener(
-        (obs, oldTab, newTab) -> {
-          if (newTab == panel.getCurrentPlayersTab()) {
-            onCurrentPlayersTabSelected();
-          } else if (newTab == panel.getSavedPlayersTab()) {
-            onSavedPlayersTabSelected();
-          }
-        });
+    panel
+        .getPlayerTabs()
+        .getSelectionModel()
+        .selectedItemProperty()
+        .addListener(
+            (obs, oldTab, newTab) -> {
+              if (newTab == panel.getCurrentPlayersTab()) {
+                onCurrentPlayersTabSelected();
+              } else if (newTab == panel.getSavedPlayersTab()) {
+                onSavedPlayersTabSelected();
+              }
+            });
   }
 
   /**
-   * Creates the boards directory if it doesn't exist.
-   */
-  private void createBoardsDirectory() {
-    File directory = new File(BOARDS_DIRECTORY);
-    if (!directory.exists()) {
-      boolean created = directory.mkdirs();
-      if (created) {
-        LOGGER.info("Created boards directory: " + BOARDS_DIRECTORY);
-      } else {
-        LOGGER.warning("Failed to create boards directory: " + BOARDS_DIRECTORY);
-      }
-    }
-  }
-
-  /**
-   * Handles game start button click. Validates player count before starting.
+   * Handles game start button click. Validates player count before starting. The type of game to
+   * start is determined by {@code currentGameType}.
    */
   public void onGameStart() {
     List<Player> players = playerManager.getPlayers();
+    int minPlayersForCurrentGame = getMinPlayersForGame(currentGameType);
 
-    if (players.size() < MIN_PLAYERS) {
-      AlertHelper.showErrorAlert("Not Enough Players",
-          "Please add at least " + MIN_PLAYERS + " players to start the game.");
-      view.updateStatusMessage("Need at least " + MIN_PLAYERS + " players to start", true);
+    if (players.size() < minPlayersForCurrentGame) {
+      AlertHelper.showErrorAlert(
+          "Not Enough Players",
+          "Please add at least " + minPlayersForCurrentGame + " players for " + getScreenTitleForGameType(currentGameType) + ".");
+      view.updateStatusMessage(
+          "Need at least " + minPlayersForCurrentGame + " players", true);
       return;
     }
-
     view.clearStatusMessage();
 
     try {
-      if ("custom".equalsIgnoreCase(this.selectedDifficulty) && this.customBoard != null) {
-        LOGGER.log(Level.INFO, "Starting game with custom uploaded board.");
+      if (GameType.SNAKES_AND_LADDERS.equals(currentGameType)
+          && "custom".equalsIgnoreCase(this.selectedDifficultyOrConfig)
+          && this.customBoard != null) {
+        LOGGER.log(Level.INFO, "Starting Snakes & Ladders with custom uploaded board.");
         navigationController.startCustomGame(this.customBoard);
       } else {
-        LOGGER.log(Level.INFO, "Starting new game with type: {0} and standard difficulty: {1}",
-            new Object[]{selectedGame, this.selectedDifficulty});
-        navigationController.startNewGame(selectedGame, this.selectedDifficulty);
+        LOGGER.log(
+            Level.INFO,
+            "Starting new game of type: {0} with configuration: {1}",
+            new Object[] {currentGameType, this.selectedDifficultyOrConfig});
+        navigationController.startNewGame(currentGameType, this.selectedDifficultyOrConfig);
       }
     } catch (Exception e) {
       LOGGER.log(Level.SEVERE, "Error starting game", e);
@@ -157,57 +172,136 @@ public class GameSetupController {
     }
   }
 
-  /**
-   * Handles back button click.
-   */
+  private int getMinPlayersForGame(GameType gameType) {
+    return switch (gameType) {
+      case SNAKES_AND_LADDERS -> MIN_PLAYERS_SNAKES_LADDERS;
+      case ASTRO_RALLY -> MIN_PLAYERS_ASTRO_RALLY;
+    };
+  }
+
+
+  /** Handles back button click. Navigates to game selection screen. */
   public void onBack() {
     navigationController.navigateToGameSelection();
   }
 
+  /**
+   * Updates game info based on selected difficulty. This is primarily for Snakes & Ladders.
+   *
+   * @param difficulty The selected difficulty (e.g., "Easy", "Normal", "Hard", "Upload").
+   */
+  public void onDifficultySelected(String difficulty) {
+    if (currentGameType == GameType.SNAKES_AND_LADDERS) {
+      this.selectedDifficultyOrConfig = difficulty.toLowerCase();
+      GameInfoPanel infoPanelFromView = view.getGameInfoPanel();
+
+      if (infoPanelFromView != null) {
+        switch (this.selectedDifficultyOrConfig) {
+          case "easy" -> infoPanelFromView.setEasyModeInfo();
+          case "normal" -> infoPanelFromView.setNormalModeInfo();
+          case "hard" -> infoPanelFromView.setHardModeInfo();
+          case "upload" -> {
+            infoPanelFromView.setUploadModeInfo();
+          }
+          default -> infoPanelFromView.setNormalModeInfo();
+        }
+      }
+      if (!"upload".equals(this.selectedDifficultyOrConfig)) {
+        customBoard = null;
+      }
+      LOGGER.log(Level.INFO, "S&L Difficulty selected: {0}", this.selectedDifficultyOrConfig);
+    } else {
+      LOGGER.finer("Difficulty selection ignored for game type: " + currentGameType);
+    }
+  }
+
+  /**
+   * Handles upload board button click. This is specific to games that support custom boards (like
+   * Snakes & Ladders).
+   */
+  public void onUploadBoard() {
+    if (currentGameType != GameType.SNAKES_AND_LADDERS) {
+      AlertHelper.showInfoAlert(
+          "Upload Not Applicable",
+          "Board upload is not applicable for " + getScreenTitleForGameType(currentGameType) + ".");
+      return;
+    }
+
+    if (stage == null) {
+      LOGGER.warning("Stage is null, cannot show file chooser for board upload.");
+      AlertHelper.showErrorAlert(
+          "Error", "Cannot open file dialog: main window context is missing.");
+      return;
+    }
+
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Select Board File for Snakes & Ladders");
+    fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
+    File boardsDir = new File(BOARDS_DIRECTORY);
+    if (boardsDir.exists() && boardsDir.isDirectory()) {
+      fileChooser.setInitialDirectory(boardsDir);
+    } else {
+      LOGGER.info("Boards directory not found at: " + BOARDS_DIRECTORY + ". Using default initial directory.");
+    }
+
+    File selectedFile = fileChooser.showOpenDialog(stage);
+    if (selectedFile != null) {
+      try {
+        this.customBoard = boardManager.loadBoardFromFile(selectedFile.getAbsolutePath());
+        this.selectedDifficultyOrConfig = "custom";
+        GameInfoPanel infoPanelFromView = view.getGameInfoPanel();
+        if (infoPanelFromView != null) {
+          infoPanelFromView.setUploadModeInfo();
+        }
+        view.updateStatusMessage("Custom board loaded: " + selectedFile.getName(), false);
+        LOGGER.log(Level.INFO, "Loaded custom board from: {0}", selectedFile.getAbsolutePath());
+      } catch (InvalidBoardFormatException e) {
+        LOGGER.log(Level.WARNING, "Invalid board format: " + e.getMessage(), e);
+        AlertHelper.showErrorAlert("Invalid Board File", e.getMessage());
+        view.updateStatusMessage("Invalid board file: " + e.getMessage(), true);
+        resetToDefaultBoardConfigForCurrentGame();
+      } catch (BoardManagementException e) {
+        LOGGER.log(Level.SEVERE, "Failed to load board file: " + e.getMessage(), e);
+        AlertHelper.showErrorAlert("Board Load Error", "Failed to load board: " + e.getMessage());
+        view.updateStatusMessage("Failed to load board: " + e.getMessage(), true);
+        resetToDefaultBoardConfigForCurrentGame();
+      }
+    }
+  }
+
+  private void resetToDefaultBoardConfigForCurrentGame() {
+    this.customBoard = null;
+    GameInfoPanel infoPanelFromView = view.getGameInfoPanel();
+    if (infoPanelFromView == null) {
+      return;
+    }
+
+    if (currentGameType == GameType.SNAKES_AND_LADDERS) {
+      this.selectedDifficultyOrConfig = "normal";
+      infoPanelFromView.setNormalModeInfo();
+    } else if (currentGameType == GameType.ASTRO_RALLY) {
+      this.selectedDifficultyOrConfig = "default";
+      infoPanelFromView.setAstroRallyInfo();
+    }
+  }
+
+  // --- Player Management Methods ---
   public void refreshPlayerListViews() {
-    LOGGER.info("GameSetupController: Forcing refresh of player list views.");
+    LOGGER.fine("GameSetupController: Refreshing player list views.");
     onCurrentPlayersTabSelected();
 
     PlayerManagementPanel panel = view.getPlayerManagementPanel();
-    if (panel.getPlayerTabs().getSelectionModel().getSelectedItem() == panel.getSavedPlayersTab()) {
+    if (panel.getPlayerTabs().getSelectionModel().getSelectedItem()
+        == panel.getSavedPlayersTab()) {
       onSavedPlayersTabSelected();
     }
-    view.clearStatusMessage();
   }
 
-  /**
-   * Updates game info based on selected difficulty.
-   *
-   * @param difficulty The selected difficulty
-   */
-  public void onDifficultySelected(String difficulty) {
-    this.selectedDifficulty = difficulty;
-    GameInfoPanel infoPanel = view.getGameInfoPanel();
-
-    switch (difficulty.toLowerCase()) {
-      case "easy" -> infoPanel.setEasyModeInfo();
-      case "normal" -> infoPanel.setNormalModeInfo();
-      case "hard" -> infoPanel.setHardModeInfo();
-      case "upload" -> infoPanel.setUploadModeInfo();
-      default -> infoPanel.setNormalModeInfo();
-    }
-
-    if (!"custom".equalsIgnoreCase(difficulty)) {
-      customBoard = null;
-    }
-
-    LOGGER.log(Level.INFO, "Difficulty selected: {0}", difficulty);
-  }
-
-  /**
-   * Opens dialog to add a new player.
-   */
   public void onAddPlayer() {
     PlayerManagementPanel panel = view.getPlayerManagementPanel();
-
     if (panel.isPlayerLimitReached()) {
-      AlertHelper.showErrorAlert("Player Limit Reached",
-          "Maximum of " + MAX_PLAYERS + " players allowed.");
+      AlertHelper.showErrorAlert(
+          "Player Limit Reached", "Maximum of " + MAX_PLAYERS + " players allowed.");
       view.updateStatusMessage("Maximum " + MAX_PLAYERS + " players reached", true);
       return;
     }
@@ -215,43 +309,43 @@ public class GameSetupController {
     CreatePlayerPopup popup = new CreatePlayerPopup();
     Optional<Player> result = popup.show();
 
-    result.ifPresent(player -> {
-      try {
-        boolean playerExists = playerManager.getPlayers().stream()
-            .anyMatch(p -> p.getName().equals(player.getName()));
+    result.ifPresent(
+        player -> {
+          try {
+            boolean playerExists =
+                playerManager.getPlayers().stream()
+                    .anyMatch(p -> p.getName().equalsIgnoreCase(player.getName()));
 
-        if (playerExists) {
-          view.updateStatusMessage("Player " + player.getName() + " already exists", true);
-          return;
-        }
-
-        playerManager.addPlayer(player);
-        view.updateStatusMessage("Player " + player.getName() + " added", false);
-        refreshCurrentPlayersList();
-      } catch (PlayerManagementException e) {
-        LOGGER.log(Level.WARNING, "Failed to add player: {0}", e.getMessage());
-        AlertHelper.showErrorAlert("Add Player Failed", e.getMessage());
-      }
-    });
+            if (playerExists) {
+              view.updateStatusMessage(
+                  "Player " + player.getName() + " is already in the game.", true);
+              return;
+            }
+            playerManager.addPlayer(player);
+            view.updateStatusMessage("Player " + player.getName() + " added.", false);
+            refreshCurrentPlayersList();
+          } catch (PlayerManagementException e) {
+            LOGGER.log(Level.WARNING, "Failed to add player: {0}", e.getMessage());
+            AlertHelper.showErrorAlert("Add Player Failed", e.getMessage());
+          }
+        });
   }
 
-  /**
-   * Handles removing the selected player.
-   */
   public void onRemovePlayer() {
     PlayerManagementPanel panel = view.getPlayerManagementPanel();
     Player selectedPlayer = panel.getSelectedCurrentPlayer();
 
-    if (selectedPlayer != null && panel.confirmPlayerRemoval(selectedPlayer)) {
-      playerManager.removePlayer(selectedPlayer);
-      refreshCurrentPlayersList();
-      view.updateStatusMessage("Player " + selectedPlayer.getName() + " removed", false);
+    if (selectedPlayer != null) {
+      if (panel.confirmPlayerRemoval(selectedPlayer)) {
+        playerManager.removePlayer(selectedPlayer);
+        refreshCurrentPlayersList();
+        view.updateStatusMessage("Player " + selectedPlayer.getName() + " removed.", false);
+      }
+    } else {
+      view.updateStatusMessage("No player selected to remove.", true);
     }
   }
 
-  /**
-   * Saves a player to the permanent storage.
-   */
   public void onSavePlayer() {
     PlayerManagementPanel panel = view.getPlayerManagementPanel();
     Player selectedPlayer = panel.getSelectedCurrentPlayer();
@@ -260,17 +354,17 @@ public class GameSetupController {
       AlertHelper.showErrorAlert("No Player Selected", "Please select a player to save.");
       return;
     }
-
     try {
       boolean saved = playerManager.savePlayer(selectedPlayer);
-
       if (saved) {
-        view.updateStatusMessage("Player " + selectedPlayer.getName() + " saved", false);
-        if (panel.getPlayerTabs().getSelectionModel().getSelectedItem() == panel.getSavedPlayersTab()) {
-          loadSavedPlayers();
+        view.updateStatusMessage("Player " + selectedPlayer.getName() + " saved.", false);
+        if (panel.getPlayerTabs().getSelectionModel().getSelectedItem()
+            == panel.getSavedPlayersTab()) {
+          loadSavedPlayersAndUpdateView();
         }
       } else {
-        view.updateStatusMessage("Player " + selectedPlayer.getName() + " already saved", true);
+        view.updateStatusMessage(
+            "Player " + selectedPlayer.getName() + " is already saved.", true);
       }
     } catch (PlayerManagementException e) {
       LOGGER.log(Level.SEVERE, "Failed to save player", e);
@@ -278,147 +372,82 @@ public class GameSetupController {
     }
   }
 
-  /**
-   * Handles adding a selected saved player to current players.
-   */
   public void onAddSavedPlayer() {
     PlayerManagementPanel panel = view.getPlayerManagementPanel();
-    Player selectedPlayer = panel.getSelectedSavedPlayer();
+    Player selectedSavedPlayer = panel.getSelectedSavedPlayer();
 
-    if (selectedPlayer == null) {
+    if (selectedSavedPlayer == null) {
       AlertHelper.showErrorAlert("No Player Selected", "Please select a saved player to add.");
       return;
     }
-
+    if (panel.isPlayerLimitReached()) {
+      AlertHelper.showErrorAlert(
+          "Player Limit Reached", "Maximum of " + MAX_PLAYERS + " players allowed.");
+      view.updateStatusMessage("Maximum " + MAX_PLAYERS + " players reached", true);
+      return;
+    }
     try {
-      boolean playerAlreadyAdded = playerManager.getPlayers().stream()
-          .anyMatch(p -> p.getName().equals(selectedPlayer.getName()));
+      boolean playerAlreadyAdded =
+          playerManager.getPlayers().stream()
+              .anyMatch(p -> p.getName().equalsIgnoreCase(selectedSavedPlayer.getName()));
 
       if (playerAlreadyAdded) {
-        view.updateStatusMessage("Player " + selectedPlayer.getName() + " is already in the game", true);
+        view.updateStatusMessage(
+            "Player " + selectedSavedPlayer.getName() + " is already in the game.", true);
         return;
       }
-
-      if (panel.isPlayerLimitReached()) {
-        AlertHelper.showErrorAlert("Player Limit Reached",
-            "Maximum of " + MAX_PLAYERS + " players allowed.");
-        view.updateStatusMessage("Maximum " + MAX_PLAYERS + " players reached", true);
-        return;
-      }
-
-      playerManager.addPlayer(selectedPlayer);
-      view.updateStatusMessage("Added " + selectedPlayer.getName() + " to the game", false);
-
-      // Switch to current players tab and refresh
+      playerManager.addPlayer(selectedSavedPlayer);
+      view.updateStatusMessage(
+          "Added " + selectedSavedPlayer.getName() + " to the game.", false);
       panel.showCurrentPlayers();
       refreshCurrentPlayersList();
-
     } catch (PlayerManagementException e) {
       LOGGER.log(Level.SEVERE, "Failed to add saved player", e);
       AlertHelper.showErrorAlert("Add Player Failed", "Could not add player: " + e.getMessage());
     }
   }
 
-  /**
-   * Handles upload board button click to load a custom board file.
-   */
-  public void onUploadBoard() {
-    if (stage == null) {
-      LOGGER.warning("Stage is null, cannot show file chooser");
-      return;
-    }
-
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Select Board File");
-    fileChooser.getExtensionFilters().add(
-        new FileChooser.ExtensionFilter("JSON Files", "*.json"));
-
-    File boardsDir = new File(BOARDS_DIRECTORY);
-    if (boardsDir.exists() && boardsDir.isDirectory()) {
-      fileChooser.setInitialDirectory(boardsDir);
-    }
-
-    File selectedFile = fileChooser.showOpenDialog(stage);
-    if (selectedFile != null) {
-      try {
-        this.customBoard = boardManager.loadBoardFromFile(selectedFile.getAbsolutePath());
-        this.selectedDifficulty = "custom"; // Indikerer at custom board er valgt
-        view.getGameInfoPanel().setUploadModeInfo();
-        view.updateStatusMessage("Custom board loaded: " + selectedFile.getName(), false);
-        LOGGER.log(Level.INFO, "Loaded custom board from: {0}", selectedFile.getAbsolutePath());
-
-      } catch (InvalidBoardFormatException e) { // Fang det spesifikke unntaket
-        LOGGER.log(Level.WARNING, "Invalid board format: " + e.getMessage(), e);
-        AlertHelper.showErrorAlert("Invalid Board File", e.getMessage()); // Vis den detaljerte feilmeldingen
-        view.updateStatusMessage("Invalid board file: " + e.getMessage(), true);
-        this.customBoard = null;
-        this.selectedDifficulty = "normal"; // Tilbakestill
-        view.getGameInfoPanel().setNormalModeInfo();
-
-      } catch (BoardManagementException e) { // For andre lastingsfeil (f.eks. fil ikke funnet via BoardManager)
-        LOGGER.log(Level.SEVERE, "Failed to load board file: " + e.getMessage(), e);
-        AlertHelper.showErrorAlert("Board Load Error", "Failed to load board: " + e.getMessage());
-        view.updateStatusMessage("Failed to load board: " + e.getMessage(), true);
-        this.customBoard = null;
-        this.selectedDifficulty = "normal";
-        view.getGameInfoPanel().setNormalModeInfo();
-      }
-    }
-  }
-
-  /**
-   * Refreshes the current players list with updated data from the player manager.
-   */
   public void refreshCurrentPlayersList() {
     PlayerManagementPanel panel = view.getPlayerManagementPanel();
-
     List<Player> currentPlayers = playerManager.getPlayers();
     panel.updateCurrentPlayersList(currentPlayers);
-
-    if (currentPlayers.isEmpty()) {
-      LOGGER.info("Current players list is empty");
-    }
   }
 
-  /**
-   * Loads saved players from file and updates the UI.
-   */
-  public void loadSavedPlayers() {
+  public void loadSavedPlayersAndUpdateView() {
     try {
       List<Player> savedPlayers = playerManager.loadPlayersFromFile();
       PlayerManagementPanel panel = view.getPlayerManagementPanel();
       panel.updateSavedPlayersList(savedPlayers);
-
-      // Update status based on loaded players
-      if (savedPlayers.isEmpty()) {
-        view.updateStatusMessage("No saved players found", false);
-      } else {
-        view.updateStatusMessage(savedPlayers.size() + " players available", false);
-      }
+      view.updateStatusMessage(
+          savedPlayers.isEmpty()
+              ? "No saved players found."
+              : savedPlayers.size() + " saved players available.",
+          false);
     } catch (Exception e) {
-      LOGGER.log(Level.SEVERE, "Error loading saved players", e);
-      AlertHelper.showErrorAlert("Load Error", "Could not load saved players: " + e.getMessage());
-      view.updateStatusMessage("Failed to load saved players", true);
+      LOGGER.log(Level.SEVERE, "Error loading saved players for view", e);
+      AlertHelper.showErrorAlert(
+          "Load Error", "Could not load saved players: " + e.getMessage());
+      view.updateStatusMessage("Failed to load saved players.", true);
     }
   }
 
-  /**
-   * Handles when the Current Players tab is selected.
-   */
   public void onCurrentPlayersTabSelected() {
     PlayerManagementPanel panel = view.getPlayerManagementPanel();
     refreshCurrentPlayersList();
-    panel.showCurrentPlayers();
+    // panel.showCurrentPlayers(); // This logic is usually handled by PlayerManagementPanel itself on tab switch
+  }
+
+  public void onSavedPlayersTabSelected() {
+    loadSavedPlayersAndUpdateView();
+    // PlayerManagementPanel panel = view.getPlayerManagementPanel();
+    // panel.showSavedPlayers(); // This logic is usually handled by PlayerManagementPanel itself
   }
 
   /**
-   * Handles when the Saved Players tab is selected.
+   * Gets the current game type being configured.
+   * @return The current GameType.
    */
-  public void onSavedPlayersTabSelected() {
-    loadSavedPlayers();
-    PlayerManagementPanel panel = view.getPlayerManagementPanel();
-    panel.showSavedPlayers();
+  public GameType getCurrentGameType() {
+    return currentGameType;
   }
-
-
 }

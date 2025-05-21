@@ -184,10 +184,6 @@ class BoardTest {
       Map<Integer, Tile> tiles1 = board.getTiles();
       Map<Integer, Tile> tiles2 = board.getTiles();
       assertNotSame(tiles1, tiles2, "getTiles() should return a new unmodifiable wrapper each time for safety.");
-      // Note: Collections.unmodifiableMap returns a wrapper, not a deep copy of elements.
-      // The underlying map reference might be the same if not careful, but the wrapper is new.
-      // The current implementation of Board.getTiles() correctly returns a new unmodifiable wrapper
-      // around the internal map, or a new empty unmodifiable map if internal is null.
     }
   }
 

@@ -8,11 +8,9 @@ import java.util.List;
 
 public class SnakesAndLaddersStrategy implements GameStrategy {
   private final Dice dice;
-  private final Board board;
 
-  public SnakesAndLaddersStrategy(Board board, Dice dice) {
+  public SnakesAndLaddersStrategy(Dice dice) {
     this.dice = dice;
-    this.board = board;
   }
 
   @Override
@@ -51,12 +49,4 @@ public class SnakesAndLaddersStrategy implements GameStrategy {
       p.setOnCurrentTile(board.getTileById(1));
     }
   }
-
-  private void updatePlayerPosition(Player player, Tile oldTile, Tile newTile) {
-    oldTile.leavePlayer(player);
-    player.setOnCurrentTile(newTile);
-    newTile.landPlayer(player);
-    
-  }
-
 }

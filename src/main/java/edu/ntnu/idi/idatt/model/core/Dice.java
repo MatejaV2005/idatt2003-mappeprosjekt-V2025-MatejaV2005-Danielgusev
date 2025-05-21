@@ -17,7 +17,7 @@ public class Dice {
    * The list of Die objects managed by this Dice instance.
    * This list is final, but its contents (the Die objects) are mutable.
    */
-  private final List<Die> diceCollection;
+  private final List<Die> dice;
 
   /**
    * Constructs a new {@code Dice} object containing a specified number of dice.
@@ -30,7 +30,7 @@ public class Dice {
   public Dice(int numberOfDice) {
     ExceptionHandling.requireStrictlyPositive(numberOfDice, "Number of dice");
 
-    this.diceCollection = new ArrayList<>();
+    this.dice = new ArrayList<>();
     initializeDice(numberOfDice);
   }
 
@@ -40,9 +40,9 @@ public class Dice {
    *
    * @param numberOfDice The number of dice to create and add.
    */
-  private void initializeDice(int numberOfDice) {
+  public void initializeDice(int numberOfDice) {
     for (int i = 0; i < numberOfDice; i++) {
-      this.diceCollection.add(new Die());
+      dice.add(new Die());
     }
   }
 
@@ -54,57 +54,35 @@ public class Dice {
    */
   public int roll() {
     int sum = 0;
-    if (this.diceCollection.isEmpty()) {
+    if (this.dice.isEmpty()) {
       return 0;
     }
-    for (Die die : this.diceCollection) {
+    for (Die die : this.dice) {
       sum += die.roll();
     }
+
     return sum;
   }
 
-  /**
-   * Gets the last rolled value of a specific die in the collection.
-   * The dice are 0-indexed.
-   *
-   * @param dieIndex The 0-based index of the die whose value is requested.
-   * @return The last value rolled on the specified die.
-   * @throws IllegalArgumentException if dieIndex is out of bounds for this dice collection.
-   *
-   */
-  public int getDieValue(int dieIndex) {
-    if (this.diceCollection.isEmpty() && dieIndex == 0) { // Spesiell case for tom liste
-      throw new IllegalArgumentException("Die index (0) is out of bounds for an empty dice collection.");
-    }
-    ExceptionHandling.requireIndexRange(dieIndex, 0, this.diceCollection.size() - 1, "Die index");
-    return this.diceCollection.get(dieIndex).getLastRolledValue();
+  public int getDieValue(int dieNumber) {
+    ExceptionHandling.requireIndexRange(dieNumber, 0, dice.size(), "number of dice");
+
+    return dice.get(dieNumber).getLastRolledValue();
   }
 
-  /**
-   * Gets the total sum of the last rolled values of all dice in this collection.
-   * This method does not re-roll the dice; it sums their current face values.
-   *
-   * @return The sum of the current values of all dice. Returns 0 if there are no dice.
-   */
   public int getTotalDiceValue() {
     int totalValue = 0;
-    if (this.diceCollection.isEmpty()) {
-      return 0;
-    }
-    for (Die die : this.diceCollection) {
+    for (Die die : dice) {
       totalValue += die.getLastRolledValue();
     }
     return totalValue;
   }
 
-  /**
-   * Gets the number of dice in this collection.
-   *
-   * @return The count of dice.
-   */
   public int getNumberOfDice() {
-    return this.diceCollection.size();
+    return dice.size();
   }
+
+
 
   /**
    * Returns an unmodifiable list of the {@link Die} objects in this collection.
@@ -114,27 +92,10 @@ public class Dice {
    * @return An unmodifiable list of dice.
    */
   public List<Die> getDice() {
-    return Collections.unmodifiableList(this.diceCollection);
+    return Collections.unmodifiableList(this.dice);
   }
 
 
-  /**
-   * Returns a string representation of this Dice collection, typically indicating
-   * the number of dice it contains and possibly their current values.
-   *
-   * @return A string representation of this Dice object.
-   */
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder("Dice{count=").append(diceCollection.size()).append(", values=[");
-    for (int i = 0; i < diceCollection.size(); i++) {
-      sb.append(diceCollection.get(i).getLastRolledValue());
-      if (i < diceCollection.size() - 1) {
-        sb.append(", ");
-      }
-    }
-    sb.append("]}");
-    return sb.toString();
-  }
+
 
 }

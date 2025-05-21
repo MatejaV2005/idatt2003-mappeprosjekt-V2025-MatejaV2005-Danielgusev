@@ -1,6 +1,7 @@
 package edu.ntnu.idi.idatt.converter;
 
 
+
 import edu.ntnu.idi.idatt.DataTransfer.ActionDto;
 import edu.ntnu.idi.idatt.exceptions.InvalidBoardFormatException;
 import edu.ntnu.idi.idatt.factory.TileActionFactory;
@@ -12,7 +13,8 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 public class ActionConverter {
-  private static final Logger LOGGER = Logger.getLogger(ActionDto.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(ActionConverter.class.getName());
+
 
   public ActionDto toDto(TileAction action) {
     return new ActionDto(
@@ -50,7 +52,7 @@ public class ActionConverter {
 
     try {
       return TileActionFactory.createActionFromType(type, destinationTile, description);
-    } catch (NullPointerException | IllegalArgumentException e) { // Fang generelle feil fra factory
+    } catch (NullPointerException | IllegalArgumentException e) {
       throw new InvalidBoardFormatException("Failed to create action of type '" + type + "': " + e.getMessage(), e);
     }
   }
