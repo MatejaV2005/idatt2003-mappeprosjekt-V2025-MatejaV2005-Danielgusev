@@ -15,7 +15,7 @@ public class Dice {
 
   }
 
-  private void addDice(int numberOfDice) {
+  public void addDice(int numberOfDice) {
     for (int i = 0; i < numberOfDice; i++) {
       dice.add(new Die());
     }
@@ -42,6 +42,10 @@ public class Dice {
       totalValue += die.getLastRolledValue();
     }
     return totalValue;
+  }
+
+  public int getNumberOfDice() {
+    return dice.size();
   }
 
 
