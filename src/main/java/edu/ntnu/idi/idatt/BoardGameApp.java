@@ -30,7 +30,6 @@ public class BoardGameApp {
     } catch (BoardManagementException e) {
       LOGGER.log(Level.SEVERE, "Failed to initialize game: " + e.getMessage(), e);
       System.err.println("Unable to start game: " + e.getMessage());
-      // You might want to add additional error handling here based on your application's needs
     }
   }
 
@@ -81,7 +80,7 @@ public class BoardGameApp {
 
     // Initialize dice and game components
     Dice dice = new Dice(2);
-    this.strategy = new SnakesAndLaddersStrategy(defaultBoard, dice);
+    this.strategy = new SnakesAndLaddersStrategy(dice);
     this.game = new SnakesAndLaddersGame(defaultBoard, dice, strategy);
 
     // Load and add players (don't throw exception if player loading fails)

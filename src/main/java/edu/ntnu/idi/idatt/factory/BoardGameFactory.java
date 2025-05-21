@@ -32,13 +32,13 @@ public class BoardGameFactory {
     };
 
     Dice dice = new Dice(2);
-    GameStrategy strategy = new SnakesAndLaddersStrategy(board, dice);
+    GameStrategy strategy = new SnakesAndLaddersStrategy(dice);
     return new SnakesAndLaddersGame(board, dice, strategy);
   }
 
   public BoardGame createSnakesAndLaddersGame(Board customBoard) {
     Dice dice = new Dice(2);
-    GameStrategy strategy = new SnakesAndLaddersStrategy(customBoard, dice);
+    GameStrategy strategy = new SnakesAndLaddersStrategy(dice);
     return new SnakesAndLaddersGame(customBoard, dice, strategy);
   }
 

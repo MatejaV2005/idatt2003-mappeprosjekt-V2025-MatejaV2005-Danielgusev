@@ -8,11 +8,9 @@ import java.util.List;
 
 public class SnakesAndLaddersStrategy implements GameStrategy {
   private final Dice dice;
-  private final Board board;
 
-  public SnakesAndLaddersStrategy(Board board, Dice dice) {
+  public SnakesAndLaddersStrategy(Dice dice) {
     this.dice = dice;
-    this.board = board;
   }
 
   @Override
@@ -29,7 +27,7 @@ public class SnakesAndLaddersStrategy implements GameStrategy {
   public void executePlayerTurn(Player player) {
     int steps = dice.roll();
     Tile oldTile = player.getCurrentTile();
-    Tile newTile = player.move(steps);
+    Tile newTile = player.basicMove(steps);
 
     oldTile.leavePlayer(player);
     player.setOnCurrentTile(newTile);
