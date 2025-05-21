@@ -4,16 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Adjusted GameSelectionController to the new GameSelectionView refactor">
+    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Developed AstroRallyRenderer to display a Monopoly-style Astro Rally board and animate player token movements and action effects in JavaFX.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/BoardGameApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/BoardGameApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/converter/ActionConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/converter/ActionConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/PlayerFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/PlayerFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/AsteroidFieldAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/AsteroidFieldAction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/playertype/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/playertype/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/gameSelection/CreatePlayerPopup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/gameSelection/CreatePlayerPopup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/gameSelection/GameInfoPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/gameSelection/GameInfoPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/games/SnakesAndLaddersGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/games/SnakesAndLaddersGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/WinDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/WinDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GenericBoardGameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GenericBoardGameView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/PlayerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PlayerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +34,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Features" />
+        <entry key="$PROJECT_DIR$" value="finalize-javadoc-and-testing" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -76,6 +73,14 @@
             <RecentBranchesForRepo>
               <option name="branches">
                 <list>
+                  <RecentBranch>
+                    <option name="branchName" value="extended-boardgame-issue" />
+                    <option name="lastUsedInstant" value="1747769648" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="finalize-javadoc-and-testing" />
+                    <option name="lastUsedInstant" value="1747769610" />
+                  </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="BoardGame-view-controller-issue" />
                     <option name="lastUsedInstant" value="1746123235" />
@@ -117,30 +122,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Application.TitleScreen.executor": "Run",
-    "Application.fx.executor": "Run",
-    "JUnit.PlayerTest.executor": "Run",
-    "Maven.boardgame-V2025-IDATT2003 [clean].executor": "Run",
-    "Maven.boardgame-V2025-IDATT2003 [package].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "git-widget-placeholder": "extended-boardgame-issue",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/mappeprosjekt-vaar2025/boardgame-V2025-IDATT2003/src/main/resources/edu/ntnu/idi/idatt/view/resources/Dice",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TitleScreen.executor&quot;: &quot;Run&quot;,
+    &quot;Application.fx.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.boardgame-V2025-IDATT2003 [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.boardgame-V2025-IDATT2003 [package].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;extended-boardgame-issue&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/mappeprosjekt-vaar2025/boardgame-V2025-IDATT2003/src/main/resources/edu/ntnu/idi/idatt/view/resources/Dice&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\mappeprosjekt-vaar2025\boardgame-V2025-IDATT2003\src\main\resources\edu\ntnu\idi\idatt\view\resources\Dice" />
@@ -206,13 +211,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TileTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="boardgame-V2025-IDATT2003" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TileTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.PlayerTest" />
         <item itemvalue="Application.TitleScreen" />
-        <item itemvalue="JUnit.PlayerTest" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.fx" />
-        <item itemvalue="JUnit.PlayerTest" />
+        <item itemvalue="JUnit.TileTest (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -295,118 +309,8 @@
       <workItem from="1747491309437" duration="2233000" />
       <workItem from="1747493600138" duration="27983000" />
       <workItem from="1747578719638" duration="476000" />
-    </task>
-    <task id="LOCAL-00135" summary="updated boardFactory to create harder boards, refactored and improved code">
-      <option name="closed" value="true" />
-      <created>1747410456089</created>
-      <option name="number" value="00135" />
-      <option name="presentableId" value="LOCAL-00135" />
-      <option name="project" value="LOCAL" />
-      <updated>1747410456090</updated>
-    </task>
-    <task id="LOCAL-00136" summary="Added extensive JavaDoc, and description field for general descriptions">
-      <option name="closed" value="true" />
-      <created>1747495815062</created>
-      <option name="number" value="00136" />
-      <option name="presentableId" value="LOCAL-00136" />
-      <option name="project" value="LOCAL" />
-      <updated>1747495815063</updated>
-    </task>
-    <task id="LOCAL-00137" summary="added field specificType to distinguish specific types of Actions passed through general SpecialAction">
-      <option name="closed" value="true" />
-      <created>1747495869638</created>
-      <option name="number" value="00137" />
-      <option name="presentableId" value="LOCAL-00137" />
-      <option name="project" value="LOCAL" />
-      <updated>1747495869639</updated>
-    </task>
-    <task id="LOCAL-00138" summary="Tile converter has more separeted concern and doesnt directly set actions in FromDto method">
-      <option name="closed" value="true" />
-      <created>1747506040301</created>
-      <option name="number" value="00138" />
-      <option name="presentableId" value="LOCAL-00138" />
-      <option name="project" value="LOCAL" />
-      <updated>1747506040301</updated>
-    </task>
-    <task id="LOCAL-00139" summary="Enhance TileActionFactory with Javadoc, null checks, logging, and default ActionType descriptions. Refactored for more general creation of special tiles">
-      <option name="closed" value="true" />
-      <created>1747506413863</created>
-      <option name="number" value="00139" />
-      <option name="presentableId" value="LOCAL-00139" />
-      <option name="project" value="LOCAL" />
-      <updated>1747506413863</updated>
-    </task>
-    <task id="LOCAL-00140" summary="removed old JSON boards">
-      <option name="closed" value="true" />
-      <created>1747506431099</created>
-      <option name="number" value="00140" />
-      <option name="presentableId" value="LOCAL-00140" />
-      <option name="project" value="LOCAL" />
-      <updated>1747506431099</updated>
-    </task>
-    <task id="LOCAL-00141" summary="added a onGameStateUpdated method">
-      <option name="closed" value="true" />
-      <created>1747506960267</created>
-      <option name="number" value="00141" />
-      <option name="presentableId" value="LOCAL-00141" />
-      <option name="project" value="LOCAL" />
-      <updated>1747506960267</updated>
-    </task>
-    <task id="LOCAL-00142" summary="BoardConverter now is responsible for linking and setting actions">
-      <option name="closed" value="true" />
-      <created>1747506992639</created>
-      <option name="number" value="00142" />
-      <option name="presentableId" value="LOCAL-00142" />
-      <option name="project" value="LOCAL" />
-      <updated>1747506992641</updated>
-    </task>
-    <task id="LOCAL-00143" summary="added observer method to notify of State change">
-      <option name="closed" value="true" />
-      <created>1747507013296</created>
-      <option name="number" value="00143" />
-      <option name="presentableId" value="LOCAL-00143" />
-      <option name="project" value="LOCAL" />
-      <updated>1747507013296</updated>
-    </task>
-    <task id="LOCAL-00144" summary="minor refactoring of updatePlayerVisual method">
-      <option name="closed" value="true" />
-      <created>1747507046253</created>
-      <option name="number" value="00144" />
-      <option name="presentableId" value="LOCAL-00144" />
-      <option name="project" value="LOCAL" />
-      <updated>1747507046253</updated>
-    </task>
-    <task id="LOCAL-00145" summary="Updated to actually highlight current players correctly">
-      <option name="closed" value="true" />
-      <created>1747507099105</created>
-      <option name="number" value="00145" />
-      <option name="presentableId" value="LOCAL-00145" />
-      <option name="project" value="LOCAL" />
-      <updated>1747507099105</updated>
-    </task>
-    <task id="LOCAL-00146" summary="Minor refactoring of class">
-      <option name="closed" value="true" />
-      <created>1747507146009</created>
-      <option name="number" value="00146" />
-      <option name="presentableId" value="LOCAL-00146" />
-      <option name="project" value="LOCAL" />
-      <updated>1747507146009</updated>
-    </task>
-    <task id="LOCAL-00147" summary="removed playerModelObserver">
-      <option name="closed" value="true" />
-      <created>1747507162196</created>
-      <option name="number" value="00147" />
-      <option name="presentableId" value="LOCAL-00147" />
-      <option name="project" value="LOCAL" />
-      <updated>1747507162196</updated>
-    </task>
-    <task id="LOCAL-00148" summary="handles action tiles of special type too now">
-      <option name="closed" value="true" />
-      <created>1747507254638</created>
-      <option name="number" value="00148" />
-      <option name="presentableId" value="LOCAL-00148" />
-      <option name="project" value="LOCAL" />
-      <updated>1747507254638</updated>
+      <workItem from="1747830178262" duration="9362000" />
+      <workItem from="1747840759437" duration="9143000" />
     </task>
     <task id="LOCAL-00149" summary="Introduce async move animations via animationRunning flag and callback; improve playTurnButton and dicePanel state management through game state notification">
       <option name="closed" value="true" />
@@ -688,7 +592,119 @@
       <option name="project" value="LOCAL" />
       <updated>1747750192906</updated>
     </task>
-    <option name="localTasksCounter" value="184" />
+    <task id="LOCAL-00184" summary="Made a createAstroRallyGame method in BoardFactory">
+      <option name="closed" value="true" />
+      <created>1747832277018</created>
+      <option name="number" value="00184" />
+      <option name="presentableId" value="LOCAL-00184" />
+      <option name="project" value="LOCAL" />
+      <updated>1747832277018</updated>
+    </task>
+    <task id="LOCAL-00185" summary="Refactored BoardFactory, includes creation and assignement of AStroRally boards and actions">
+      <option name="closed" value="true" />
+      <created>1747832473514</created>
+      <option name="number" value="00185" />
+      <option name="presentableId" value="LOCAL-00185" />
+      <option name="project" value="LOCAL" />
+      <updated>1747832473514</updated>
+    </task>
+    <task id="LOCAL-00186" summary="added getNumberOfDice method in Dice">
+      <option name="closed" value="true" />
+      <created>1747832502977</created>
+      <option name="number" value="00186" />
+      <option name="presentableId" value="LOCAL-00186" />
+      <option name="project" value="LOCAL" />
+      <updated>1747832502977</updated>
+    </task>
+    <task id="LOCAL-00187" summary="GameViewFactory now supports creating view for AstroRally game">
+      <option name="closed" value="true" />
+      <created>1747832648031</created>
+      <option name="number" value="00187" />
+      <option name="presentableId" value="LOCAL-00187" />
+      <option name="project" value="LOCAL" />
+      <updated>1747832648031</updated>
+    </task>
+    <task id="LOCAL-00188" summary="developed new AsteroidFieldAction, implements TileAction">
+      <option name="closed" value="true" />
+      <created>1747840892208</created>
+      <option name="number" value="00188" />
+      <option name="presentableId" value="LOCAL-00188" />
+      <option name="project" value="LOCAL" />
+      <updated>1747840892208</updated>
+    </task>
+    <task id="LOCAL-00189" summary="Developed new BoostPadAction, implements TileAction, moves player +2 tiles forward">
+      <option name="closed" value="true" />
+      <created>1747840953214</created>
+      <option name="number" value="00189" />
+      <option name="presentableId" value="LOCAL-00189" />
+      <option name="project" value="LOCAL" />
+      <updated>1747840953214</updated>
+    </task>
+    <task id="LOCAL-00190" summary="Extensive javaDoc + TileActionFactory now handles creation of BoostPad and AsteroidField">
+      <option name="closed" value="true" />
+      <created>1747841186487</created>
+      <option name="number" value="00190" />
+      <option name="presentableId" value="LOCAL-00190" />
+      <option name="project" value="LOCAL" />
+      <updated>1747841186487</updated>
+    </task>
+    <task id="LOCAL-00191" summary="Removed redundant and unused Board parameter from SnakesAndLaddersStrategy, refactored corresponding methods">
+      <option name="closed" value="true" />
+      <created>1747842675024</created>
+      <option name="number" value="00191" />
+      <option name="presentableId" value="LOCAL-00191" />
+      <option name="project" value="LOCAL" />
+      <updated>1747842675024</updated>
+    </task>
+    <task id="LOCAL-00192" summary="Minor refactoring, removed unused method">
+      <option name="closed" value="true" />
+      <created>1747846864744</created>
+      <option name="number" value="00192" />
+      <option name="presentableId" value="LOCAL-00192" />
+      <option name="project" value="LOCAL" />
+      <updated>1747846864744</updated>
+    </task>
+    <task id="LOCAL-00193" summary="Started developing AstroRallyStrategy, made methods for executing turn and calculating final dest">
+      <option name="closed" value="true" />
+      <created>1747854149393</created>
+      <option name="number" value="00193" />
+      <option name="presentableId" value="LOCAL-00193" />
+      <option name="project" value="LOCAL" />
+      <updated>1747854149393</updated>
+    </task>
+    <task id="LOCAL-00194" summary="Finished development of AstroRallyStrategy, added win checks and init of players">
+      <option name="closed" value="true" />
+      <created>1747854286633</created>
+      <option name="number" value="00194" />
+      <option name="presentableId" value="LOCAL-00194" />
+      <option name="project" value="LOCAL" />
+      <updated>1747854286633</updated>
+    </task>
+    <task id="LOCAL-00195" summary="Developed AstroRallyGame class with turn handling, lap tracking, and action tile support.">
+      <option name="closed" value="true" />
+      <created>1747854684881</created>
+      <option name="number" value="00195" />
+      <option name="presentableId" value="LOCAL-00195" />
+      <option name="project" value="LOCAL" />
+      <updated>1747854684882</updated>
+    </task>
+    <task id="LOCAL-00196" summary="Made StrategyFactory for centralized creation of strategies">
+      <option name="closed" value="true" />
+      <created>1747854729792</created>
+      <option name="number" value="00196" />
+      <option name="presentableId" value="LOCAL-00196" />
+      <option name="project" value="LOCAL" />
+      <updated>1747854729792</updated>
+    </task>
+    <task id="LOCAL-00197" summary="Developed AstroRallyRenderer to display a Monopoly-style Astro Rally board and animate player token movements and action effects in JavaFX.">
+      <option name="closed" value="true" />
+      <created>1747855510892</created>
+      <option name="number" value="00197" />
+      <option name="presentableId" value="LOCAL-00197" />
+      <option name="project" value="LOCAL" />
+      <updated>1747855510892</updated>
+    </task>
+    <option name="localTasksCounter" value="198" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -706,22 +722,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added new animateTokenDirectly to handle immediate transition in BoardRenderer" />
-    <MESSAGE value="Added implementation of animateTokenDirectly" />
-    <MESSAGE value="Added implementation of animateTokenDirectly in BoardComponent, but non functioning yet" />
-    <MESSAGE value="added a resetGameForRestart method for when needing to re-instantiate starting instance of game" />
-    <MESSAGE value="BoardGameController has methods for handling post-win actions of a game" />
-    <MESSAGE value="implemented restartGame method for restarting game in navigation controller" />
-    <MESSAGE value="minor refactoring and renaming" />
-    <MESSAGE value="Resolved Merge conflict" />
-    <MESSAGE value="chanegd method from requesting gameSetup to GameSelection" />
-    <MESSAGE value="Added AstroRally gameMode" />
-    <MESSAGE value="Ommited method for creating astroRallyGame" />
-    <MESSAGE value="Removed game modes not of use, added astroRally mode" />
-    <MESSAGE value="modified corresponding Logic to be correct" />
-    <MESSAGE value="Refactored NavigationController to handle dynamic navigation for different GameSetups" />
-    <MESSAGE value="Refactored GameSetupView to a simplified layout when choosing AstroRally game, inlined difficulty buttons" />
-    <MESSAGE value="Added new action types for extended AstroRally Game" />
     <MESSAGE value="Added AstroRally gamemode enum" />
     <MESSAGE value="made pplayer not abstract, added new fields for astroGame" />
     <MESSAGE value="removed bot and human player" />
@@ -731,7 +731,23 @@
     <MESSAGE value="Refactored GameSetupController, now it has centralized event handling, prepares GUI per game type" />
     <MESSAGE value="Refactored GameSelectionView to choose ONLY between S&amp;L and AstroValley" />
     <MESSAGE value="Adjusted GameSelectionController to the new GameSelectionView refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adjusted GameSelectionController to the new GameSelectionView refactor" />
+    <MESSAGE value="Made a createAstroRallyGame method in BoardFactory" />
+    <MESSAGE value="Refactored BoardFactory, includes creation and assignement of AStroRally boards and actions" />
+    <MESSAGE value="added getNumberOfDice method in Dice" />
+    <MESSAGE value="GameViewFactory now supports creating view for AstroRally game" />
+    <MESSAGE value="developed new AsteroidFieldAction, implements TileAction" />
+    <MESSAGE value="Developed new BoostPadAction, implements TileAction, moves player +2 tiles forward" />
+    <MESSAGE value="Extensive javaDoc + TileActionFactory now handles creation of BoostPad and AsteroidField" />
+    <MESSAGE value="Removed redundant and unused Board parameter" />
+    <MESSAGE value="Removed redundant and unused Board parameter from SnakesAndLaddersStrategy, refactored corresponding methods" />
+    <MESSAGE value="Minor refactoring, removed unused method" />
+    <MESSAGE value="Started developing AstroRallyStrategy, made methods for executing turn and calculating final dest" />
+    <MESSAGE value="Finished development of AstroRallyStrategy" />
+    <MESSAGE value="Finished development of AstroRallyStrategy, added win checks and init of players" />
+    <MESSAGE value="Developed AstroRallyGame class with turn handling, lap tracking, and action tile support." />
+    <MESSAGE value="Made StrategyFactory for centralized creation of strategies" />
+    <MESSAGE value="Developed AstroRallyRenderer to display a Monopoly-style Astro Rally board and animate player token movements and action effects in JavaFX." />
+    <option name="LAST_COMMIT_MESSAGE" value="Developed AstroRallyRenderer to display a Monopoly-style Astro Rally board and animate player token movements and action effects in JavaFX." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
