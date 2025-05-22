@@ -1,117 +1,134 @@
 package edu.ntnu.idi.idatt.model.games;
 
-import edu.ntnu.idi.idatt.model.core.actions.ActionType;
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.core.Dice;
-import edu.ntnu.idi.idatt.model.core.Tile;
-import edu.ntnu.idi.idatt.model.core.actions.TileAction;
 import edu.ntnu.idi.idatt.model.core.Player;
+import edu.ntnu.idi.idatt.model.core.Tile;
+import edu.ntnu.idi.idatt.model.core.actions.ActionType;
+import edu.ntnu.idi.idatt.model.core.actions.TileAction;
 import edu.ntnu.idi.idatt.model.strategy.AstroRallyStrategy;
 import edu.ntnu.idi.idatt.model.strategy.GameStrategy;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import java.util.Objects;
 
+/**
+ * Concrete implementation of {@link BoardGame} for the Astro Rally game variant.
+ *
+ * <p>Uses an {@link AstroRallyStrategy} to manage turn execution, win
+ * conditions, and game initialization logic. Handles player movement,
+ * lap counting, and special tile effects unique to Astro Rally.</p>
+ *
+ * @see AstroRallyStrategy
+ * @see BoardGame
+ */
 public class AstroRallyGame extends BoardGame {
 
+  /**
+   * Creates a new AstroRallyGame instance.
+   *
+   * @param board    the game board to use; must not be null
+   * @param dice     the dice mechanism; must not be null
+   * @param strategy the strategy implementing Astro Rally rules;
+   *                 must be an instance of {@link AstroRallyStrategy}
+   * @throws IllegalArgumentException if {@code strategy} is not an AstroRallyStrategy
+   */
   public AstroRallyGame(Board board, Dice dice, GameStrategy strategy) {
     super(board, dice, strategy);
     if (!(strategy instanceof AstroRallyStrategy)) {
-      throw new IllegalArgumentException("AstroRallyGame requires an AstroRallyStrategy instance.");
+      throw new IllegalArgumentException(
+          "AstroRallyGame requires an AstroRallyStrategy instance.");
     }
   }
 
   @Override
   protected void handlePlayerTurn(Player player) {
-    Objects.requireNonNull(player, "Player cannot be null for handlePlayerTurn");
+    Objects.requireNonNull(player, "player cannot be null for handlePlayerTurn");
     Tile oldTile = player.getCurrentTile();
     if (oldTile == null) {
       return;
     }
 
     gameEngine.playTurn(player);
-
-    Tile newTileAfterPrimaryMove = player.getCurrentTile();
-    if (newTileAfterPrimaryMove == null) {
+    Tile newTile = player.getCurrentTile();
+    if (newTile == null) {
       player.setOnCurrentTile(oldTile);
-      newTileAfterPrimaryMove = oldTile;
+      newTile = oldTile;
     }
 
-    boolean playerPhysicallyMovedPrimary = oldTile.getTileId() != newTileAfterPrimaryMove.getTileId();
-
-    if (playerPhysicallyMovedPrimary) {
+    boolean moved = oldTile.getTileId() != newTile.getTileId();
+    if (moved) {
       oldTile.leavePlayer(player);
-      newTileAfterPrimaryMove.landPlayer(player);
+      newTile.landPlayer(player);
     }
 
-    notifyPlayerMoved(player, oldTile, newTileAfterPrimaryMove);
-    handleLapCompletion(player, oldTile, newTileAfterPrimaryMove, playerPhysicallyMovedPrimary);
+    notifyPlayerMoved(player, oldTile, newTile);
+    handleLapCompletion(player, oldTile, newTile, moved);
 
-    if (newTileAfterPrimaryMove.isActionTile()) {
-      handleSpecialTileAction(player, newTileAfterPrimaryMove);
+    if (newTile.isActionTile()) {
+      handleSpecialTileAction(player, newTile);
     }
   }
 
   private void handleLapCompletion(
-      Player player, Tile oldTile, Tile newTile, boolean playerMoved) {
-    if (!playerMoved || this.board.getBoardSize() <= 0) {
+      Player player,
+      Tile oldTile,
+      Tile newTile,
+      boolean moved) {
+    if (!moved || board.getBoardSize() <= 0) {
       return;
     }
 
-    boolean crossedMidPointToLow =
-        oldTile.getTileId() > this.board.getBoardSize() / 2
-            && newTile.getTileId() < this.board.getBoardSize() / 2;
+    int size = board.getBoardSize();
+    boolean crossedMidToLow =
+        oldTile.getTileId() > size / 2 && newTile.getTileId() < size / 2;
     boolean idDecreased = oldTile.getTileId() > newTile.getTileId();
 
-    if (crossedMidPointToLow && idDecreased) {
-      player.incrementLapsCompleted();
-    } else if (!crossedMidPointToLow && idDecreased && newTile.getTileId() == 1) {
+    if ((crossedMidToLow && idDecreased)
+        || (!crossedMidToLow && idDecreased && newTile.getTileId() == 1)) {
       player.incrementLapsCompleted();
     }
   }
 
   @Override
-  protected void handleSpecialTileAction(Player player, Tile triggerActionTile) {
-    ExceptionHandling.requireNonNull(player, "Player cannot be null");
-    ExceptionHandling.requireNonNull(triggerActionTile, "Action Tile cannot be null");
+  protected void handleSpecialTileAction(Player player, Tile triggerTile) {
+    ExceptionHandling.requireNonNull(player, "player cannot be null");
+    ExceptionHandling.requireNonNull(triggerTile, "triggerTile cannot be null");
 
-    TileAction landAction = triggerActionTile.getLandAction();
-    if (landAction == null || landAction.getActionType() == ActionType.NO_OP) {
-      notifyActionTileEffect(player, triggerActionTile, triggerActionTile);
+    TileAction action = triggerTile.getLandAction();
+    if (action.getActionType() == ActionType.NO_OP) {
+      notifyActionTileEffect(player, triggerTile, triggerTile);
       return;
     }
 
-    Tile tileBeforeAction = player.getCurrentTile();
+    Tile before = player.getCurrentTile();
+    action.perform(player);
+    Tile after = player.getCurrentTile();
 
-    landAction.perform(player);
-
-    Tile tileAfterAction = player.getCurrentTile();
-
-    if (tileAfterAction != null && tileAfterAction.getTileId() != tileBeforeAction.getTileId()) {
-      tileBeforeAction.leavePlayer(player);
-      tileAfterAction.landPlayer(player);
-
-      notifyPlayerMoved(player, tileBeforeAction, tileAfterAction);
-      notifyActionTileEffect(player, triggerActionTile, tileAfterAction);
+    if (after != null && after.getTileId() != before.getTileId()) {
+      before.leavePlayer(player);
+      after.landPlayer(player);
+      notifyPlayerMoved(player, before, after);
+      notifyActionTileEffect(player, triggerTile, after);
     } else {
-      notifyActionTileEffect(player, triggerActionTile, triggerActionTile);
+      notifyActionTileEffect(player, triggerTile, triggerTile);
     }
   }
 
   @Override
   protected boolean checkWinCondition(Player player) {
-    Objects.requireNonNull(player, "Player cannot be null for checkWinCondition");
-    boolean isWinner = gameEngine.isWinner(player);
-    if (isWinner) {
+    Objects.requireNonNull(player, "player cannot be null for checkWinCondition");
+    boolean winner = gameEngine.isWinner(player);
+    if (winner) {
       notifyOnGameWon(player);
     }
-    return isWinner;
+    return winner;
   }
 
   @Override
   protected void initializeGameState() {
-    if (this.players != null && !this.players.isEmpty() && this.board != null && this.gameEngine != null) {
-      this.gameEngine.initializeGame(this.players);
+    if (!players.isEmpty()) {
+      gameEngine.initializeGame(players);
     }
   }
 
