@@ -3,32 +3,34 @@ package edu.ntnu.idi.idatt.model.core.actions;
 import edu.ntnu.idi.idatt.model.core.Player;
 
 /**
- * Represents a tile action that performs no operation.
- * This class is a singleton, as a no-operation action is stateless.
+ * A stateless, singleton action that does nothing when performed.
+ *
+ * <p>Used as a default or fallback when no other action applies.
+ *
+ * @see TileAction
+ * @since 1.0
  */
+@SuppressWarnings("checkstyle:Indentation")
 public class NoOperationAction implements TileAction {
     public static final NoOperationAction INSTANCE = new NoOperationAction();
 
-    /**
-     * Private constructor to enforce the singleton pattern.
-     */
     private NoOperationAction() {
     }
 
     /**
-     * Performs no action on the player.
+     * Does nothing.
      *
-     * @param player The player on whom the action is (not) performed.
+     * @param player the player (ignored)
      */
     @Override
     public void perform(Player player) {
-        // No operation is performed.
+        // intentionally no-op
     }
 
     /**
-     * Returns the type of this action.
+     * {@inheritDoc}
      *
-     * @return {@link ActionType#NO_OP}.
+     * @return {@link ActionType#NO_OP}
      */
     @Override
     public ActionType getActionType() {
@@ -36,10 +38,9 @@ public class NoOperationAction implements TileAction {
     }
 
     /**
-     * Returns the destination tile ID.
-     * For a no-operation action, there is no destination.
+     * {@inheritDoc}
      *
-     * @return Always -1.
+     * @return always -1, since there is no destination
      */
     @Override
     public int getDestinationTileId() {
@@ -47,9 +48,9 @@ public class NoOperationAction implements TileAction {
     }
 
     /**
-     * Returns a description of this action.
+     * {@inheritDoc}
      *
-     * @return A string indicating no operation is performed.
+     * @return a fixed "No operation performed" message
      */
     @Override
     public String getDescription() {
