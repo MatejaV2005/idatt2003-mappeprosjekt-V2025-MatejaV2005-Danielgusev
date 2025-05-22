@@ -13,25 +13,17 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test class for {@link Board}.
- * Tests the construction, configuration, and functionality of the Board class.
- */
+
 class BoardTest {
 
   private Board board;
 
-  /**
-   * Sets up a basic board instance before each test.
-   */
   @BeforeEach
   void setUp() {
     board = new Board();
   }
 
-  /**
-   * Tests that the default constructor initializes properties correctly.
-   */
+
   @Test
   void defaultConstructor_InitializesBoardCorrectly() {
     assertNotNull(board.getTiles());
@@ -41,9 +33,7 @@ class BoardTest {
     assertEquals(0, board.getBoardSize());
   }
 
-  /**
-   * Tests that the setRows method validates input correctly.
-   */
+
   @Test
   void setRows_RejectsNonPositiveValues() {
     IllegalArgumentException exception = assertThrows(
@@ -55,9 +45,7 @@ class BoardTest {
     assertThrows(IllegalArgumentException.class, () -> board.setRows(-1));
   }
 
-  /**
-   * Tests that the setColumns method validates input correctly.
-   */
+
   @Test
   void setColumns_RejectsNonPositiveValues() {
     IllegalArgumentException exception = assertThrows(
@@ -69,9 +57,6 @@ class BoardTest {
     assertThrows(IllegalArgumentException.class, () -> board.setColumns(-1));
   }
 
-  /**
-   * Tests that rows and columns can be set successfully.
-   */
   @Test
   void setDimensions_UpdatesRowsAndColumns() {
     board.setRows(5);
@@ -81,9 +66,6 @@ class BoardTest {
     assertEquals(10, board.getColumns());
   }
 
-  /**
-   * Tests that tiles can be set successfully.
-   */
   @Test
   void setTiles_UpdatesTilesMap() {
     Map<Integer, Tile> newTiles = new HashMap<>();
@@ -95,9 +77,7 @@ class BoardTest {
     assertEquals(newTiles.get(1), board.getTileById(1));
   }
 
-  /**
-   * Tests that setTiles rejects null input.
-   */
+
   @Test
   void setTiles_RejectsNullMap() {
     IllegalArgumentException exception = assertThrows(
@@ -107,9 +87,6 @@ class BoardTest {
     assertEquals("Tiles map for setTiles cannot be null.", exception.getMessage());
   }
 
-  /**
-   * Tests that the parameterized constructor initializes the board correctly.
-   */
   @Test
   void parameterizedConstructor_InitializesBoardCorrectly() {
     board = new Board(3, 4);
@@ -119,16 +96,12 @@ class BoardTest {
     assertEquals(4, board.getColumns());
     assertEquals(12, board.getBoardSize());
 
-    // Check that all tiles are created
     for (int i = 1; i <= 12; i++) {
       assertNotNull(board.getTileById(i));
       assertEquals(i, board.getTileById(i).getTileId());
     }
   }
 
-  /**
-   * Tests that tiles are linked sequentially after construction.
-   */
   @Test
   void parameterizedConstructor_LinksTilesSequentially() {
     board = new Board(2, 2);
@@ -139,9 +112,6 @@ class BoardTest {
     assertNull(board.getTileById(4).getNextTile());
   }
 
-  /**
-   * Tests that parameterized constructor validates rows.
-   */
   @Test
   void parameterizedConstructor_RejectsZeroRows() {
     IllegalArgumentException exception = assertThrows(
@@ -151,9 +121,7 @@ class BoardTest {
     assertEquals("Number of rows must be strictly positive (greater than 0).", exception.getMessage());
   }
 
-  /**
-   * Tests that parameterized constructor validates columns.
-   */
+
   @Test
   void parameterizedConstructor_RejectsNegativeColumns() {
     IllegalArgumentException exception = assertThrows(
@@ -163,9 +131,7 @@ class BoardTest {
     assertEquals("Number of columns must be strictly positive (greater than 0).", exception.getMessage());
   }
 
-  /**
-   * Tests that getTileById returns the correct tile.
-   */
+
   @Test
   void getTileById_ReturnsCorrectTile() {
     board = new Board(5, 5);
@@ -176,14 +142,11 @@ class BoardTest {
     assertEquals(5, tile5.getTileId());
   }
 
-  /**
-   * Tests that getTileById validates the tile ID.
-   */
+
   @Test
   void getTileById_RejectsInvalidIds() {
     board = new Board(5, 5);
 
-    // Test zero ID
     IllegalArgumentException zeroException = assertThrows(
         IllegalArgumentException.class,
         () -> board.getTileById(0)
@@ -191,7 +154,6 @@ class BoardTest {
     assertEquals("tileId for getTileById must be strictly positive (greater than 0).",
         zeroException.getMessage());
 
-    // Test negative ID
     IllegalArgumentException negativeException = assertThrows(
         IllegalArgumentException.class,
         () -> board.getTileById(-1)
@@ -199,7 +161,6 @@ class BoardTest {
     assertEquals("tileId for getTileById must be strictly positive (greater than 0).",
         negativeException.getMessage());
 
-    // Test non-existent ID
     IllegalArgumentException nonExistentException = assertThrows(
         IllegalArgumentException.class,
         () -> board.getTileById(26)
@@ -208,9 +169,6 @@ class BoardTest {
         nonExistentException.getMessage());
   }
 
-  /**
-   * Tests that getBoardSize returns the correct number of tiles.
-   */
   @Test
   void getBoardSize_ReturnsCorrectNumberOfTiles() {
     board = new Board(5, 5);
@@ -220,9 +178,7 @@ class BoardTest {
     assertEquals(1, smallBoard.getBoardSize());
   }
 
-  /**
-   * Tests that getTiles returns an unmodifiable map.
-   */
+
   @Test
   void getTiles_ReturnsUnmodifiableMap() {
     board = new Board(2, 2);
@@ -235,15 +191,13 @@ class BoardTest {
     );
   }
 
-  /**
-   * Tests that resetBoard re-initializes and relinks tiles.
-   */
+
   @Test
   void resetBoard_ReInitializesAndRelinksTiles() {
     board = new Board(2, 2); // 4 tiles
     Tile originalTile1 = board.getTileById(1);
-    Tile originalTile2 = board.getTileById(2);
-    originalTile1.setNextTileId(99); // Mess up linking
+
+    originalTile1.setNextTileId(99);
 
     board.resetBoard();
 
@@ -256,9 +210,7 @@ class BoardTest {
     assertEquals(2, newTile1.getNextTileId());
   }
 
-  /**
-   * Tests that relinkTiles correctly restores the next tile references.
-   */
+
   @Test
   void relinkTiles_RestoresNextTileReferences() {
     board = new Board(1, 3);
@@ -267,7 +219,6 @@ class BoardTest {
     Tile t2 = new Tile(2, 0, 1);
     Tile t3 = new Tile(3, 0, 2);
 
-    // Set up next tile relationships
     t1.setNextTileId(2);
     t1.setNextTile(t2);
 

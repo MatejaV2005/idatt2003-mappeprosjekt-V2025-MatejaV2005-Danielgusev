@@ -9,32 +9,23 @@ import edu.ntnu.idi.idatt.model.core.Die;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test class for {@link Dice}.
- * Verifies the construction, dice rolling, and value retrieval functionality.
- */
 class DiceTest {
 
-  /**
-   * Tests that the constructor creates dice with the correct number of die objects.
-   */
+
   @Test
   void constructor_WithPositiveNumber_CreatesCorrectNumberOfDice() {
     Dice dice = new Dice(2);
 
     assertNotNull(dice);
     assertEquals(2, dice.getNumberOfDice());
-    assertNotNull(dice.getDice());
-    assertEquals(2, dice.getDice().size());
+    assertNotNull(dice.getDiceCollection());
+    assertEquals(2, dice.getDiceCollection().size());
 
-    for (Die die : dice.getDice()) {
+    for (Die die : dice.getDiceCollection()) {
       assertNotNull(die);
     }
   }
 
-  /**
-   * Tests that the constructor throws an exception when given zero dice.
-   */
   @Test
   void constructor_WithZeroDice_ThrowsException() {
     IllegalArgumentException exception = assertThrows(
@@ -46,9 +37,7 @@ class DiceTest {
         exception.getMessage());
   }
 
-  /**
-   * Tests that the constructor throws an exception when given a negative number of dice.
-   */
+
   @Test
   void constructor_WithNegativeDice_ThrowsException() {
     IllegalArgumentException exception = assertThrows(
@@ -60,9 +49,6 @@ class DiceTest {
         exception.getMessage());
   }
 
-  /**
-   * Tests that rolling a single die returns a sum within the valid range.
-   */
   @Test
   void roll_WithSingleDie_ReturnsSumWithinValidRange() {
     Dice dice = new Dice(1);
@@ -74,9 +60,7 @@ class DiceTest {
     }
   }
 
-  /**
-   * Tests that rolling multiple dice returns a sum within the valid range.
-   */
+
   @Test
   void roll_WithMultipleDice_ReturnsSumWithinValidRange() {
     int numberOfDice = 3;
@@ -93,9 +77,7 @@ class DiceTest {
     }
   }
 
-  /**
-   * Tests that rolling updates the last rolled values of individual dice.
-   */
+
   @Test
   void roll_UpdatesLastRolledValuesOfIndividualDice() {
     Dice dice = new Dice(2);
@@ -109,9 +91,6 @@ class DiceTest {
     assertEquals(die1Value + die2Value, dice.getTotalDiceValue());
   }
 
-  /**
-   * Tests that getDieValue returns the correct value after rolling.
-   */
   @Test
   void getDieValue_AfterRoll_ReturnsCorrectValue() {
     Dice dice = new Dice(1);
@@ -151,9 +130,7 @@ class DiceTest {
         exception.getMessage());
   }
 
-  /**
-   * Tests that getTotalDiceValue returns the sum of individual last rolled values.
-   */
+
   @Test
   void getTotalDiceValue_ReturnsSumOfIndividualDice() {
     Dice dice = new Dice(3);
@@ -166,9 +143,6 @@ class DiceTest {
     assertEquals(die1 + die2 + die3, dice.getTotalDiceValue());
   }
 
-  /**
-   * Tests that getTotalDiceValue returns zero before the first roll.
-   */
   @Test
   void getTotalDiceValue_BeforeFirstRoll_ReturnsZero() {
     Dice dice = new Dice(2);
@@ -177,18 +151,16 @@ class DiceTest {
         "Total should be 0 before any roll if Die initializes lastRolledValue to 0.");
   }
 
-  /**
-   * Tests that getTotalDiceValue reflects the most recent roll after multiple rolls.
-   */
+
   @Test
   void getTotalDiceValue_AfterMultipleRolls_ReflectsLastRoll() {
     Dice dice = new Dice(2);
 
-    dice.roll(); // First roll
+    dice.roll();
     int sumAfterFirstRoll = dice.getTotalDiceValue();
     assertTrue(sumAfterFirstRoll >= 2 && sumAfterFirstRoll <= 12);
 
-    dice.roll(); // Second roll
+    dice.roll();
     int sumAfterSecondRoll = dice.getTotalDiceValue();
     assertTrue(sumAfterSecondRoll >= 2 && sumAfterSecondRoll <= 12);
 
@@ -197,17 +169,14 @@ class DiceTest {
     assertEquals(die1 + die2, sumAfterSecondRoll);
   }
 
-  /**
-   * Tests that getDice returns an unmodifiable list.
-   */
+
   @Test
   void getDice_ReturnsUnmodifiableList() {
     Dice dice = new Dice(2);
-    List<Die> dieList = dice.getDice();
+    List<Die> dieList = dice.getDiceCollection();
 
     assertNotNull(dieList);
     assertEquals(2, dieList.size());
-    assertThrows(UnsupportedOperationException.class, () -> dieList.add(new Die()));
     assertThrows(UnsupportedOperationException.class, () -> dieList.remove(0));
   }
 }

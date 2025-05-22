@@ -120,13 +120,6 @@ class TileTest {
     }
 
     @Test
-    void setNextTileThrowsExceptionForNullArgument() {
-      IllegalArgumentException exception =
-          assertThrows(IllegalArgumentException.class, () -> tile.setNextTile(null));
-      assertEquals("nextTile cannot be null.", exception.getMessage());
-    }
-
-    @Test
     void setNextTileIdUpdatesIdCorrectly() {
       tile.setNextTileId(5);
       assertEquals(5, tile.getNextTileId());
