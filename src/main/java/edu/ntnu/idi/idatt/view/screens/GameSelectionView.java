@@ -20,8 +20,16 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
- * View component for the game selection screen. Allows players to select from different game
- * modes.
+ * JavaFX view for selecting a board game mode.
+ *
+ * <p>Presents a full-screen scene with a background image, two selectable game-mode panels
+ * ("Snakes & Ladders" and "Astro Rally"), and a back button. Loads required CSS and
+ * resources, falling back to defaults on failure. User interactions are delegated
+ * to a {@link GameSelectionController}.
+ * </p>
+ *
+ * @see GameSelectionController
+ * @see ResourceLoader
  */
 public class GameSelectionView {
 
@@ -36,15 +44,20 @@ public class GameSelectionView {
 
   private final Scene scene;
   private final StackPane root;
-  private final VBox contentBox;
   private final HBox gameModesContainer;
   private Button backButton;
   private GameSelectionController controller;
 
+  /**
+   * Constructs the game selection view, initializing the layout, background,
+   * game-mode panels, and back button. Creates a 1280×720 scene and attempts
+   * to load the associated CSS stylesheet, falling back on a warning or error
+   * logs if loading fails.
+   */
   public GameSelectionView() {
     this.root = new StackPane();
-    this.contentBox = new VBox(30);
-    this.contentBox.setAlignment(Pos.CENTER);
+    VBox contentBox = new VBox(30);
+    contentBox.setAlignment(Pos.CENTER);
     this.gameModesContainer = new HBox(60);
     this.gameModesContainer.setAlignment(Pos.CENTER);
 
@@ -125,10 +138,9 @@ public class GameSelectionView {
 
     for (Node node : gameModesContainer.getChildren()) {
       if (node instanceof VBox panel) {
-        Node firstChild = panel.getChildren().get(0);
+        Node firstChild = panel.getChildren().getFirst();
         if (firstChild instanceof Label label) {
-          String gameMode = label.getText();
-          final String selectedGameMode = gameMode;
+          final String selectedGameMode = label.getText();
           panel.setOnMouseClicked(event -> controller.onGameModeSelected(selectedGameMode));
         } else {
           LOGGER.log(
