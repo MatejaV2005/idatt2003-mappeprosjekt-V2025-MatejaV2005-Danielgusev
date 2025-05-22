@@ -4,7 +4,7 @@ import edu.ntnu.idi.idatt.exceptions.BoardManagementException;
 import edu.ntnu.idi.idatt.exceptions.InvalidBoardFormatException;
 import edu.ntnu.idi.idatt.exceptions.PlayerManagementException;
 import edu.ntnu.idi.idatt.model.core.Board;
-import edu.ntnu.idi.idatt.model.core.GameType;
+import edu.ntnu.idi.idatt.model.games.GameType;
 import edu.ntnu.idi.idatt.model.management.BoardManager;
 import edu.ntnu.idi.idatt.model.management.PlayerManager;
 import edu.ntnu.idi.idatt.model.core.Player;

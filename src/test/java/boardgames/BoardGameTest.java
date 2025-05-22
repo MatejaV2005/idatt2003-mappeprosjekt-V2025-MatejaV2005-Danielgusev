@@ -16,7 +16,7 @@ import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.core.Dice;
 import edu.ntnu.idi.idatt.model.core.GameEngine;
-import edu.ntnu.idi.idatt.model.core.GameType;
+import edu.ntnu.idi.idatt.model.games.GameType;
 import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.model.core.Player;
 import edu.ntnu.idi.idatt.model.strategy.GameStrategy;

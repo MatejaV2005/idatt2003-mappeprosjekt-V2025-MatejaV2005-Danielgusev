@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.controller;
 
-import edu.ntnu.idi.idatt.model.core.GameType;
+import edu.ntnu.idi.idatt.model.games.GameType;
 import edu.ntnu.idi.idatt.view.screens.GameSelectionView;
 import java.util.Objects;
 import java.util.logging.Level;

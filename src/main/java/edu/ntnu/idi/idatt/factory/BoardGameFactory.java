@@ -3,7 +3,7 @@ package edu.ntnu.idi.idatt.factory;
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.core.Dice;
-import edu.ntnu.idi.idatt.model.core.GameType;
+import edu.ntnu.idi.idatt.model.games.GameType;
 import edu.ntnu.idi.idatt.model.games.AstroRallyGame;
 import edu.ntnu.idi.idatt.model.games.SnakesAndLaddersGame;
 import edu.ntnu.idi.idatt.model.strategy.GameStrategy;

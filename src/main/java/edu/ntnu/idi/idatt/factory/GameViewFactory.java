@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.factory;
 
-import edu.ntnu.idi.idatt.model.core.GameType;
+import edu.ntnu.idi.idatt.model.games.GameType;
 import edu.ntnu.idi.idatt.view.renderer.AstroRallyRenderer;
 import edu.ntnu.idi.idatt.view.renderer.BoardRenderer;
 import edu.ntnu.idi.idatt.view.renderer.SnakesAndLaddersRenderer;
