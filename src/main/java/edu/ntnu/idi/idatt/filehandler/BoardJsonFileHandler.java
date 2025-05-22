@@ -21,8 +21,7 @@ import java.util.logging.Logger;
  * Handles saving and loading {@link Board} objects to/from JSON files.
  * Uses Gson for JSON serialization/deserialization and delegates validation
  * to {@link BoardFactory}. Exceptions are wrapped to provide contextual
- * information without logging at this layer.
- *
+ * information.
  */
 public class BoardJsonFileHandler implements FileHandler<Board> {
   private static final Logger LOGGER =
@@ -58,10 +57,14 @@ public class BoardJsonFileHandler implements FileHandler<Board> {
     BoardDto dto = BoardConverter.toDto(board);
     try (FileWriter writer = new FileWriter(filePath)) {
       gson.toJson(dto, writer);
-      LOGGER.log(Level.INFO, "Saved board to {0}", filePath);
+      LOGGER.log(Level.INFO, () -> String.format("Saved board to %s", filePath));
     } catch (IOException e) {
-      throw new FileSaveException(
-          String.format("Failed to save board to JSON file '%s'", filePath), e);
+      String msg = String.format(
+          "Failed to save board to JSON file '%s'",
+          filePath
+      );
+      LOGGER.log(Level.SEVERE, msg, e);
+      throw new FileSaveException(msg, e);
     }
   }
 
@@ -70,8 +73,14 @@ public class BoardJsonFileHandler implements FileHandler<Board> {
    *
    * @param filePath the path of the file to load; must not be null or empty
    * @return the loaded Board object
-   * @throws FileLoadException        if an error occurs during the load operation
-   * @throws IllegalArgumentException if the file path is invalid
+   *
+   * @throws FileLoadException if an error occurs during the load operation
+   *                           (e.g., file not found, I/O error)
+   *
+   * @throws InvalidBoardFormatException if the JSON syntax is invalid or
+   *                                     content cannot be parsed to a board
+   *
+   * @throws IllegalArgumentException    if the file path is invalid
    */
   @Override
   public Board loadFromFile(String filePath) throws FileLoadException {
@@ -82,24 +91,38 @@ public class BoardJsonFileHandler implements FileHandler<Board> {
     try (FileReader reader = new FileReader(filePath)) {
       BoardDto dto = gson.fromJson(reader, BoardDto.class);
       if (dto == null) {
-        throw new InvalidBoardFormatException(
-            String.format("Failed to parse JSON: null DTO from '%s'", filePath));
+        String msg = String.format("Failed to parse JSON: null DTO from '%s'", filePath);
+        LOGGER.log(Level.WARNING, msg);
+        throw new InvalidBoardFormatException(msg);
       }
       Board board = BoardFactory.createBoardFromDto(dto);
-      LOGGER.log(Level.INFO, "Loaded board from {0}", filePath);
+      LOGGER.log(Level.INFO, () -> String.format("Loaded board from %s", filePath));
       return board;
 
     } catch (FileNotFoundException e) {
-      throw new FileLoadException(
-          String.format("Board file not found: '%s'", filePath), e);
+      String msg = String.format(
+          "Board file not found: '%s'",
+          filePath
+      );
+      LOGGER.log(Level.WARNING, msg, e);
+      throw new FileLoadException(msg, e);
 
     } catch (JsonSyntaxException e) {
-      throw new InvalidBoardFormatException(
-          String.format("Invalid JSON syntax in '%s': %s", filePath, e.getMessage()), e);
+      String msg = String.format(
+          "Invalid JSON syntax in '%s': %s",
+          filePath,
+          e.getMessage()
+      );
+      LOGGER.log(Level.WARNING, msg, e);
+      throw new InvalidBoardFormatException(msg, e);
 
     } catch (IOException e) {
-      throw new FileLoadException(
-          String.format("Failed to read board from file '%s'", filePath), e);
+      String msg = String.format(
+          "Failed to read board from file '%s'",
+          filePath
+      );
+      LOGGER.log(Level.WARNING, msg, e);
+      throw new FileLoadException(msg, e);
     }
   }
 }

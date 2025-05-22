@@ -54,13 +54,15 @@ public class PlayerCsvFileHandler implements FileHandler<List<Player>> {
       }
       LOGGER.log(
           Level.INFO,
-          "Successfully saved {0} players to \"{1}\"",
-          new Object[]{players.size(), filePath});
+          () -> String.format("Successfully saved %d players to \"%s\"", players.size(), filePath)
+      );
     } catch (IOException e) {
       String errorMessage = String.format(
           "Failed to save %d players to CSV file \"%s\"",
           players.size(),
-          filePath);
+          filePath
+      );
+      LOGGER.log(Level.SEVERE, errorMessage, e);
       throw new FileSaveException(errorMessage, e);
     }
   }
@@ -71,22 +73,28 @@ public class PlayerCsvFileHandler implements FileHandler<List<Player>> {
    * Logs a warning if creation fails due to invalid data.
    *
    * @param playersList The list to add the player to.
-   * @param name The name of the player.
-   * @param piece The piece type of the player.
-   * @param filePath The path of the file being processed (for logging).
-   * @param lineNum The current line number in the file (for logging).
+   * @param name        The name of the player.
+   * @param piece       The piece type of the player.
+   * @param filePath    The path of the file being processed (for logging).
+   * @param currentLine The current line number in the file (for logging, effectively final).
    */
-  private void tryCreateAndAddPlayer(List<Player> playersList,
+  private void tryCreateAndAddPlayer(
+      List<Player> playersList,
       String name,
       String piece,
       String filePath,
-      int lineNum) {
+      int currentLine) { // Renamed to currentLine to avoid confusion with the loop variable
     try {
       playersList.add(PlayerFactory.createPlayer(name, piece));
     } catch (IllegalArgumentException iae) {
       LOGGER.log(Level.WARNING,
-          "Skipping line {0} in \"{1}\": invalid player data ({2})",
-          new Object[]{lineNum, filePath, iae.getMessage()});
+          String.format(
+              "Skipping line %d in \"%s\": invalid player data (%s)",
+              currentLine, // Use the effectively final parameter
+              filePath,
+              iae.getMessage()
+          )
+      );
     }
   }
 
@@ -105,17 +113,26 @@ public class PlayerCsvFileHandler implements FileHandler<List<Player>> {
     }
 
     List<Player> players = new ArrayList<>();
-    int lineNum = 0;
+    int lineCounter = 0;
 
     try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
       String[] cols;
       while ((cols = reader.readNext()) != null) {
-        lineNum++;
+        lineCounter++;
+        final int currentLineNum = lineCounter;
+
         if (cols.length < EXPECTED_COLUMNS) {
+          String[] finalCols = cols;
           LOGGER.log(
               Level.WARNING,
-              "Skipping line {0} in \"{1}\": expected at least {2} columns but found {3}",
-              new Object[]{lineNum, filePath, EXPECTED_COLUMNS, cols.length});
+              () -> String.format(
+                  "Skipping line %d in \"%s\": expected at least %d columns but found %d",
+                  currentLineNum,
+                  filePath,
+                  EXPECTED_COLUMNS,
+                  finalCols.length
+              )
+          );
           continue;
         }
 
@@ -124,46 +141,67 @@ public class PlayerCsvFileHandler implements FileHandler<List<Player>> {
         if (name == null || name.isBlank() || piece == null || piece.isBlank()) {
           LOGGER.log(
               Level.WARNING,
-              "Skipping line {0} in \"{1}\": name or pieceType is blank or null",
-              new Object[]{lineNum, filePath});
+              () -> String.format(
+                  "Skipping line %d in \"%s\": name or pieceType is blank or null",
+                  currentLineNum, // Use effectively final variable
+                  filePath
+              )
+          );
           continue;
         }
 
-        tryCreateAndAddPlayer(players, name, piece, filePath, lineNum);
+        tryCreateAndAddPlayer(players, name, piece, filePath, currentLineNum);
       }
 
       LOGGER.log(
           Level.INFO,
-          "Successfully loaded {0} players from \"{1}\"",
-          new Object[]{players.size(), filePath});
+          () -> String.format("Successfully loaded %d players from \"%s\"",
+              players.size(),
+              filePath)
+      );
       return players;
 
     } catch (FileNotFoundException e) {
       LOGGER.log(
           Level.INFO,
-          "Player data file not found: \"{0}\". Returning empty list.",
-          filePath);
+          () -> String.format("Player data file not found: \"%s\". Returning empty list.", filePath)
+      );
       return players;
 
     } catch (CsvValidationException e) {
       String context = String.format(
-          "CSV validation failed at line %d in \"%s\": %s",
-          lineNum, filePath, e.getMessage());
-      String errorMessage = "Failed to load players due to CSV validation error: " + context;
+          "CSV validation failed at or near line %d in \"%s\"",
+          lineCounter,
+          filePath
+      );
+      String errorMessage = String.format(
+          "Failed to load players due to CSV validation error: %s: %s",
+          context,
+          e.getMessage()
+      );
+      LOGGER.log(Level.WARNING, errorMessage, e);
       throw new FileLoadException(errorMessage, e);
 
     } catch (IOException e) {
       String context;
-      if (lineNum > 0) {
+      if (lineCounter > 0) {
         context = String.format(
-            "I/O error at line %d in \"%s\": %s",
-            lineNum, filePath, e.getMessage());
+            "I/O error at or near line %d in \"%s\"",
+            lineCounter,
+            filePath
+        );
       } else {
         context = String.format(
-            "I/O error opening or reading \"%s\": %s",
-            filePath, e.getMessage());
+            "I/O error opening or reading \"%s\"",
+            filePath
+        );
       }
-      String errorMessage = "Failed to load players from CSV file: " + context;
+      String errorMessage = String.format(
+          "Failed to load players from CSV file: %s: %s",
+          context,
+          e.getMessage()
+      );
+      LOGGER.log(Level.WARNING, errorMessage, e);
       throw new FileLoadException(errorMessage, e);
     }
   }
