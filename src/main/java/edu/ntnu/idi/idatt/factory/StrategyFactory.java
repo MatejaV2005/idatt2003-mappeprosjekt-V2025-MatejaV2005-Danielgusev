@@ -7,7 +7,7 @@ import edu.ntnu.idi.idatt.model.strategy.AstroRallyStrategy;
 import edu.ntnu.idi.idatt.model.strategy.GameStrategy;
 import edu.ntnu.idi.idatt.model.strategy.SnakesAndLaddersStrategy;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
-
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -15,6 +15,9 @@ import java.util.logging.Logger;
  * This factory provides a centralized way to obtain strategy objects
  * for different game types, ensuring that the correct strategy implementation
  * is used based on the specified {@link GameType}.
+ *
+ * @see GameStrategy
+ *
  */
 public class StrategyFactory {
 
@@ -42,16 +45,12 @@ public class StrategyFactory {
     ExceptionHandling.requireNonNull(board, "Board for strategy creation");
     ExceptionHandling.requireNonNull(dice, "Dice for strategy creation");
 
-    LOGGER.info("Creating strategy for game type: " + gameType);
+    LOGGER.log(Level.INFO, "Creating strategy for game type: {0}", gameType);
 
-    switch (gameType) {
-      case SNAKES_AND_LADDERS:
-        return new SnakesAndLaddersStrategy(dice);
-      case ASTRO_RALLY:
-        return new AstroRallyStrategy(board, dice);
-      default:
-        LOGGER.severe("Unsupported game type: " + gameType);
-        throw new IllegalArgumentException("Unsupported game type: " + gameType);
-    }
+
+    return switch (gameType) {
+      case SNAKES_AND_LADDERS -> new SnakesAndLaddersStrategy(dice);
+      case ASTRO_RALLY -> new AstroRallyStrategy(board, dice);
+    };
   }
 }
