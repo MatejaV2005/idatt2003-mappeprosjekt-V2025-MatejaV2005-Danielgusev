@@ -5,58 +5,53 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Represents a single, standard six-sided die.
- * This class allows for rolling the die to generate a random value between 1 and 6 (inclusive)
- * and retrieving the last rolled value.
+ * Represents a standard six-sided die.
+ *
+ * <p>Each die can be rolled to produce a random value between 1 and 6 inclusive.
+ * The last rolled value is retained and accessible until the next roll. Before
+ * the first roll, the value defaults to 0.</p>
+ *
+ * @see #roll()
+ * @see #getLastRolledValue()
+ * @since 1.0
  */
 public class Die {
-  private int lastRolledValue;
+  private static final Logger LOGGER =
+      Logger.getLogger(Die.class.getName());
 
   private final Random random;
-
-  private static final Logger LOGGER = Logger.getLogger(Die.class.getName());
+  private int lastRolledValue;
 
   /**
-   * Constructs a new {@code Die} object.
-   * Initializes the random number generator. The die has not been "rolled"
-   * initially, so {@link #getLastRolledValue()} will return its default
-   * initialized value (e.g., 0) until {@link #roll()} is called.
+   * Creates a new {@code Die}.
    *
-   *
-   * Consider calling {@link #roll()} within the constructor if a die should
-   * always have a valid initial face value (1-6) upon creation.
-   * For this implementation, an explicit roll is required to set the first value.
-   *
+   * <p>Initializes the underlying random number generator. The die’s
+   * {@link #getLastRolledValue() last rolled value} will be 0 until
+   * {@link #roll()} is first called.</p>
    */
   public Die() {
     this.random = new Random();
-    LOGGER.log(Level.FINE, "Die instance created.");
+    LOGGER.log(Level.FINE, "Die instance created");
   }
 
   /**
-   * Gets the value of the last roll performed on this die.
-   * If {@link #roll()} has not been called yet after construction,
-   * this will return the initial default value (e.g., 0).
+   * Returns the result of the most recent roll.
    *
-   * @return The last value rolled, an integer between 1 and 6 if rolled,
-   * or its initial default if not yet rolled.
+   * @return the last rolled value (1–6), or 0 if {@link #roll()} has not yet been called
    */
   public int getLastRolledValue() {
-    return this.lastRolledValue;
+    return lastRolledValue;
   }
 
   /**
-   * Simulates rolling the die, generating a new random value between 1 and 6 (inclusive).
-   * The new value is stored and can be retrieved using {@link #getLastRolledValue()}.
+   * Rolls this die, generating a new random value between 1 and 6 inclusive.
+   * Updates the stored {@code lastRolledValue} and logs the result at FINER level.
    *
-   * @return The new value rolled, an integer between 1 and 6.
+   * @return the value of this roll (1–6)
    */
   public int roll() {
-    this.lastRolledValue = this.random.nextInt(6) + 1;
-
-    LOGGER.log(Level.FINER, "Die rolled. New value: {0}", this.lastRolledValue);
-
-    return this.lastRolledValue;
+    lastRolledValue = random.nextInt(6) + 1;
+    LOGGER.log(Level.FINER, "Die rolled: new value {0}", lastRolledValue);
+    return lastRolledValue;
   }
-
 }
