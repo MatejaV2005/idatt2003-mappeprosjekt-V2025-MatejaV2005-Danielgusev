@@ -6,96 +6,99 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Represents a collection of one or more {@link Die} objects.
- * This class manages a set of dice, allowing them to be rolled together,
- * and provides methods to get the total value of the last roll or the value
- * of individual dice.
+ * Represents a collection of one or more {@link Die} objects that can be
+ * rolled together as a set.
+ *
+ * <p>Provides methods to roll all dice at once, inspect the total or
+ * individual die values from the last roll, and query the number of dice.</p>
+ *
+ * @see Die
+ * @since 1.0
  */
 public class Dice {
 
-  /**
-   * The list of Die objects managed by this Dice instance.
-   * This list is final, but its contents (the Die objects) are mutable.
-   */
-  private final List<Die> dice;
+  private final List<Die> diceCollection;
 
   /**
-   * Constructs a new {@code Dice} object containing a specified number of dice.
-   * Each die is a standard six-sided die.
+   * Constructs a new {@code Dice} set containing the specified number of six-sided dice.
    *
-   * @param numberOfDice The number of dice to include in this set.
-   * Must be strictly positive (greater than 0).
-   * @throws IllegalArgumentException if numberOfDice is not strictly positive.
+   * @param numberOfDice the number of dice to include; must be strictly positive
+   * @throws IllegalArgumentException if {@code numberOfDice} is not strictly positive
    */
   public Dice(int numberOfDice) {
     ExceptionHandling.requireStrictlyPositive(numberOfDice, "Number of dice");
-
-    this.dice = new ArrayList<>();
+    this.diceCollection = new ArrayList<>();
     initializeDice(numberOfDice);
   }
 
   /**
-   * Initializes and adds the specified number of {@link Die} instances
-   * to this {@code Dice} collection. This method is called by the constructor.
+   * Initializes this {@code Dice} set by creating and adding the given number
+   * of {@link Die} instances to the collection.
    *
-   * @param numberOfDice The number of dice to create and add.
+   * @param numberOfDice the number of dice to create and add
    */
   public void initializeDice(int numberOfDice) {
     for (int i = 0; i < numberOfDice; i++) {
-      dice.add(new Die());
+      diceCollection.add(new Die());
     }
   }
 
   /**
-   * Rolls all dice in this collection.
-   * Each die will generate a new random value between 1 and 6.
+   * Rolls all dice in this set, generating new random values (1–6) on each die.
    *
-   * @return The sum of the values rolled on all dice in this collection.
+   * @return the sum of the values rolled on all dice
    */
   public int roll() {
     int sum = 0;
-    if (this.dice.isEmpty()) {
-      return 0;
-    }
-    for (Die die : this.dice) {
+    for (Die die : diceCollection) {
       sum += die.roll();
     }
-
     return sum;
   }
 
+  /**
+   * Retrieves the last rolled value of a specific die in the set.
+   *
+   * @param dieNumber the zero-based index of the die; must be between 0
+   *                  and {@link #getNumberOfDice()} − 1
+   * @return the last rolled value of the specified die
+   * @throws IllegalArgumentException if {@code dieNumber} is out of range
+   */
   public int getDieValue(int dieNumber) {
-    ExceptionHandling.requireIndexRange(dieNumber, 0, dice.size() - 1, "Die index");
-
-    return dice.get(dieNumber).getLastRolledValue();
+    ExceptionHandling.requireIndexRange(
+        dieNumber, 0, diceCollection.size() - 1, "Die index");
+    return diceCollection.get(dieNumber).getLastRolledValue();
   }
-
-  public int getTotalDiceValue() {
-    int totalValue = 0;
-    for (Die die : dice) {
-      totalValue += die.getLastRolledValue();
-    }
-    return totalValue;
-  }
-
-  public int getNumberOfDice() {
-    return dice.size();
-  }
-
-
 
   /**
-   * Returns an unmodifiable list of the {@link Die} objects in this collection.
-   * This allows inspection of individual dice but prevents external modification
-   * of the dice collection itself.
+   * Calculates the total value of all dice based on their last roll.
    *
-   * @return An unmodifiable list of dice.
+   * @return the sum of the last rolled values of all dice
    */
-  public List<Die> getDice() {
-    return Collections.unmodifiableList(this.dice);
+  public int getTotalDiceValue() {
+    int total = 0;
+    for (Die die : diceCollection) {
+      total += die.getLastRolledValue();
+    }
+    return total;
   }
 
+  /**
+   * Returns the number of dice in this set.
+   *
+   * @return the size of the dice collection
+   */
+  public int getNumberOfDice() {
+    return diceCollection.size();
+  }
 
-
-
+  /**
+   * Returns an unmodifiable view of the dice in this set.
+   * Modifications to the returned list are not allowed.
+   *
+   * @return an unmodifiable list of {@link Die} objects
+   */
+  public List<Die> getDiceCollection() {
+    return Collections.unmodifiableList(diceCollection);
+  }
 }
