@@ -21,7 +21,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 /**
- * Panel displaying players and indicating the current turn.
+ * A vertical panel that lists all {@link Player}s and highlights the one
+ * whose turn it currently is.
+ *
+ * <p>Icons are loaded via {@link ResourceLoader}.  If loading fails, a colored circle
+ * is shown instead.
+ * </p>
  */
 public class CurrentPlayerPanel extends VBox {
 
@@ -40,7 +45,11 @@ public class CurrentPlayerPanel extends VBox {
   private final VBox rowsContainer;
 
   /**
-   * Creates the player panel.
+   * Constructs an empty {@code CurrentPlayerPanel}, ready to have
+   * players added via {@link #initialize(List)} or {@link #addPlayerEntry(Player)}.
+   *
+   * <p>Sets up padding, spacing, and a title label.
+   * </p>
    */
   public CurrentPlayerPanel() {
     super(PANEL_SPACING);
@@ -59,9 +68,12 @@ public class CurrentPlayerPanel extends VBox {
   }
 
   /**
-   * Sets up player entries, clearing existing rows.
+   * Clears any existing entries and populates this panel with the given list of players.
    *
-   * @param players list of players; if null or empty, no rows are shown
+   * <p>If {@code players} is {@code null} or empty, this will simply clear the display.
+   * </p>
+   *
+   * @param players the list of players to display
    */
   public void initialize(List<Player> players) {
     rowsContainer.getChildren().clear();
@@ -101,6 +113,57 @@ public class CurrentPlayerPanel extends VBox {
     return row;
   }
 
+  /**
+   * Highlights {@code player}'s row to indicate the active turn.
+   *
+   * <p>Any previously highlighted row is cleared first.  If {@code player} is
+   * {@code null} or not in the panel, the highlight is simply removed.
+   * </p>
+   *
+   * @param player the player to highlight, or {@code null} to clear
+   */
+  public void updateCurrentPlayerHighlight(Player player) {
+    if (highlightedRow != null) {
+      highlightedRow.getStyleClass().remove("current-player-row");
+      highlightedRow = null;
+    }
+    if (player == null) {
+      LOGGER.warning("Cleared highlight: no current player.");
+      return;
+    }
+    HBox row = playerRows.get(player);
+    if (row == null) {
+      LOGGER.warning("No row found for player: " + player.getName());
+      return;
+    }
+    row.getStyleClass().add("current-player-row");
+    highlightedRow = row;
+    LOGGER.info(() -> "Highlighted current player: " + player.getName());
+  }
+
+  /**
+   * Adds a new player entry at the bottom if not already present.
+   *
+   * <p>Duplicate or {@code null} players are ignored.
+   * </p>
+   *
+   * @param player the player to add
+   */
+  public void addPlayerEntry(Player player) {
+    if (player == null || playerRows.containsKey(player)) {
+      LOGGER.log(Level.WARNING,
+          "Invalid or duplicate player entry: {0}",
+          player);
+      return;
+    }
+    HBox row = createRow(player, rowsContainer.getChildren().size() + 1);
+    playerRows.put(player, row);
+    rowsContainer.getChildren().add(row);
+    LOGGER.info(() -> "Added player: " + player.getName());
+  }
+
+  // --- Private helpers below ---
+
   private Node createIcon(String type) {
     Image image = loadIcon(type);
     if (image != null) {
@@ -133,47 +196,5 @@ public class CurrentPlayerPanel extends VBox {
           String.format("Failed to load icon '%s'. Using fallback.", path), e);
       return null;
     }
-  }
-
-  /**
-   * Highlights the row for the active player.
-   *
-   * @param player current player; null clears highlight
-   */
-  public void updateCurrentPlayerHighlight(Player player) {
-    if (highlightedRow != null) {
-      highlightedRow.getStyleClass().remove("current-player-row");
-      highlightedRow = null;
-    }
-    if (player == null) {
-      LOGGER.warning("Cleared highlight: no current player.");
-      return;
-    }
-    HBox row = playerRows.get(player);
-    if (row == null) {
-      LOGGER.warning("No row found for player: " + player.getName());
-      return;
-    }
-    row.getStyleClass().add("current-player-row");
-    highlightedRow = row;
-    LOGGER.info(() -> "Highlighted current player: " + player.getName());
-  }
-
-  /**
-   * Adds a player entry if not already present.
-   *
-   * @param player player to add; ignored if null or duplicate
-   */
-  public void addPlayerEntry(Player player) {
-    if (player == null || playerRows.containsKey(player)) {
-      LOGGER.log(Level.WARNING,
-          "Invalid or duplicate player entry: {0}",
-          player);
-      return;
-    }
-    HBox row = createRow(player, rowsContainer.getChildren().size() + 1);
-    playerRows.put(player, row);
-    rowsContainer.getChildren().add(row);
-    LOGGER.info(() -> "Added player: " + player.getName());
   }
 }
