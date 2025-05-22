@@ -1,5 +1,13 @@
 package edu.ntnu.idi.idatt.exceptions;
 
+/**
+ * Thrown when there is an error managing player entities, sessions, or persistence.
+ *
+ * <p>This exception is used when operations such as adding, removing,
+ * loading, or saving players fail due to invalid data, duplicates,
+ * or I/O issues.</p>
+ *
+ */
 public class PlayerManagementException extends Exception {
 
   /**

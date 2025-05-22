@@ -1,5 +1,13 @@
 package edu.ntnu.idi.idatt.exceptions;
 
+/**
+ * Exception thrown when there is an error managing board game board states,
+ * configurations, or operations.
+ *
+ * <p>This exception is typically used when board operations such as initialization,
+ * tile management, player positioning, or board state transitions fail.</p>
+ *
+ */
 public class BoardManagementException extends Exception  {
 
   /**

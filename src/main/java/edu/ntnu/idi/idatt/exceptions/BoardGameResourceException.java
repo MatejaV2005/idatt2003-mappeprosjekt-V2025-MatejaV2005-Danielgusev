@@ -1,5 +1,14 @@
 package edu.ntnu.idi.idatt.exceptions;
 
+
+/**
+ * Thrown when required board game resources (layouts, assets, configs)
+ * cannot be found, loaded, or parsed.
+ *
+ * <p>This typically indicates missing or malformed files needed to
+ * initialize or run a game.</p>
+ *
+ */
 public class BoardGameResourceException extends Exception {
 
   /**
