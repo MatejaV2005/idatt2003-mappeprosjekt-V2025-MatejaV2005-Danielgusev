@@ -3,18 +3,33 @@ package edu.ntnu.idi.idatt.model.core;
 import edu.ntnu.idi.idatt.model.core.actions.ActionType;
 import edu.ntnu.idi.idatt.model.core.actions.NoOperationAction;
 import edu.ntnu.idi.idatt.model.core.actions.TileAction;
-import edu.ntnu.idi.idatt.utils.ExceptionHandling; // Importer din klasse
-
+import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a single tile on the game board.
- * Each tile has a unique ID, a position (row and column), an optional action
- * that occurs when a player lands on it, and a reference to the next tile in sequence.
- * It also keeps track of players currently occupying the tile.
+ * Core model of a single square on the game board.
+ *
+ * <p>Each tile has:
+ * <ul>
+ *   <li>A unique {@code tileId} and fixed grid position ({@code row}, {@code column}).</li>
+ *   <li>A runtime {@code nextTile} reference
+ *   (and serializable {@code nextTileId}) to form the default path.</li>
+ *   <li>An associated {@link TileAction}
+ *   executed when a player lands here (defaults to no-op).</li>
+ *   <li>A roster of current {@link Player} occupants.</li>
+ * </ul>
+ *
+ * <p>Supports serialization–deserialization via its {@code nextTileId}, dynamic linking
+ * through {@link #setNextTile(Tile)}, and enforces
+ * argument validity via {@link ExceptionHandling}.</p>
+ *
+ * @see TileAction
+ * @see ActionType
+ * @see #landPlayer(Player)
+ * @see #leavePlayer(Player)
  */
 public class Tile {
 
@@ -38,7 +53,7 @@ public class Tile {
    * @param row    The zero-based row index of this tile on the board. Must be non-negative.
    * @param column The zero-based column index of this tile on the board. Must be non-negative.
    * @throws IllegalArgumentException if tileId is not strictly positive,
-   * or if row or column is negative.
+   *                                  or if row or column is negative.
    */
   public Tile(int tileId, int row, int column) {
     ExceptionHandling.requireStrictlyPositive(tileId, "tileId");
@@ -93,7 +108,8 @@ public class Tile {
   /**
    * Sets the next tile in the default sequential path and updates the {@code nextTileId}.
    *
-   * @param nextTile The {@link Tile} object that follows this one. Can be null to indicate the end of a sequence.
+   * @param nextTile The {@link Tile} object that follows this one.
+   *                 Can be null to indicate the end of a sequence.
    *
    */
   public void setNextTile(Tile nextTile) {
@@ -142,7 +158,7 @@ public class Tile {
    * If a null action is provided, it defaults to {@link NoOperationAction#INSTANCE}.
    *
    * @param action The {@link TileAction} to associate with this tile.
-   * Can be null, in which case a no-op action is used.
+   *               Can be null, in which case a no-op action is used.
    */
   public void setLandAction(TileAction action) {
     this.landAction = (action != null) ? action : NoOperationAction.INSTANCE;
@@ -209,17 +225,16 @@ public class Tile {
    *
    * @param o The object to compare with this tile.
    * @return {@code true} if the given object is a Tile with the same ID,
-   * {@code false} otherwise.
+   *         {@code false} otherwise.
    */
   @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof Tile)) {
+    if (!(o instanceof Tile otherTile)) {
       return false;
     }
-    Tile otherTile = (Tile) o;
     return this.tileId == otherTile.tileId;
   }
 
