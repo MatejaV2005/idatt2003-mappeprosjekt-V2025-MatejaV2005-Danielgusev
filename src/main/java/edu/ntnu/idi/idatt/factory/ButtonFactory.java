@@ -35,39 +35,4 @@ public class ButtonFactory {
     button.getStyleClass().add("small-button");
     return button;
   }
-
-  /**
-   * Creates a menu button for navigation.
-   *
-   * @param text The button text
-   * @return A styled menu button instance
-   */
-  public Button createMenuButton(String text) {
-    Button button = new Button(text);
-    button.setPrefWidth(200);
-    button.setPrefHeight(50);
-    button.getStyleClass().add("menu-button");
-    return button;
-  }
-
-  /**
-   * Creates an icon button with both text and an icon.
-   *
-   * @param text The button text
-   * @param iconPath The path to the icon resource
-   * @return A button with text and icon
-   */
-  public Button createIconButton(String text, String iconPath) {
-    Button button = createStandardButton(text);
-
-    try {
-      // Load icon and add to button
-      // Implementation would add an icon to the button
-      button.getStyleClass().add("icon-button");
-    } catch (Exception e) {
-      System.err.println("Failed to load icon for button: " + e.getMessage());
-    }
-
-    return button;
-  }
 }
