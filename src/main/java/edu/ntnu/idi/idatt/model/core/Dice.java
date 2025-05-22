@@ -65,7 +65,7 @@ public class Dice {
   }
 
   public int getDieValue(int dieNumber) {
-    ExceptionHandling.requireIndexRange(dieNumber, 0, dice.size(), "number of dice");
+    ExceptionHandling.requireIndexRange(dieNumber, 0, dice.size() - 1, "Die index");
 
     return dice.get(dieNumber).getLastRolledValue();
   }

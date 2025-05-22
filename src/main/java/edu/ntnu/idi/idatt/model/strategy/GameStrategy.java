@@ -7,7 +7,5 @@ import java.util.List;
 public interface GameStrategy {
   boolean checkWinCondition(Player player);
   void executePlayerTurn(Player player);
-  Player determineWinner(List<Player> player);
-  void InitializeGame(Board board, List<Player> player);
-
+  void initializeGame(Board board, List<Player> player);
 }

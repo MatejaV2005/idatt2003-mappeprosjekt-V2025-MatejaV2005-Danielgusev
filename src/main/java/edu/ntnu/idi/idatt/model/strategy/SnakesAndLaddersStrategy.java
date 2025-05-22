@@ -34,17 +34,7 @@ public class SnakesAndLaddersStrategy implements GameStrategy {
   }
 
   @Override
-  public Player determineWinner(List<Player> players) {
-    for (Player p : players) {
-      if (checkWinCondition(p)) {
-        return p;
-      }
-    }
-    return null;
-  }
-
-  @Override
-  public void InitializeGame(Board board, List<Player> players) {
+  public void initializeGame(Board board, List<Player> players) {
     for (Player p : players) {
       p.setOnCurrentTile(board.getTileById(1));
     }
