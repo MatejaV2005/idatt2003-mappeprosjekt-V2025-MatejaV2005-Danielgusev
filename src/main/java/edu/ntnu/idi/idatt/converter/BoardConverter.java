@@ -8,11 +8,33 @@ import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.model.core.actions.TileAction;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
+
+
+/**
+ * Converts between {@link Board} domain objects and their
+ * JSON‐serializable {@link BoardDto} representations.
+ *
+ * <p>Supports full validation of board dimensions, tile continuity,
+ * and action mapping. Invalid or missing data results in
+ * {@link InvalidBoardFormatException}.
+ */
 public class BoardConverter {
-  private static final Logger LOGGER = java.util.logging.Logger.getLogger(BoardConverter.class.getName());
 
+  private BoardConverter() {
+
+  }
+
+
+  /**
+   * Transforms a {@link Board} into a {@link BoardDto}.
+   *
+   * <p>Copies all tiles via {@link TileConverter#toDto(Tile)}, and
+   * includes row and column counts for later reconstruction.
+   *
+   * @param board the source {@link Board}; must not be null
+   * @return a {@link BoardDto} containing tile DTOs and dimensions
+   */
   public static BoardDto toDto(Board board) {
     Map<Integer, Tile> fromBoard = board.getTiles();
     int rows = board.getRows();
@@ -22,38 +44,86 @@ public class BoardConverter {
     return new BoardDto(boardMap, rows, cols);
   }
 
-  // In BoardConverter.java
-  public static Board fromDto(BoardDto boardDto) throws InvalidBoardFormatException { // Kast det nye unntaket
-    if (boardDto == null) {
-      throw new InvalidBoardFormatException("Board data (DTO) is null.");
-    }
+
+  /**
+   * Reconstructs a {@link Board} from a {@link BoardDto}.
+   *
+   * <p>This method orchestrates the validation of the DTO, conversion of its constituent tiles and
+   * actions, and the final assembly of the {@link Board} object. It ensures data integrity and
+   * structural correctness according to defined board rules.
+   *
+   * @param boardDto the DTO to convert; must not be {@code null}
+   * @return a fully initialized and validated {@link Board}
+   * @throws InvalidBoardFormatException if any validation or conversion step fails, detailing the
+   *                                     nature of the error.
+   */
+  public static Board fromDto(BoardDto boardDto) throws InvalidBoardFormatException {
+    validateInitialBoardDto(boardDto);
 
     int rows = boardDto.getRows();
     int cols = boardDto.getColumns();
-    int totalTiles = rows * cols;
+    int totalTiles = validateBoardDimensionsAndTileCount(boardDto, rows, cols);
 
-    if (totalTiles < 50) {
-      throw new InvalidBoardFormatException("Board too small. Minimum 50 tiles required, found " + totalTiles + ".");
-    }
-    if (totalTiles > 150) {
-      throw new InvalidBoardFormatException("Board too large. Maximum 150 tiles allowed, found " + totalTiles + ".");
-    }
+    Map<Integer, Tile> tilesMap = convertTileDtosToTiles(boardDto.getTiles());
+    validateAllTilesPresent(tilesMap, totalTiles);
+
+    ActionConverter actionConverter = new ActionConverter();
+    assignActionsToTiles(boardDto.getTiles(), tilesMap, actionConverter);
 
     Board board = new Board();
     board.setRows(rows);
     board.setColumns(cols);
+    board.setTiles(tilesMap);
 
-    ActionConverter actionConverter = new ActionConverter();
-    Map<Integer, Tile> tilesMap = new HashMap<>();
+    try {
+      board.relinkTiles();
+    } catch (IllegalStateException e) {
+      throw new InvalidBoardFormatException("Error relinking tiles: " + e.getMessage(), e);
+    }
+
+    return board;
+  }
+
+  private static void validateInitialBoardDto(BoardDto boardDto)
+      throws InvalidBoardFormatException {
+    if (boardDto == null) {
+      throw new InvalidBoardFormatException("Board data (DTO) is null.");
+    }
+  }
+
+
+  private static int validateBoardDimensionsAndTileCount(BoardDto boardDto, int rows, int cols)
+      throws InvalidBoardFormatException {
+    int totalTiles = rows * cols;
+
+    if (totalTiles < 50) {
+      throw new InvalidBoardFormatException(
+          "Board too small. Minimum 50 tiles required, found " + totalTiles + ".");
+    }
+    if (totalTiles > 150) {
+      throw new InvalidBoardFormatException(
+          "Board too large. Maximum 150 tiles allowed, found " + totalTiles + ".");
+    }
 
     if (boardDto.getTiles() == null || boardDto.getTiles().isEmpty()) {
       throw new InvalidBoardFormatException("Board DTO contains no tiles.");
     }
     if (boardDto.getTiles().size() != totalTiles) {
-      throw new InvalidBoardFormatException("Mismatch between declared rows/cols and actual number of tiles. Expected: " + totalTiles + ", Found: " + boardDto.getTiles().size());
+      throw new InvalidBoardFormatException(
+          "Mismatch between declared rows/cols and actual number of tiles. "
+              + "Expected: "
+              + totalTiles
+              + ", Found: "
+              + boardDto.getTiles().size());
     }
+    return totalTiles;
+  }
 
-    for (Map.Entry<Integer, TileDto> entry : boardDto.getTiles().entrySet()) {
+
+  private static Map<Integer, Tile> convertTileDtosToTiles(Map<Integer, TileDto> tileDtoMap)
+      throws InvalidBoardFormatException {
+    Map<Integer, Tile> tilesMap = new HashMap<>();
+    for (Map.Entry<Integer, TileDto> entry : tileDtoMap.entrySet()) {
       TileDto tileDto = entry.getValue();
       if (tileDto == null) {
         throw new InvalidBoardFormatException("Found null tile DTO for ID: " + entry.getKey());
@@ -61,45 +131,63 @@ public class BoardConverter {
       try {
         Tile tile = TileConverter.fromDto(tileDto);
         if (tile == null) {
-          throw new InvalidBoardFormatException("Failed to convert tile DTO to Tile for ID: " + tileDto.getId());
+          throw new InvalidBoardFormatException(
+              "Failed to convert tile DTO to Tile for ID: " + tileDto.getId());
         }
-
         if (tile.getTileId() != entry.getKey()) {
-          throw new InvalidBoardFormatException("Tile ID mismatch in DTO. Map key: " + entry.getKey() + ", DTO ID: " + tile.getTileId());
+          throw new InvalidBoardFormatException(
+              "Tile ID mismatch in DTO map. Map key: "
+                  + entry.getKey()
+                  + ", Tile's actual ID: "
+                  + tile.getTileId());
         }
         tilesMap.put(tile.getTileId(), tile);
       } catch (IllegalArgumentException e) {
-        throw new InvalidBoardFormatException("Invalid data for tile ID " + tileDto.getId() + ": " + e.getMessage(), e);
+        throw new InvalidBoardFormatException(
+            "Invalid data for tile ID " + tileDto.getId() + ": " + e.getMessage(), e);
       }
     }
+    return tilesMap;
+  }
 
+  private static void validateAllTilesPresent(Map<Integer, Tile> tilesMap, int totalTiles)
+      throws InvalidBoardFormatException {
     for (int i = 1; i <= totalTiles; i++) {
       if (!tilesMap.containsKey(i)) {
-        throw new InvalidBoardFormatException("Missing tile with ID: " + i + ". All tiles from 1 to " + totalTiles + " must be defined.");
+        throw new InvalidBoardFormatException(
+            "Missing tile with ID: "
+                + i
+                + ". All tiles from 1 to "
+                + totalTiles
+                + " must be defined.");
       }
     }
+  }
 
 
-    for (TileDto tileDto : boardDto.getTiles().values()) {
-      Tile tile = tilesMap.get(tileDto.getId());
-      if (tile != null && tileDto.getAction() != null) {
+  private static void assignActionsToTiles(
+      Map<Integer, TileDto> tileDtoMap,
+      Map<Integer, Tile> tilesMap,
+      ActionConverter actionConverter)
+      throws InvalidBoardFormatException {
+    for (TileDto tileDto : tileDtoMap.values()) {
+      if (tileDto.getAction() != null) {
+        Tile tile = tilesMap.get(tileDto.getId());
+        if (tile == null) {
+          throw new InvalidBoardFormatException(
+              "Internal error: Tile not found for ID "
+                  + tileDto.getId()
+                  + " during action assignment.");
+        }
         try {
           TileAction action = actionConverter.fromDto(tileDto.getAction(), tilesMap);
           tile.setLandAction(action);
         } catch (IllegalArgumentException | NullPointerException e) {
-          throw new InvalidBoardFormatException("Invalid action for tile ID " + tileDto.getId() + ": " + e.getMessage(), e);
+          throw new InvalidBoardFormatException(
+              "Invalid action for tile ID " + tileDto.getId() + ": " + e.getMessage(), e);
         }
       }
     }
-
-    board.setTiles(tilesMap);
-    try {
-      board.relinkTiles();
-    } catch (IllegalStateException e) {
-      throw new InvalidBoardFormatException("Error relinking tiles: " + e.getMessage(), e);
-    }
-
-
-    return board;
   }
 }
+
