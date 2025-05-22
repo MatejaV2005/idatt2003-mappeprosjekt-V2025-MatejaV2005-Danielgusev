@@ -3,105 +3,104 @@ package edu.ntnu.idi.idatt.model.games;
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.core.Dice;
+import edu.ntnu.idi.idatt.model.core.Player;
 import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.model.core.actions.TileAction;
-import edu.ntnu.idi.idatt.model.core.Player;
 import edu.ntnu.idi.idatt.model.strategy.GameStrategy;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
+import java.util.Objects;
 
 /**
- * Represents the Snakes and Ladders board game.
- * This class extends {@link BoardGame} and implements the specific logic
- * for handling player turns, special tile actions (snakes and ladders),
- * win conditions, and game initialization pertinent to Snakes and Ladders.
+ * {@code BoardGame} implementation for the classic Snakes & Ladders game.
+ *
+ * <p>Defines turn sequencing, tile action handling, win condition checks,
+ * and strategy-driven initialization specific to Snakes & Ladders.</p>
+ *
+ * <p>Key hooks:
+ * <ul>
+ *   <li>{@link #handlePlayerTurn(Player)} – dice roll, movement, and action triggers.</li>
+ *   <li>{@link #handleSpecialTileAction(Player, Tile)} – snakes or ladders logic.</li>
+ *   <li>{@link #checkWinCondition(Player)} – victory upon reaching final tile.</li>
+ *   <li>{@link #initializeGameState()} – placing players on start.</li>
+ * </ul>
+ * </p>
+ *
+ * @see GameStrategy
+ * @see GameType#SNAKES_AND_LADDERS
+ * @since 1.0
  */
 public class SnakesAndLaddersGame extends BoardGame {
 
   /**
-   * Constructs a new SnakesAndLaddersGame.
+   * Creates a new Snakes & Ladders game instance.
    *
-   * @param board The game board. Must not be {@code null}.
-   * @param dice The dice used in the game. Must not be {@code null}.
-   * @param snakesAndLaddersStrategy The game strategy defining the rules for Snakes and Ladders.
-   * Must not be {@code null}.
-   * @throws IllegalArgumentException if board, dice, or snakesAndLaddersStrategy is {@code null}.
+   * @param board    the game board; must not be {@code null}
+   * @param dice     the dice set; must not be {@code null}
+   * @param strategy the strategy implementing Snakes & Ladders rules; must not be {@code null}
+   * @throws IllegalArgumentException if any argument is {@code null}
    */
-  public SnakesAndLaddersGame(Board board, Dice dice, GameStrategy snakesAndLaddersStrategy) {
-    super(board, dice, snakesAndLaddersStrategy);
+  public SnakesAndLaddersGame(Board board, Dice dice, GameStrategy strategy) {
+    super(board, dice, strategy);
   }
 
   /**
-   * Handles a single turn for the given player.
-   * This involves the player rolling dice (handled by the game engine via strategy),
-   * moving on the board, notifying observers of the move, and then checking if the
-   * new tile triggers a special action (like landing on a snake or ladder).
+   * Executes one turn: rolls dice, moves player, notifies observers,
+   * and applies any landing action (snake or ladder).
    *
-   * @param player The player whose turn it is. Must not be {@code null}.
-   * @throws IllegalArgumentException if {@code player} is {@code null},
-   * or if the player's current tile is unexpectedly {@code null} after the game engine processes the turn.
+   * @param player the current player; must not be {@code null}
+   * @throws IllegalArgumentException if {@code player} is {@code null}
    */
   @Override
   protected void handlePlayerTurn(Player player) {
-    ExceptionHandling.requireNonNull(player, "Player for turn");
-    Tile oldTile = player.getCurrentTile();
+    ExceptionHandling.requireNonNull(player, "player");
 
+    Tile origin = player.getCurrentTile();
     gameEngine.playTurn(player);
 
-    Tile newTile = player.getCurrentTile();
-    ExceptionHandling.requireNonNull(newTile, "Player's new tile after turn");
+    Tile destination = player.getCurrentTile();
+    ExceptionHandling.requireNonNull(destination, "player's new tile");
 
-    notifyPlayerMoved(player, oldTile, newTile);
+    notifyPlayerMoved(player, origin, destination);
 
-    if (newTile.isActionTile()) {
-      handleSpecialTileAction(player, newTile);
+    if (destination.isActionTile()) {
+      handleSpecialTileAction(player, destination);
     }
   }
 
   /**
-   * Handles actions for special tiles like snakes or ladders.
-   * If the {@code actionTile} has a defined {@link TileAction}, this method executes it.
-   * If the action involves moving to a specific destination tile (e.g., via {@code getDestinationTileId() > 0}),
-   * the player is moved directly. Otherwise, the generic {@code perform} method of the action is called.
-   * Observers are notified of the effect of the action tile.
+   * Applies the tile's action when landing on a snake or ladder.
+   * Moves the player if a destination is specified, otherwise performs the action.
+   * Observers are notified of the effect.
    *
-   * @param player The player who landed on the action tile. Must not be {@code null}.
-   * @param actionTile The special tile the player landed on. Must not be {@code null}.
-   * @throws IllegalArgumentException if {@code player} or {@code actionTile} is {@code null}.
-   * @throws IllegalStateException if a tile action is expected to result in a new tile for the player,
-   * but the player's tile remains {@code null} after the action.
+   * @param player     the player who landed; must not be {@code null}
+   * @param actionTile the tile with a special action; must not be {@code null}
+   * @throws IllegalArgumentException if any argument is {@code null}
    */
   @Override
   protected void handleSpecialTileAction(Player player, Tile actionTile) {
-    ExceptionHandling.requireNonNull(player, "Player for special action");
-    ExceptionHandling.requireNonNull(actionTile, "Action tile for special action");
+    ExceptionHandling.requireNonNull(player, "player");
+    ExceptionHandling.requireNonNull(actionTile, "actionTile");
 
-    TileAction landAction = actionTile.getLandAction();
-    if (landAction == null) {
-      return;
-    }
-
-    int destId = landAction.getDestinationTileId();
+    TileAction action = actionTile.getLandAction();
+    int destId = action.getDestinationTileId();
 
     if (destId > 0) {
-      Tile destinationTile = board.getTileById(destId);
-      if (destinationTile != null && !destinationTile.equals(actionTile)) {
-        notifyActionTileEffect(player, actionTile, destinationTile);
-
+      Tile dest = board.getTileById(destId);
+      if (!Objects.equals(dest, actionTile)) {
+        notifyActionTileEffect(player, actionTile, dest);
         actionTile.leavePlayer(player);
-        player.setOnCurrentTile(destinationTile);
-        destinationTile.landPlayer(player);
+        player.setOnCurrentTile(dest);
+        dest.landPlayer(player);
       }
     } else {
-      Tile tileBeforePerformingAction = player.getCurrentTile();
-      ExceptionHandling.requireNonNull(tileBeforePerformingAction, "Player's current tile before performing TileAction");
+      Tile before = player.getCurrentTile();
+      ExceptionHandling.requireNonNull(before, "player's current tile");
+      action.perform(player);
+      Tile after = player.getCurrentTile();
+      ExceptionHandling.requireNonNull(after, "player's current tile");
 
-      landAction.perform(player);
-
-      Tile tileAfterPerformingAction = player.getCurrentTile();
-      ExceptionHandling.requireNonNull(tileAfterPerformingAction, "Player's current tile after performing TileAction");
-
-      if (!tileAfterPerformingAction.equals(tileBeforePerformingAction)) {
-        notifyActionTileEffect(player, actionTile, tileAfterPerformingAction);
+      if (!Objects.equals(after, before)) {
+        notifyActionTileEffect(player, actionTile, after);
       } else {
         notifyActionTileEffect(player, actionTile, actionTile);
       }
@@ -109,30 +108,25 @@ public class SnakesAndLaddersGame extends BoardGame {
   }
 
   /**
-   * Checks if the given player has met the win condition for Snakes and Ladders.
-   * Typically, this means reaching the final tile on the board.
-   * If the player is a winner, observers are notified.
+   * Determines if the player has reached the final tile and won the game.
+   * Notifies observers upon victory.
    *
-   * @param player The player to check. Must not be {@code null}.
-   * @return {@code true} if the player has won, {@code false} otherwise.
-   * @throws IllegalArgumentException if {@code player} is {@code null}.
+   * @param player the player to check; must not be {@code null}
+   * @return {@code true} if the player has won, {@code false} otherwise
+   * @throws IllegalArgumentException if {@code player} is {@code null}
    */
   @Override
   protected boolean checkWinCondition(Player player) {
-    ExceptionHandling.requireNonNull(player, "Player for win condition check");
-    boolean isWinner = gameEngine.isWinner(player);
-    if (isWinner) {
+    ExceptionHandling.requireNonNull(player, "player");
+    boolean won = gameEngine.isWinner(player);
+    if (won) {
       notifyOnGameWon(player);
     }
-    return isWinner;
+    return won;
   }
 
-
   /**
-   * Initializes the game state for Snakes and Ladders.
-   * This typically involves placing all players on the starting tile of the board.
-   * This method relies on the {@link GameStrategy} provided to the {@link edu.ntnu.idi.idatt.model.core.GameEngine}.
-   * It will only proceed if there are players added to the game, and the board and game engine are properly set up.
+   * Places all players on the starting tile at game start.
    */
   @Override
   protected void initializeGameState() {
@@ -142,9 +136,9 @@ public class SnakesAndLaddersGame extends BoardGame {
   }
 
   /**
-   * Gets the type of this game.
+   * Returns the game type identifier.
    *
-   * @return {@link GameType#SNAKES_AND_LADDERS}.
+   * @return {@link GameType#SNAKES_AND_LADDERS}
    */
   @Override
   public GameType getGameType() {
