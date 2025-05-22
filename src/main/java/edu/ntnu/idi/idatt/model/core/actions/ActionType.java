@@ -1,29 +1,32 @@
 package edu.ntnu.idi.idatt.model.core.actions;
 
 /**
- * Enum representing the different types of actions that can occur when a player
- * lands on a tile. Each action type has a JSON value for serialization
- * and a default description.
+ * Enumerates the types of actions triggered when a player lands on a tile.
+ *
+ * <p>Each action type carries a JSON value for (de)serialization and
+ * a default description for UI display when no custom description is provided.</p>
+ *
+ * @see #getJsonValue()
+ * @see #getDefaultDescription()
  */
 public enum ActionType {
   LADDER("Ladder", "Climb the ladder!"),
   SNAKE("Snake", "Slide down the snake!"),
-  SPECIAL("Special", "A special event occurred!"), // Generic special
+  SPECIAL("Special", "A special event occurred!"),
   RETURN_TO_START("ReturnToStart", "Oh no! Back to the start."),
   SKIP_TURN("SkipTurn", "Miss a turn!"),
-
   BOOST_PAD("BoostPad", "Speed boost activated for next turn!"),
   ASTEROID_FIELD("AsteroidField", "Navigating an asteroid field!"),
-
   NO_OP("NoOp", "");
 
   private final String jsonValue;
   private final String defaultDescription;
 
   /**
-   * Constructor for ActionType.
-   * @param jsonValue The string representation used in JSON serialization.
-   * @param defaultDescription A default user-friendly description for this action type.
+   * Constructs an ActionType.
+   *
+   * @param jsonValue         the value to use in JSON representations
+   * @param defaultDescription the default human-readable description
    */
   ActionType(String jsonValue, String defaultDescription) {
     this.jsonValue = jsonValue;
@@ -31,40 +34,43 @@ public enum ActionType {
   }
 
   /**
-   * Gets the string value used for JSON serialization.
-   * @return The JSON string value.
+   * Returns the JSON string used to serialize this action type.
+   *
+   * @return the JSON value
    */
   public String getJsonValue() {
     return jsonValue;
   }
 
   /**
-   * Gets the default user-friendly description for this action type.
-   * This can be used if a more specific description is not provided.
-   * @return The default description.
+   * Returns the default description to show when this action occurs.
+   *
+   * <p>Use custom descriptions where needed; this serves as a fallback.</p>
+   *
+   * @return the default user-friendly description
    */
   public String getDefaultDescription() {
     return defaultDescription;
   }
 
   /**
-   * Converts a JSON string value back to its corresponding ActionType enum constant.
-   * If the value is null or not recognized, it defaults to NO_OP.
+   * Parses a JSON string back into its corresponding {@link ActionType}.
    *
-   * @param value The JSON string value to parse.
-   * @return The corresponding ActionType, or NO_OP if not found or value is null.
+   * <p>If {@code value} is null or does not match any enum constant
+   * (case-insensitive), this returns {@link #NO_OP}.</p>
+   *
+   * @param value the JSON string to parse
+   * @return the matching ActionType, or NO_OP if unrecognized
    */
   public static ActionType fromJsonValue(String value) {
     if (value == null) {
       return NO_OP;
     }
-
     for (ActionType type : values()) {
       if (type.jsonValue.equalsIgnoreCase(value)) {
         return type;
       }
     }
-
     return NO_OP;
   }
 }
