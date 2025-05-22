@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.model.games;
 
-import edu.ntnu.idi.idatt.model.core.ActionType;
+import edu.ntnu.idi.idatt.model.core.actions.ActionType;
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.core.Dice;

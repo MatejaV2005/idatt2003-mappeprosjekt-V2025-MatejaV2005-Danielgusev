@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.model.core;
+package edu.ntnu.idi.idatt.model.core.actions;
 
 /**
  * Enum representing the different types of actions that can occur when a player

@@ -5,7 +5,7 @@ package edu.ntnu.idi.idatt.converter;
 import edu.ntnu.idi.idatt.DataTransfer.ActionDto;
 import edu.ntnu.idi.idatt.exceptions.InvalidBoardFormatException;
 import edu.ntnu.idi.idatt.factory.TileActionFactory;
-import edu.ntnu.idi.idatt.model.core.ActionType;
+import edu.ntnu.idi.idatt.model.core.actions.ActionType;
 import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.model.core.actions.NoOperationAction;
 import edu.ntnu.idi.idatt.model.core.actions.TileAction;

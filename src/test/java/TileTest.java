@@ -9,7 +9,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import edu.ntnu.idi.idatt.model.core.ActionType;
+import edu.ntnu.idi.idatt.model.core.actions.ActionType;
 import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.model.core.actions.NoOperationAction;
 import edu.ntnu.idi.idatt.model.core.actions.TileAction;

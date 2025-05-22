@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.factory;
 
-import edu.ntnu.idi.idatt.model.core.ActionType;
+import edu.ntnu.idi.idatt.model.core.actions.ActionType;
 import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.model.core.actions.AsteroidFieldAction; // Importer ny handling
 import edu.ntnu.idi.idatt.model.core.actions.BoostPadAction; // Importer ny handling
