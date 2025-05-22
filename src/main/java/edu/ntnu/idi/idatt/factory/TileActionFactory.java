@@ -25,7 +25,6 @@ import java.util.logging.Logger;
  * on an {@link ActionType} enum.
  *
  * @see ActionType
- * @since 1.0
  */
 public class TileActionFactory {
 
