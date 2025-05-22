@@ -4,10 +4,10 @@ import edu.ntnu.idi.idatt.exceptions.BoardManagementException;
 import edu.ntnu.idi.idatt.exceptions.InvalidBoardFormatException;
 import edu.ntnu.idi.idatt.exceptions.PlayerManagementException;
 import edu.ntnu.idi.idatt.model.core.Board;
+import edu.ntnu.idi.idatt.model.core.Player;
 import edu.ntnu.idi.idatt.model.games.GameType;
 import edu.ntnu.idi.idatt.service.BoardManager;
 import edu.ntnu.idi.idatt.service.PlayerManager;
-import edu.ntnu.idi.idatt.model.core.Player;
 import edu.ntnu.idi.idatt.view.components.gameSelection.CreatePlayerPopup;
 import edu.ntnu.idi.idatt.view.components.gameSelection.GameInfoPanel;
 import edu.ntnu.idi.idatt.view.components.gameSelection.PlayerManagementPanel;
@@ -22,9 +22,14 @@ import java.util.logging.Logger;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+
 /**
- * Controller for the game setup screen. Manages player selection, difficulty/game configuration,
- * and game initialization based on the selected GameType.
+ * Orchestrates the user interface and logic for the game setup screen ({@link GameSetupView}).
+ * Its responsibilities include managing player additions and selections, handling
+ * game-specific configurations such as difficulty levels or custom board uploads (for applicable
+ * game types like Snakes & Ladders), and ultimately triggering the game initialization process via
+ * the {@link NavigationController}. It collaborates closely with {@link PlayerManager} for player
+ * data persistence and {@link BoardManager} for custom board loading.
  */
 public class GameSetupController {
   private static final Logger LOGGER = Logger.getLogger(GameSetupController.class.getName());
@@ -77,8 +82,14 @@ public class GameSetupController {
    * @param gameType The type of game to set up the GUI for.
    */
   public void prepareGuiForGameType(GameType gameType) {
-    this.currentGameType = Objects.requireNonNull(gameType, "GameType cannot be null for GUI prep.");
-    LOGGER.info("Preparing GameSetup GUI for game type: " + this.currentGameType);
+    this.currentGameType = Objects.requireNonNull(gameType,
+        "GameType cannot be null for GUI prep.");
+
+    LOGGER.log(
+        Level.INFO,
+        "Preparing GameSetup GUI for game type: {0}",
+        this.currentGameType
+    );
 
     view.setScreenTitle(getScreenTitleForGameType(this.currentGameType) + " - Setup");
     GameInfoPanel gameInfoPanelFromView = view.getGameInfoPanel();
@@ -136,9 +147,25 @@ public class GameSetupController {
   }
 
   /**
-   * Handles game start button click. Validates player count before starting. The type of game to
-   * start is determined by {@code currentGameType}.
-   */
+   * Initiates the game start sequence after validating player requirements.
+   *
+   * <p>This method first checks if the number of currently added players (from
+   * {@link PlayerManager#getPlayers()}) meets the minimum requirement for the
+   * {@code currentGameType} (determined by {@link #getMinPlayersForGame(GameType)}).
+   * If validation fails, an error alert is displayed via {@link AlertHelper},
+   * a status message is updated in the {@link GameSetupView}, and the game start process
+   * is halted.
+   *
+   * <p>If player validation is successful, the method proceeds to launch the game using the
+   * {@link NavigationController}. A special path is taken if the game is Snakes & Ladders,
+   * the configuration is "custom", and a {@code customBoard} is available; in this case,
+   * {@link NavigationController#startCustomGame(Board)} is invoked. Otherwise, the game
+   * starts using {@link NavigationController#startNewGame(GameType, String)} with the
+   * current game type and selected configuration.
+   *
+   * <p>Any exceptions encountered during this game initialization phase are caught, logged,
+   * and an error message is presented to the user.
+   * **/
   public void onGameStart() {
     List<Player> players = playerManager.getPlayers();
     int minPlayersForCurrentGame = getMinPlayersForGame(currentGameType);
@@ -146,7 +173,8 @@ public class GameSetupController {
     if (players.size() < minPlayersForCurrentGame) {
       AlertHelper.showErrorAlert(
           "Not Enough Players",
-          "Please add at least " + minPlayersForCurrentGame + " players for " + getScreenTitleForGameType(currentGameType) + ".");
+          "Please add at least " + minPlayersForCurrentGame
+              + " players for " + getScreenTitleForGameType(currentGameType) + ".");
       view.updateStatusMessage(
           "Need at least " + minPlayersForCurrentGame + " players", true);
       return;
@@ -198,11 +226,9 @@ public class GameSetupController {
       if (infoPanelFromView != null) {
         switch (this.selectedDifficultyOrConfig) {
           case "easy" -> infoPanelFromView.setEasyModeInfo();
-          case "normal" -> infoPanelFromView.setNormalModeInfo();
           case "hard" -> infoPanelFromView.setHardModeInfo();
-          case "upload" -> {
-            infoPanelFromView.setUploadModeInfo();
-          }
+          case "upload" -> infoPanelFromView.setUploadModeInfo();
+
           default -> infoPanelFromView.setNormalModeInfo();
         }
       }
@@ -211,13 +237,27 @@ public class GameSetupController {
       }
       LOGGER.log(Level.INFO, "S&L Difficulty selected: {0}", this.selectedDifficultyOrConfig);
     } else {
-      LOGGER.finer("Difficulty selection ignored for game type: " + currentGameType);
+      LOGGER.log(
+          Level.FINER,
+          "Difficulty selection ignored for game type: {0}",
+          currentGameType
+      );
     }
   }
 
   /**
-   * Handles upload board button click. This is specific to games that support custom boards (like
-   * Snakes & Ladders).
+   * Prompts the user to upload a custom Snakes & Ladders board file.
+   *
+   * <p>If the current game isn’t S&L or the stage is unavailable, an alert is shown
+   * and the method returns immediately. Otherwise a JSON-only file chooser
+   * (defaulting to the boards folder) is displayed.
+   *
+   * <p>On file selection, this calls
+   * {@link edu.ntnu.idi.idatt.service.BoardManager#loadBoardFromFile(String)}.
+   * Success switches the UI to “custom” mode; failures produce an error alert,
+   * log the issue, and reset to the default board.
+   *
+   * @see edu.ntnu.idi.idatt.service.BoardManager#loadBoardFromFile(String)
    */
   public void onUploadBoard() {
     if (currentGameType != GameType.SNAKES_AND_LADDERS) {
@@ -241,7 +281,8 @@ public class GameSetupController {
     if (boardsDir.exists() && boardsDir.isDirectory()) {
       fileChooser.setInitialDirectory(boardsDir);
     } else {
-      LOGGER.info("Boards directory not found at: " + BOARDS_DIRECTORY + ". Using default initial directory.");
+      LOGGER.info("Boards directory not found at: "
+          + BOARDS_DIRECTORY + ". Using default initial directory.");
     }
 
     File selectedFile = fileChooser.showOpenDialog(stage);
@@ -255,13 +296,16 @@ public class GameSetupController {
         }
         view.updateStatusMessage("Custom board loaded: " + selectedFile.getName(), false);
         LOGGER.log(Level.INFO, "Loaded custom board from: {0}", selectedFile.getAbsolutePath());
+
       } catch (InvalidBoardFormatException e) {
-        LOGGER.log(Level.WARNING, "Invalid board format: " + e.getMessage(), e);
+        // no string-concat, let the logger handle the exception
+        LOGGER.log(Level.WARNING, "Invalid board format", e);
         AlertHelper.showErrorAlert("Invalid Board File", e.getMessage());
         view.updateStatusMessage("Invalid board file: " + e.getMessage(), true);
         resetToDefaultBoardConfigForCurrentGame();
+
       } catch (BoardManagementException e) {
-        LOGGER.log(Level.SEVERE, "Failed to load board file: " + e.getMessage(), e);
+        LOGGER.log(Level.SEVERE, "Failed to load board file", e);
         AlertHelper.showErrorAlert("Board Load Error", "Failed to load board: " + e.getMessage());
         view.updateStatusMessage("Failed to load board: " + e.getMessage(), true);
         resetToDefaultBoardConfigForCurrentGame();
@@ -285,7 +329,14 @@ public class GameSetupController {
     }
   }
 
-  // --- Player Management Methods ---
+  /**
+   * Refreshes the player list views.
+   *
+   * <p>Always updates the current players tab. If the Saved Players tab
+   * is currently selected, it reloads that list as well so both views
+   * reflect the latest data from the model.
+   * </p>
+   */
   public void refreshPlayerListViews() {
     LOGGER.fine("GameSetupController: Refreshing player list views.");
     onCurrentPlayersTabSelected();
@@ -297,6 +348,17 @@ public class GameSetupController {
     }
   }
 
+  /**
+   * Handles the Add Player action workflow.
+   *
+   * <p>First checks if the maximum number of players (MAX_PLAYERS) has been reached;
+   * if so, shows an error alert and updates the status message without proceeding.
+   * Otherwise, opens a CreatePlayerPopup to gather new player data. When the user
+   * confirms, it verifies the name is not already in use (case-insensitive), then
+   * adds the player via PlayerManager, refreshes the current list, and displays
+   * a success message. If adding fails, logs a warning and shows an error alert.
+   * </p>
+   */
   public void onAddPlayer() {
     PlayerManagementPanel panel = view.getPlayerManagementPanel();
     if (panel.isPlayerLimitReached()) {
@@ -331,6 +393,15 @@ public class GameSetupController {
         });
   }
 
+  /**
+   * Handles the Remove Player action workflow.
+   *
+   * <p>If a player is selected and the removal is confirmed via the panel’s dialog,
+   * removes the player from the current session, refreshes the list, and shows
+   * a confirmation message. If no player is selected, updates the status to
+   * inform the user that no action was taken.
+   * </p>
+   */
   public void onRemovePlayer() {
     PlayerManagementPanel panel = view.getPlayerManagementPanel();
     Player selectedPlayer = panel.getSelectedCurrentPlayer();
@@ -346,6 +417,16 @@ public class GameSetupController {
     }
   }
 
+  /**
+   * Saves the selected player from the current session to persistent storage.
+   *
+   * <p>If no player is selected, displays an error alert and returns.
+   *
+   * <p>Otherwise, calls {@link edu.ntnu.idi.idatt.service.PlayerManager#savePlayer(Player)}.
+   * On success, updates the status message and reloads saved players if that tab is active.
+   * If the player already exists in storage, updates the status accordingly.
+   * Errors during save are logged at SEVERE level and shown in an error alert.
+   */
   public void onSavePlayer() {
     PlayerManagementPanel panel = view.getPlayerManagementPanel();
     Player selectedPlayer = panel.getSelectedCurrentPlayer();
@@ -372,6 +453,17 @@ public class GameSetupController {
     }
   }
 
+  /**
+   * Adds a saved player to the current game session.
+   *
+   * <p>If no saved player is selected, shows an error alert and returns.
+   * If the player limit is reached, alerts the user and returns.
+   *
+   * <p>Otherwise, checks for duplicates in the current session, adds the
+   * player via {@link edu.ntnu.idi.idatt.service.PlayerManager#addPlayer(Player)},
+   * refreshes the current players list, and updates the status.
+   * Errors during addition are logged at SEVERE level and shown in an alert.
+   */
   public void onAddSavedPlayer() {
     PlayerManagementPanel panel = view.getPlayerManagementPanel();
     Player selectedSavedPlayer = panel.getSelectedSavedPlayer();
@@ -407,12 +499,30 @@ public class GameSetupController {
     }
   }
 
+  /**
+   * Refreshes the current players list in the UI.
+   *
+   * <p>Retrieves the latest player list from
+   * {@link edu.ntnu.idi.idatt.service.PlayerManager#getPlayers()} and
+   * updates the PlayerManagementPanel accordingly.
+   */
   public void refreshCurrentPlayersList() {
     PlayerManagementPanel panel = view.getPlayerManagementPanel();
     List<Player> currentPlayers = playerManager.getPlayers();
     panel.updateCurrentPlayersList(currentPlayers);
   }
 
+  /**
+   * Loads saved players and updates the UI list and status.
+   *
+   * <p>Calls {@link edu.ntnu.idi.idatt.service.PlayerManager#loadPlayersFromFile()}
+   * to retrieve saved players, updates the panel via
+   * {@link PlayerManagementPanel#updateSavedPlayersList(List)}, and sets a status
+   * message indicating how many players were loaded or that none were found.
+   *
+   * <p>If an exception occurs, logs at SEVERE level, shows an error alert,
+   * and updates the status to reflect the failure.
+   */
   public void loadSavedPlayersAndUpdateView() {
     try {
       List<Player> savedPlayers = playerManager.loadPlayersFromFile();
@@ -431,21 +541,30 @@ public class GameSetupController {
     }
   }
 
+  /**
+   * Handles selection of the Current Players tab.
+   *
+   * <p>Refreshes the current players list to ensure the view reflects
+   * the latest in-memory session data.
+   */
   public void onCurrentPlayersTabSelected() {
-    PlayerManagementPanel panel = view.getPlayerManagementPanel();
     refreshCurrentPlayersList();
-    // panel.showCurrentPlayers(); // This logic is usually handled by PlayerManagementPanel itself on tab switch
-  }
-
-  public void onSavedPlayersTabSelected() {
-    loadSavedPlayersAndUpdateView();
-    // PlayerManagementPanel panel = view.getPlayerManagementPanel();
-    // panel.showSavedPlayers(); // This logic is usually handled by PlayerManagementPanel itself
   }
 
   /**
-   * Gets the current game type being configured.
-   * @return The current GameType.
+   * Handles selection of the Saved Players tab.
+   *
+   * <p>Loads saved players and refreshes the view to display them,
+   * delegating to {@link #loadSavedPlayersAndUpdateView()}.
+   */
+  public void onSavedPlayersTabSelected() {
+    loadSavedPlayersAndUpdateView();
+  }
+
+  /**
+   * Returns the game type currently being configured.
+   *
+   * @return the current {@link GameType}
    */
   public GameType getCurrentGameType() {
     return currentGameType;
