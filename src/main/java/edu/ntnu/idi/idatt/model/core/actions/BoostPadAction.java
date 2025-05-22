@@ -6,23 +6,16 @@ import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 /**
  * {@code BoostPadAction} represents a tile action that grants
  * a player a temporary movement boost when landed upon.
- * <p>
- * After invoking {@link #perform(Player)}, call
+ *
+ * <p>After invoking {@link #perform(Player)}, call
  * {@link #consumeLastDeterminedMovementEffectSteps()} to retrieve
  * and clear the boost effect.
  * </p>
  */
 public class BoostPadAction implements TileAction {
 
-  /**
-   * A brief description of this action for display or logging.
-   */
-  private final String description;
 
-  /**
-   * Stores the last determined boost in movement steps;
-   * positive values indicate extra steps, zero if consumed or none.
-   */
+  private final String description;
   private int lastDeterminedMovementEffectSteps;
 
   /**
@@ -64,8 +57,8 @@ public class BoostPadAction implements TileAction {
 
   /**
    * {@inheritDoc}
-   * <p>
-   * For {@code BoostPadAction}, always returns {@link ActionType#BOOST_PAD}.
+   *
+   * <p>For {@code BoostPadAction}, always returns {@link ActionType#BOOST_PAD}.
    * </p>
    *
    * @return {@link ActionType#BOOST_PAD}
@@ -77,8 +70,8 @@ public class BoostPadAction implements TileAction {
 
   /**
    * {@inheritDoc}
-   * <p>
-   *   Boost pads do not relocate the player; this returns -1.
+   *
+   * <p>Boost pads do not relocate the player; this returns -1.
    * </p>
    *
    * @return -1 indicating no tile change
@@ -90,8 +83,8 @@ public class BoostPadAction implements TileAction {
 
   /**
    * {@inheritDoc}
-   * <p>
-   *   Returns the description provided at construction.
+   *
+   * <p>Returns the description provided at construction.
    * </p>
    *
    * @return the non-null, non-blank description
