@@ -3,14 +3,13 @@ package edu.ntnu.idi.idatt;
 
 import edu.ntnu.idi.idatt.exceptions.BoardManagementException;
 import edu.ntnu.idi.idatt.factory.BoardFactory;
-import edu.ntnu.idi.idatt.model.core.Die;
 import edu.ntnu.idi.idatt.model.management.BoardManager;
 import edu.ntnu.idi.idatt.model.management.PlayerManager;
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.core.Dice;
 import edu.ntnu.idi.idatt.model.games.SnakesAndLaddersGame;
-import edu.ntnu.idi.idatt.model.core.playertype.Player;
+import edu.ntnu.idi.idatt.model.core.Player;
 import edu.ntnu.idi.idatt.model.strategy.GameStrategy;
 import edu.ntnu.idi.idatt.model.strategy.SnakesAndLaddersStrategy;
 import java.util.List;

@@ -1,6 +1,5 @@
 package edu.ntnu.idi.idatt.model.core;
 
-import edu.ntnu.idi.idatt.model.core.playertype.Player;
 import edu.ntnu.idi.idatt.model.strategy.GameStrategy;
 import edu.ntnu.idi.idatt.observer.BoardGameObserver;
 import edu.ntnu.idi.idatt.observer.Observable;

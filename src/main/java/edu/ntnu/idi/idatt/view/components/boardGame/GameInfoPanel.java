@@ -2,7 +2,7 @@ package edu.ntnu.idi.idatt.view.components.boardGame;
 
 import edu.ntnu.idi.idatt.model.core.Dice;
 import edu.ntnu.idi.idatt.model.core.Tile;
-import edu.ntnu.idi.idatt.model.core.playertype.Player;
+import edu.ntnu.idi.idatt.model.core.Player;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.geometry.Insets;

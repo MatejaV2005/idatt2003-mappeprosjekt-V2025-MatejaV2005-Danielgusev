@@ -2,7 +2,6 @@ package edu.ntnu.idi.idatt.model.core;
 
 import edu.ntnu.idi.idatt.model.core.actions.NoOperationAction;
 import edu.ntnu.idi.idatt.model.core.actions.TileAction;
-import edu.ntnu.idi.idatt.model.core.playertype.Player;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling; // Importer din klasse
 
 import java.util.ArrayList;

@@ -3,7 +3,7 @@ package edu.ntnu.idi.idatt.model.strategy;
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.Dice;
 import edu.ntnu.idi.idatt.model.core.Tile;
-import edu.ntnu.idi.idatt.model.core.playertype.Player;
+import edu.ntnu.idi.idatt.model.core.Player;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import java.util.List;
 

@@ -1,6 +1,5 @@
-package edu.ntnu.idi.idatt.model.core.playertype;
+package edu.ntnu.idi.idatt.model.core;
 
-import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling; // Din ExceptionHandling klasse
 
 import java.util.Objects;

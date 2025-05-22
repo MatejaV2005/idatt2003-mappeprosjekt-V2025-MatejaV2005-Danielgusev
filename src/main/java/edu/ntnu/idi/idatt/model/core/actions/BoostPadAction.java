@@ -1,7 +1,7 @@
 package edu.ntnu.idi.idatt.model.core.actions;
 
 import edu.ntnu.idi.idatt.model.core.ActionType;
-import edu.ntnu.idi.idatt.model.core.playertype.Player;
+import edu.ntnu.idi.idatt.model.core.Player;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 
 public class BoostPadAction implements TileAction {

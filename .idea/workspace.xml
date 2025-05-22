@@ -4,36 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="workspace.xml commit">
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/AsteroidFieldAction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/BoostPadAction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/games/AstroRallyGame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/strategy/AstroRallyStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/renderer/AstroRallyRenderer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/boardgames/SnakesAndLaddersGameTest.java" afterDir="false" />
+    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Add unit tests for GameEngine using Mockito, where it mocks Board and GameStrategy to isolate GameEngine behavior&#10;Verifies constructor validation, turn execution, win condition logic, and game initialization">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/BoardGameApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/BoardGameApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/BoardGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/BoardGameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/GameSelectionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/GameSelectionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/GameSetupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/GameSetupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/NavigationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/NavigationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/converter/ActionConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/converter/ActionConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardGameFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardGameFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/GameViewFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/GameViewFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/StrategyFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/StrategyFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/TileActionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/TileActionFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/ActionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/ActionType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/Dice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/Dice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/GameType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/GameType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/playertype/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/playertype/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/games/SnakesAndLaddersGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/games/SnakesAndLaddersGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/strategy/AstroRallyStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/strategy/AstroRallyStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/strategy/GameStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/strategy/GameStrategy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/strategy/SnakesAndLaddersStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/strategy/SnakesAndLaddersStrategy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/WinDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardGame/WinDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/gameSelection/GameInfoPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/gameSelection/GameInfoPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GameSelectionView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GameSelectionView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GameSetupView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GameSetupView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GenericBoardGameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GenericBoardGameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/boardgames/SnakesAndLaddersGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/boardgames/SnakesAndLaddersGameTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,13 +128,21 @@
     "Application.Main.executor": "Run",
     "Application.TitleScreen.executor": "Run",
     "Application.fx.executor": "Run",
+    "JUnit.AstroRallyGameTest.executor": "Run",
+    "JUnit.BoardGameTest.executor": "Run",
+    "JUnit.BoardTest.executor": "Run",
+    "JUnit.DiceTest.executor": "Run",
+    "JUnit.DiceTest.toString_ContainsRelevantInformation.executor": "Run",
+    "JUnit.GameEngineTest.executor": "Run",
     "JUnit.PlayerTest.executor": "Run",
+    "JUnit.SnakesAndLaddersGameTest.executor": "Run",
+    "JUnit.SnakesAndLaddersGameTest.testHandlePlayerTurn_PlayerMoves_NoActionTile.executor": "Run",
     "Maven.boardgame-V2025-IDATT2003 [clean].executor": "Run",
     "Maven.boardgame-V2025-IDATT2003 [package].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "git-widget-placeholder": "Merging finalize-javadoc-and-testing",
+    "git-widget-placeholder": "finalize-javadoc-and-testing",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/mappeprosjekt-vaar2025/boardgame-V2025-IDATT2003/src/main/resources/edu/ntnu/idi/idatt/view/resources/Dice",
     "list.type.of.created.stylesheet": "CSS",
@@ -185,34 +171,8 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.BoardGameTest">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.Main" />
-      <module name="boardgame-V2025-IDATT2003" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.UserInterface.TitleScreen.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TitleScreen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="edu.ntnu.idi.idatt.UserInterface.TitleScreen.TitleScreen" />
-      <module name="boardgame-V2025-IDATT2003" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="edu.ntnu.idi.idatt.UserInterface.TitleScreen.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="BoardGameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.AstroRallyGameTest">
+    <configuration name="AstroRallyGameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="boardgame-V2025-IDATT2003" />
       <extension name="coverage">
         <pattern>
@@ -221,16 +181,16 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="boardgames" />
-      <option name="MAIN_CLASS_NAME" value="boardgames.BoardGameTest" />
+      <option name="MAIN_CLASS_NAME" value="boardgames.AstroRallyGameTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BoardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="boardgame-V2025-IDATT2003" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="BoardTest" />
+      <option name="MAIN_CLASS_NAME" value="DiceTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -245,13 +205,44 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SnakesAndLaddersGameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="boardgame-V2025-IDATT2003" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="boardgames.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="boardgames" />
+      <option name="MAIN_CLASS_NAME" value="boardgames.SnakesAndLaddersGameTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SnakesAndLaddersGameTest.testHandlePlayerTurn_PlayerMoves_NoActionTile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="boardgame-V2025-IDATT2003" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="boardgames.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="boardgames" />
+      <option name="MAIN_CLASS_NAME" value="boardgames.SnakesAndLaddersGameTest" />
+      <option name="METHOD_NAME" value="testHandlePlayerTurn_PlayerMoves_NoActionTile" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.BoardGameTest" />
-        <item itemvalue="JUnit.BoardTest" />
+        <item itemvalue="JUnit.AstroRallyGameTest" />
+        <item itemvalue="JUnit.SnakesAndLaddersGameTest" />
+        <item itemvalue="JUnit.SnakesAndLaddersGameTest.testHandlePlayerTurn_PlayerMoves_NoActionTile" />
         <item itemvalue="JUnit.PlayerTest" />
-        <item itemvalue="Application.TitleScreen" />
-        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.DiceTest" />
       </list>
     </recent_temporary>
   </component>
@@ -336,38 +327,6 @@
       <workItem from="1747578719638" duration="476000" />
       <workItem from="1747830178262" duration="9362000" />
       <workItem from="1747840759437" duration="9143000" />
-    </task>
-    <task id="LOCAL-00149" summary="Introduce async move animations via animationRunning flag and callback; improve playTurnButton and dicePanel state management through game state notification">
-      <option name="closed" value="true" />
-      <created>1747507552787</created>
-      <option name="number" value="00149" />
-      <option name="presentableId" value="LOCAL-00149" />
-      <option name="project" value="LOCAL" />
-      <updated>1747507552787</updated>
-    </task>
-    <task id="LOCAL-00150" summary="enhanced CSS styling for player rows">
-      <option name="closed" value="true" />
-      <created>1747507575939</created>
-      <option name="number" value="00150" />
-      <option name="presentableId" value="LOCAL-00150" />
-      <option name="project" value="LOCAL" />
-      <updated>1747507575939</updated>
-    </task>
-    <task id="LOCAL-00151" summary="minor refactoring, not of value">
-      <option name="closed" value="true" />
-      <created>1747507609230</created>
-      <option name="number" value="00151" />
-      <option name="presentableId" value="LOCAL-00151" />
-      <option name="project" value="LOCAL" />
-      <updated>1747507609230</updated>
-    </task>
-    <task id="LOCAL-00152" summary="saved imporved board styles to JSON">
-      <option name="closed" value="true" />
-      <created>1747507639251</created>
-      <option name="number" value="00152" />
-      <option name="presentableId" value="LOCAL-00152" />
-      <option name="project" value="LOCAL" />
-      <updated>1747507639251</updated>
     </task>
     <task id="LOCAL-00153" summary="Simplified ActionConverter, now it uses factory, drops extra validations and fallback to NoOp">
       <option name="closed" value="true" />
@@ -729,7 +688,39 @@
       <option name="project" value="LOCAL" />
       <updated>1747855510892</updated>
     </task>
-    <option name="localTasksCounter" value="198" />
+    <task id="LOCAL-00198" summary="resolved merge conflicts">
+      <option name="closed" value="true" />
+      <created>1747859635641</created>
+      <option name="number" value="00198" />
+      <option name="presentableId" value="LOCAL-00198" />
+      <option name="project" value="LOCAL" />
+      <updated>1747859635641</updated>
+    </task>
+    <task id="LOCAL-00199" summary="Refactored model tests reccomended by Gemini AI that dont actually require mockito to be simplified.">
+      <option name="closed" value="true" />
+      <created>1747866315680</created>
+      <option name="number" value="00199" />
+      <option name="presentableId" value="LOCAL-00199" />
+      <option name="project" value="LOCAL" />
+      <updated>1747866315680</updated>
+    </task>
+    <task id="LOCAL-00200" summary="Added Extensive javadoc and exceptionHandling to GameEngine">
+      <option name="closed" value="true" />
+      <created>1747866404320</created>
+      <option name="number" value="00200" />
+      <option name="presentableId" value="LOCAL-00200" />
+      <option name="project" value="LOCAL" />
+      <updated>1747866404320</updated>
+    </task>
+    <task id="LOCAL-00201" summary="Add unit tests for GameEngine using Mockito, where it mocks Board and GameStrategy to isolate GameEngine behavior&#10;Verifies constructor validation, turn execution, win condition logic, and game initialization">
+      <option name="closed" value="true" />
+      <created>1747870970174</created>
+      <option name="number" value="00201" />
+      <option name="presentableId" value="LOCAL-00201" />
+      <option name="project" value="LOCAL" />
+      <updated>1747870970174</updated>
+    </task>
+    <option name="localTasksCounter" value="202" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -747,10 +738,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="made pplayer not abstract, added new fields for astroGame" />
-    <MESSAGE value="removed bot and human player" />
-    <MESSAGE value="ommitted space for BoardGameFactory to create AstroRally" />
-    <MESSAGE value="Refactored navigationController to handle dynamic navigation between different game setups" />
     <MESSAGE value="Refactored gameSetupView to handle different layouts for gameTypes," />
     <MESSAGE value="Refactored GameSetupController, now it has centralized event handling, prepares GUI per game type" />
     <MESSAGE value="Refactored GameSelectionView to choose ONLY between S&amp;L and AstroValley" />
@@ -772,7 +759,11 @@
     <MESSAGE value="Made StrategyFactory for centralized creation of strategies" />
     <MESSAGE value="Developed AstroRallyRenderer to display a Monopoly-style Astro Rally board and animate player token movements and action effects in JavaFX." />
     <MESSAGE value="workspace.xml commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="workspace.xml commit" />
+    <MESSAGE value="resolved merge conflicts" />
+    <MESSAGE value="Refactored model tests reccomended by Gemini AI that dont actually require mockito to be simplified." />
+    <MESSAGE value="Added Extensive javadoc and exceptionHandling to GameEngine" />
+    <MESSAGE value="Add unit tests for GameEngine using Mockito, where it mocks Board and GameStrategy to isolate GameEngine behavior&#10;Verifies constructor validation, turn execution, win condition logic, and game initialization" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add unit tests for GameEngine using Mockito, where it mocks Board and GameStrategy to isolate GameEngine behavior&#10;Verifies constructor validation, turn execution, win condition logic, and game initialization" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -1,7 +1,7 @@
 package edu.ntnu.idi.idatt.view.components.boardGame;
 
 import edu.ntnu.idi.idatt.exceptions.BoardGameResourceException;
-import edu.ntnu.idi.idatt.model.core.playertype.Player;
+import edu.ntnu.idi.idatt.model.core.Player;
 import edu.ntnu.idi.idatt.view.utils.ResourceLoader;
 import java.util.HashMap;
 import java.util.List;

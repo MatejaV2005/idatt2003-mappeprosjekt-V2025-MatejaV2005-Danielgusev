@@ -7,7 +7,7 @@ import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.GameType;
 import edu.ntnu.idi.idatt.model.management.BoardManager;
 import edu.ntnu.idi.idatt.model.management.PlayerManager;
-import edu.ntnu.idi.idatt.model.core.playertype.Player;
+import edu.ntnu.idi.idatt.model.core.Player;
 import edu.ntnu.idi.idatt.view.components.gameSelection.CreatePlayerPopup;
 import edu.ntnu.idi.idatt.view.components.gameSelection.GameInfoPanel;
 import edu.ntnu.idi.idatt.view.components.gameSelection.PlayerManagementPanel;

@@ -2,7 +2,7 @@ package edu.ntnu.idi.idatt.view.components.gameSelection;
 
 import edu.ntnu.idi.idatt.exceptions.BoardGameResourceException;
 import edu.ntnu.idi.idatt.factory.ButtonFactory;
-import edu.ntnu.idi.idatt.model.core.playertype.Player;
+import edu.ntnu.idi.idatt.model.core.Player;
 import edu.ntnu.idi.idatt.view.utils.ResourceLoader;
 import edu.ntnu.idi.idatt.view.utils.AlertHelper;
 

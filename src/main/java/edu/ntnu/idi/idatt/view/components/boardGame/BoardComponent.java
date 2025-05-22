@@ -2,7 +2,7 @@ package edu.ntnu.idi.idatt.view.components.boardGame;
 
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.Tile;
-import edu.ntnu.idi.idatt.model.core.playertype.Player;
+import edu.ntnu.idi.idatt.model.core.Player;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import edu.ntnu.idi.idatt.view.renderer.BoardRenderer;
 import java.util.HashMap;

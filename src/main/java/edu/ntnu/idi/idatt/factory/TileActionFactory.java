@@ -9,7 +9,7 @@ import edu.ntnu.idi.idatt.model.core.actions.NoOperationAction;
 import edu.ntnu.idi.idatt.model.core.actions.SnakeAction;
 import edu.ntnu.idi.idatt.model.core.actions.SpecialAction;
 import edu.ntnu.idi.idatt.model.core.actions.TileAction;
-import edu.ntnu.idi.idatt.model.core.playertype.Player; // Trengs for SpecialAction lambda
+import edu.ntnu.idi.idatt.model.core.Player; // Trengs for SpecialAction lambda
 import java.util.Objects;
 import java.util.function.Consumer; // Trengs for SpecialAction lambda
 import java.util.logging.Logger;

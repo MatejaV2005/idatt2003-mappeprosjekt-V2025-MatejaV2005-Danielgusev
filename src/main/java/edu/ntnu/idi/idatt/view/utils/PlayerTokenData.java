@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.view.utils;
 
-import edu.ntnu.idi.idatt.model.core.playertype.Player;
+import edu.ntnu.idi.idatt.model.core.Player;
 
 public class PlayerTokenData {
   private final Player player;

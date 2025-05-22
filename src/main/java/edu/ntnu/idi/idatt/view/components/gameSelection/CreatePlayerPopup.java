@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.view.components.gameSelection;
 
-import edu.ntnu.idi.idatt.model.core.playertype.Player;
+import edu.ntnu.idi.idatt.model.core.Player;
 import edu.ntnu.idi.idatt.view.utils.ResourceLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

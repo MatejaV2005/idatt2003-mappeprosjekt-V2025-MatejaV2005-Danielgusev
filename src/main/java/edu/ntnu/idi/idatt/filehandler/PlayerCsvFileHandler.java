@@ -2,11 +2,10 @@ package edu.ntnu.idi.idatt.filehandler;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
-import com.opencsv.exceptions.CsvValidationException;
 import edu.ntnu.idi.idatt.exceptions.FileLoadException;
 import edu.ntnu.idi.idatt.exceptions.FileSaveException;
 import edu.ntnu.idi.idatt.factory.PlayerFactory;
-import edu.ntnu.idi.idatt.model.core.playertype.Player;
+import edu.ntnu.idi.idatt.model.core.Player;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
