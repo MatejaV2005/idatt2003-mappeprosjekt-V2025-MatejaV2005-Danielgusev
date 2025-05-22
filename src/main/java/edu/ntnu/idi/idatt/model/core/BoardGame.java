@@ -4,19 +4,30 @@ import edu.ntnu.idi.idatt.model.games.GameType;
 import edu.ntnu.idi.idatt.model.strategy.GameStrategy;
 import edu.ntnu.idi.idatt.observer.BoardGameObserver;
 import edu.ntnu.idi.idatt.observer.Observable;
-import edu.ntnu.idi.idatt.utils.ExceptionHandling; // Din ExceptionHandling klasse
-
+import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger; // Importer Logger
+import java.util.logging.Logger;
 
 /**
- * Abstract base class for board games, designed using the Template Method pattern.
- * This class provides a skeletal structure for game flow, allowing subclasses to define
- * specific game rules and behaviors by implementing abstract hook methods.
- * It acts as a facade for the game system, managing players, the board, dice,
- * game state (started, game over, winner), and observer notifications.
+ * Core abstract class for turn-based board games.
+ *
+ * <p>Implements the Template Method pattern by defining the invariant game lifecycle:
+ * adding players, starting the game ({@link #startGame()}), and advancing turns
+ * ({@link #playNextTurn()}). Subclasses plug in game-specific rules via abstract hooks:
+ * {@link #handlePlayerTurn(Player)}, {@link #checkWinCondition(Player)},
+ * and {@link #getGameType()}. Optional hooks like
+ * {@link #initializeGameState()} and {@link #handleSpecialTileAction(Player, Tile)}
+ * allow further customization.</p>
+ *
+ * <p>Also manages observer notification (players moving, game won, state changes)
+ * using the {@link Observable} interface.</p>
+ *
+ * @see #startGame()
+ * @see #playNextTurn()
+ * @see #handlePlayerTurn(Player)
+ * @see #checkWinCondition(Player)
  */
 public abstract class BoardGame implements Observable<BoardGameObserver> {
   protected static final Logger LOGGER_MODEL = Logger.getLogger(BoardGame.class.getName());
@@ -214,7 +225,7 @@ public abstract class BoardGame implements Observable<BoardGameObserver> {
     this.roundCount = 1;
 
     if (this.currentPlayer == null && !this.players.isEmpty()) {
-      this.currentPlayer = this.players.get(0); // Default to the first added player
+      this.currentPlayer = this.players.getFirst(); // Default to the first added player
     }
 
     Tile startTile = getStartingTile();
@@ -356,7 +367,7 @@ public abstract class BoardGame implements Observable<BoardGameObserver> {
    * Gets the player whose turn it currently is.
    *
    * @return The current {@link Player}, or {@code null} if the game hasn't started or if there is
-   * no current player set.
+   *         no current player set.
    */
   public Player getCurrentPlayer() {
     return currentPlayer;
@@ -402,7 +413,7 @@ public abstract class BoardGame implements Observable<BoardGameObserver> {
    * Checks if the game has started.
    *
    * @return {@code true} if {@link #startGame()} has been successfully called, {@code false}
-   * otherwise.
+   *          otherwise.
    */
   public boolean hasGameStarted() {
     return gameStarted;
@@ -412,7 +423,7 @@ public abstract class BoardGame implements Observable<BoardGameObserver> {
    * Gets the winner of the game, if the game is over and a winner has been determined.
    *
    * @return An {@link Optional} containing the winning {@link Player} if the game is over and there
-   * is a winner; otherwise, an empty {@code Optional}.
+   *         is a winner; otherwise, an empty {@code Optional}.
    */
   public Optional<Player> getWinner() {
     return Optional.ofNullable(this.winner);
@@ -425,15 +436,5 @@ public abstract class BoardGame implements Observable<BoardGameObserver> {
    */
   public int getRoundCount() {
     return roundCount;
-  }
-
-  /**
-   * Gets the {@link GameEngine} used by this board game. This method is protected as the engine is
-   * primarily for internal use by the {@code BoardGame} and its subclasses.
-   *
-   * @return The {@link GameEngine} instance.
-   */
-  protected GameEngine getGameEngine() {
-    return this.gameEngine;
   }
 }
