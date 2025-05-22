@@ -3,12 +3,11 @@ package edu.ntnu.idi.idatt.filehandler;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
-import edu.ntnu.idi.idatt.DataTransfer.BoardDto;
+import edu.ntnu.idi.idatt.dto.BoardDto;
 import edu.ntnu.idi.idatt.converter.BoardConverter;
 import edu.ntnu.idi.idatt.exceptions.FileLoadException;
 import edu.ntnu.idi.idatt.exceptions.FileSaveException;
 import edu.ntnu.idi.idatt.exceptions.InvalidBoardFormatException;
-import edu.ntnu.idi.idatt.factory.BoardFactory;
 import edu.ntnu.idi.idatt.model.core.Board;
 
 import java.io.FileNotFoundException;

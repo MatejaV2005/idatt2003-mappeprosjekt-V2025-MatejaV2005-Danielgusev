@@ -1,7 +1,7 @@
 package edu.ntnu.idi.idatt.converter;
 
-import edu.ntnu.idi.idatt.DataTransfer.ActionDto;
-import edu.ntnu.idi.idatt.DataTransfer.TileDto;
+import edu.ntnu.idi.idatt.dto.ActionDto;
+import edu.ntnu.idi.idatt.dto.TileDto;
 import edu.ntnu.idi.idatt.factory.TileFactory;
 import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.model.core.actions.NoOperationAction;

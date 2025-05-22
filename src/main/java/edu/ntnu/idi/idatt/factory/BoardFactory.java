@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.factory;
 
-import edu.ntnu.idi.idatt.DataTransfer.BoardDto;
+import edu.ntnu.idi.idatt.dto.BoardDto;
 import edu.ntnu.idi.idatt.converter.BoardConverter;
 import edu.ntnu.idi.idatt.exceptions.InvalidBoardFormatException;
 import edu.ntnu.idi.idatt.model.core.Board;

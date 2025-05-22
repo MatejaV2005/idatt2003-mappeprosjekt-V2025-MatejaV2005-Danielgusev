@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.DataTransfer;
+package edu.ntnu.idi.idatt.dto;
 
 import java.util.Map;
 

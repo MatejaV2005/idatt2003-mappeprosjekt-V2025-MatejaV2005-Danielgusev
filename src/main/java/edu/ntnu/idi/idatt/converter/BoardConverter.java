@@ -1,7 +1,7 @@
 package edu.ntnu.idi.idatt.converter;
 
-import edu.ntnu.idi.idatt.DataTransfer.BoardDto;
-import edu.ntnu.idi.idatt.DataTransfer.TileDto;
+import edu.ntnu.idi.idatt.dto.BoardDto;
+import edu.ntnu.idi.idatt.dto.TileDto;
 import edu.ntnu.idi.idatt.exceptions.InvalidBoardFormatException;
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.Tile;

@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.DataTransfer;
+package edu.ntnu.idi.idatt.dto;
 
 public class TileDto {
   private final int id;
