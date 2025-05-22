@@ -6,8 +6,8 @@ import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 /**
  * Represents an asteroid field tile action that, when performed,
  * penalizes a player by reducing their movement steps.
- * <p>
- * Call {@link #consumeLastDeterminedMovementEffectSteps()} to
+ *
+ * <p>Call {@link #consumeLastDeterminedMovementEffectSteps()} to
  * retrieve (and clear) the penalty after {@link #perform(Player)}.
  * </p>
  */
@@ -58,8 +58,8 @@ public class AsteroidFieldAction implements TileAction {
 
   /**
    * {@inheritDoc}
-   * <p>
-   * For {@code AsteroidFieldAction}, this always returns
+   *
+   * <p>For {@code AsteroidFieldAction}, this always returns
    * {@link ActionType#ASTEROID_FIELD}.
    * </p>
    *
@@ -72,8 +72,8 @@ public class AsteroidFieldAction implements TileAction {
 
   /**
    * {@inheritDoc}
-   * <p>
-   * Asteroid fields do not transport the player to a new tile,
+   *
+   * <p>Asteroid fields do not transport the player to a new tile,
    * so this method always returns –1.
    * </p>
    *
@@ -86,8 +86,8 @@ public class AsteroidFieldAction implements TileAction {
 
   /**
    * {@inheritDoc}
-   * <p>
-   * Returns the description provided at construction time.
+   *
+   * <p>Returns the description provided at construction time.
    * </p>
    *
    * @return the non-null, non-blank description of this action
