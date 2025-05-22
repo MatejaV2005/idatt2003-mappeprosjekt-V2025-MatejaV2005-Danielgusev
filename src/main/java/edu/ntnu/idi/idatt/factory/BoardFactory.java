@@ -1,27 +1,39 @@
 package edu.ntnu.idi.idatt.factory;
 
-import edu.ntnu.idi.idatt.dto.BoardDto;
 import edu.ntnu.idi.idatt.converter.BoardConverter;
+import edu.ntnu.idi.idatt.dto.BoardDto;
 import edu.ntnu.idi.idatt.exceptions.InvalidBoardFormatException;
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.model.core.actions.TileAction;
 
 /**
- * Factory for creating game boards.
- * This class can produce various predefined board configurations for different games
- * and difficulty levels, as well as create boards from DTOs.
+ * Factory that produces {@link edu.ntnu.idi.idatt.model.core.Board} instances
+ * for supported games and configurations.
+ *
+ * <p>Provides methods to create preset Snakes & Ladders boards at different
+ * difficulty levels (easy, normal, hard), to build the Astro Rally loop board,
+ * and to construct a board from a {@link edu.ntnu.idi.idatt.dto.BoardDto}.
+ *
+ * <p>This factory is stateless and may be instantiated or used via its
+ * static methods as needed.
+ *
+ * @see edu.ntnu.idi.idatt.converter.BoardConverter#fromDto(edu.ntnu.idi.idatt.dto.BoardDto)
  */
 public class BoardFactory {
 
-  private final TileFactory tileFactory;
+
 
   /**
-   * Constructs a BoardFactory.
+   * Public constructor to allow instantiation of this factory.
+   *
+   * <p>The factory holds no internal state and requires no setup,
+   * so this default constructor is intentionally empty. Instances
+   * are created solely to invoke the board‐creation methods.</p>
    */
   public BoardFactory() {
-    this.tileFactory = new TileFactory();
   }
+
 
   /**
    * Creates an easy board for Snakes & Ladders: a small board (50 tiles) with many ladders.
@@ -63,7 +75,8 @@ public class BoardFactory {
    * This board is a circuit/loop of 40 tiles.
    *
    * @return A new Board instance configured for Astro Rally.
-   * @throws IllegalStateException if the board cannot be initialized (e.g., start/end tiles missing)
+   * @throws IllegalStateException if the board cannot be initialized
+   *                               (e.g., start/end tiles missing)
    */
   public Board createAstroRallyBoard() {
     int totalTiles = 40;
@@ -213,7 +226,8 @@ public class BoardFactory {
     startTile = board.getTileById(115);
     destinationTile = board.getTileById(40);
     action = TileActionFactory.createSnakeAction(
-        destinationTile, "tumbles all the way down a giant snake to " + destinationTile.getTileId());
+        destinationTile, "tumbles all the way down a giant snake to "
+            + destinationTile.getTileId());
     startTile.setLandAction(action);
   }
 
@@ -227,36 +241,37 @@ public class BoardFactory {
     Tile boostTile1 = board.getTileById(7);
     if (boostTile1 != null) {
       boostTile1.setLandAction(
-          TileActionFactory.createBoostPadAction("Engage hyperdrive! +2 speed next turn."));
+          TileActionFactory.createBoostPadAction("Engage hyper-drive! +2 speed."));
     }
 
     Tile boostTile2 = board.getTileById(23);
     if (boostTile2 != null) {
       boostTile2.setLandAction(
-          TileActionFactory.createBoostPadAction("Caught a solar wind! +2 speed next turn."));
+          TileActionFactory.createBoostPadAction("Caught a solar wind! +2 speed."));
     }
 
     Tile asteroidTile1 = board.getTileById(15);
     if (asteroidTile1 != null) {
       asteroidTile1.setLandAction(
-          TileActionFactory.createAsteroidFieldAction("Dense asteroid cluster ahead!"));
+          TileActionFactory.createAsteroidFieldAction("Dense asteroid cluster ahead! -2 speed"));
     }
 
     Tile asteroidTile2 = board.getTileById(35);
     if (asteroidTile2 != null) {
       asteroidTile2.setLandAction(
-          TileActionFactory.createAsteroidFieldAction("Watch out for space debris!"));
+          TileActionFactory.createAsteroidFieldAction("Watch out for space debris! -2 speed"));
     }
   }
 
   /**
-   * Creates a Board instance from a Data Transfer Object.
+   * Creates a fully validated {@link Board} from the given DTO.
    *
-   * @param dto The BoardDto containing board data.
-   * @return A new Board instance.
-   * @throws InvalidBoardFormatException if the DTO data is invalid.
+   * @param dto the data transfer object containing board state
+   * @return a new {@link Board} instance
+   * @throws InvalidBoardFormatException if the DTO is null, malformed, or
+   *                                    violates board rules
    */
-  public Board createBoardFromDto(BoardDto dto) throws InvalidBoardFormatException {
+  public static Board createBoardFromDto(BoardDto dto) throws InvalidBoardFormatException {
     return BoardConverter.fromDto(dto);
   }
 }
