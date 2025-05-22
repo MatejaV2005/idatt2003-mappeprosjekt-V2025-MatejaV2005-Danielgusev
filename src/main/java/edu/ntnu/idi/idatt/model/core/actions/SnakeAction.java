@@ -4,81 +4,68 @@ import edu.ntnu.idi.idatt.model.core.Player;
 import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 
-
 /**
- * Represents a tile action where a player lands on a snake.
- * This action immediately moves the player to the snake's destination tile,
- * which is typically a tile with a lower ID.
+ * Action representing sliding down a snake on a game tile.
+ *
+ * <p>Moves the player immediately to the specified destination tile,
+ * typically at a lower tile ID.</p>
+ *
+ * @see TileAction
+ * @since 1.0
  */
 public class SnakeAction implements TileAction {
+
   private final Tile destinationTile;
   private final String description;
   private final int destinationTileId;
 
   /**
-   * Constructs a SnakeAction.
+   * Creates a SnakeAction.
    *
-   * @param destinationTile The destination tile the snake leads to.
-   * If null, {@link #getDestinationTileId()} will return -1,
-   * and performing the action might lead to an exception
-   * depending on the Player class's handling of setting a null current tile.
-   * @param description A description of the snake action (e.g., "Slid down the snake!").
-   * Cannot be null or blank.
-   * @throws IllegalArgumentException if {@code description} is null or blank.
+   * @param destinationTile the tile to move the player to; may be null, in which case
+   *                        {@link #getDestinationTileId()} returns -1
+   * @param description     a non-blank description of the action; must not be null or blank
+   * @throws IllegalArgumentException if {@code description} is null or blank
    */
   public SnakeAction(Tile destinationTile, String description) {
-    ExceptionHandling.requireNonNullOrBlank(description, "Description for SnakeAction");
+    ExceptionHandling.requireNonNullOrBlank(description, "description");
+
     this.destinationTile = destinationTile;
-    this.destinationTileId = destinationTile != null ? destinationTile.getTileId() : -1;
+    this.destinationTileId = destinationTile != null
+        ? destinationTile.getTileId()
+        : -1;
     this.description = description;
   }
 
-
   /**
-   * Performs the snake action on the given player.
-   * The player's current tile is set to this snake's {@code destinationTile}.
-   * A message indicating the action is printed to standard output.
+   * {@inheritDoc}
    *
-   * @param player The player performing the action. Cannot be null.
-   * @throws IllegalArgumentException if {@code player} is null.
-   * May also throw an exception from {@code player.setOnCurrentTile()}
-   * if {@code destinationTile} was null during construction and
-   * the Player class does not allow setting a null current tile.
+   * <p>Moves the player to this snake’s destination tile.</p>
+   *
+   * @param player the player to move; must not be null
+   * @throws IllegalArgumentException if {@code player} is null
    */
   @Override
   public void perform(Player player) {
-    ExceptionHandling.requireNonNull(player, "Player for SnakeAction");
+    ExceptionHandling.requireNonNull(player, "player");
     player.setOnCurrentTile(destinationTile);
   }
 
-  /**
-   * Gets the type of this action.
-   *
-   * @return {@link ActionType#SNAKE}.
-   */
+  /** {@inheritDoc} */
   @Override
   public ActionType getActionType() {
     return ActionType.SNAKE;
   }
 
-  /**
-   * Gets the destination tile ID for this snake action.
-   *
-   * @return The ID of the destination tile, or -1 if the destination tile was null
-   * during construction.
-   */
+  /** {@inheritDoc} */
   @Override
   public int getDestinationTileId() {
-    return this.destinationTileId;
+    return destinationTileId;
   }
 
-  /**
-   * Gets the description of this snake action.
-   *
-   * @return The description string.
-   */
+  /** {@inheritDoc} */
   @Override
   public String getDescription() {
-    return this.description;
+    return description;
   }
 }
