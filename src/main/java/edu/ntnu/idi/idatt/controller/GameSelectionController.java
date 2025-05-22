@@ -35,11 +35,11 @@ public class GameSelectionController {
    * NavigationController} to navigate to the game setup screen, configured for the selected game
    * type.
    *
-   * @param gameModeName The string name of the selected game mode (e.g., "Snakes & Ladders", "Astro
-   * Rally"). This should match constants defined in GameSelectionView.
+   * @param gameModeName The string name of the selected game mode
+   *                     (e.g., "Snakes & Ladders", "AstroRally").
+   *                     This should match constants defined in GameSelectionView.
    */
   public void onGameModeSelected(String gameModeName) {
-    LOG.info("Game mode selected by user: " + gameModeName);
     GameType selectedType;
 
     if (GameSelectionView.SNAKES_AND_LADDERS.equals(gameModeName)) {
@@ -57,6 +57,11 @@ public class GameSelectionController {
     navigationController.navigateToGameSetup(selectedType);
   }
 
+  /**
+   * Handles the action triggered when the user clicks the 'back' button on the game selection
+   * screen. This method instructs the {@link NavigationController} to navigate the user away from
+   * the current screen, typically returning to the main title screen or a previous menu.
+   */
   public void onBackButtonClicked() {
     LOG.info("Back button clicked on game selection screen. Navigating to title screen.");
     navigationController.navigateToTitleScreen();
