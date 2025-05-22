@@ -6,6 +6,8 @@ import edu.ntnu.idi.idatt.factory.ButtonFactory;
 import edu.ntnu.idi.idatt.view.decorator.ButtonDecorator;
 import edu.ntnu.idi.idatt.view.decorator.HoverEffectDecorator;
 import edu.ntnu.idi.idatt.view.utils.ResourceLoader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,153 +18,210 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
- * The view component for the title screen.
- * Follows MVC pattern by focusing solely on presentation.
- * This class is responsible for creating and structuring the UI elements.
+ * Represents the view component for the application's title screen.
+ *
+ * <p>This class is responsible for constructing and managing the user interface
+ * of the title screen, including background, logo, and navigation buttons.
+ * It follows the Model-View-Controller (MVC) pattern, with its primary focus
+ * on presentation and delegating user actions to a {@link TitleScreenController}.
+ * </p>
  */
 public class TitleScreenView {
-  private Scene scene;
+
+  private static final Logger LOGGER = Logger.getLogger(TitleScreenView.class.getName());
+
+  // Resource paths
+  private static final String BACKGROUND_PATH =
+      "/edu/ntnu/idi/idatt/view/resources/TitleScreen/Background_titleScreen.png";
+  private static final String LOGO_PATH =
+      "/edu/ntnu/idi/idatt/view/resources/TitleScreen/logo.png";
+  private static final String CSS_PATH =
+      "/edu/ntnu/idi/idatt/view/resources/TitleScreen/TitleScreen-Styles.css";
+
+  // Layout constants
+  private static final double SCENE_WIDTH = 1280;
+  private static final double SCENE_HEIGHT = 720;
+  private static final double CONTENT_LAYER_SPACING = 30;
+  private static final double CONTENT_LAYER_MAX_WIDTH = 500;
+  private static final double LOGO_FIT_WIDTH = 400;
+  private static final double BUTTONS_BOX_SPACING = 20;
+  private static final double BUTTONS_BOX_MAX_WIDTH = 300;
+
+  // UI Text constants
+  private static final String BUTTON_TEXT_CHOOSE_GAMEMODE = "Choose Gamemode";
+  private static final String BUTTON_TEXT_QUIT_GAME = "Quit Game";
+
+  private final Scene scene;
   private final StackPane root;
   private final Pane backgroundLayer;
   private final VBox contentLayer;
+
   private Button btnChooseGamemode;
-  private Button btnSettings;
   private Button btnQuitGame;
   private TitleScreenController controller;
 
-  // Resource paths
-  private static final String BACKGROUND_PATH = "/edu/ntnu/idi/idatt/view/resources/TitleScreen/Background_titleScreen.png";
-  private static final String LOGO_PATH = "/edu/ntnu/idi/idatt/view/resources/TitleScreen/logo.png";
-  private static final String CSS_PATH = "/edu/ntnu/idi/idatt/view/resources/TitleScreen/TitleScreen-Styles.css";
-
   /**
-   * Constructs the title screen view with all UI components.
+   * Constructs the {@code TitleScreenView} and initializes all its UI components.
+   *
+   * <p>This involves setting up the root pane, background layer, and content layer which
+   * includes the game logo and navigation buttons. Stylesheets are also applied.
+   * </p>
    */
   public TitleScreenView() {
-    // Initialize layers using a clear hierarchy
     this.root = new StackPane();
     this.backgroundLayer = new Pane();
-    this.contentLayer = new VBox(30);
+    this.contentLayer = new VBox(CONTENT_LAYER_SPACING);
 
     setupBackgroundLayer();
     setupContentLayer();
 
     root.getChildren().addAll(backgroundLayer, contentLayer);
 
-    scene = new Scene(root, 1280, 720);
+    this.scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
     applyStylesheets();
   }
 
   /**
-   * Sets the controller for this view.
-   * This follows the MVC pattern by separating view logic from controller logic.
+   * Sets the controller responsible for handling user interactions on this title screen.
    *
-   * @param controller The controller for this view
+   * <p>After setting the controller, event handlers for UI elements like buttons are bound to the
+   * appropriate methods in the controller.
+   * </p>
+   *
+   * @param controller The {@link TitleScreenController} for this view. Must not be {@code null}.
+   * @throws NullPointerException if the provided controller is {@code null}.
    */
   public void setController(TitleScreenController controller) {
+    if (controller == null) {
+      throw new NullPointerException("Controller cannot be null.");
+    }
     this.controller = controller;
     bindEventHandlers();
   }
 
   /**
-   * Returns the scene containing the title screen.
+   * Returns the {@link Scene} associated with this title screen.
    *
-   * @return The scene object
+   * @return The main scene for the title screen.
    */
   public Scene getScene() {
     return scene;
   }
 
   /**
-   * Sets up the background layer with the background image.
+   * Initializes and configures the background layer of the title screen.
+   *
+   * <p>Loads the background image and sets it to fill the entire root pane. If the image fails to
+   * load, an error is logged.
+   * </p>
    */
   private void setupBackgroundLayer() {
     try {
       Image bgImage = ResourceLoader.loadImage(BACKGROUND_PATH);
       ImageView bgImageView = new ImageView(bgImage);
-      bgImageView.setPreserveRatio(false);
+      bgImageView.setPreserveRatio(false); // Allow stretching to fill
 
+      // Bind image view size to the root pane's size
       bgImageView.fitWidthProperty().bind(root.widthProperty());
       bgImageView.fitHeightProperty().bind(root.heightProperty());
 
       backgroundLayer.getChildren().add(bgImageView);
     } catch (BoardGameResourceException e) {
-      System.err.println("Failed to load background: " + e.getMessage());
+      LOGGER.log(Level.SEVERE, "Failed to load background image: " + BACKGROUND_PATH, e);
     }
   }
 
   /**
-   * Sets up the content layer with logo and buttons.
+   * Initializes and configures the content layer of the title screen.
+   *
+   * <p>This layer contains the game logo and navigation buttons, centered within the screen.
+   * </p>
    */
   private void setupContentLayer() {
     contentLayer.setAlignment(Pos.CENTER);
-    contentLayer.setMaxWidth(500);
+    contentLayer.setMaxWidth(CONTENT_LAYER_MAX_WIDTH);
 
     setupLogo();
     setupButtons();
   }
 
   /**
-   * Sets up the logo for the title screen.
+   * Initializes and adds the game logo to the content layer.
+   *
+   * <p>If the logo image fails to load, an error is logged.
+   * </p>
    */
   private void setupLogo() {
     try {
       Image logoImage = ResourceLoader.loadImage(LOGO_PATH);
       ImageView logoImageView = new ImageView(logoImage);
 
-      logoImageView.setFitWidth(400);
+      logoImageView.setFitWidth(LOGO_FIT_WIDTH);
       logoImageView.setPreserveRatio(true);
 
-      // Add logo as first element in the content layer
       contentLayer.getChildren().add(logoImageView);
     } catch (BoardGameResourceException e) {
-      System.err.println("Failed to load logo: " + e.getMessage());
+      LOGGER.log(Level.WARNING, "Failed to load logo image: " + LOGO_PATH, e);
     }
   }
 
   /**
-   * Sets up the buttons for the title screen using Factory and Decorator patterns.
+   * Initializes, styles, and adds navigation buttons to the content layer.
+   *
+   * <p>Buttons are created using a {@link ButtonFactory} and decorated with hover effects using a
+   * {@link ButtonDecorator}.
+   * </p>
    */
   private void setupButtons() {
     ButtonFactory buttonFactory = new ButtonFactory();
 
-    btnChooseGamemode = buttonFactory.createStandardButton("Choose Gamemode");
-    btnSettings = buttonFactory.createStandardButton("Settings");
-    btnQuitGame = buttonFactory.createStandardButton("Quit Game");
+    btnChooseGamemode = buttonFactory.createStandardButton(BUTTON_TEXT_CHOOSE_GAMEMODE);
+    btnQuitGame = buttonFactory.createStandardButton(BUTTON_TEXT_QUIT_GAME);
 
     ButtonDecorator decorator = new HoverEffectDecorator();
     btnChooseGamemode = decorator.decorate(btnChooseGamemode);
-    btnSettings = decorator.decorate(btnSettings);
     btnQuitGame = decorator.decorate(btnQuitGame);
 
-    VBox buttonsBox = new VBox(20, btnChooseGamemode, btnSettings, btnQuitGame);
+    VBox buttonsBox = new VBox(BUTTONS_BOX_SPACING, btnChooseGamemode, btnQuitGame);
     buttonsBox.setAlignment(Pos.CENTER);
-    buttonsBox.setMaxWidth(300);
+    buttonsBox.setMaxWidth(BUTTONS_BOX_MAX_WIDTH);
 
     contentLayer.getChildren().add(buttonsBox);
   }
 
   /**
-   * Applies CSS stylesheets to the scene.
+   * Applies the CSS stylesheet to the scene for styling UI elements.
+   *
+   * <p>If the CSS file fails to load, an error is logged.
+   * </p>
    */
   private void applyStylesheets() {
     try {
-      scene.getStylesheets().add(ResourceLoader.loadCssResource(CSS_PATH));
+      String cssUrl = ResourceLoader.loadCssResource(CSS_PATH);
+      if (cssUrl != null) {
+        scene.getStylesheets().add(cssUrl);
+      } else {
+        LOGGER.log(Level.WARNING, "CSS resource not found: " + CSS_PATH);
+      }
     } catch (BoardGameResourceException e) {
-      System.err.println("Failed to load CSS: " + e.getMessage());
+      LOGGER.log(Level.SEVERE, "Failed to load CSS stylesheet: " + CSS_PATH, e);
     }
   }
 
   /**
-   * Binds event handlers to button actions.
-   * This connects UI events to controller methods.
+   * Binds event handlers from the controller to the UI buttons.
+   *
+   * <p>This method should only be called after the controller has been set.
+   * </p>
+   *
+   * @throws IllegalStateException if the controller has not been set prior to calling this method.
    */
   private void bindEventHandlers() {
     if (controller == null) {
-      throw new IllegalStateException("Controller must be set before binding event handlers");
+      throw new IllegalStateException("Controller must be set before binding event handlers.");
     }
 
-    btnChooseGamemode.setOnAction(e -> controller.onChooseGameMode());
-    btnQuitGame.setOnAction(e -> controller.onQuitGame());
+    btnChooseGamemode.setOnAction(event -> controller.onChooseGameMode());
+    btnQuitGame.setOnAction(event -> controller.onQuitGame());
   }
 }
