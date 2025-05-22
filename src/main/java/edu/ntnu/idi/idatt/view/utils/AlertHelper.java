@@ -1,16 +1,24 @@
 package edu.ntnu.idi.idatt.view.utils;
 
+import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
-import javafx.stage.Window;
-
-import java.util.Optional;
 
 /**
  * Utility class for creating and displaying consistent alerts throughout the application.
  */
 public class AlertHelper {
+
+  /**
+   * Private constructor to prevent instantiation of this utility class.
+   * Throws an {@link IllegalStateException} if an attempt is made to instantiate it
+   * via reflection or other means.
+   */
+  private AlertHelper() {
+    // Prevent instantiation of this utility class
+    throw new IllegalStateException("Utility class AlertHelper should not be instantiated.");
+  }
 
   /**
    * Shows an error alert with the specified title and message.
@@ -71,23 +79,6 @@ public class AlertHelper {
     alert.setTitle(title);
     alert.setHeaderText(null);
     alert.setContentText(message);
-    alert.showAndWait();
-  }
-
-  /**
-   * Shows an alert with the specified type, title, and message, associated with a specific window.
-   *
-   * @param alertType The type of alert
-   * @param title The alert title
-   * @param message The alert message
-   * @param owner The owner window for the alert
-   */
-  private static void showAlert(AlertType alertType, String title, String message, Window owner) {
-    Alert alert = new Alert(alertType);
-    alert.setTitle(title);
-    alert.setHeaderText(null);
-    alert.setContentText(message);
-    alert.initOwner(owner);
     alert.showAndWait();
   }
 }
