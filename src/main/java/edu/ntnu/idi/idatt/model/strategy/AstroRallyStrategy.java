@@ -17,7 +17,6 @@ import java.util.List;
  * and state reset).</p>
  *
  * @see GameStrategy
- * @since 1.0
  */
 public class AstroRallyStrategy implements GameStrategy {
 
