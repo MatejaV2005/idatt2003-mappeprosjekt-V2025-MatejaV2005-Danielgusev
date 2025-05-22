@@ -1,29 +1,36 @@
 package edu.ntnu.idi.idatt.model.strategy;
 
+
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.Dice;
-import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.model.core.Player;
+import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
-
 import java.util.List;
 import java.util.logging.Logger;
 
 /**
- * Implements the {@link GameStrategy} for a game of Snakes and Ladders.
- * This strategy defines how a player's turn is executed, how win conditions are checked,
- * and how the game is initialized. It relies on a {@link Dice} object for rolling.
+ * {@link GameStrategy} implementation for Snakes &amp; Ladders.
+ *
+ * <p>Manages turn execution (dice roll and basic movement),
+ * win condition checking (landing on final tile), and initial
+ * player placement on the starting tile.</p>
+ *
+ * @see GameStrategy
+ * @since 1.0
  */
 public class SnakesAndLaddersStrategy implements GameStrategy {
 
-  private static final Logger LOGGER = Logger.getLogger(SnakesAndLaddersStrategy.class.getName());
+  private static final Logger LOGGER =
+      Logger.getLogger(SnakesAndLaddersStrategy.class.getName());
+
   private final Dice dice;
 
   /**
-   * Constructs a new SnakesAndLaddersStrategy.
+   * Creates a new strategy using the specified dice.
    *
-   * @param dice The {@link Dice} to be used for player rolls. Cannot be null.
-   * @throws IllegalArgumentException if dice is null.
+   * @param dice the {@link Dice} used for movement; must not be {@code null}
+   * @throws IllegalArgumentException if {@code dice} is {@code null}
    */
   public SnakesAndLaddersStrategy(Dice dice) {
     ExceptionHandling.requireNonNull(dice, "Dice for SnakesAndLaddersStrategy");
@@ -31,90 +38,73 @@ public class SnakesAndLaddersStrategy implements GameStrategy {
   }
 
   /**
-   * Checks if the given player has met the win condition for Snakes and Ladders.
-   * The win condition is typically met when the player is on the last tile of the board,
-   * which is identified as a tile that has no next tile in sequence.
+   * {@inheritDoc}
    *
-   * @param player The {@link Player} to check. Cannot be null and must be on a tile.
-   * @return {@code true} if the player is on the last tile, {@code false} otherwise.
-   * @throws IllegalArgumentException if player is null.
-   * @throws IllegalStateException if the player's current tile is null.
+   * <p>A player wins by landing on the final tile (with no next tile).
+   * Throws if the player's current tile is not set.</p>
    */
   @Override
   public boolean checkWinCondition(Player player) {
     ExceptionHandling.requireNonNull(player, "Player for checkWinCondition");
-    ExceptionHandling.requireState(player.getCurrentTile() != null,
-        "Player " + player.getName() + " must be on a tile to check win condition.");
-
-    Tile currentTile = player.getCurrentTile();
-    // The last tile on the board has no next tile.
-    return currentTile.getNextTile() == null;
+    Tile current = player.getCurrentTile();
+    ExceptionHandling.requireState(
+        current != null,
+        "Player '" + player.getName() + "' must be on a tile to check win");
+    return current.getNextTile() == null;
   }
 
   /**
-   * Executes a single turn for the given player in a Snakes and Ladders game.
-   * The player rolls the dice, and their piece is moved forward on the board
-   * according to the number of steps rolled. The player leaves their old tile
-   * and is set on the new tile.
-   * <p>
-   * Note: This method handles the basic move. Subsequent actions due to landing
-   * on a special tile (like a snake or ladder) are typically handled by the
-   * {@code BoardGame} class calling {@code Tile.landPlayer()} on the new tile,
-   * which in turn triggers {@code TileAction.perform()}.
-   * </p>
+   * {@inheritDoc}
    *
-   * @param player The {@link Player} whose turn it is. Cannot be null and must be on a tile.
-   * @throws IllegalArgumentException if player is null.
-   * @throws IllegalStateException if the player's current tile is null.
+   * <p>Rolls the dice and advances the player by the rolled amount.
+   * Observers and special tile effects are handled by {@code BoardGame}.</p>
    */
   @Override
   public void executePlayerTurn(Player player) {
     ExceptionHandling.requireNonNull(player, "Player for executePlayerTurn");
-
-    Tile oldTile = player.getCurrentTile();
-    
-    ExceptionHandling.requireState(oldTile != null,
-        "Player " + player.getName() + " must be on a tile to execute turn.");
+    Tile origin = player.getCurrentTile();
+    ExceptionHandling.requireState(
+        origin != null,
+        "Player '" + player.getName() + "' must be on a tile to take a turn");
 
     int steps = dice.roll();
+    if (steps <= 0) {
+      return;
+    }
 
-    Tile newTile = player.basicMove(steps);
-    ExceptionHandling.requireNonNull(newTile, "New tile calculated by basicMove");
+    Tile dest = player.basicMove(steps);
+    ExceptionHandling.requireNonNull(dest, "Destination tile from basicMove");
 
+    LOGGER.fine(
+        "Player '" + player.getName() + "' moves from tile "
+            + origin.getTileId() + " to " + dest.getTileId());
 
-    LOGGER.fine("Player " + player.getName() + " moving from tile "
-        + oldTile.getTileId() + " to tile " + newTile.getTileId());
-
-    oldTile.leavePlayer(player);
-    player.setOnCurrentTile(newTile);
+    origin.leavePlayer(player);
+    player.setOnCurrentTile(dest);
   }
 
   /**
-   * Initializes the game for Snakes and Ladders.
-   * This involves placing all players on the starting tile of the board (tile ID 1).
+   * {@inheritDoc}
    *
-   * @param board   The {@link Board} to initialize players on. Cannot be null.
-   * @param players The list of {@link Player}s participating in the game.
-   * Cannot be null. The list itself can be empty, but typically
-   * {@code BoardGame.startGame()} would prevent this.
-   * @throws IllegalArgumentException if board or players list is null.
-   * @throws IllegalStateException if the starting tile (ID 1) cannot be found on the board.
+   * <p>Places all players on the starting tile (ID 1).
+   * Resets each player's skip-turn status.</p>
    */
   @Override
   public void initializeGame(Board board, List<Player> players) {
-    ExceptionHandling.requireNonNull(board, "Board for game initialization");
-    ExceptionHandling.requireNonNull(players, "Players list for game initialization");
-    ExceptionHandling.requireNotEmpty(players, "Players list for game initialization");
+    ExceptionHandling.requireNonNull(board, "Board for initializeGame");
+    ExceptionHandling.requireNotEmpty(
+        players, "Players list for initializeGame");
 
-    Tile startingTile = board.getTileById(1);
-    ExceptionHandling.requireState(startingTile != null,
-        "Starting tile (ID 1) not found on board during game initialization.");
+    Tile start = board.getTileById(1);
+    ExceptionHandling.requireState(
+        start != null, "Starting tile (ID 1) not found on board");
 
     for (Player p : players) {
-      if (p != null) {
-        p.setOnCurrentTile(startingTile);
-        LOGGER.finer("Placed player " + p.getName() + " on starting tile: " + startingTile.getTileId());
-      }
+      ExceptionHandling.requireNonNull(p, "Player in list");
+      p.setOnCurrentTile(start);
+      p.setSkipTurn(false);
+      LOGGER.finer(
+          "Initialized player '" + p.getName() + "' on starting tile");
     }
   }
 }
