@@ -1,18 +1,26 @@
 package edu.ntnu.idi.idatt.model.core;
 
 import edu.ntnu.idi.idatt.factory.TileFactory;
-import edu.ntnu.idi.idatt.utils.ExceptionHandling; // Din ExceptionHandling klasse
-
+import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects; // For Objects.hash i hashCode
+import java.util.Objects;
 
 /**
- * Represents the game board, a collection of {@link Tile} objects arranged in a grid.
- * The board is responsible for initializing, linking, and providing access to its tiles.
- * It defines the playing area's dimensions (rows and columns).
- */
+ * Core representation of a game board: a two-dimensional grid of {@link Tile} instances.
+ *
+ * <p>Manages board dimensions, tile creation, linking between adjacent tiles,
+ * and provides lookup/access methods. Supports full lifecycle operations such
+ * as initialization, reset, deserialization (via {@link #setTiles(Map)} and
+ * {@link #relinkTiles()}), and runtime tile retrieval.</p>
+ *
+ * @see Tile
+ * @see #initializeTiles()
+ * @see #linkTiles()
+ * @see #relinkTiles()
+ *
+ * */
 public class Board {
 
   private Map<Integer, Tile> tiles;
@@ -119,7 +127,7 @@ public class Board {
    * @param tileId The ID of the tile to retrieve. Must be strictly positive.
    * @return The {@link Tile} object corresponding to the given ID.
    * @throws IllegalArgumentException if tileId is not strictly positive,
-   * or if no tile exists with the given ID on this board.
+   *                                  or if no tile exists with the given ID on this board.
    */
   public Tile getTileById(int tileId) {
     ExceptionHandling.requireStrictlyPositive(tileId, "tileId for getTileById");
@@ -204,13 +212,10 @@ public class Board {
    * {@link UnsupportedOperationException}.
    *
    * @return An unmodifiable map of tiles, or an unmodifiable empty map if
-   * the board has not been initialized with tiles.
+   *         the board has not been initialized with tiles.
    */
   public Map<Integer, Tile> getTiles() {
-    if (this.tiles == null) {
-      return Collections.unmodifiableMap(new HashMap<>());
-    }
-    return Collections.unmodifiableMap(this.tiles);
+    return Collections.unmodifiableMap(Objects.requireNonNullElseGet(this.tiles, HashMap::new));
   }
 
   /**
@@ -221,7 +226,8 @@ public class Board {
    * and that tiles are properly linked if {@link #relinkTiles()} is not called subsequently.
    *
    * @param tiles A map where keys are tile IDs and values are {@link Tile} objects.
-   * Cannot be null.
+   *              Cannot be null.
+   *
    * @throws IllegalArgumentException if the provided tiles map is null.
    */
   public void setTiles(Map<Integer, Tile> tiles) {
@@ -240,17 +246,16 @@ public class Board {
    *
    * @param o The object to compare with this board.
    * @return {@code true} if the given object is a Board with the same dimensions and tiles,
-   * {@code false} otherwise.
+   *                      {@code false} otherwise.
    */
   @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof Board)) {
+    if (!(o instanceof Board otherBoard)) {
       return false;
     }
-    Board otherBoard = (Board) o;
     return rows == otherBoard.rows
         && columns == otherBoard.columns
         && Objects.equals(tiles, otherBoard.tiles);
