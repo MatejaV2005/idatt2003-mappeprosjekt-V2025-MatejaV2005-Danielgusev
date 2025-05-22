@@ -1,13 +1,17 @@
 package edu.ntnu.idi.idatt.model.core;
 
-import edu.ntnu.idi.idatt.utils.ExceptionHandling; // Din ExceptionHandling klasse
-
+import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import java.util.Objects;
 
 /**
- * Represents a player in the board game.
- * Maintains the player’s name, chosen piece type, current tile and skip-turn status.
- * Provides movement along linked tiles via {@link #basicMove(int)}, skip-turn management and tile assignment.
+ * Models a participant in the board game.
+ *
+ * <p>Tracks the player’s name, chosen token type, current position on the board,
+ * completed laps, and whether they must skip their next turn. Provides core
+ * operations such as moving along linked tiles, lap counting, and skip-turn logic.
+ *
+ * @see Tile
+ * @since 1.0
  */
 public class Player {
 
@@ -18,96 +22,92 @@ public class Player {
   private boolean skipTurn;
 
   /**
-   * Constructs a new Player.
+   * Creates a new player with the given name and piece type.
    *
-   * @param name      The name of the player. Cannot be null, empty, or blank.
-   * The length of the name should also be within reasonable limits,
-   * e.g., 2 to 20 characters (validation for length can be added if needed).
-   * @param pieceType A string identifier for the player's game piece/token
-   * (e.g., "Car", "Hat"). Cannot be null, empty, or blank.
-   * @throws IllegalArgumentException if name or pieceType is null, empty, or blank.
+   * @param name      the player’s name; must not be null, empty, or blank
+   * @param pieceType the identifier for the player’s token; must not be null, empty, or blank
+   * @throws IllegalArgumentException if {@code name} or {@code pieceType} is null, empty, or blank
    */
   public Player(String name, String pieceType) {
-    ExceptionHandling.requireNonNullOrBlank(name, "Player name");
-    ExceptionHandling.requireNonNullOrBlank(pieceType, "Player piece type");
-
+    ExceptionHandling.requireNonNullOrBlank(name, "name");
+    ExceptionHandling.requireNonNullOrBlank(pieceType, "pieceType");
     this.name = name.trim();
     this.pieceType = pieceType.trim();
     this.skipTurn = false;
   }
 
   /**
-   * Gets the number of laps the player has completed.
+   * Returns how many laps around the board this player has completed.
    *
-   * @return The number of laps completed
+   * @return the lap count, initially 0
    */
   public int getLapsCompleted() {
     return lapsCompleted;
   }
 
   /**
-   * Resets the player's lap counter to zero.
-   * This is typically called when initializing or restarting a game.
+   * Resets the lap counter to zero.
+   *
+   * <p>Typically used when starting or restarting a game.</p>
    */
   public void resetLapsCompleted() {
-    this.lapsCompleted = 0;
+    lapsCompleted = 0;
   }
 
   /**
-   * Increments the player's lap counter by one.
-   * This is called when a player completes a lap around the board.
+   * Increments the lap counter by one.
+   *
+   * <p>Called when the player completes a full circuit of the board.</p>
    */
   public void incrementLapsCompleted() {
-    this.lapsCompleted++;
+    lapsCompleted++;
   }
 
-
-
   /**
-   * Gets the name of the player.
+   * Returns this player’s name.
    *
-   * @return The player's name (never null or blank).
+   * @return the non-null, non-blank name
    */
   public String getName() {
     return name;
   }
 
   /**
-   * Gets the current tile the player is on.
+   * Returns the tile on which this player is currently placed.
    *
-   * @return The current {@link Tile}, or {@code null} if the player has not been placed on a tile.
+   * @return the current {@link Tile}, or {@code null} if not yet placed
    */
   public Tile getCurrentTile() {
     return currentTile;
   }
 
   /**
-   * Sets the player's current tile.
-   * This method is typically called by the game logic when a player moves or is placed on the board.
+   * Places the player on the given tile.
    *
-   * @param newTile The new {@link Tile} the player is on. Cannot be null.
-   * @throws IllegalArgumentException if newTile is null.
+   * @param newTile the tile to place the player on; must not be null
+   * @throws IllegalArgumentException if {@code newTile} is null
    */
   public void setOnCurrentTile(Tile newTile) {
-    ExceptionHandling.requireNonNull(newTile, "New tile for player");
+    ExceptionHandling.requireNonNull(newTile, "newTile");
     this.currentTile = newTile;
   }
 
   /**
-   * Gets the type or identifier of the player's game piece (e.g., "Car", "Hat").
+   * Returns this player’s piece type (token identifier).
    *
-   * @return The player's piece type (never null or blank).
+   * @return the non-null, non-blank piece type
    */
   public String getPieceType() {
     return pieceType;
   }
 
   /**
-   * Checks if the player should skip their next turn.
-   * If this method returns {@code true}, the {@code skipTurn} flag is reset to {@code false},
-   * so the player will only skip one turn per {@code setSkipTurn(true)} call.
+   * Checks and resets the skip-turn flag.
    *
-   * @return {@code true} if the player is marked to skip their turn, {@code false} otherwise.
+   * <p>If true, the player will skip their next turn and the flag is cleared.
+   * Otherwise returns false.</p>
+   *
+   * @return {@code true} if the player must skip a turn, {@code false} otherwise
    */
   public boolean shouldSkipTurn() {
     if (skipTurn) {
@@ -118,67 +118,60 @@ public class Player {
   }
 
   /**
-   * Sets whether the player should skip their next turn.
+   * Marks whether this player should skip their next turn.
    *
-   * @param skipTurn {@code true} to make the player skip their next turn,
-   * {@code false} otherwise.
+   * @param skipTurn {@code true} to skip the next turn; {@code false} otherwise
    */
   public void setSkipTurn(boolean skipTurn) {
     this.skipTurn = skipTurn;
   }
 
   /**
-   * Performs a basic sequential move for the player along the linked list of tiles.
-   * The player moves forward {@code steps} times from their current tile, following
-   * the {@code nextTile} references. If the player reaches the end of the board
-   * (a tile with no {@code nextTile}), they will stop on that last tile, even if
-   * {@code steps} would have taken them further.
-   * <p>
+   * Advances this player forward along linked tiles by the specified number of steps.
    *
-   * @param steps The number of tiles to advance. Must be strictly positive.
-   * @return The destination {@link Tile} after moving.
-   * @throws IllegalArgumentException if steps is not strictly positive.
-   * @throws IllegalStateException if the player's current tile is null (player not on board).
+   * <p>Follows each tile’s {@code nextTile} reference. If the end of the board
+   * is reached before exhausting steps, movement stops there.</p>
+   *
+   * @param steps the number of tiles to move; must be strictly positive
+   * @return the destination {@link Tile}
+   * @throws IllegalArgumentException if {@code steps} is not strictly positive
+   * @throws IllegalStateException    if the player's current tile is null
    */
   public Tile basicMove(int steps) {
-    ExceptionHandling.requireStrictlyPositive(steps, "Number of steps for basicMove");
-    ExceptionHandling.requireState(this.currentTile != null, "Player must be on a tile to perform basicMove.");
-
-    Tile destinationTile = this.currentTile;
+    ExceptionHandling.requireStrictlyPositive(steps, "steps");
+    ExceptionHandling.requireState(currentTile != null, "currentTile");
+    Tile destination = currentTile;
     for (int i = 0; i < steps; i++) {
-      if (destinationTile.getNextTile() != null) {
-        destinationTile = destinationTile.getNextTile();
+      if (destination.getNextTile() != null) {
+        destination = destination.getNextTile();
       } else {
         break;
       }
     }
-    return destinationTile;
+    return destination;
   }
 
   /**
-   * Compares this player to another object for equality.
-   * Two players are considered equal if they have the same name (case-sensitive).
+   * Two players are equal if they share the same name.
    *
-   * @param o The object to compare with this player.
-   * @return {@code true} if the given object is a Player and has the same name,
-   * {@code false} otherwise.
+   * @param o the object to compare
+   * @return {@code true} if {@code o} is a Player with the same name
    */
   @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof Player)) {
+    if (!(o instanceof Player that)) {
       return false;
     }
-    Player player = (Player) o;
-    return Objects.equals(name, player.name);
+    return Objects.equals(name, that.name);
   }
 
   /**
-   * Returns a hash code value for the player, based on their name.
+   * Computes a hash code based on the player's name.
    *
-   * @return A hash code value for this player.
+   * @return the hash code
    */
   @Override
   public int hashCode() {
