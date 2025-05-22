@@ -3,8 +3,17 @@ package edu.ntnu.idi.idatt.model.core.actions;
 import edu.ntnu.idi.idatt.model.core.Player;
 
 /**
- * Defines the contract for actions performed when a player interacts with a tile.
- * Implementations define specific behaviors like movement or effects.
+ * Contract for any action that can occur when a player lands on or interacts
+ * with a game tile.
+ *
+ * <p>Implementations encapsulate specific behaviors such as moving the player
+ * to another tile (ladders and snakes), applying status effects
+ * (skip turn, boost pad), or executing custom logic via a {@link SpecialAction}.</p>
+ *
+ * @see ActionType
+ * @see LadderAction
+ * @see SnakeAction
+ * @see SpecialAction
  */
 public interface TileAction {
 
