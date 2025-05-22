@@ -1,10 +1,11 @@
 package edu.ntnu.idi.idatt.view.screens;
 
+import edu.ntnu.idi.idatt.controller.GameSetupController;
 import edu.ntnu.idi.idatt.exceptions.BoardGameResourceException;
 import edu.ntnu.idi.idatt.factory.ButtonFactory;
-import edu.ntnu.idi.idatt.view.components.gameSelection.GameInfoPanel;
-import edu.ntnu.idi.idatt.view.components.gameSelection.PlayerManagementPanel;
-import edu.ntnu.idi.idatt.view.components.gameSelection.DifficultySelectionPanel;
+import edu.ntnu.idi.idatt.view.components.gameselection.DifficultySelectionPanel;
+import edu.ntnu.idi.idatt.view.components.gameselection.InfoPanel;
+import edu.ntnu.idi.idatt.view.components.gameselection.PlayerManagementPanel;
 import edu.ntnu.idi.idatt.view.decorator.ButtonDecorator;
 import edu.ntnu.idi.idatt.view.decorator.HoverEffectDecorator;
 import edu.ntnu.idi.idatt.view.utils.ResourceLoader;
@@ -23,7 +24,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import edu.ntnu.idi.idatt.controller.GameSetupController; // Controller for event handlers
+
 
 /**
  * View for the game setup screen where players can select difficulty, manage players, and view
@@ -45,7 +46,7 @@ public class GameSetupView {
 
   private final Label screenTitleLabel;
   private final PlayerManagementPanel playerManagementPanel;
-  private final GameInfoPanel gameInfoPanel;
+  private final InfoPanel infoPanel;
   private final DifficultySelectionPanel difficultySelectionPanel;
   private final VBox difficultyButtonsContainer;
 
@@ -53,6 +54,12 @@ public class GameSetupView {
   private final Button backButton;
   private final Label statusLabel;
 
+
+  /**
+   * Constructs the game setup screen, initializing layout, background, and
+   * UI components for difficulty selection, player management, and board info.
+   * Loads and applies CSS stylesheets.
+   */
   public GameSetupView() {
     root = new BorderPane();
     root.setPadding(new Insets(20));
@@ -60,6 +67,8 @@ public class GameSetupView {
     stackRoot = new StackPane();
     setupBackground();
     stackRoot.getChildren().add(root);
+
+
 
     screenTitleLabel = new Label("Game Setup");
     screenTitleLabel.getStyleClass().add("game-mode-title");
@@ -71,8 +80,7 @@ public class GameSetupView {
     statusLabel = new Label();
     statusLabel.getStyleClass().add("status-label");
 
-    ButtonFactory buttonFactory = new ButtonFactory();
-    ButtonDecorator decorator = new HoverEffectDecorator();
+
 
     difficultySelectionPanel = new DifficultySelectionPanel();
     difficultyButtonsContainer = new VBox(15);
@@ -90,8 +98,11 @@ public class GameSetupView {
     difficultyButtonsContainer.setAlignment(Pos.TOP_CENTER);
     difficultyButtonsContainer.setPadding(new Insets(10));
 
+    ButtonFactory buttonFactory = new ButtonFactory();
+    ButtonDecorator decorator = new HoverEffectDecorator();
+
     playerManagementPanel = new PlayerManagementPanel(buttonFactory);
-    gameInfoPanel = new edu.ntnu.idi.idatt.view.components.gameSelection.GameInfoPanel();
+    infoPanel = new InfoPanel();
 
     startGameButton = decorator.decorate(buttonFactory.createStandardButton("Start Game"));
     startGameButton.getStyleClass().add("primary-button");
@@ -105,13 +116,13 @@ public class GameSetupView {
     HBox.setHgrow(spacer, Priority.ALWAYS);
     HBox statusBox = new HBox(statusLabel);
     statusBox.setAlignment(Pos.CENTER);
-    statusBox.setPadding(new Insets(0,0,10,0));
+    statusBox.setPadding(new Insets(0, 0, 10, 0));
 
     HBox bottomActionBar = new HBox(20, backButton, spacer, startGameButton);
     bottomActionBar.setAlignment(Pos.CENTER);
 
     VBox bottomContainer = new VBox(10, statusBox, bottomActionBar);
-    bottomContainer.setPadding(new Insets(10,0,0,0));
+    bottomContainer.setPadding(new Insets(10, 0, 0, 0));
     root.setBottom(bottomContainer);
 
     scene = new Scene(stackRoot, 1280, 720);
@@ -136,7 +147,7 @@ public class GameSetupView {
 
   private void setupResponsiveLayout() {
     VBox gameInfoContent = new VBox(15);
-    gameInfoContent.getChildren().add(gameInfoPanel);
+    gameInfoContent.getChildren().add(infoPanel);
     gameInfoContent.setAlignment(Pos.CENTER);
     gameInfoContent.setPadding(new Insets(20));
 
@@ -175,7 +186,7 @@ public class GameSetupView {
 
     difficultyButtonsContainer.prefHeightProperty().bind(leftWrapper.heightProperty());
     playerManagementPanel.prefHeightProperty().bind(centerWrapper.heightProperty());
-    gameInfoPanel.prefHeightProperty().bind(rightWrapper.heightProperty());
+    infoPanel.prefHeightProperty().bind(rightWrapper.heightProperty());
 
     root.setCenter(mainContent);
   }
@@ -222,9 +233,19 @@ public class GameSetupView {
   public void setDifficultyPanelVisible(boolean visible) {
     difficultyButtonsContainer.setVisible(visible);
     difficultyButtonsContainer.setManaged(visible);
-    LOGGER.fine("Difficulty panel container visibility set to: " + visible);
+    LOGGER.fine(() -> String.format("Difficulty panel container visibility set to: %s", visible));
   }
 
+  /**
+   * Displays a temporary status message at the bottom of the screen.
+   *
+   * <p>The message style will be set to error if {@code isError} is true,
+   * otherwise to informational style.
+   * </p>
+   *
+   * @param message the status text to display; may be empty or null
+   * @param isError  whether to style the message as an error
+   */
   public void updateStatusMessage(String message, boolean isError) {
     statusLabel.setText(message);
     statusLabel.getStyleClass().removeAll("status-info", "status-error", "status-warning");
@@ -235,6 +256,12 @@ public class GameSetupView {
     }
   }
 
+  /**
+   * Clears any status message currently displayed.
+   *
+   * <p>The status label text is set to an empty string.
+   * </p>
+   */
   public void clearStatusMessage() {
     statusLabel.setText("");
   }
@@ -247,18 +274,9 @@ public class GameSetupView {
     return playerManagementPanel;
   }
 
-  public GameInfoPanel getGameInfoPanel() {
-    return gameInfoPanel;
+  public InfoPanel getGameInfoPanel() {
+    return infoPanel;
   }
-
-  public Button getStartGameButton() {
-    return startGameButton;
-  }
-
-  public Button getBackButton() {
-    return backButton;
-  }
-
 
   private void bindEventHandlers() {
     if (controller == null) {
