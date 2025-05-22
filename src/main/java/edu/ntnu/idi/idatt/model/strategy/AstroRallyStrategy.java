@@ -1,41 +1,42 @@
 package edu.ntnu.idi.idatt.model.strategy;
 
+
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.Dice;
-import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.model.core.Player;
+import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import java.util.List;
 
 /**
- * Implements the game strategy for "Astro Rally".
- * This strategy defines how player turns are executed, how movement is calculated,
- * win conditions are checked, and how the game is initialized.
- * Astro Rally involves players completing a set number of laps around the board.
+ * Strategy implementation for the Astro Rally variant.
+ *
+ * <p>Encapsulates lap-based movement mechanics, defines turn execution
+ * (dice rolling and navigation), enforces win conditions (required laps
+ * plus return to finish), and handles game initialization (player placement
+ * and state reset).</p>
+ *
+ * @see GameStrategy
+ * @since 1.0
  */
 public class AstroRallyStrategy implements GameStrategy {
+
+  /** Number of laps required to win (must land on tile 1 after this many laps). */
+  public static final int TOTAL_LAPS_TO_WIN = 1;
 
   private final Board board;
   private final Dice dice;
 
   /**
-   * The total number of laps a player must complete to be eligible to win.
-   * The player must also be on the finish tile (tile ID 1) after completing these laps.
-   */
-  public static final int TOTAL_LAPS_TO_WIN = 1;
-
-  /**
-   * Constructs a new AstroRallyStrategy.
+   * Constructs the Astro Rally strategy.
    *
-   * @param board The game board. Must not be {@code null}.
-   * @param dice The dice used for movement. Must not be {@code null}.
-   * If the provided dice has zero dice, it will be initialized with 2 dice.
-   * @throws IllegalArgumentException if {@code board} or {@code dice} is {@code null}.
+   * @param board the game board; must not be null
+   * @param dice  the dice set; must not be null (if empty, initialized to 2 dice)
+   * @throws IllegalArgumentException if {@code board} or {@code dice} is null
    */
   public AstroRallyStrategy(Board board, Dice dice) {
-    ExceptionHandling.requireNonNull(board, "Board cannot be null for AstroRallyStrategy");
-    ExceptionHandling.requireNonNull(dice, "Dice cannot be null for AstroRallyStrategy");
-
+    ExceptionHandling.requireNonNull(board, "board");
+    ExceptionHandling.requireNonNull(dice, "dice");
     this.board = board;
     this.dice = dice;
     if (this.dice.getNumberOfDice() == 0) {
@@ -44,158 +45,130 @@ public class AstroRallyStrategy implements GameStrategy {
   }
 
   /**
-   * Calculates the player's final destination tile after moving a certain number of steps.
-   * This method handles lap counting by checking if the player passes the starting tile (ID 1).
-   * If the player is on their winning lap, movement stops once they reach or pass tile ID 1.
+   * Calculates final tile after moving a given number of steps, accounting for laps.
    *
-   * @param player The player who is moving. Must not be {@code null}.
-   * @param startTile The tile from which the player starts their movement. Must not be {@code null}.
-   * @param totalMovementSteps The total number of steps the player is to move. Must be non-negative.
-   * @return The {@link Tile} object representing the player's final destination.
-   * Returns the {@code startTile} if {@code totalMovementSteps} is 0.
-   * Returns {@code null} if a tile in the path cannot be found (should not happen on a valid board).
-   * @throws IllegalArgumentException if {@code player}, {@code startTile} is {@code null},
-   * or if {@code totalMovementSteps} is negative.
-   * @throws IllegalStateException if the {@code startTile} has no valid ID or
-   * if a tile in the movement path is unexpectedly {@code null} or has no next tile
-   * when one is expected (indicative of a board configuration issue).
+   * @param player            the player moving; must not be null
+   * @param startTile         the starting tile; must not be null
+   * @param totalMovementSteps non-negative number of steps to advance
+   * @return the destination tile; never null if board is valid
+   * @throws IllegalArgumentException if {@code player} or {@code startTile} is null,
+   *                                  or if {@code totalMovementSteps} is negative
+   * @throws IllegalStateException    if the board configuration is inconsistent
    */
-  private Tile calculateFinalDestination(Player player, Tile startTile, int totalMovementSteps) {
-    ExceptionHandling.requireNonNull(player, "Player for calculateFinalDestination");
-    ExceptionHandling.requireNonNull(startTile, "Start tile for calculateFinalDestination");
-    ExceptionHandling.requireNonNegative(totalMovementSteps, "Total movement steps");
+  private Tile calculateFinalDestination(
+      Player player,
+      Tile startTile,
+      int totalMovementSteps) {
+    ExceptionHandling.requireNonNull(player, "player");
+    ExceptionHandling.requireNonNull(startTile, "startTile");
+    ExceptionHandling.requireNonNegative(totalMovementSteps, "movementSteps");
 
     if (totalMovementSteps == 0) {
       return startTile;
     }
 
     int currentTileId = startTile.getTileId();
-    ExceptionHandling.requireStrictlyPositive(currentTileId, "Start tile ID");
+    ExceptionHandling.requireStrictlyPositive(currentTileId, "startTile ID");
 
-    int previousTileIdInLoop;
-    boolean isOnWinningLap = player.getLapsCompleted() == TOTAL_LAPS_TO_WIN - 1;
+    boolean isOnFinalLap = player.getLapsCompleted() >= TOTAL_LAPS_TO_WIN - 1;
 
     for (int step = 0; step < totalMovementSteps; step++) {
-      Tile loopCurrentTile = this.board.getTileById(currentTileId);
-      ExceptionHandling.requireState(loopCurrentTile != null,
-          "Current tile (ID: " + currentTileId + ") not found on board during movement calculation.");
+      Tile tile = board.getTileById(currentTileId);
+      ExceptionHandling.requireState(tile != null,
+          "Tile ID " + currentTileId + " not found");
 
-      int nextTileIdCandidate;
-
-      if (loopCurrentTile.getNextTile() != null) {
-        nextTileIdCandidate = loopCurrentTile.getNextTile().getTileId();
-        ExceptionHandling.requireStrictlyPositive(nextTileIdCandidate, "Next tile ID from tile " + currentTileId);
-      } else if (currentTileId == this.board.getBoardSize()) {
-        nextTileIdCandidate = 1;
+      int nextId;
+      if (tile.getNextTile() != null) {
+        nextId = tile.getNextTile().getTileId();
+      } else if (currentTileId == board.getBoardSize()) {
+        nextId = 1;
       } else {
         throw new IllegalStateException(
-            "Tile (ID: " + currentTileId + ") has no next tile and is not the last tile on the board.");
+            "Tile " + currentTileId + " has no next and is not last");
       }
 
-      previousTileIdInLoop = currentTileId;
-      currentTileId = nextTileIdCandidate;
-
-      if (currentTileId == 1 && previousTileIdInLoop != 1 && previousTileIdInLoop != this.board.getBoardSize()) {
+      // Lap detection when crossing tile 1 from elsewhere
+      if (nextId == 1 && currentTileId != 1) {
         player.incrementLapsCompleted();
-        isOnWinningLap = player.getLapsCompleted() == TOTAL_LAPS_TO_WIN - 1;
+        if (player.getLapsCompleted() >= TOTAL_LAPS_TO_WIN && isOnFinalLap) {
+          currentTileId = nextId;
+          break;
+        }
       }
 
-      if (isOnWinningLap && currentTileId == 1 && previousTileIdInLoop != 1) {
-        break;
-      }
+      currentTileId = nextId;
     }
-    Tile finalDestination = this.board.getTileById(currentTileId);
-    ExceptionHandling.requireState(finalDestination != null,
-        "Final destination tile (ID: " + currentTileId + ") not found on board.");
-    return finalDestination;
+
+    Tile result = board.getTileById(currentTileId);
+    ExceptionHandling.requireState(result != null,
+        "Destination tile " + currentTileId + " not found");
+    return result;
   }
 
   /**
-   * Executes a single turn for the given player.
-   * The player rolls the dice, and their piece is moved on the board according to the
-   * rolled value and the {@link #calculateFinalDestination(Player, Tile, int)} logic.
-   * Lap counting is handled during movement.
+   * Rolls dice and moves the player accordingly.
    *
-   * @param player The player whose turn it is. Must not be {@code null}.
-   * @throws IllegalArgumentException if {@code player} is {@code null}.
-   * @throws IllegalStateException if the player's current tile is {@code null} before the turn
-   * (player should always be on a tile).
+   * @param player the player taking the turn; must not be null
+   * @throws IllegalArgumentException if {@code player} is null
+   * @throws IllegalStateException    if player's current tile is null
    */
   @Override
   public void executePlayerTurn(Player player) {
-    ExceptionHandling.requireNonNull(player, "Player cannot be null for executePlayerTurn");
-
+    ExceptionHandling.requireNonNull(player, "player");
     Tile oldTile = player.getCurrentTile();
     ExceptionHandling.requireState(oldTile != null,
-        "Player " + player.getName() + " is not on any tile at the start of their turn.");
+        "Player not on a tile at turn start");
 
-    int movementSteps = dice.roll();
-    ExceptionHandling.requireNonNegative(movementSteps, "Dice roll result (movement steps)");
-
-
-    if (movementSteps <= 0) {
+    int steps = dice.roll();
+    ExceptionHandling.requireNonNegative(steps, "dice result");
+    if (steps == 0) {
       return;
     }
 
-    Tile destinationTile = calculateFinalDestination(player, oldTile, movementSteps);
-
-    if (destinationTile.getTileId() != oldTile.getTileId()) {
-      player.setOnCurrentTile(destinationTile);
+    Tile dest = calculateFinalDestination(player, oldTile, steps);
+    if (dest.getTileId() != oldTile.getTileId()) {
+      player.setOnCurrentTile(dest);
     }
   }
 
   /**
-   * Checks if the specified player has met the win condition for Astro Rally.
-   * A player wins if they have completed the required number of laps ({@value #TOTAL_LAPS_TO_WIN})
-   * AND are currently on the finish tile (tile ID 1).
+   * Determines if the player has won by completing required laps and landing on tile 1.
    *
-   * @param player The player to check. Must not be {@code null}.
-   * @return {@code true} if the player has won, {@code false} otherwise.
-   * @throws IllegalArgumentException if {@code player} is {@code null}.
+   * @param player the player to check; must not be null
+   * @return true if win conditions met, false otherwise
+   * @throws IllegalArgumentException if {@code player} is null
    */
   @Override
   public boolean checkWinCondition(Player player) {
-    ExceptionHandling.requireNonNull(player, "Player cannot be null when checking win condition");
-
-    Tile currentTile = player.getCurrentTile();
-    if (currentTile == null) {
-      return false;
-    }
-
-    boolean hasCompletedRequiredLaps = player.getLapsCompleted() >= TOTAL_LAPS_TO_WIN;
-    boolean isOnFinishTile = currentTile.getTileId() == 1;
-
-    return hasCompletedRequiredLaps && isOnFinishTile;
+    ExceptionHandling.requireNonNull(player, "player");
+    Tile tile = player.getCurrentTile();
+    return tile != null
+        && player.getLapsCompleted() >= TOTAL_LAPS_TO_WIN
+        && tile.getTileId() == 1;
   }
 
   /**
-   * Initializes the game state for all participating players.
-   * Each player is placed on the starting tile (tile ID 1), their lap count is reset,
-   * and any "skip turn" status is cleared.
+   * Places each player at the starting tile (ID 1), resets laps, and clears skip flag.
    *
-   * @param board The game board, which should be the same as the one this strategy was constructed with.
-   * Must not be {@code null}.
-   * @param players A list of players participating in the game. Must not be {@code null} or empty,
-   * and must not contain {@code null} players.
-   * @throws IllegalArgumentException if {@code board} or {@code players} list is {@code null} or empty,
-   * or if any player in the list is {@code null}.
-   * @throws IllegalStateException if the starting tile (ID 1) cannot be found on the board.
+   * @param board   the board; must not be null or mismatch strategy's board
+   * @param players the players to initialize; must not be null or empty
+   * @throws IllegalArgumentException if args invalid
+   * @throws IllegalStateException    if start tile missing
    */
   @Override
   public void initializeGame(Board board, List<Player> players) {
-    ExceptionHandling.requireNonNull(board, "Board cannot be null for InitializeGame");
-    ExceptionHandling.requireNotEmpty(players, "Players list cannot be null or empty for InitializeGame");
+    ExceptionHandling.requireNonNull(board, "board");
+    ExceptionHandling.requireNotEmpty(players, "players");
 
-    Tile startingTile = this.board.getTileById(1);
-    if (startingTile == null) {
-      throw new IllegalStateException("Astro Rally board is missing the starting tile (ID 1).");
+    Tile start = this.board.getTileById(1);
+    if (start == null) {
+      throw new IllegalStateException("Missing start tile ID 1");
     }
-
-    for (Player player : players) {
-      ExceptionHandling.requireNonNull(player, "Player in list cannot be null during game initialization");
-      player.setOnCurrentTile(startingTile);
-      player.resetLapsCompleted();
-      player.setSkipTurn(false);
+    for (Player p : players) {
+      ExceptionHandling.requireNonNull(p, "player in list");
+      p.setOnCurrentTile(start);
+      p.resetLapsCompleted();
+      p.setSkipTurn(false);
     }
   }
 }
