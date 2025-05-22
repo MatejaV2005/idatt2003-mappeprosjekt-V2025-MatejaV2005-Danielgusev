@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.model.management;
+package edu.ntnu.idi.idatt.service;
 
 import edu.ntnu.idi.idatt.exceptions.BoardManagementException;
 import edu.ntnu.idi.idatt.exceptions.FileLoadException;

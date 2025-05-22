@@ -3,8 +3,8 @@ package edu.ntnu.idi.idatt;
 
 import edu.ntnu.idi.idatt.exceptions.BoardManagementException;
 import edu.ntnu.idi.idatt.factory.BoardFactory;
-import edu.ntnu.idi.idatt.model.management.BoardManager;
-import edu.ntnu.idi.idatt.model.management.PlayerManager;
+import edu.ntnu.idi.idatt.service.BoardManager;
+import edu.ntnu.idi.idatt.service.PlayerManager;
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.core.Dice;

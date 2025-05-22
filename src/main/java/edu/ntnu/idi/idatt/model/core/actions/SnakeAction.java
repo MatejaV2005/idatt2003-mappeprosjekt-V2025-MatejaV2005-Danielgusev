@@ -15,16 +15,9 @@ public class SnakeAction implements TileAction{
     this.description = description;
   }
 
-  // New constructor for when we only have an ID
-  public SnakeAction(int destinationTileId, String description) {
-    this.destinationTile = null;
-    this.destinationTileId = destinationTileId;
-    this.description = description;
-  }
 
   @Override
   public void perform(Player player) {
-    //TODO: Add distinguishing features for class
     System.out.println(player.getName() + " " + description);
     player.setOnCurrentTile(destinationTile);
   }

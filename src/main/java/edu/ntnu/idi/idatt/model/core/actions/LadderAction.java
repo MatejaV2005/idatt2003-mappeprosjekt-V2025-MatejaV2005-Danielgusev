@@ -8,17 +8,9 @@ public class LadderAction implements TileAction {
   private final String description;
   private final int destinationTileId;
 
-  // Existing constructor
   public LadderAction(Tile destinationTile, String description) {
     this.destinationTile = destinationTile;
     this.destinationTileId = destinationTile != null ? destinationTile.getTileId() : -1;
-    this.description = description;
-  }
-
-  // New constructor for when we only have an ID
-  public LadderAction(int destinationTileId, String description) {
-    this.destinationTile = null;
-    this.destinationTileId = destinationTileId;
     this.description = description;
   }
 
