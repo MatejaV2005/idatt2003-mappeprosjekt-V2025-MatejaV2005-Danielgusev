@@ -2,16 +2,25 @@ package edu.ntnu.idi.idatt.model.core;
 
 import edu.ntnu.idi.idatt.model.strategy.GameStrategy;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
-
 import java.util.List;
-import java.util.logging.Logger; // Importer Logger
+import java.util.logging.Logger;
 
 /**
- * The {@code GameEngine} class orchestrates core game mechanics by delegating
- * game-specific logic to a {@link GameStrategy}. It serves as an intermediary,
- * providing a consistent interface for operations such as retrieving the starting tile,
- * playing a turn, checking win conditions, and initializing the game state
- * based on the provided strategy and board.
+ * Core orchestrator for board-based games, delegating all rule-specific logic
+ * to a {@link GameStrategy}.
+ *
+ * <p>Provides a simple façade over the game engine, exposing methods to:
+ * <ul>
+ *   <li>initialize the game state ({@link #initializeGame(List)})</li>
+ *   <li>retrieve the starting tile ({@link #getStartingTile()})</li>
+ *   <li>execute a player’s turn ({@link #playTurn(Player)})</li>
+ *   <li>check for a win condition ({@link #isWinner(Player)})</li>
+ * </ul>
+ * Clients interact with this class to drive game flow without needing to know
+ * strategy internals.</p>
+ *
+ * @see GameStrategy
+ * @see BoardGame
  */
 public class GameEngine {
 
@@ -26,7 +35,7 @@ public class GameEngine {
    *
    * @param board    The {@link Board} on which the game will be played. Cannot be null.
    * @param strategy The {@link GameStrategy} that defines the game's rules and logic.
-   * Cannot be null.
+   *                 Cannot be null.
    * @throws IllegalArgumentException if board or strategy is null.
    */
   public GameEngine(Board board, GameStrategy strategy) {
@@ -42,8 +51,8 @@ public class GameEngine {
    *
    * @return The starting {@link Tile}.
    * @throws IllegalArgumentException if the board is not properly initialized or
-   * tile ID 1 does not exist (as per
-   * {@link Board#getTileById(int)}'s contract).
+   *                                  tile ID 1 does not exist
+   *                                  (as per {@link Board#getTileById(int)}'s contract).
    */
   public Tile getStartingTile() {
     return board.getTileById(1);
@@ -92,7 +101,7 @@ public class GameEngine {
    * and any other strategy-specific setup required before the game begins.
    *
    * @param players The list of {@link Player}s to initialize for the game.
-   * Cannot be null or empty.
+   *                Cannot be null or empty.
    *
    * @throws IllegalArgumentException if the players list is null or empty.
    */
