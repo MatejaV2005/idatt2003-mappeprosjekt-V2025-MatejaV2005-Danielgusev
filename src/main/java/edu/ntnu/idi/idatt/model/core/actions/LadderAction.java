@@ -22,8 +22,7 @@ public class LadderAction implements TileAction {
   /**
    * Creates a LadderAction.
    *
-   * @param destinationTile the tile to move the player to; may be null, in which case
-   *                        {@link #getDestinationTileId()} returns -1
+   * @param destinationTile the tile to move the player to; may be null.
    * @param description     a non-blank description of the action; must not be null or blank
    * @throws IllegalArgumentException if {@code description} is null or blank
    */
@@ -40,13 +39,17 @@ public class LadderAction implements TileAction {
    * <p>Prints the action description to standard output and updates the player's current tile.
    *
    * @param player the player to move; must not be null
-   * @throws IllegalArgumentException if {@code player} is null
+   * @throws IllegalArgumentException if {@code player} is null, or if the
+   *         destination tile for this action is null.
    */
   @Override
   public void perform(Player player) {
     ExceptionHandling.requireNonNull(player, "player");
-    System.out.println(player.getName() + " " + description);
-    player.setOnCurrentTile(destinationTile);
+
+    if (this.destinationTile == null) {
+      throw new IllegalArgumentException("New tile for player cannot be null");
+    }
+    player.setOnCurrentTile(this.destinationTile);
   }
 
   /**

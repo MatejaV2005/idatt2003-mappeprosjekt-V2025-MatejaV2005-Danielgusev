@@ -4,16 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="javadoc + google checkstyle to TileDto">
+    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="LATE COMMIT: developed SnakesAndLaddersGameTest using mockito to simulate objects without dependency">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Files/Players/players.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/Files/Players/players.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/exceptions/BoardGameResourceException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/exceptions/BoardGameResourceException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/exceptions/BoardManagementException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/exceptions/BoardManagementException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/exceptions/CssLoadException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/exceptions/CssLoadException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/exceptions/CsvFileException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/exceptions/FileLoadException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/exceptions/FileLoadException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/exceptions/FileSaveException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/exceptions/FileSaveException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/boardgames/SnakesAndLaddersGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/boardgames/SnakesAndLaddersGameTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/AsteroidFieldAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/AsteroidFieldAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/BoostPadAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/BoostPadAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/LadderAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/LadderAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/SnakeAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/SnakeAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/SpecialAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/actions/SpecialAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/games/AstroRallyGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/games/AstroRallyGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/games/SnakesAndLaddersGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/games/SnakesAndLaddersGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GenericBoardGameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GenericBoardGameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/BoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/BoardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/TileTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TileTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/boardgames/AstroRallyGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/boardgames/AstroRallyGameTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/strategy/AstroRallyStrategyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/strategy/AstroRallyStrategyTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/strategy/SnakesAndLaddersStrategyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/strategy/SnakesAndLaddersStrategyTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,12 +136,18 @@
     "Application.Main.executor": "Run",
     "Application.TitleScreen.executor": "Run",
     "Application.fx.executor": "Run",
+    "JUnit.AsteroidFieldActionTest.constructor_withEmptyDescription_throwsIllegalArgumentException.executor": "Run",
+    "JUnit.AsteroidFieldActionTest.constructor_withNullDescription_throwsIllegalArgumentException.executor": "Run",
     "JUnit.AsteroidFieldActionTest.executor": "Run",
     "JUnit.AstroRallyGameTest.executor": "Run",
+    "JUnit.AstroRallyGameTest.handleSpecialTileAction_actionBoostPadTile.executor": "Run",
+    "JUnit.AstroRallyGameTest.handleSpecialTileAction_noLandAction_notifiesEffectOnSameTile.executor": "Run",
     "JUnit.AstroRallyStrategyTest.checkWinCondition_nullPlayer_throwsIllegalArgumentException.executor": "Run",
+    "JUnit.AstroRallyStrategyTest.checkWinCondition_playerNotOnTile_returnsFalse.executor": "Run",
     "JUnit.AstroRallyStrategyTest.constructor_nullBoard_throwsIllegalArgumentException.executor": "Run",
     "JUnit.AstroRallyStrategyTest.constructor_nullDice_throwsIllegalArgumentException.executor": "Run",
     "JUnit.AstroRallyStrategyTest.constructor_validInputs_initializesSuccessfully.executor": "Run",
+    "JUnit.AstroRallyStrategyTest.executePlayerTurn_moveOnFinalLapFromLastTile_stopsAtTile1.executor": "Run",
     "JUnit.AstroRallyStrategyTest.executePlayerTurn_nullPlayer_throwsIllegalArgumentException.executor": "Run",
     "JUnit.AstroRallyStrategyTest.executor": "Run",
     "JUnit.AstroRallyStrategyTest.initializeGame_emptyPlayersList_throwsIllegalArgumentException.executor": "Run",
@@ -144,20 +156,35 @@
     "JUnit.AstroRallyStrategyTest.initializeGame_nullPlayersList_throwsIllegalArgumentException.executor": "Run",
     "JUnit.BoardGameTest.executor": "Run",
     "JUnit.BoardTest.executor": "Run",
+    "JUnit.BoardTest.resetBoard_ReInitializesAndRelinksTiles.executor": "Run",
+    "JUnit.BoostPadActionTest.constructor_withNullDescription_throwsIllegalArgumentException.executor": "Run",
     "JUnit.BoostPadActionTest.executor": "Run",
+    "JUnit.BoostPadActionTest.perform_withNullPlayer_throwsIllegalArgumentException.executor": "Run",
     "JUnit.DiceTest.executor": "Run",
     "JUnit.DiceTest.toString_ContainsRelevantInformation.executor": "Run",
     "JUnit.GameEngineTest.executor": "Run",
     "JUnit.LadderActionTest.executor": "Run",
+    "JUnit.LadderActionTest.perform_withNullDestinationTile_throwsIllegalArgumentException.executor": "Run",
     "JUnit.NoOperationActionTest.executor": "Run",
     "JUnit.PlayerTest.executor": "Run",
     "JUnit.SnakeActionTest.executor": "Run",
+    "JUnit.SnakeActionTest.perform_withNullDestinationTile_throwsIllegalArgumentException.executor": "Run",
     "JUnit.SnakesAndLaddersGameTest.executor": "Run",
     "JUnit.SnakesAndLaddersGameTest.testHandlePlayerTurn_PlayerMoves_NoActionTile.executor": "Run",
+    "JUnit.SnakesAndLaddersGameTest.testHandleSpecialTileAction_MovesToDestinationTile_DestinationIsNull.executor": "Run",
+    "JUnit.SnakesAndLaddersGameTest.testHandleSpecialTileAction_NoActualActionOnTile.executor": "Run",
+    "JUnit.SnakesAndLaddersStrategyTest$ExecutePlayerTurnTests.executePlayerTurn_PlayerCurrentTileNull_ThrowsIllegalStateException.executor": "Run",
     "JUnit.SnakesAndLaddersStrategyTest$InitializeGameTests.initializeGame_EmptyPlayerList_ThrowsIllegalArgumentException.executor": "Run",
+    "JUnit.SnakesAndLaddersStrategyTest$InitializeGameTests.initializeGame_NullBoard_ThrowsIllegalArgumentException.executor": "Run",
+    "JUnit.SnakesAndLaddersStrategyTest$InitializeGameTests.initializeGame_NullPlayerList_ThrowsIllegalArgumentException.executor": "Run",
+    "JUnit.SnakesAndLaddersStrategyTest$InitializeGameTests.initializeGame_StartTileNotFound_ThrowsIllegalStateException.executor": "Run",
+    "JUnit.SnakesAndLaddersStrategyTest$WinConditionTests.checkWinCondition_PlayerCurrentTileNull_ThrowsIllegalStateException.executor": "Run",
     "JUnit.SnakesAndLaddersStrategyTest.executor": "Run",
     "JUnit.SpecialActionTest.executor": "Run",
-    "JUnit.java in boardgame-V2025-IDATT2003.executor": "Coverage",
+    "JUnit.SpecialActionTest.perform_withNullConsumer_throwsNullPointerException.executor": "Run",
+    "JUnit.TileTest$NextTileLogicTests.setNextTileThrowsExceptionForNullArgument.executor": "Run",
+    "JUnit.TileTest.executor": "Run",
+    "JUnit.java in boardgame-V2025-IDATT2003.executor": "Run",
     "Maven.boardgame-V2025-IDATT2003 [clean].executor": "Run",
     "Maven.boardgame-V2025-IDATT2003 [package].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -192,62 +219,47 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.LadderActionTest">
-    <configuration name="AsteroidFieldActionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.DiceTest.getDice_ReturnsUnmodifiableList">
+    <configuration name="AstroRallyGameTest.handleSpecialTileAction_actionBoostPadTile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="boardgame-V2025-IDATT2003" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="tileactions.*" />
+          <option name="PATTERN" value="boardgames.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="tileactions" />
-      <option name="MAIN_CLASS_NAME" value="tileactions.AsteroidFieldActionTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="boardgames" />
+      <option name="MAIN_CLASS_NAME" value="boardgames.AstroRallyGameTest" />
+      <option name="METHOD_NAME" value="handleSpecialTileAction_actionBoostPadTile" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BoostPadActionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BoardTest.resetBoard_ReInitializesAndRelinksTiles" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="boardgame-V2025-IDATT2003" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tileactions.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tileactions" />
-      <option name="MAIN_CLASS_NAME" value="tileactions.BoostPadActionTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="BoardTest" />
+      <option name="METHOD_NAME" value="resetBoard_ReInitializesAndRelinksTiles" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LadderActionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DiceTest.getDice_ReturnsUnmodifiableList" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="boardgame-V2025-IDATT2003" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tileactions.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tileactions" />
-      <option name="MAIN_CLASS_NAME" value="tileactions.LadderActionTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="DiceTest" />
+      <option name="METHOD_NAME" value="getDice_ReturnsUnmodifiableList" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="NoOperationActionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TileTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="boardgame-V2025-IDATT2003" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tileactions.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tileactions" />
-      <option name="MAIN_CLASS_NAME" value="tileactions.NoOperationActionTest" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TileTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -263,11 +275,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.LadderActionTest" />
-        <item itemvalue="JUnit.AsteroidFieldActionTest" />
-        <item itemvalue="JUnit.BoostPadActionTest" />
+        <item itemvalue="JUnit.DiceTest.getDice_ReturnsUnmodifiableList" />
+        <item itemvalue="JUnit.BoardTest.resetBoard_ReInitializesAndRelinksTiles" />
+        <item itemvalue="JUnit.AstroRallyGameTest.handleSpecialTileAction_actionBoostPadTile" />
         <item itemvalue="JUnit.java in boardgame-V2025-IDATT2003" />
-        <item itemvalue="JUnit.NoOperationActionTest" />
+        <item itemvalue="JUnit.TileTest" />
       </list>
     </recent_temporary>
   </component>
@@ -352,374 +364,7 @@
       <workItem from="1747578719638" duration="476000" />
       <workItem from="1747830178262" duration="9362000" />
       <workItem from="1747840759437" duration="9143000" />
-    </task>
-    <task id="LOCAL-00177" summary="removed bot and human player">
-      <option name="closed" value="true" />
-      <created>1747743440695</created>
-      <option name="number" value="00177" />
-      <option name="presentableId" value="LOCAL-00177" />
-      <option name="project" value="LOCAL" />
-      <updated>1747743440695</updated>
-    </task>
-    <task id="LOCAL-00178" summary="ommitted space for BoardGameFactory to create AstroRally">
-      <option name="closed" value="true" />
-      <created>1747744113781</created>
-      <option name="number" value="00178" />
-      <option name="presentableId" value="LOCAL-00178" />
-      <option name="project" value="LOCAL" />
-      <updated>1747744113782</updated>
-    </task>
-    <task id="LOCAL-00179" summary="Refactored navigationController to handle dynamic navigation between different game setups">
-      <option name="closed" value="true" />
-      <created>1747748584079</created>
-      <option name="number" value="00179" />
-      <option name="presentableId" value="LOCAL-00179" />
-      <option name="project" value="LOCAL" />
-      <updated>1747748584079</updated>
-    </task>
-    <task id="LOCAL-00180" summary="Refactored gameSetupView to handle different layouts for gameTypes,">
-      <option name="closed" value="true" />
-      <created>1747749122913</created>
-      <option name="number" value="00180" />
-      <option name="presentableId" value="LOCAL-00180" />
-      <option name="project" value="LOCAL" />
-      <updated>1747749122914</updated>
-    </task>
-    <task id="LOCAL-00181" summary="Refactored GameSetupController, now it has centralized event handling, prepares GUI per game type">
-      <option name="closed" value="true" />
-      <created>1747749617677</created>
-      <option name="number" value="00181" />
-      <option name="presentableId" value="LOCAL-00181" />
-      <option name="project" value="LOCAL" />
-      <updated>1747749617679</updated>
-    </task>
-    <task id="LOCAL-00182" summary="Refactored GameSelectionView to choose ONLY between S&amp;L and AstroValley">
-      <option name="closed" value="true" />
-      <created>1747750147742</created>
-      <option name="number" value="00182" />
-      <option name="presentableId" value="LOCAL-00182" />
-      <option name="project" value="LOCAL" />
-      <updated>1747750147743</updated>
-    </task>
-    <task id="LOCAL-00183" summary="Adjusted GameSelectionController to the new GameSelectionView refactor">
-      <option name="closed" value="true" />
-      <created>1747750192905</created>
-      <option name="number" value="00183" />
-      <option name="presentableId" value="LOCAL-00183" />
-      <option name="project" value="LOCAL" />
-      <updated>1747750192906</updated>
-    </task>
-    <task id="LOCAL-00184" summary="Made a createAstroRallyGame method in BoardFactory">
-      <option name="closed" value="true" />
-      <created>1747832277018</created>
-      <option name="number" value="00184" />
-      <option name="presentableId" value="LOCAL-00184" />
-      <option name="project" value="LOCAL" />
-      <updated>1747832277018</updated>
-    </task>
-    <task id="LOCAL-00185" summary="Refactored BoardFactory, includes creation and assignement of AStroRally boards and actions">
-      <option name="closed" value="true" />
-      <created>1747832473514</created>
-      <option name="number" value="00185" />
-      <option name="presentableId" value="LOCAL-00185" />
-      <option name="project" value="LOCAL" />
-      <updated>1747832473514</updated>
-    </task>
-    <task id="LOCAL-00186" summary="added getNumberOfDice method in Dice">
-      <option name="closed" value="true" />
-      <created>1747832502977</created>
-      <option name="number" value="00186" />
-      <option name="presentableId" value="LOCAL-00186" />
-      <option name="project" value="LOCAL" />
-      <updated>1747832502977</updated>
-    </task>
-    <task id="LOCAL-00187" summary="GameViewFactory now supports creating view for AstroRally game">
-      <option name="closed" value="true" />
-      <created>1747832648031</created>
-      <option name="number" value="00187" />
-      <option name="presentableId" value="LOCAL-00187" />
-      <option name="project" value="LOCAL" />
-      <updated>1747832648031</updated>
-    </task>
-    <task id="LOCAL-00188" summary="developed new AsteroidFieldAction, implements TileAction">
-      <option name="closed" value="true" />
-      <created>1747840892208</created>
-      <option name="number" value="00188" />
-      <option name="presentableId" value="LOCAL-00188" />
-      <option name="project" value="LOCAL" />
-      <updated>1747840892208</updated>
-    </task>
-    <task id="LOCAL-00189" summary="Developed new BoostPadAction, implements TileAction, moves player +2 tiles forward">
-      <option name="closed" value="true" />
-      <created>1747840953214</created>
-      <option name="number" value="00189" />
-      <option name="presentableId" value="LOCAL-00189" />
-      <option name="project" value="LOCAL" />
-      <updated>1747840953214</updated>
-    </task>
-    <task id="LOCAL-00190" summary="Extensive javaDoc + TileActionFactory now handles creation of BoostPad and AsteroidField">
-      <option name="closed" value="true" />
-      <created>1747841186487</created>
-      <option name="number" value="00190" />
-      <option name="presentableId" value="LOCAL-00190" />
-      <option name="project" value="LOCAL" />
-      <updated>1747841186487</updated>
-    </task>
-    <task id="LOCAL-00191" summary="Removed redundant and unused Board parameter from SnakesAndLaddersStrategy, refactored corresponding methods">
-      <option name="closed" value="true" />
-      <created>1747842675024</created>
-      <option name="number" value="00191" />
-      <option name="presentableId" value="LOCAL-00191" />
-      <option name="project" value="LOCAL" />
-      <updated>1747842675024</updated>
-    </task>
-    <task id="LOCAL-00192" summary="Minor refactoring, removed unused method">
-      <option name="closed" value="true" />
-      <created>1747846864744</created>
-      <option name="number" value="00192" />
-      <option name="presentableId" value="LOCAL-00192" />
-      <option name="project" value="LOCAL" />
-      <updated>1747846864744</updated>
-    </task>
-    <task id="LOCAL-00193" summary="Started developing AstroRallyStrategy, made methods for executing turn and calculating final dest">
-      <option name="closed" value="true" />
-      <created>1747854149393</created>
-      <option name="number" value="00193" />
-      <option name="presentableId" value="LOCAL-00193" />
-      <option name="project" value="LOCAL" />
-      <updated>1747854149393</updated>
-    </task>
-    <task id="LOCAL-00194" summary="Finished development of AstroRallyStrategy, added win checks and init of players">
-      <option name="closed" value="true" />
-      <created>1747854286633</created>
-      <option name="number" value="00194" />
-      <option name="presentableId" value="LOCAL-00194" />
-      <option name="project" value="LOCAL" />
-      <updated>1747854286633</updated>
-    </task>
-    <task id="LOCAL-00195" summary="Developed AstroRallyGame class with turn handling, lap tracking, and action tile support.">
-      <option name="closed" value="true" />
-      <created>1747854684881</created>
-      <option name="number" value="00195" />
-      <option name="presentableId" value="LOCAL-00195" />
-      <option name="project" value="LOCAL" />
-      <updated>1747854684882</updated>
-    </task>
-    <task id="LOCAL-00196" summary="Made StrategyFactory for centralized creation of strategies">
-      <option name="closed" value="true" />
-      <created>1747854729792</created>
-      <option name="number" value="00196" />
-      <option name="presentableId" value="LOCAL-00196" />
-      <option name="project" value="LOCAL" />
-      <updated>1747854729792</updated>
-    </task>
-    <task id="LOCAL-00197" summary="Developed AstroRallyRenderer to display a Monopoly-style Astro Rally board and animate player token movements and action effects in JavaFX.">
-      <option name="closed" value="true" />
-      <created>1747855510892</created>
-      <option name="number" value="00197" />
-      <option name="presentableId" value="LOCAL-00197" />
-      <option name="project" value="LOCAL" />
-      <updated>1747855510892</updated>
-    </task>
-    <task id="LOCAL-00198" summary="resolved merge conflicts">
-      <option name="closed" value="true" />
-      <created>1747859635641</created>
-      <option name="number" value="00198" />
-      <option name="presentableId" value="LOCAL-00198" />
-      <option name="project" value="LOCAL" />
-      <updated>1747859635641</updated>
-    </task>
-    <task id="LOCAL-00199" summary="Refactored model tests reccomended by Gemini AI that dont actually require mockito to be simplified.">
-      <option name="closed" value="true" />
-      <created>1747866315680</created>
-      <option name="number" value="00199" />
-      <option name="presentableId" value="LOCAL-00199" />
-      <option name="project" value="LOCAL" />
-      <updated>1747866315680</updated>
-    </task>
-    <task id="LOCAL-00200" summary="Added Extensive javadoc and exceptionHandling to GameEngine">
-      <option name="closed" value="true" />
-      <created>1747866404320</created>
-      <option name="number" value="00200" />
-      <option name="presentableId" value="LOCAL-00200" />
-      <option name="project" value="LOCAL" />
-      <updated>1747866404320</updated>
-    </task>
-    <task id="LOCAL-00201" summary="Add unit tests for GameEngine using Mockito, where it mocks Board and GameStrategy to isolate GameEngine behavior&#10;Verifies constructor validation, turn execution, win condition logic, and game initialization">
-      <option name="closed" value="true" />
-      <created>1747870970174</created>
-      <option name="number" value="00201" />
-      <option name="presentableId" value="LOCAL-00201" />
-      <option name="project" value="LOCAL" />
-      <updated>1747870970174</updated>
-    </task>
-    <task id="LOCAL-00202" summary="Added extensive javadoc and exceptionHandling in AstroRallyStrategy">
-      <option name="closed" value="true" />
-      <created>1747874532908</created>
-      <option name="number" value="00202" />
-      <option name="presentableId" value="LOCAL-00202" />
-      <option name="project" value="LOCAL" />
-      <updated>1747874532908</updated>
-    </task>
-    <task id="LOCAL-00203" summary="Added extensive javadoc and excepiton handling in SnakesAndLaddersGame">
-      <option name="closed" value="true" />
-      <created>1747874697333</created>
-      <option name="number" value="00203" />
-      <option name="presentableId" value="LOCAL-00203" />
-      <option name="project" value="LOCAL" />
-      <updated>1747874697333</updated>
-    </task>
-    <task id="LOCAL-00204" summary="minor refactoring, removed determine winner method from strategy as it wasnt used">
-      <option name="closed" value="true" />
-      <created>1747874738444</created>
-      <option name="number" value="00204" />
-      <option name="presentableId" value="LOCAL-00204" />
-      <option name="project" value="LOCAL" />
-      <updated>1747874738444</updated>
-    </task>
-    <task id="LOCAL-00205" summary="moved Player class to core package">
-      <option name="closed" value="true" />
-      <created>1747874827518</created>
-      <option name="number" value="00205" />
-      <option name="presentableId" value="LOCAL-00205" />
-      <option name="project" value="LOCAL" />
-      <updated>1747874827518</updated>
-    </task>
-    <task id="LOCAL-00206" summary="moved ActionType enum class to actions package">
-      <option name="closed" value="true" />
-      <created>1747874910520</created>
-      <option name="number" value="00206" />
-      <option name="presentableId" value="LOCAL-00206" />
-      <option name="project" value="LOCAL" />
-      <updated>1747874910520</updated>
-    </task>
-    <task id="LOCAL-00207" summary="moved GameType enum class to actions package">
-      <option name="closed" value="true" />
-      <created>1747874965293</created>
-      <option name="number" value="00207" />
-      <option name="presentableId" value="LOCAL-00207" />
-      <option name="project" value="LOCAL" />
-      <updated>1747874965293</updated>
-    </task>
-    <task id="LOCAL-00208" summary="Added extensive javadoc and exceptionhandling to SnakesAndLaddersStrategy">
-      <option name="closed" value="true" />
-      <created>1747883066946</created>
-      <option name="number" value="00208" />
-      <option name="presentableId" value="LOCAL-00208" />
-      <option name="project" value="LOCAL" />
-      <updated>1747883066947</updated>
-    </task>
-    <task id="LOCAL-00209" summary="Added new package called service, moved management classes (playerManager, BoardManager) to this directory">
-      <option name="closed" value="true" />
-      <created>1747892171776</created>
-      <option name="number" value="00209" />
-      <option name="presentableId" value="LOCAL-00209" />
-      <option name="project" value="LOCAL" />
-      <updated>1747892171777</updated>
-    </task>
-    <task id="LOCAL-00210" summary="Added extensive javadoc and exception handling in AsteroidFieldAction">
-      <option name="closed" value="true" />
-      <created>1747894365925</created>
-      <option name="number" value="00210" />
-      <option name="presentableId" value="LOCAL-00210" />
-      <option name="project" value="LOCAL" />
-      <updated>1747894365926</updated>
-    </task>
-    <task id="LOCAL-00211" summary="Added extensive javadoc and exception handling in BoostPadAction">
-      <option name="closed" value="true" />
-      <created>1747894386494</created>
-      <option name="number" value="00211" />
-      <option name="presentableId" value="LOCAL-00211" />
-      <option name="project" value="LOCAL" />
-      <updated>1747894386494</updated>
-    </task>
-    <task id="LOCAL-00212" summary="Added extensive javadoc and exception handling in all TileActions">
-      <option name="closed" value="true" />
-      <created>1747894418972</created>
-      <option name="number" value="00212" />
-      <option name="presentableId" value="LOCAL-00212" />
-      <option name="project" value="LOCAL" />
-      <updated>1747894418972</updated>
-    </task>
-    <task id="LOCAL-00213" summary="Added extensive javadoc to TileActionInterface">
-      <option name="closed" value="true" />
-      <created>1747894434360</created>
-      <option name="number" value="00213" />
-      <option name="presentableId" value="LOCAL-00213" />
-      <option name="project" value="LOCAL" />
-      <updated>1747894434360</updated>
-    </task>
-    <task id="LOCAL-00214" summary="Added extensive javadoc to class and adherence to google checkstyle and sonarQube practices">
-      <option name="closed" value="true" />
-      <created>1747895478369</created>
-      <option name="number" value="00214" />
-      <option name="presentableId" value="LOCAL-00214" />
-      <option name="project" value="LOCAL" />
-      <updated>1747895478369</updated>
-    </task>
-    <task id="LOCAL-00215" summary="Added missing javadoc to GameSelectionController and adherence to google checkstyle and sonarQube practices">
-      <option name="closed" value="true" />
-      <created>1747895525492</created>
-      <option name="number" value="00215" />
-      <option name="presentableId" value="LOCAL-00215" />
-      <option name="project" value="LOCAL" />
-      <updated>1747895525492</updated>
-    </task>
-    <task id="LOCAL-00216" summary="Added extensive javadoc to GameSetupController and adherence to google checkstyle and sonarQube practices">
-      <option name="closed" value="true" />
-      <created>1747897895323</created>
-      <option name="number" value="00216" />
-      <option name="presentableId" value="LOCAL-00216" />
-      <option name="project" value="LOCAL" />
-      <updated>1747897895323</updated>
-    </task>
-    <task id="LOCAL-00217" summary="Added extensive javadoc to NavigationController and adherence to google checkstyle and sonarQube practices">
-      <option name="closed" value="true" />
-      <created>1747898524956</created>
-      <option name="number" value="00217" />
-      <option name="presentableId" value="LOCAL-00217" />
-      <option name="project" value="LOCAL" />
-      <updated>1747898524956</updated>
-    </task>
-    <task id="LOCAL-00218" summary="Added extensive javadoc to TitleScreenController and adherence to google checkstyle and sonarQube practices">
-      <option name="closed" value="true" />
-      <created>1747898679646</created>
-      <option name="number" value="00218" />
-      <option name="presentableId" value="LOCAL-00218" />
-      <option name="project" value="LOCAL" />
-      <updated>1747898679646</updated>
-    </task>
-    <task id="LOCAL-00219" summary="Added extensive javadoc to ActionConverter and adherence to google checkstyle and sonarQube practices">
-      <option name="closed" value="true" />
-      <created>1747898870457</created>
-      <option name="number" value="00219" />
-      <option name="presentableId" value="LOCAL-00219" />
-      <option name="project" value="LOCAL" />
-      <updated>1747898870457</updated>
-    </task>
-    <task id="LOCAL-00220" summary="Refactored BoardConverter. Decomposed fromDto to reduce complexity and improve maintainability using static utility methods. Added extensive javadoc and google checstyle adherence">
-      <option name="closed" value="true" />
-      <created>1747899722386</created>
-      <option name="number" value="00220" />
-      <option name="presentableId" value="LOCAL-00220" />
-      <option name="project" value="LOCAL" />
-      <updated>1747899722386</updated>
-    </task>
-    <task id="LOCAL-00221" summary="Added extended javadoc, adherence to google checkstyle, and minor improvements with logging">
-      <option name="closed" value="true" />
-      <created>1747899898136</created>
-      <option name="number" value="00221" />
-      <option name="presentableId" value="LOCAL-00221" />
-      <option name="project" value="LOCAL" />
-      <updated>1747899898136</updated>
-    </task>
-    <task id="LOCAL-00222" summary="refactored package name from DataTransfer to dto">
-      <option name="closed" value="true" />
-      <created>1747900171827</created>
-      <option name="number" value="00222" />
-      <option name="presentableId" value="LOCAL-00222" />
-      <option name="project" value="LOCAL" />
-      <updated>1747900171828</updated>
+      <workItem from="1747906902732" duration="20242000" />
     </task>
     <task id="LOCAL-00223" summary="Added extensive javadoc and google checkstyle adherence to ActionDto">
       <option name="closed" value="true" />
@@ -745,7 +390,375 @@
       <option name="project" value="LOCAL" />
       <updated>1747900515754</updated>
     </task>
-    <option name="localTasksCounter" value="226" />
+    <task id="LOCAL-00226" summary="added javadoc to all exception classes">
+      <option name="closed" value="true" />
+      <created>1747901543049</created>
+      <option name="number" value="00226" />
+      <option name="presentableId" value="LOCAL-00226" />
+      <option name="project" value="LOCAL" />
+      <updated>1747901543050</updated>
+    </task>
+    <task id="LOCAL-00227" summary="Added required javadoc + enhanced javadoc some areas">
+      <option name="closed" value="true" />
+      <created>1747906157976</created>
+      <option name="number" value="00227" />
+      <option name="presentableId" value="LOCAL-00227" />
+      <option name="project" value="LOCAL" />
+      <updated>1747906157976</updated>
+    </task>
+    <task id="LOCAL-00228" summary="Added extensive javadoc, robust error handling and adhere to checkstyle">
+      <option name="closed" value="true" />
+      <created>1747906256537</created>
+      <option name="number" value="00228" />
+      <option name="presentableId" value="LOCAL-00228" />
+      <option name="project" value="LOCAL" />
+      <updated>1747906256537</updated>
+    </task>
+    <task id="LOCAL-00229" summary="removed unused methosd in button factory">
+      <option name="closed" value="true" />
+      <created>1747906335927</created>
+      <option name="number" value="00229" />
+      <option name="presentableId" value="LOCAL-00229" />
+      <option name="project" value="LOCAL" />
+      <updated>1747906335927</updated>
+    </task>
+    <task id="LOCAL-00230" summary="Added extensive javadoc to GameViewFactory">
+      <option name="closed" value="true" />
+      <created>1747906570322</created>
+      <option name="number" value="00230" />
+      <option name="presentableId" value="LOCAL-00230" />
+      <option name="project" value="LOCAL" />
+      <updated>1747906570322</updated>
+    </task>
+    <task id="LOCAL-00231" summary="Added extensive javadoc to PlayerFactory">
+      <option name="closed" value="true" />
+      <created>1747907198689</created>
+      <option name="number" value="00231" />
+      <option name="presentableId" value="LOCAL-00231" />
+      <option name="project" value="LOCAL" />
+      <updated>1747907198689</updated>
+    </task>
+    <task id="LOCAL-00232" summary="added extensive javadoc + google checkstyle adherence">
+      <option name="closed" value="true" />
+      <created>1747907216466</created>
+      <option name="number" value="00232" />
+      <option name="presentableId" value="LOCAL-00232" />
+      <option name="project" value="LOCAL" />
+      <updated>1747907216466</updated>
+    </task>
+    <task id="LOCAL-00233" summary="Added extensive javadoc + google checkstyle adherence">
+      <option name="closed" value="true" />
+      <created>1747907963094</created>
+      <option name="number" value="00233" />
+      <option name="presentableId" value="LOCAL-00233" />
+      <option name="project" value="LOCAL" />
+      <updated>1747907963094</updated>
+    </task>
+    <task id="LOCAL-00234" summary="Added extensive and improved Javadoc to TileFactory">
+      <option name="closed" value="true" />
+      <created>1747908164851</created>
+      <option name="number" value="00234" />
+      <option name="presentableId" value="LOCAL-00234" />
+      <option name="project" value="LOCAL" />
+      <updated>1747908164851</updated>
+    </task>
+    <task id="LOCAL-00235" summary="Added extensive javadoc + checkstyle, errors are caught as exceptions rather than logged">
+      <option name="closed" value="true" />
+      <created>1747908844908</created>
+      <option name="number" value="00235" />
+      <option name="presentableId" value="LOCAL-00235" />
+      <option name="project" value="LOCAL" />
+      <updated>1747908844908</updated>
+    </task>
+    <task id="LOCAL-00236" summary="Refactored PlayerCsvFileHandler to correpsond with SonarQube code practices. added extensive javadoc + checkstyle">
+      <option name="closed" value="true" />
+      <created>1747910081576</created>
+      <option name="number" value="00236" />
+      <option name="presentableId" value="LOCAL-00236" />
+      <option name="project" value="LOCAL" />
+      <updated>1747910081576</updated>
+    </task>
+    <task id="LOCAL-00237" summary="added javadoc">
+      <option name="closed" value="true" />
+      <created>1747910093543</created>
+      <option name="number" value="00237" />
+      <option name="presentableId" value="LOCAL-00237" />
+      <option name="project" value="LOCAL" />
+      <updated>1747910093543</updated>
+    </task>
+    <task id="LOCAL-00238" summary="improved checkstyle">
+      <option name="closed" value="true" />
+      <created>1747910236259</created>
+      <option name="number" value="00238" />
+      <option name="presentableId" value="LOCAL-00238" />
+      <option name="project" value="LOCAL" />
+      <updated>1747910236259</updated>
+    </task>
+    <task id="LOCAL-00239" summary="improved checkstyle">
+      <option name="closed" value="true" />
+      <created>1747910249979</created>
+      <option name="number" value="00239" />
+      <option name="presentableId" value="LOCAL-00239" />
+      <option name="project" value="LOCAL" />
+      <updated>1747910249979</updated>
+    </task>
+    <task id="LOCAL-00240" summary="improved checkstyle">
+      <option name="closed" value="true" />
+      <created>1747910366143</created>
+      <option name="number" value="00240" />
+      <option name="presentableId" value="LOCAL-00240" />
+      <option name="project" value="LOCAL" />
+      <updated>1747910366143</updated>
+    </task>
+    <task id="LOCAL-00241" summary="improved checkstyle and javadoc is more concise">
+      <option name="closed" value="true" />
+      <created>1747910381827</created>
+      <option name="number" value="00241" />
+      <option name="presentableId" value="LOCAL-00241" />
+      <option name="project" value="LOCAL" />
+      <updated>1747910381827</updated>
+    </task>
+    <task id="LOCAL-00242" summary="improved javadoc and checkstyle adherence">
+      <option name="closed" value="true" />
+      <created>1747910843151</created>
+      <option name="number" value="00242" />
+      <option name="presentableId" value="LOCAL-00242" />
+      <option name="project" value="LOCAL" />
+      <updated>1747910843151</updated>
+    </task>
+    <task id="LOCAL-00243" summary="Improved checkstyle">
+      <option name="closed" value="true" />
+      <created>1747911370035</created>
+      <option name="number" value="00243" />
+      <option name="presentableId" value="LOCAL-00243" />
+      <option name="project" value="LOCAL" />
+      <updated>1747911370035</updated>
+    </task>
+    <task id="LOCAL-00244" summary="Improved checkstyle, checkstyle error around singleton?">
+      <option name="closed" value="true" />
+      <created>1747911410870</created>
+      <option name="number" value="00244" />
+      <option name="presentableId" value="LOCAL-00244" />
+      <option name="project" value="LOCAL" />
+      <updated>1747911410870</updated>
+    </task>
+    <task id="LOCAL-00245" summary="improved javadoc for TileAction class">
+      <option name="closed" value="true" />
+      <created>1747911493274</created>
+      <option name="number" value="00245" />
+      <option name="presentableId" value="LOCAL-00245" />
+      <option name="project" value="LOCAL" />
+      <updated>1747911493274</updated>
+    </task>
+    <task id="LOCAL-00246" summary="improved javadoc for and checkstyle for Board">
+      <option name="closed" value="true" />
+      <created>1747911583074</created>
+      <option name="number" value="00246" />
+      <option name="presentableId" value="LOCAL-00246" />
+      <option name="project" value="LOCAL" />
+      <updated>1747911583074</updated>
+    </task>
+    <task id="LOCAL-00247" summary="improved javadoc for and checkstyle for BoardGame">
+      <option name="closed" value="true" />
+      <created>1747911663233</created>
+      <option name="number" value="00247" />
+      <option name="presentableId" value="LOCAL-00247" />
+      <option name="project" value="LOCAL" />
+      <updated>1747911663233</updated>
+    </task>
+    <task id="LOCAL-00248" summary="Javadoc + checkstyle in DIce">
+      <option name="closed" value="true" />
+      <created>1747912052246</created>
+      <option name="number" value="00248" />
+      <option name="presentableId" value="LOCAL-00248" />
+      <option name="project" value="LOCAL" />
+      <updated>1747912052246</updated>
+    </task>
+    <task id="LOCAL-00249" summary="Javadoc + checkstyle in Die is improved">
+      <option name="closed" value="true" />
+      <created>1747912153700</created>
+      <option name="number" value="00249" />
+      <option name="presentableId" value="LOCAL-00249" />
+      <option name="project" value="LOCAL" />
+      <updated>1747912153701</updated>
+    </task>
+    <task id="LOCAL-00250" summary="Javadoc + checkstyle in GameEngine is improved">
+      <option name="closed" value="true" />
+      <created>1747912288979</created>
+      <option name="number" value="00250" />
+      <option name="presentableId" value="LOCAL-00250" />
+      <option name="project" value="LOCAL" />
+      <updated>1747912288980</updated>
+    </task>
+    <task id="LOCAL-00251" summary="Javadoc + checkstyle in Player is improved">
+      <option name="closed" value="true" />
+      <created>1747912463064</created>
+      <option name="number" value="00251" />
+      <option name="presentableId" value="LOCAL-00251" />
+      <option name="project" value="LOCAL" />
+      <updated>1747912463064</updated>
+    </task>
+    <task id="LOCAL-00252" summary="Javadoc + checkstyle in Tile is improved">
+      <option name="closed" value="true" />
+      <created>1747912687868</created>
+      <option name="number" value="00252" />
+      <option name="presentableId" value="LOCAL-00252" />
+      <option name="project" value="LOCAL" />
+      <updated>1747912687868</updated>
+    </task>
+    <task id="LOCAL-00253" summary="added javadoc + fixed checkstyle">
+      <option name="closed" value="true" />
+      <created>1747912849780</created>
+      <option name="number" value="00253" />
+      <option name="presentableId" value="LOCAL-00253" />
+      <option name="project" value="LOCAL" />
+      <updated>1747912849780</updated>
+    </task>
+    <task id="LOCAL-00254" summary="improved javadoc and checkstyle in SnakesAndLaddersGame">
+      <option name="closed" value="true" />
+      <created>1747913136449</created>
+      <option name="number" value="00254" />
+      <option name="presentableId" value="LOCAL-00254" />
+      <option name="project" value="LOCAL" />
+      <updated>1747913136449</updated>
+    </task>
+    <task id="LOCAL-00255" summary="improved javadoc and checkstyle in AstroRallyStrategy">
+      <option name="closed" value="true" />
+      <created>1747913342454</created>
+      <option name="number" value="00255" />
+      <option name="presentableId" value="LOCAL-00255" />
+      <option name="project" value="LOCAL" />
+      <updated>1747913342454</updated>
+    </task>
+    <task id="LOCAL-00256" summary="Added javadoc to GameStrategy interface">
+      <option name="closed" value="true" />
+      <created>1747913455553</created>
+      <option name="number" value="00256" />
+      <option name="presentableId" value="LOCAL-00256" />
+      <option name="project" value="LOCAL" />
+      <updated>1747913455553</updated>
+    </task>
+    <task id="LOCAL-00257" summary="Improved checkstyle + javadoc in SnakesAndLaddersStrategy">
+      <option name="closed" value="true" />
+      <created>1747913595607</created>
+      <option name="number" value="00257" />
+      <option name="presentableId" value="LOCAL-00257" />
+      <option name="project" value="LOCAL" />
+      <updated>1747913595607</updated>
+    </task>
+    <task id="LOCAL-00258" summary="Added javadoc to BoardGameObserver and Observable interfaces">
+      <option name="closed" value="true" />
+      <created>1747913814060</created>
+      <option name="number" value="00258" />
+      <option name="presentableId" value="LOCAL-00258" />
+      <option name="project" value="LOCAL" />
+      <updated>1747913814060</updated>
+    </task>
+    <task id="LOCAL-00259" summary="Added loggers on top of catching exceptions for better logging of errors">
+      <option name="closed" value="true" />
+      <created>1747921490558</created>
+      <option name="number" value="00259" />
+      <option name="presentableId" value="LOCAL-00259" />
+      <option name="project" value="LOCAL" />
+      <updated>1747921490558</updated>
+    </task>
+    <task id="LOCAL-00260" summary="Added loggers on top of catching exceptions for better logging of errors. improved checkstyle">
+      <option name="closed" value="true" />
+      <created>1747921522167</created>
+      <option name="number" value="00260" />
+      <option name="presentableId" value="LOCAL-00260" />
+      <option name="project" value="LOCAL" />
+      <updated>1747921522167</updated>
+    </task>
+    <task id="LOCAL-00261" summary="Refactored InitializeGame method accordingly to align with SonarQube practice. added Java doc and checkstyle">
+      <option name="closed" value="true" />
+      <created>1747923222003</created>
+      <option name="number" value="00261" />
+      <option name="presentableId" value="LOCAL-00261" />
+      <option name="project" value="LOCAL" />
+      <updated>1747923222003</updated>
+    </task>
+    <task id="LOCAL-00262" summary="Refactored CurrentPlayerPanel. Added JavaDoc and checkstyle">
+      <option name="closed" value="true" />
+      <created>1747924052506</created>
+      <option name="number" value="00262" />
+      <option name="presentableId" value="LOCAL-00262" />
+      <option name="project" value="LOCAL" />
+      <updated>1747924052506</updated>
+    </task>
+    <task id="LOCAL-00263" summary="Added extensive javadoc">
+      <option name="closed" value="true" />
+      <created>1747924217754</created>
+      <option name="number" value="00263" />
+      <option name="presentableId" value="LOCAL-00263" />
+      <option name="project" value="LOCAL" />
+      <updated>1747924217754</updated>
+    </task>
+    <task id="LOCAL-00264" summary="Added extensive javadoc to DicePanel, refactored according to checkstyle and sonarQUbe">
+      <option name="closed" value="true" />
+      <created>1747925157831</created>
+      <option name="number" value="00264" />
+      <option name="presentableId" value="LOCAL-00264" />
+      <option name="project" value="LOCAL" />
+      <updated>1747925157831</updated>
+    </task>
+    <task id="LOCAL-00265" summary="Added extensive javadoc, adherence to google checkstyle in GameInfoPanel">
+      <option name="closed" value="true" />
+      <created>1747926469322</created>
+      <option name="number" value="00265" />
+      <option name="presentableId" value="LOCAL-00265" />
+      <option name="project" value="LOCAL" />
+      <updated>1747926469322</updated>
+    </task>
+    <task id="LOCAL-00266" summary="Added extensive javadoc in WinDialog.">
+      <option name="closed" value="true" />
+      <created>1747926559678</created>
+      <option name="number" value="00266" />
+      <option name="presentableId" value="LOCAL-00266" />
+      <option name="project" value="LOCAL" />
+      <updated>1747926559678</updated>
+    </task>
+    <task id="LOCAL-00267" summary="LATE COMMIT: Added tests for all TileAction implementations. Tests use mockito">
+      <option name="closed" value="true" />
+      <created>1747930718455</created>
+      <option name="number" value="00267" />
+      <option name="presentableId" value="LOCAL-00267" />
+      <option name="project" value="LOCAL" />
+      <updated>1747930718456</updated>
+    </task>
+    <task id="LOCAL-00268" summary="Developed tests for AstroRallyGame- and strategy. tests use mockito">
+      <option name="closed" value="true" />
+      <created>1747930759219</created>
+      <option name="number" value="00268" />
+      <option name="presentableId" value="LOCAL-00268" />
+      <option name="project" value="LOCAL" />
+      <updated>1747930759219</updated>
+    </task>
+    <task id="LOCAL-00269" summary="LATE COMMIT: developed SnakesAndLaddersGameTest using mockito to simulate objects without dependency">
+      <option name="closed" value="true" />
+      <created>1747930804613</created>
+      <option name="number" value="00269" />
+      <option name="presentableId" value="LOCAL-00269" />
+      <option name="project" value="LOCAL" />
+      <updated>1747930804613</updated>
+    </task>
+    <task id="LOCAL-00270" summary="LATE COMMIT: developed TileAction tests. test use mockito">
+      <option name="closed" value="true" />
+      <created>1747931246003</created>
+      <option name="number" value="00270" />
+      <option name="presentableId" value="LOCAL-00270" />
+      <option name="project" value="LOCAL" />
+      <updated>1747931246003</updated>
+    </task>
+    <task id="LOCAL-00271" summary="LATE COMMIT: developed SnakesAndLaddersGameTest using mockito to simulate objects without dependency">
+      <option name="closed" value="true" />
+      <created>1747931312992</created>
+      <option name="number" value="00271" />
+      <option name="presentableId" value="LOCAL-00271" />
+      <option name="project" value="LOCAL" />
+      <updated>1747931312992</updated>
+    </task>
+    <option name="localTasksCounter" value="272" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -763,32 +776,32 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add unit tests for GameEngine using Mockito, where it mocks Board and GameStrategy to isolate GameEngine behavior&#10;Verifies constructor validation, turn execution, win condition logic, and game initialization" />
-    <MESSAGE value="Added extensive javadoc and exceptionHandling in AstroRallyStrategy" />
-    <MESSAGE value="Added extensive javadoc and excepiton handling in SnakesAndLaddersGame" />
-    <MESSAGE value="minor refactoring, removed determine winner method from strategy as it wasnt used" />
-    <MESSAGE value="moved Player class to core package" />
-    <MESSAGE value="moved ActionType enum class to actions package" />
-    <MESSAGE value="moved GameType enum class to actions package" />
-    <MESSAGE value="Added extensive javadoc and exceptionhandling to SnakesAndLaddersStrategy" />
-    <MESSAGE value="Added new package called service, moved management classes (playerManager, BoardManager) to this directory" />
-    <MESSAGE value="Added extensive javadoc and exception handling in AsteroidFieldAction" />
-    <MESSAGE value="Added extensive javadoc and exception handling in BoostPadAction" />
-    <MESSAGE value="Added extensive javadoc and exception handling in all TileActions" />
-    <MESSAGE value="Added extensive javadoc to TileActionInterface" />
-    <MESSAGE value="Added extensive javadoc to class and adherence to google checkstyle and sonarQube practices" />
-    <MESSAGE value="Added missing javadoc to GameSelectionController and adherence to google checkstyle and sonarQube practices" />
-    <MESSAGE value="Added extensive javadoc to GameSetupController and adherence to google checkstyle and sonarQube practices" />
-    <MESSAGE value="Added extensive javadoc to NavigationController and adherence to google checkstyle and sonarQube practices" />
-    <MESSAGE value="Added extensive javadoc to TitleScreenController and adherence to google checkstyle and sonarQube practices" />
-    <MESSAGE value="Added extensive javadoc to ActionConverter and adherence to google checkstyle and sonarQube practices" />
-    <MESSAGE value="Refactored BoardConverter. Decomposed fromDto to reduce complexity and improve maintainability using static utility methods. Added extensive javadoc and google checstyle adherence" />
-    <MESSAGE value="Added extended javadoc, adherence to google checkstyle, and minor improvements with logging" />
-    <MESSAGE value="refactored package name from DataTransfer to dto" />
-    <MESSAGE value="Added extensive javadoc and google checkstyle adherence to ActionDto" />
-    <MESSAGE value="Added extensive javadoc + google checkstyle to BoardDto" />
-    <MESSAGE value="javadoc + google checkstyle to TileDto" />
-    <option name="LAST_COMMIT_MESSAGE" value="javadoc + google checkstyle to TileDto" />
+    <MESSAGE value="improved javadoc for and checkstyle for Board" />
+    <MESSAGE value="improved javadoc for and checkstyle for BoardGame" />
+    <MESSAGE value="Javadoc + checkstyle in DIce" />
+    <MESSAGE value="Javadoc + checkstyle in Die is improved" />
+    <MESSAGE value="Javadoc + checkstyle in GameEngine is improved" />
+    <MESSAGE value="Javadoc + checkstyle in Player is improved" />
+    <MESSAGE value="Javadoc + checkstyle in Tile is improved" />
+    <MESSAGE value="added javadoc + fixed checkstyle" />
+    <MESSAGE value="improved javadoc and checkstyle in SnakesAndLaddersGame" />
+    <MESSAGE value="improved javadoc and checkstyle in AstroRallyStrategy" />
+    <MESSAGE value="Added javadoc to GameStrategy interface" />
+    <MESSAGE value="Improved checkstyle + javadoc in SnakesAndLaddersStrategy" />
+    <MESSAGE value="Added javadoc to BoardGameObserver and Observable interfaces" />
+    <MESSAGE value="Added loggers on top of catching exceptions for better logging of errors" />
+    <MESSAGE value="Added loggers on top of catching exceptions for better logging of errors. improved checkstyle" />
+    <MESSAGE value="Refactored InitializeGame method accordingly to align with SonarQube practice. added Java doc and checkstyle" />
+    <MESSAGE value="Refactored CurrentPlayerPanel. Added JavaDoc and checkstyle" />
+    <MESSAGE value="Added extensive javadoc" />
+    <MESSAGE value="Added extensive javadoc to DicePanel, refactored according to checkstyle and sonarQUbe" />
+    <MESSAGE value="Added extensive javadoc, adherence to google checkstyle in GameInfoPanel" />
+    <MESSAGE value="Added extensive javadoc in WinDialog." />
+    <MESSAGE value="LATE COMMIT: Added tests for all TileAction implementations. Tests use mockito" />
+    <MESSAGE value="Developed tests for AstroRallyGame- and strategy. tests use mockito" />
+    <MESSAGE value="LATE COMMIT: developed TileAction tests. test use mockito" />
+    <MESSAGE value="LATE COMMIT: developed SnakesAndLaddersGameTest using mockito to simulate objects without dependency" />
+    <option name="LAST_COMMIT_MESSAGE" value="LATE COMMIT: developed SnakesAndLaddersGameTest using mockito to simulate objects without dependency" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

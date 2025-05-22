@@ -12,26 +12,30 @@ import edu.ntnu.idi.idatt.model.strategy.GameStrategy;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import java.util.Objects;
 
+
 /**
- * Concrete implementation of {@link BoardGame} for the Astro Rally game variant.
+ * A specialized {@link BoardGame} implementation for the Astro Rally variant.
  *
- * <p>Uses an {@link AstroRallyStrategy} to manage turn execution, win
- * conditions, and game initialization logic. Handles player movement,
- * lap counting, and special tile effects unique to Astro Rally.</p>
- *
- * @see AstroRallyStrategy
- * @see BoardGame
+ * <p>Enforces the use of an {@link AstroRallyStrategy}; passing any other strategy
+ * implementation will result in an exception. Manages game flow according to
+ * Astro Rally rules.
+ * </p>
  */
 public class AstroRallyGame extends BoardGame {
 
+
   /**
-   * Creates a new AstroRallyGame instance.
+   * Constructs a new {@code AstroRallyGame} with the given board, dice, and strategy.
    *
-   * @param board    the game board to use; must not be null
-   * @param dice     the dice mechanism; must not be null
-   * @param strategy the strategy implementing Astro Rally rules;
-   *                 must be an instance of {@link AstroRallyStrategy}
-   * @throws IllegalArgumentException if {@code strategy} is not an AstroRallyStrategy
+   * <p>The provided {@code strategy} must be an instance of {@link AstroRallyStrategy}.
+   * </p>
+   *
+   * @param board    the {@link Board} on which the game will be played; must not be {@code null}
+   * @param dice     the {@link Dice} instance used for die rolls; must not be {@code null}
+   * @param strategy the {@link GameStrategy} governing Astro Rally rules; must be an instance
+   *                 of {@link AstroRallyStrategy}
+   * @throws IllegalArgumentException if {@code strategy} is not an instance of
+   *                                  {@link AstroRallyStrategy}
    */
   public AstroRallyGame(Board board, Dice dice, GameStrategy strategy) {
     super(board, dice, strategy);
@@ -51,6 +55,7 @@ public class AstroRallyGame extends BoardGame {
 
     gameEngine.playTurn(player);
     Tile newTile = player.getCurrentTile();
+
     if (newTile == null) {
       player.setOnCurrentTile(oldTile);
       newTile = oldTile;
@@ -75,7 +80,7 @@ public class AstroRallyGame extends BoardGame {
       Tile oldTile,
       Tile newTile,
       boolean moved) {
-    if (!moved || board.getBoardSize() <= 0) {
+    if (!moved || board.getBoardSize() <= 0 || oldTile == null || newTile == null) {
       return;
     }
 
@@ -96,19 +101,27 @@ public class AstroRallyGame extends BoardGame {
     ExceptionHandling.requireNonNull(triggerTile, "triggerTile cannot be null");
 
     TileAction action = triggerTile.getLandAction();
-    if (action.getActionType() == ActionType.NO_OP) {
+
+    if (action == null || action.getActionType() == ActionType.NO_OP) {
       notifyActionTileEffect(player, triggerTile, triggerTile);
       return;
     }
 
     Tile before = player.getCurrentTile();
+    ExceptionHandling.requireNonNull(before, "Player's current tile before action cannot be null");
+
     action.perform(player);
     Tile after = player.getCurrentTile();
+    ExceptionHandling.requireNonNull(after, "Player's current tile after action cannot be null");
 
-    if (after != null && after.getTileId() != before.getTileId()) {
+
+    if (!Objects.equals(after, before)) {
       before.leavePlayer(player);
       after.landPlayer(player);
+
       notifyPlayerMoved(player, before, after);
+
+
       notifyActionTileEffect(player, triggerTile, after);
     } else {
       notifyActionTileEffect(player, triggerTile, triggerTile);

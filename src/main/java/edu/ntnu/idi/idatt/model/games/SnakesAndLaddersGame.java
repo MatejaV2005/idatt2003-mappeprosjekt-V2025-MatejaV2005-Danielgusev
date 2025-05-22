@@ -27,7 +27,6 @@ import java.util.Objects;
  *
  * @see GameStrategy
  * @see GameType#SNAKES_AND_LADDERS
- * @since 1.0
  */
 public class SnakesAndLaddersGame extends BoardGame {
 
@@ -72,7 +71,7 @@ public class SnakesAndLaddersGame extends BoardGame {
    * Moves the player if a destination is specified, otherwise performs the action.
    * Observers are notified of the effect.
    *
-   * @param player     the player who landed; must not be {@code null}
+   * @param player the player who landed; must not be {@code null}
    * @param actionTile the tile with a special action; must not be {@code null}
    * @throws IllegalArgumentException if any argument is {@code null}
    */
@@ -82,11 +81,16 @@ public class SnakesAndLaddersGame extends BoardGame {
     ExceptionHandling.requireNonNull(actionTile, "actionTile");
 
     TileAction action = actionTile.getLandAction();
+
+    if (action == null) {
+      return;
+    }
+
     int destId = action.getDestinationTileId();
 
     if (destId > 0) {
       Tile dest = board.getTileById(destId);
-      if (!Objects.equals(dest, actionTile)) {
+      if (dest != null && !Objects.equals(dest, actionTile)) {
         notifyActionTileEffect(player, actionTile, dest);
         actionTile.leavePlayer(player);
         player.setOnCurrentTile(dest);
@@ -94,10 +98,10 @@ public class SnakesAndLaddersGame extends BoardGame {
       }
     } else {
       Tile before = player.getCurrentTile();
-      ExceptionHandling.requireNonNull(before, "player's current tile");
+      ExceptionHandling.requireNonNull(before, "player's current tile before action.perform");
       action.perform(player);
       Tile after = player.getCurrentTile();
-      ExceptionHandling.requireNonNull(after, "player's current tile");
+      ExceptionHandling.requireNonNull(after, "player's current tile after action.perform");
 
       if (!Objects.equals(after, before)) {
         notifyActionTileEffect(player, actionTile, after);

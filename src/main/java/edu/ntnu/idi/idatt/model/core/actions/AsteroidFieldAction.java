@@ -23,7 +23,7 @@ public class AsteroidFieldAction implements TileAction {
    * @throws IllegalArgumentException if {@code description} is {@code null} or blank
    */
   public AsteroidFieldAction(String description) {
-    ExceptionHandling.requireNonNullOrBlank(description, "description cannot be null or blank.");
+    ExceptionHandling.requireNonNullOrBlank(description, "description");
     this.description = description;
     this.lastDeterminedMovementEffectSteps = 0;
   }

@@ -11,7 +11,6 @@ import java.util.function.Consumer;
  * <p>Enables arbitrary effects without defining a new class for each behavior.
  *
  * @see ActionType#SPECIAL
- * @since 1.0
  */
 public class SpecialAction implements TileAction {
   private final Consumer<Player> action;
@@ -31,8 +30,8 @@ public class SpecialAction implements TileAction {
       Consumer<Player> action,
       ActionType specificType) {
     ExceptionHandling.requireNonNullOrBlank(description, "description");
-    ExceptionHandling.requireNonNull(action, "action logic");
     ExceptionHandling.requireNonNull(specificType, "action type");
+
     this.description = description;
     this.action = action;
     this.specificType = specificType;
