@@ -6,18 +6,17 @@ import edu.ntnu.idi.idatt.exceptions.CssLoadException;
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.core.Dice;
-import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.model.core.Player;
+import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.observer.BoardGameObserver;
-import edu.ntnu.idi.idatt.view.components.boardGame.BoardComponent;
-import edu.ntnu.idi.idatt.view.components.boardGame.CurrentPlayerPanel;
-import edu.ntnu.idi.idatt.view.components.boardGame.DicePanel;
-import edu.ntnu.idi.idatt.view.components.boardGame.GameInfoPanel;
-import edu.ntnu.idi.idatt.view.components.boardGame.WinDialog;
+import edu.ntnu.idi.idatt.view.components.boardgame.BoardComponent;
+import edu.ntnu.idi.idatt.view.components.boardgame.CurrentPlayerPanel;
+import edu.ntnu.idi.idatt.view.components.boardgame.DicePanel;
+import edu.ntnu.idi.idatt.view.components.boardgame.GameInfoPanel;
+import edu.ntnu.idi.idatt.view.components.boardgame.WinDialog;
 import edu.ntnu.idi.idatt.view.renderer.BoardRenderer;
 import edu.ntnu.idi.idatt.view.utils.AlertHelper;
 import edu.ntnu.idi.idatt.view.utils.ResourceLoader;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -34,9 +33,24 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+/**
+ * Generic JavaFX view for any {@link BoardGame}.
+ *
+ * <p>Displays the game board, controls, and informational panels.
+ * Implements {@link BoardGameObserver} to receive model updates.
+ * </p>
+ */
 public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
-  private static final Logger LOGGER = Logger.getLogger(GenericBoardGameView.class.getName());
-  private static final String CSS_PATH = "/edu/ntnu/idi/idatt/view/resources/GameScreen/GameScreen_styles.css";
+
+  private static final Logger LOGGER =
+      Logger.getLogger(GenericBoardGameView.class.getName());
+  private static final String CSS_PATH =
+      "/edu/ntnu/idi/idatt/view/resources/GameScreen/GameScreen_styles.css";
+  private static final double LAYOUT_PADDING = 10d;
+  private static final double LEFT_RIGHT_SPACING = 20d;
+  private static final double INNER_PADDING = 10d;
+  private static final double SCENE_WIDTH = 1280d;
+  private static final double SCENE_HEIGHT = 720d;
 
   private final Scene scene;
   private final BorderPane root;
@@ -47,42 +61,72 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
   private final Button playTurnButton;
 
   private BoardGameController controller;
-  private volatile boolean animationRunning = false;
+  private volatile boolean animationRunning;
 
+  /**
+   * Creates a new view using the given {@link BoardRenderer} to draw the board.
+   *
+   * @param renderer the board renderer; must not be {@code null}
+   * @throws NullPointerException if {@code renderer} is {@code null}
+   */
   public GenericBoardGameView(BoardRenderer renderer) {
     Objects.requireNonNull(renderer, "Renderer cannot be null");
 
-    this.root = new BorderPane();
-    this.root.setPadding(new Insets(10));
+    root = new BorderPane();
+    root.setPadding(new Insets(LAYOUT_PADDING));
 
-    this.boardComponent = new BoardComponent(renderer);
-    this.gameInfoPanel = new GameInfoPanel();
-    this.currentPlayerPanel = new CurrentPlayerPanel();
-    this.dicePanel = new DicePanel();
-    this.playTurnButton = new Button("Play Turn");
+    boardComponent       = new BoardComponent(renderer);
+    gameInfoPanel        = new GameInfoPanel();
+    currentPlayerPanel   = new CurrentPlayerPanel();
+    dicePanel            = new DicePanel();
+    playTurnButton       = new Button("Play Turn");
 
     playTurnButton.getStyleClass().add("play-turn-button");
-    playTurnButton.setPrefSize(150, 50);
+    playTurnButton.setPrefSize(150d, 50d);
     playTurnButton.setDisable(true);
 
     configureLayout();
-    this.scene = new Scene(root, 1280, 720);
+    scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
     loadStyles();
+
     LOGGER.info("GenericBoardGameView constructed successfully");
+  }
+
+  /**
+   * Returns the JavaFX {@link Scene} containing this view.
+   *
+   * @return the scene
+   */
+  @Override
+  public Scene getScene() {
+    return scene;
+  }
+
+  /**
+   * Binds the given controller to this view and attaches UI event handlers.
+   *
+   * @param controller the game controller; must not be {@code null}
+   * @throws NullPointerException if {@code controller} is {@code null}
+   */
+  @Override
+  public void setController(BoardGameController controller) {
+    this.controller = Objects.requireNonNull(controller, "Controller cannot be null");
+    bindEventHandlers();
+    LOGGER.info("Controller successfully bound to view");
   }
 
   private void configureLayout() {
     root.setCenter(boardComponent);
     BorderPane.setAlignment(boardComponent, Pos.CENTER);
 
-    VBox leftControls = new VBox(20, gameInfoPanel, playTurnButton);
+    VBox leftControls = new VBox(LEFT_RIGHT_SPACING, gameInfoPanel, playTurnButton);
     VBox.setVgrow(gameInfoPanel, Priority.ALWAYS);
-    leftControls.setPadding(new Insets(0, 10, 0, 0));
+    leftControls.setPadding(new Insets(0, INNER_PADDING, 0, 0));
     root.setLeft(leftControls);
 
-    VBox rightControls = new VBox(20, currentPlayerPanel, dicePanel);
+    VBox rightControls = new VBox(LEFT_RIGHT_SPACING, currentPlayerPanel, dicePanel);
     VBox.setVgrow(currentPlayerPanel, Priority.SOMETIMES);
-    rightControls.setPadding(new Insets(0, 0, 0, 10));
+    rightControls.setPadding(new Insets(0, 0, 0, INNER_PADDING));
     root.setRight(rightControls);
   }
 
@@ -90,26 +134,21 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
     try {
       String css = ResourceLoader.loadCssResource(CSS_PATH);
       scene.getStylesheets().add(css);
-      LOGGER.info("Successfully loaded CSS stylesheet: " + CSS_PATH);
+      LOGGER.info(() -> "Successfully loaded CSS stylesheet: " + CSS_PATH);
     } catch (BoardGameResourceException e) {
-      LOGGER.log(Level.WARNING, "Could not load CSS: " + e.getMessage(), e);
-      AlertHelper.showWarningAlert("Style Warning", "Game styles could not be loaded. Using default JavaFX styles.");
+      LOGGER.log(Level.WARNING,
+          String.format("Could not load CSS: %s", e.getMessage()), e);
+      AlertHelper.showWarningAlert(
+          "Style Warning",
+          "Game styles could not be loaded. Using default JavaFX styles."
+      );
     } catch (Exception e) {
-      LOGGER.log(Level.SEVERE, "Unexpected error loading CSS resources", e);
-      throw new CssLoadException("Failed to load critical UI resources: " + CSS_PATH, e);
+      LOGGER.log(Level.SEVERE,
+          "Unexpected error loading CSS resources", e);
+      throw new CssLoadException(
+          "Failed to load critical UI resources: " + CSS_PATH, e
+      );
     }
-  }
-
-  @Override
-  public Scene getScene() {
-    return scene;
-  }
-
-  @Override
-  public void setController(BoardGameController controller) {
-    this.controller = Objects.requireNonNull(controller, "Controller cannot be null");
-    bindEventHandlers();
-    LOGGER.info("Controller successfully bound to view");
   }
 
   private void bindEventHandlers() {
@@ -118,35 +157,49 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
         LOGGER.fine("Play turn button clicked.");
         if (controller != null && !animationRunning) {
           playTurnButton.setDisable(true);
-          if (dicePanel != null) {
-            dicePanel.resetDiceDisplay();
-          }
+          dicePanel.resetDiceDisplay();
           controller.onPlayTurn();
         } else {
-          LOGGER.fine("Play turn button click ignored: controller null or animation running.");
+          LOGGER.fine("Play turn click ignored; controller null or animation running.");
         }
       } catch (Exception ex) {
-        LOGGER.log(Level.SEVERE, "Error processing turn from button click", ex);
-        AlertHelper.showErrorAlert("Turn Error", "An error occurred while processing the turn: " + ex.getMessage());
+        LOGGER.log(Level.SEVERE,
+            "Error processing turn from button click", ex);
+        AlertHelper.showErrorAlert(
+            "Turn Error",
+            "An error occurred while processing the turn: " + ex.getMessage()
+        );
         Platform.runLater(this::updateUiForCurrentTurn);
       }
     });
   }
 
+  /**
+   * Initializes the view with the given game model.
+   *
+   * <p>Registers this view as an observer, resets the dice panel,
+   * refreshes all UI elements, and enables the turn button if appropriate.
+   * </p>
+   *
+   * @param game the game model; must not be {@code null}
+   * @throws IllegalStateException if initialization fails
+   */
   public void initializeView(BoardGame game) {
     Objects.requireNonNull(game, "Game model cannot be null for initialization");
     try {
       game.addObserver(this);
-      if (dicePanel != null) {
-        dicePanel.resetDiceDisplay();
-      }
+      dicePanel.resetDiceDisplay();
       refreshAll(game);
       animationRunning = false;
       Platform.runLater(this::updateUiForCurrentTurn);
       LOGGER.info("View successfully initialized with game model.");
     } catch (Exception e) {
-      LOGGER.log(Level.SEVERE, "Failed to initialize view with game model", e);
-      AlertHelper.showErrorAlert("Initialization Error", "Failed to initialize game view: " + e.getMessage());
+      LOGGER.log(Level.SEVERE,
+          "Failed to initialize view with game model", e);
+      AlertHelper.showErrorAlert(
+          "Initialization Error",
+          "Failed to initialize game view: " + e.getMessage()
+      );
       throw new IllegalStateException("View initialization failed", e);
     }
   }
@@ -154,7 +207,7 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
   @Override
   public void onPlayerMoved(Player player, Tile from, Tile to) {
     if (player == null || to == null) {
-      LOGGER.warning("Received invalid player move notification (player or 'to' tile is null). Attempting to update UI.");
+      LOGGER.warning("Received invalid player move notification.");
       Platform.runLater(this::updateUiForCurrentTurn);
       return;
     }
@@ -162,24 +215,30 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
   }
 
   @Override
-  public void onActionTileEffect(Player player, Tile fromTriggerTile, Tile toDestinationTile) {
+  public void onActionTileEffect(Player player,
+      Tile fromTriggerTile,
+      Tile toDestinationTile) {
     Platform.runLater(() -> {
-      if (player == null || fromTriggerTile == null || fromTriggerTile.getLandAction() == null) {
-        LOGGER.warning("onActionTileEffect called with invalid parameters. Attempting to update UI.");
+      if (player == null
+          || fromTriggerTile == null
+          || fromTriggerTile.getLandAction() == null) {
+        LOGGER.warning(
+            "onActionTileEffect called with invalid parameters."
+        );
         updateUiForCurrentTurn();
         return;
       }
+      String desc = fromTriggerTile.getLandAction().getDescription();
+      Tile infoTile = (toDestinationTile != null
+          && fromTriggerTile.getTileId() != toDestinationTile.getTileId())
+          ? toDestinationTile
+          : fromTriggerTile;
+      gameInfoPanel.updateActionInfo(player, desc, infoTile);
 
-      if (gameInfoPanel != null) {
-        String actionDescription = fromTriggerTile.getLandAction().getDescription();
-        Tile infoTile = (toDestinationTile != null && fromTriggerTile.getTileId() != toDestinationTile.getTileId()) ? toDestinationTile : fromTriggerTile;
-        gameInfoPanel.updateActionInfo(player, actionDescription, infoTile);
-      }
-
-      boolean actionResultedInNoNewTilePosition = (toDestinationTile == null) || (toDestinationTile.getTileId() == fromTriggerTile.getTileId());
-
-      if (actionResultedInNoNewTilePosition) {
-        LOGGER.fine("Action tile effect resulted in no new tile position. Updating UI for current turn.");
+      boolean noMove = (toDestinationTile == null)
+          || toDestinationTile.getTileId() == fromTriggerTile.getTileId();
+      if (noMove) {
+        LOGGER.fine("Action effect resulted in no new tile; updating UI.");
         updateUiForCurrentTurn();
       }
     });
@@ -193,12 +252,16 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
     }
     Platform.runLater(() -> {
       try {
-        if (boardComponent != null) boardComponent.addPlayerVisual(player);
-        if (currentPlayerPanel != null) currentPlayerPanel.addPlayerEntry(player);
-        if (gameInfoPanel != null) gameInfoPanel.logEvent(player.getName() + " joined the game.");
-        LOGGER.fine("Added player to view: " + player.getName());
+        boardComponent.addPlayerVisual(player);
+        currentPlayerPanel.addPlayerEntry(player);
+        gameInfoPanel.logEvent(
+            String.format("%s joined the game.", player.getName())
+        );
+        LOGGER.fine(() -> "Added player to view: " + player.getName());
       } catch (Exception e) {
-        LOGGER.log(Level.WARNING, "Error adding player " + player.getName() + " to view.", e);
+        LOGGER.log(Level.WARNING,
+            String.format("Error adding player %s to view.", player.getName()),
+            e);
       }
     });
   }
@@ -209,7 +272,6 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
       LOGGER.warning("Received game won notification with null winner.");
       return;
     }
-
     Platform.runLater(() -> {
       animationRunning = false;
       handleWin(winner);
@@ -222,106 +284,115 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
       LOGGER.warning("onGameStateUpdated: game model is null.");
       return;
     }
-    LOGGER.info("onGameStateUpdated received. Current animationRunning state: " + animationRunning);
+    LOGGER.info(() -> "onGameStateUpdated; animationRunning=" + animationRunning);
     Platform.runLater(this::updateUiForCurrentTurn);
   }
 
-  private Runnable createVisualCompletionHandler(Player playerWhoMoved, Tile tileVisuallyLandedOn) {
+  private Runnable createVisualCompletionHandler(
+      Player playerWhoMoved,
+      Tile tileVisuallyLandedOn
+  ) {
     return () -> {
-      LOGGER.fine("Visual sequence for " + playerWhoMoved.getName() +
-          " visually landing on " + (tileVisuallyLandedOn != null ? tileVisuallyLandedOn.getTileId() : "unknown") +
-          " has completed.");
+      LOGGER.fine(() ->
+          String.format(
+              "Visual complete for %s on tile %s",
+              playerWhoMoved.getName(),
+              tileVisuallyLandedOn != null
+                  ? String.valueOf(tileVisuallyLandedOn.getTileId())
+                  : "unknown"
+          )
+      );
       animationRunning = false;
-
       updateUiForCurrentTurn();
     };
   }
 
-
-  private void handleMoveAnimation(Player player, Tile from, Tile to) {
+  private void handleMoveAnimation(
+      Player player,
+      Tile from,
+      Tile to
+  ) {
     try {
-      if (controller != null && controller.getBoardGame() != null) {
-        Dice dice = controller.getBoardGame().getLastDiceRoll();
-        if (dice != null && dicePanel != null) {
-          dicePanel.updateDiceDisplay(dice);
-        }
-        if (gameInfoPanel != null && dice != null) {
-          gameInfoPanel.updateDiceInfo(player, dice);
-        }
+      Dice lastDice = controller.getBoardGame().getLastDiceRoll();
+      if (lastDice != null) {
+        dicePanel.updateDiceDisplay(lastDice);
+        gameInfoPanel.updateDiceInfo(player, lastDice);
       }
-
       if (boardComponent != null) {
         animationRunning = true;
         playTurnButton.setDisable(true);
-
-        boardComponent.updatePlayerVisual(player, from, to, createVisualCompletionHandler(player, to));
-
+        boardComponent.updatePlayerVisual(
+            player,
+            from,
+            to,
+            createVisualCompletionHandler(player, to)
+        );
       } else {
-        LOGGER.warning("BoardComponent is null. Cannot animate move. Updating UI directly.");
+        LOGGER.warning(
+            "BoardComponent is null; skipping animation."
+        );
         animationRunning = false;
         updateUiForCurrentTurn();
       }
-
-      if (gameInfoPanel != null) {
-        gameInfoPanel.updateMoveInfo(player, from, to);
-      }
-      LOGGER.fine("Initiating move animation for " + player.getName() + " from " +
-          (from != null ? from.getTileId() : "start") + " to " + (to != null ? to.getTileId() : "unknown"));
+      gameInfoPanel.updateMoveInfo(player, from, to);
+      LOGGER.fine(() ->
+          String.format(
+              "Initiated move animation for %s from %s to %s",
+              player.getName(),
+              from != null ? from.getTileId() : "start",
+              to   != null ? to.getTileId()   : "unknown"
+          )
+      );
     } catch (Exception e) {
-      LOGGER.log(Level.SEVERE, "Error handling player move animation", e);
+      LOGGER.log(Level.SEVERE,
+          "Error handling player move animation", e);
       animationRunning = false;
       Platform.runLater(this::updateUiForCurrentTurn);
     }
   }
 
   private void updateUiForCurrentTurn() {
-    LOGGER.fine("updateUiForCurrentTurn called. animationRunning: " + animationRunning);
-    Player currentPlayerFromModel = null;
-    boolean gameIsEffectivelyOver = true;
-
+    LOGGER.fine(() ->
+        "updateUiForCurrentTurn called; animationRunning=" + animationRunning
+    );
+    Player current = null;
+    boolean gameOver = true;
     if (controller != null && controller.getBoardGame() != null) {
-      currentPlayerFromModel = controller.getBoardGame().getCurrentPlayer();
-      gameIsEffectivelyOver = controller.getBoardGame().isGameOver();
+      current  = controller.getBoardGame().getCurrentPlayer();
+      gameOver = controller.getBoardGame().isGameOver();
     } else {
-      LOGGER.warning("Controller or BoardGame is null in updateUiForCurrentTurn. Assuming game cannot proceed.");
+      LOGGER.warning(
+          "Controller or BoardGame is null; cannot update UI state."
+      );
     }
-
-    boolean canPlayerAct = currentPlayerFromModel != null && !gameIsEffectivelyOver;
-
+    boolean canAct = current != null && !gameOver;
     if (playTurnButton != null) {
-      playTurnButton.setDisable(!canPlayerAct || animationRunning);
-      LOGGER.fine("Play button disabled state: " + playTurnButton.isDisabled() +
-          " (canPlayerAct: " + canPlayerAct + ", animationRunning: " + animationRunning + ")");
+      playTurnButton.setDisable(!canAct || animationRunning);
+      LOGGER.fine(() ->
+          String.format(
+              "Play button disabled=%s (canAct=%s, animationRunning=%s)",
+              playTurnButton.isDisabled(), canAct, animationRunning
+          )
+      );
     }
-
-    if (gameInfoPanel != null) {
-      gameInfoPanel.updateTurnInfo(currentPlayerFromModel);
-    }
-
-    if (!animationRunning && currentPlayerPanel != null) {
-      currentPlayerPanel.updateCurrentPlayerHighlight(currentPlayerFromModel);
+    gameInfoPanel.updateTurnInfo(current);
+    if (!animationRunning) {
+      currentPlayerPanel.updateCurrentPlayerHighlight(current);
     }
   }
 
-
   private void handleWin(Player winner) {
-    if (playTurnButton != null) playTurnButton.setDisable(true);
-
-    if (dicePanel != null) {
-      dicePanel.resetDiceDisplay();
-      try {
-        dicePanel.setDisabledVisual(true);
-      } catch (Exception e) {
-        LOGGER.log(Level.FINE, "Could not set disabled visual on dice panel during win.", e);
-      }
-    }
-    if (gameInfoPanel != null) gameInfoPanel.showWinner(winner);
-    LOGGER.info("Game won by: " + winner.getName() + ". Displaying WinDialog.");
+    playTurnButton.setDisable(true);
+    dicePanel.resetDiceDisplay();
+    dicePanel.setDisabledVisual(true);
+    gameInfoPanel.showWinner(winner);
+    LOGGER.info(() ->
+        "Game won by: " + winner.getName() + "; showing WinDialog."
+    );
 
     Optional<ButtonType> result = getButtonType(winner);
-
-    if (!result.isPresent() && controller != null) {
-      LOGGER.info("WinDialog closed without button action. Defaulting to main menu.");
+    if (result.isEmpty() && controller != null) {
+      LOGGER.info("WinDialog closed with no selection; returning to main menu.");
       controller.requestGoToMainMenu();
     }
   }
@@ -329,19 +400,19 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
   private Optional<ButtonType> getButtonType(Player winner) {
     WinDialog winDialog = new WinDialog(winner.getName());
     Optional<ButtonType> result = winDialog.showAndWait();
-
     result.ifPresent(buttonType -> {
-      LOGGER.info("WinDialog selection: " + buttonType.getText() + " (ButtonData: " + buttonType.getButtonData() + ")");
+      LOGGER.info(() ->
+          "WinDialog selection: " + buttonType.getText()
+              + " (ButtonData: " + buttonType.getButtonData() + ")"
+      );
       if (controller != null) {
         if (buttonType.getButtonData() == ButtonBar.ButtonData.OK_DONE) {
           controller.requestGoToGameSelection();
-        } else if (buttonType.getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) {
-          controller.requestGoToMainMenu();
         } else {
           controller.requestGoToMainMenu();
         }
       } else {
-        LOGGER.warning("Controller is null after WinDialog. Cannot process dialog choice.");
+        LOGGER.warning("Controller is null; cannot process dialog choice.");
       }
     });
     return result;
@@ -350,24 +421,21 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
   private void refreshAll(BoardGame game) {
     Objects.requireNonNull(game, "Game model cannot be null for refreshAll");
     try {
-      if (boardComponent != null) {
-        Board board = game.getBoard();
-        List<Player> players = game.getPlayers();
-        if (board != null && players != null) {
-          boardComponent.initializeBoard(board, players);
-        } else {
-          LOGGER.warning("Board or player list is null during refreshAll. BoardComponent might not initialize correctly.");
-        }
+      Board board = game.getBoard();
+      List<Player> players = game.getPlayers();
+      if (board != null && players != null) {
+        boardComponent.initializeBoard(board, players);
+      } else {
+        LOGGER.warning(
+            "Board or player list is null; skipping board init."
+        );
       }
-      if (currentPlayerPanel != null) {
-        currentPlayerPanel.initialize(game.getPlayers());
-      }
-      if (dicePanel != null) {
-        dicePanel.resetDiceDisplay();
-      }
+      currentPlayerPanel.initialize(game.getPlayers());
+      dicePanel.resetDiceDisplay();
       LOGGER.fine("Full view refresh completed.");
     } catch (Exception e) {
-      LOGGER.log(Level.WARNING, "Error during full view refresh", e);
+      LOGGER.log(Level.WARNING,
+          "Error during full view refresh", e);
     }
   }
 }
