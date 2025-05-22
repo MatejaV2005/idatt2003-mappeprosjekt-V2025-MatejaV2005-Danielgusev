@@ -16,7 +16,7 @@ class SnakeActionTest {
   private Tile destinationTile;
 
   private final String testDescription = "Slid down the snake!";
-  private final int testDestinationTileId = 2; // Snakes usually go to a lower ID
+  private final int testDestinationTileId = 2;
   private final int defaultTileX = 0;
   private final int defaultTileY = 0;
 

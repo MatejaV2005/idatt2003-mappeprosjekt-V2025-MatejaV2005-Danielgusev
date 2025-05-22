@@ -59,7 +59,6 @@ class AsteroidFieldActionTest {
   void perform_setsMovementEffectToMinusTwo() {
     AsteroidFieldAction action = new AsteroidFieldAction(validDescription);
     action.perform(player);
-    // We check the effect by consuming it
     assertEquals(-2, action.consumeLastDeterminedMovementEffectSteps());
   }
 
@@ -77,7 +76,7 @@ class AsteroidFieldActionTest {
   @DisplayName("consumeLastDeterminedMovementEffectSteps() should return effect and reset it to 0")
   void consumeLastDeterminedMovementEffectSteps_returnsEffectAndResets() {
     AsteroidFieldAction action = new AsteroidFieldAction(validDescription);
-    action.perform(player); // Sets effect to -2
+    action.perform(player);
 
     assertEquals(-2, action.consumeLastDeterminedMovementEffectSteps(), "First consumption should return -2.");
     assertEquals(0, action.consumeLastDeterminedMovementEffectSteps(), "Second consumption should return 0 as effect is reset.");

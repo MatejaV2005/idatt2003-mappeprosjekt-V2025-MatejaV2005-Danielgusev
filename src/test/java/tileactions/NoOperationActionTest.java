@@ -18,7 +18,6 @@ class NoOperationActionTest {
   @BeforeEach
   void setUp() {
     player = new Player("TestPlayer", "TestPiece");
-    // Assuming a Tile constructor like: Tile(id, x, y)
     initialTile = new Tile(1, 0, 0);
     player.setOnCurrentTile(initialTile);
   }
@@ -29,7 +28,7 @@ class NoOperationActionTest {
     NoOperationAction noOpAction = NoOperationAction.INSTANCE;
 
     Tile tileBeforeAction = player.getCurrentTile();
-    String nameBeforeAction = player.getName(); // Example of another state
+    String nameBeforeAction = player.getName();
 
     noOpAction.perform(player);
 

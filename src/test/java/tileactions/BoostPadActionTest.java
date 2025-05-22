@@ -13,7 +13,6 @@ class BoostPadActionTest {
 
   private Player player;
   private final String validDescription = "Hit a Boost Pad! Zoom forward!";
-  // Default description from the class is no longer used if constructor throws exception for null/blank
 
   @BeforeEach
   void setUp() {
@@ -60,7 +59,6 @@ class BoostPadActionTest {
   void perform_setsMovementEffectToTwo() {
     BoostPadAction action = new BoostPadAction(validDescription);
     action.perform(player);
-    // We check the effect by consuming it
     assertEquals(2, action.consumeLastDeterminedMovementEffectSteps());
   }
 
@@ -78,7 +76,7 @@ class BoostPadActionTest {
   @DisplayName("consumeLastDeterminedMovementEffectSteps() should return effect and reset it to 0")
   void consumeLastDeterminedMovementEffectSteps_returnsEffectAndResets() {
     BoostPadAction action = new BoostPadAction(validDescription);
-    action.perform(player); // Sets effect to 2
+    action.perform(player);
 
     assertEquals(2, action.consumeLastDeterminedMovementEffectSteps(), "First consumption should return 2.");
     assertEquals(0, action.consumeLastDeterminedMovementEffectSteps(), "Second consumption should return 0 as effect is reset.");

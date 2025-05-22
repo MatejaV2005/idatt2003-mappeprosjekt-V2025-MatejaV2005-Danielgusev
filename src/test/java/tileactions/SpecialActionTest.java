@@ -16,7 +16,7 @@ class SpecialActionTest {
 
   private Player player;
   private final String testDescription = "A special event occurred!";
-  private final ActionType testSpecificType = ActionType.SKIP_TURN; // Example specific type
+  private final ActionType testSpecificType = ActionType.SKIP_TURN;
 
   @BeforeEach
   void setUp() {
@@ -26,7 +26,7 @@ class SpecialActionTest {
   @Test
   @DisplayName("Constructor should set properties correctly")
   void constructor_setsPropertiesCorrectly() {
-    Consumer<Player> dummyAction = p -> {}; // A non-null, do-nothing action
+    Consumer<Player> dummyAction = p -> {};
     SpecialAction specialAction = new SpecialAction(testDescription, dummyAction, testSpecificType);
 
     assertEquals(testDescription, specialAction.getDescription());

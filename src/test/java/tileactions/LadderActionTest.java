@@ -49,7 +49,6 @@ class LadderActionTest {
   @DisplayName("perform() should set player's current tile to the destination tile")
   void perform_setsPlayerOnDestinationTile() {
     LadderAction ladderAction = new LadderAction(destinationTile, testDescription);
-    // Optionally, set player to a different initial tile first
     Tile initialTile = new Tile(1, defaultTileX, defaultTileY);
     player.setOnCurrentTile(initialTile);
 
