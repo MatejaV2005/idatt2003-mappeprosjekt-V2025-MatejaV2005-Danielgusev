@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Moved classes to fitting designated packages" />
+    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Added comments for whre AI-assistance was of crucial use">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/converter/BoardConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/converter/BoardConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/service/filehandler/PlayerCsvFileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/service/filehandler/PlayerCsvFileHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardgame/BoardComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardgame/BoardComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardgame/CurrentPlayerPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/boardgame/CurrentPlayerPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/gameselection/PlayerManagementPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/components/gameselection/PlayerManagementPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/renderer/AstroRallyRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/renderer/AstroRallyRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/renderer/SnakesAndLaddersRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/renderer/SnakesAndLaddersRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GenericBoardGameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/screens/GenericBoardGameView.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -356,15 +366,7 @@
       <workItem from="1747578719638" duration="476000" />
       <workItem from="1747830178262" duration="9362000" />
       <workItem from="1747840759437" duration="9143000" />
-      <workItem from="1747906902732" duration="50758000" />
-    </task>
-    <task id="LOCAL-00251" summary="Javadoc + checkstyle in Player is improved">
-      <option name="closed" value="true" />
-      <created>1747912463064</created>
-      <option name="number" value="00251" />
-      <option name="presentableId" value="LOCAL-00251" />
-      <option name="project" value="LOCAL" />
-      <updated>1747912463064</updated>
+      <workItem from="1747906902732" duration="55192000" />
     </task>
     <task id="LOCAL-00252" summary="Javadoc + checkstyle in Tile is improved">
       <option name="closed" value="true" />
@@ -750,7 +752,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747965102341</updated>
     </task>
-    <option name="localTasksCounter" value="300" />
+    <task id="LOCAL-00300" summary="minor refactoring">
+      <option name="closed" value="true" />
+      <created>1747965221233</created>
+      <option name="number" value="00300" />
+      <option name="presentableId" value="LOCAL-00300" />
+      <option name="project" value="LOCAL" />
+      <updated>1747965221233</updated>
+    </task>
+    <option name="localTasksCounter" value="301" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -768,7 +778,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactored, better javadoc and correct checkstyle adherence" />
     <MESSAGE value="refactored, better javadoc and correct checkstyle adherence in DifficultySelectionPanel" />
     <MESSAGE value="refactored GameInfoPanel to InfoPanel. minor refactoring for better visibility, added extensive javadoc and checkstyle adherence" />
     <MESSAGE value="Refactor PlayerManagementPanel: add extensive Javadoc and conform to Google Checkstyle standards" />
@@ -789,11 +798,12 @@
     <MESSAGE value="Made utility methods ultimately final" />
     <MESSAGE value="Added AppInitializer, communicates with MainApplication and calls Main to run. added extensive javadoc to all methods" />
     <MESSAGE value="Added AppInitializer, communicates with MainApplication and calls Main to run. added extensive javadoc to all classes" />
-    <MESSAGE value="minor refactoring" />
     <MESSAGE value="modified gameSetupStyle.css" />
     <MESSAGE value="Refactored, WinDialog only appears once by setting a flag" />
     <MESSAGE value="Moved classes to fitting designated packages" />
-    <option name="LAST_COMMIT_MESSAGE" value="Moved classes to fitting designated packages" />
+    <MESSAGE value="minor refactoring" />
+    <MESSAGE value="Added comments for whre AI-assistance was of crucial use" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added comments for whre AI-assistance was of crucial use" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

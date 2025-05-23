@@ -162,7 +162,6 @@ public class CurrentPlayerPanel extends VBox {
     LOGGER.info(() -> "Added player: " + player.getName());
   }
 
-  // --- Private helpers below ---
 
   private Node createIcon(String type) {
     Image image = loadIcon(type);

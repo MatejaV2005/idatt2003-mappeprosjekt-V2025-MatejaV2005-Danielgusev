@@ -18,13 +18,16 @@ import javafx.scene.layout.Pane;
  * A JavaFX {@link Pane} that renders a {@link Board}
  * and manages the visual tokens for each {@link Player}.
  *
- * <p>All rendering is delegated to the injected {@link BoardRenderer}.  Player‐token updates are
+ * <p>All rendering is delegated to the injected {@link BoardRenderer}. Player-token updates are
  * scheduled on the JavaFX Application Thread.
  * </p>
  *
- * @author Your Name
- * @version 1.1
- * @since 2025-05-22
+ * <p>KI-assistanse (Gemini 2.5 Pro) ble benyttet som sparringspartner for å utvikle og
+ * forbedre logikken knyttet til håndtering av spiller-tokens, inkludert
+ * tillegging, umiddelbar oppdatering og animert oppdatering av deres
+ * visuelle representasjon på brettet. Spesifikke metoder hvor
+ * KI-assistanse var sentral er kommentert deretter.
+ * Dato for assistanse: 29-04-25
  */
 public class BoardComponent extends Pane {
 
@@ -61,7 +64,7 @@ public class BoardComponent extends Pane {
    * is deferred to the JavaFX Application Thread.
    * </p>
    *
-   * @param board   the non‐{@code null} {@link Board} model to display
+   * @param board the non‐{@code null} {@link Board} model to display
    * @param players the non‐{@code null} list of {@link Player}s to render (may be empty)
    * @throws NullPointerException if {@code board} or {@code players} is {@code null}
    * @see #runInitialize(Board, List)
@@ -155,9 +158,18 @@ public class BoardComponent extends Pane {
    * Adds a visual token for the given {@link Player} to this board.
    *
    * <p>If the player's {@link Player#getCurrentTile()} is {@code null}, it will
-   * attempt to default to tile ID 1.  All modifications to the scene graph are
+   * attempt to default to tile ID 1. All modifications to the scene graph are
    * performed on the JavaFX Application Thread via {@code Platform.runLater}.
    * </p>
+   *
+   * <p>KI-assistanse (Gemini 2.5 Pro) ble brukt for å:
+   * - Strukturere logikken for å håndtere tilfellet der spilleren ikke har en
+   * {@code currentTile} (fallback til startflis).
+   * - Sikre at token-opprettelse og plassering skjer på JavaFX Application Thread
+   * ved hjelp av {@code Platform.runLater}.
+   * - Utvikle logikk for å sjekke om spilleren allerede har et token, og i så fall
+   * oppdatere posisjonen i stedet for å legge til et nytt.
+   * Dato: 29-04-25
    *
    * @param player the {@link Player} whose token is to be added; must not be {@code null}
    * @throws NullPointerException if {@code player} is {@code null}
@@ -208,10 +220,18 @@ public class BoardComponent extends Pane {
    * Immediately moves the existing visual token for {@code player} to {@code newTile}
    * without animation.
    *
-   * <p>If this pane has no size yet, positioning may be incorrect.  This call is
+   * <p>If this pane has no size yet, positioning may be incorrect. This call is
    * internally wrapped in {@code Platform.runLater} to ensure it executes on the
    * JavaFX Application Thread.
    * </p>
+   *
+   * <p>KI-assistanse (Gemini 2.5 Pro) bidro til:
+   * - Implementeringen av å hente spillerens token fra {@code playerTokens}.
+   * - Å sikre at oppdateringen kjøres på JavaFX Application Thread med {@code Platform.runLater}.
+   * - Logikken for å kalle rendererens metode for umiddelbar posisjonsoppdatering
+   * ({@code renderer.updatePlayerTokenPosition(tokenNode, newTile, this, null)}).
+   * - Håndtering av logging for feilsituasjoner (f.eks. token ikke funnet).
+   * Dato: 29-04-25
    *
    * @param player  the {@link Player} whose token to move; must not be {@code null}
    * @param newTile the target {@link Tile} for the token; must not be {@code null}
@@ -239,17 +259,27 @@ public class BoardComponent extends Pane {
   }
 
   /**
+   /**
    * Animates moving the visual token for {@code player} from {@code fromTile} to {@code toTile}.
    *
-   * <p>When the animation completes, the {@code onAnimationComplete} {@link Runnable} (if non‐null)
-   * will be invoked.  All work is scheduled on the JavaFX Application Thread.
+   * <p>When the animation completes, the {@code onAnimationComplete} {@link Runnable} (if non-null)
+   * will be invoked. All work is scheduled on the JavaFX Application Thread.
    * </p>
+   *
+   * <p>KI-assistanse (Gemini 2.5 Pro) ble brukt for å:
+   * - Strukturere kallet til rendererens animasjonsmetode
+   * ({@code renderer.updatePlayerTokenPosition}) for å starte animasjonen.
+   * - Sikre at hele operasjonen, inkludert kall til renderer, skjer på
+   * JavaFX Application Thread via {@code Platform.runLater}.
+   * - Håndtere logging og feilsjekking (f.eks. hvis token ikke finnes i {@code playerTokens}).
+   * Dato: 29-04-25
    *
    * @param player the {@link Player} whose token is to be animated; must not be {@code null}
    * @param fromTile the starting {@link Tile}; may be {@code null} to indicate no prior placement
    * @param toTile the destination {@link Tile} for the animation; must not be {@code null}
    * @param onAnimationComplete  an optional {@link Runnable} to run
    *                             after animation finishes; may be {@code null}
+   *
    * @throws NullPointerException if {@code toTile} is {@code null}
    */
   public void updatePlayerVisual(

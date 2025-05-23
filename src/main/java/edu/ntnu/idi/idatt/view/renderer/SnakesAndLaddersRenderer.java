@@ -38,6 +38,12 @@ import javafx.util.Duration;
  * {@link Board} model's dimensions and calculates tile positions to center the
  * drawn board content within the provided {@code boardPane}. The rendering logic
  * is designed to be responsive to changes in the size of the {@code boardPane}.
+ *
+ *<p>KI-assistanse (Gemini 2.5 Pro) ble benyttet som sparringspartner for å utvikle og
+ * forbedre logikken knyttet til animasjoner, beregning av flisposisjoner,
+ * og generell rendering-strategi i denne klassen. Spesifikke metoder hvor
+ * KI-assistanse var sentral er kommentert deretter.
+ * Dato for assistanse: 25-04-25
  */
 public class SnakesAndLaddersRenderer implements BoardRenderer {
 
@@ -88,6 +94,13 @@ public class SnakesAndLaddersRenderer implements BoardRenderer {
    * ensuring the entire drawn grid is centered within the {@code boardPane}.
    * This method is designed to be called when the board is first displayed or
    * when the size of the {@code boardPane} changes, requiring a re-render.
+   *
+   * <p>KI-assistanse (Gemini 2.5 Pro) ble brukt for å:
+   * - Utvikle algoritmen for dynamisk beregning av flisstørrelse (calculatedTileSize)
+   * basert på panelets dimensjoner og antall rader/kolonner.
+   * - Strukturere logikken for sentrering av brettet (offsetX, offsetY).
+   * - Rådgive rundt fallback-logikk ved ugyldige paneldimensjoner.
+   * Dato: 25-04-25
    *
    * @param boardPane The {@link Pane} on which to render the board. Cannot be null.
    * @param board The {@link Board} data model. Cannot be null.
@@ -236,13 +249,24 @@ public class SnakesAndLaddersRenderer implements BoardRenderer {
    * {@inheritDoc}
    * Moves the player token node through each intermediate tile to reach the target tile,
    * creating a sequential animation that shows the token "walking" the path.
+   * If the target tile has a special action (like a ladder or snake),
+   * a secondary jump animation is triggered after the initial walk.
+   *
+   * <p>KI-assistanse (Gemini 2.5 Pro) ble brukt for å:
+   * - Designe og implementere sekvensiell animasjonslogikk for "gå"-bevegelser
+   * (buildWalkTransitions).
+   * - Utvikle logikk for "hopp"-animasjoner (buildJumpTransition) for stiger/slanger.
+   * - Strukturere håndteringen av SequentialTransition og kall til onAnimationComplete.
+   * - Feilsøke timing og koordinatberegninger for jevne overganger.
+   * Dato: 26-04-25
    *
    * @param playerTokenNode The {@link Node} representing the player's token.
    * @param targetTile The final {@link Tile} to move the token to.
    * @param boardPane The parent {@link Pane} containing the board.
+   * @param onAnimationComplete Callback to run when all
+   *                            animations (walk and potential jump) finish.
    * @throws NullPointerException if any argument is null.
    */
-
   @SuppressWarnings("checkstyle:NeedBraces")
   @Override
   public void updatePlayerTokenPosition(
@@ -293,7 +317,16 @@ public class SnakesAndLaddersRenderer implements BoardRenderer {
   }
 
 
-
+  /**
+   * KI-assistanse (Gemini 2.5 Pro) bidro til:
+   * - Logikken for å dekomponere diagonale (eller hjørne-til-hjørne) bevegelser
+   * til separate horisontale og vertikale TranslateTransitions for å simulere
+   * en mer naturlig "gå"-bevegelse på et rutenett.
+   * - Korrekt bruk av setFromX/Y, setToX/Y og setOnFinished for å kjede
+   * sammen disse del-animasjonene og oppdatere tokenets posisjon.
+   * Dato: 27-04-25
+   *
+   */
   private List<TranslateTransition> buildWalkTransitions(
       Node token,
       List<Integer> path,
@@ -359,7 +392,6 @@ public class SnakesAndLaddersRenderer implements BoardRenderer {
         steps.add(s);
       }
 
-      // Update for next iteration
       currentPos = nextCenter;
     }
 
@@ -498,7 +530,14 @@ public class SnakesAndLaddersRenderer implements BoardRenderer {
     tileCenterPositions.put(tileId, center);
   }
 
-
+  /**
+   * KI-assistanse (Gemini 2.5 Pro) ble brukt for å:
+   * - Validere og forfine logikken for å håndtere alternerende radretninger
+   * (venstre-til-høyre vs. høyre-til-venstre) i beregningen av x-koordinaten.
+   * - Sikre korrekt konvertering fra logisk rad/kolonne til visuell rad/kolonne.
+   * Dato: 27.04.25
+   *
+   */
   private Point2D calculateTopLeftWithOffset(int logicalRow, int logicalCol) {
     int visualRow = (numRows - 1) - logicalRow;
     double y = offsetY + (visualRow * calculatedTileSize);
@@ -541,6 +580,18 @@ public class SnakesAndLaddersRenderer implements BoardRenderer {
    * Draws lines on the {@code boardPane} to represent snakes and ladders.
    * Lines are drawn between the center points of the start and end tiles of each action,
    * using the pre-calculated and offset-adjusted center positions.
+   * Styling (color, stroke, dash array for ladders) is applied to differentiate
+   * between snakes and ladders.
+   *
+   * <p>KI-assistanse (Gemini 2.5 Pro) ble brukt for å:
+   * - Utvikle logikken for å iterere gjennom brettets fliser og identifisere
+   * TileActions som representerer slanger eller stiger.
+   * - Hente start- og sluttposisjoner (Point2D) for hver slange/stige
+   * fra `tileCenterPositions`.
+   * - Korrekt instansiere og style JavaFX Line-objekter, inkludert
+   * fargevalg og stiplet linje for stiger (`getStrokeDashArray`).
+   * - Feilsøke null-pekere og logikk for manglende posisjonsdata.
+   * Dato: 27-04-25
    *
    * @param boardPane The {@link Pane} on which to draw the lines.
    * @param board The {@link Board} data model containing tile and action information.

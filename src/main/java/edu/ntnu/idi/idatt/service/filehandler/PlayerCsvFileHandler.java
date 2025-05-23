@@ -99,13 +99,20 @@ public class PlayerCsvFileHandler implements FileHandler<List<Player>> {
   }
 
   /**
-   * Loads a list of players from a CSV file.
+   * Handles saving and loading {@link Player} lists to and from CSV files.
    *
-   * @param filePath the path of the file to load; must not be null or blank
-   * @return the list of successfully parsed players (empty if file not found)
-   * @throws FileLoadException        on CSV validation or I/O errors
-   * @throws IllegalArgumentException if filePath is invalid
-   */
+   * <p>Uses OpenCSV under the hood, validates each line, and wraps I/O errors
+   * in domain-specific exceptions so callers can handle them appropriately.
+   * </p>
+   *
+   * <p>KI-assistanse (Claude 3.7) ble benyttet som sparringspartner for å:
+   * - Utvikle og forbedre logikken for innlesing av spillere fra CSV-fil
+   * i metoden {@code loadFromFile}, inkludert feilhåndtering og validering.
+   * - Strukturere hjelpemetoden {@code tryCreateAndAddPlayer} for robust
+   * opprettelse av Player-objekter basert på CSV-data.
+   * Spesifikke metoder hvor KI-assistanse var sentral er kommentert deretter.
+   * Dato for assistanse: 02-04-25
+   * */
   @Override
   public List<Player> loadFromFile(String filePath) throws FileLoadException {
     if (filePath == null || filePath.isBlank()) {
@@ -143,7 +150,7 @@ public class PlayerCsvFileHandler implements FileHandler<List<Player>> {
               Level.WARNING,
               () -> String.format(
                   "Skipping line %d in \"%s\": name or pieceType is blank or null",
-                  currentLineNum, // Use effectively final variable
+                  currentLineNum,
                   filePath
               )
           );

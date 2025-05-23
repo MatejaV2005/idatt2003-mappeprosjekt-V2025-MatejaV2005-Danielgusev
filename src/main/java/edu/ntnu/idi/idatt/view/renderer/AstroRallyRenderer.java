@@ -48,6 +48,14 @@ import javafx.util.Duration;
  * Application Thread, and detailed logging is provided for debugging.
  *
  *
+ * <p>KI-assistanse (Gemini 2.5 Pro) ble brukt for å:
+ * - Utvikle og forfine algoritmen i `calculateTilePosition` for å
+ * plassere fliser korrekt rundt kanten av brettet i en "Monopol"-stil.
+ * - Håndtere dynamisk beregning av `calculatedTileSize`
+ * og `tilesPerSideExcludingCorners` basert på totalt antall fliser og panelets dimensjoner.
+ * - Logikk for sentrering av brettet (offsetX, offsetY).
+ * Dato: 18-05-25
+ *
  * @see BoardRenderer
  * @see edu.ntnu.idi.idatt.model.core.actions.TileAction
  * @see javafx.animation.TranslateTransition
@@ -94,6 +102,16 @@ public class AstroRallyRenderer implements BoardRenderer {
 
   /**
    * Renders the board’s tiles into the given pane according to current layout settings.
+   * This includes calculating tile positions for a "Monopoly-style" loop layout,
+   * determining tile size dynamically, and centering the board within the pane.
+   *
+   * <p>KI-assistanse (Gemini 2.5 Pro) ble brukt for å:
+   * - Utvikle og forfine algoritmen i `calculateTilePosition` for å plassere fliser
+   * korrekt rundt kanten av brettet i en "Monopol"-stil.
+   * - Håndtere dynamisk beregning av `calculatedTileSize` og `tilesPerSideExcludingCorners`
+   * basert på totalt antall fliser og panelets dimensjoner.
+   * - Logikk for sentrering av brettet (offsetX, offsetY).
+   * Dato: 18-05-25
    *
    * @param boardPane the JavaFX Pane into which tile nodes will be added; must not be null
    * @param board the board model containing tile definitions and count; must not be null
@@ -233,6 +251,16 @@ public class AstroRallyRenderer implements BoardRenderer {
 
   /**
    * Computes the top-left position for a tile in the Monopoly-style loop layout.
+   * This method determines which side of the board the tile belongs to
+   * (bottom, left, top, right) and calculates its (x,y) coordinates accordingly,
+   * applying offsets for centering.
+   *
+   * <p>KI-assistanse (Gemini 2.5 Pro) var sentral for å:
+   * - Utvikle og feilsøke algoritmen for å korrekt plassere fliser langs de fire
+   * sidene av et "Monopol"-brett, inkludert hjørnehåndtering.
+   * - Oversette flisens ID til en posisjon på en av de fire kantene.
+   * - Håndtere spesialtilfeller som brett med få fliser.
+   * Dato: YYYY-MM-DD
    *
    * @param tileId the 1-based index of the tile to position
    * @param tilesPerFullEdge number of tiles per side (including corners)
@@ -427,7 +455,21 @@ public class AstroRallyRenderer implements BoardRenderer {
 
   /**
    * Animates a token moving along the board according to dice outcome,
-   * then performs any landing-tile action animation, and finally invokes callback.
+   * then performs any landing-tile action animation (like Boost Pad or Asteroid Field effects),
+   * and finally invokes the onOverallAnimationComplete callback.
+   * The animation sequence involves an initial "walk" based on the dice roll,
+   * followed by a potential secondary move if an action tile is landed upon.
+   *
+   * <p>KI-assistanse (Gemini 2.5 Pro) ble brukt for å:
+   * - Strukturere den overordnede logikken for flerstegsanimasjoner:
+   * 1. Første bevegelse basert på terningkast.
+   * 2. Håndtering av spesialeffekter (Boost Pad/Asteroid Field) via `handleActionVisuals`,
+   * som kan initiere en sekundær bevegelse.
+   * - Utvikle `buildWalkTransitions` for å lage jevne "gå"-animasjoner langs brettets løkke.
+   * - Sikre korrekt timing og sekvensiering av animasjoner (f.eks. bruk av PauseTransition).
+   * - Håndtere `onFinished` callbacks for å kjede animasjoner og oppdatere token-data.
+   * - Feilsøke logikk relatert til `PlayerTokenData` og posisjonsoppdateringer.
+   * Dato: 18-05-25
    *
    * @param playerTokenNode the token Node to animate; must have PlayerTokenData userData
    * @param targetTileAfterDiceRoll the destination Tile after rolling dice; must not be null
@@ -516,6 +558,18 @@ public class AstroRallyRenderer implements BoardRenderer {
     walkAnimation.play();
   }
 
+
+  /**
+   * KI-assistanse (Gemini 2.5 Pro) bidro til:
+   * - Logikken for å hente effektstyrken (antall steg) fra BoostPadAction/AsteroidFieldAction.
+   * - Å sette opp en `SequentialTransition` med en `PauseTransition` før den
+   * sekundære bevegelsesanimasjonen.
+   * - Kalkulering av den sekundære bevegelsesstien (`calculateRelativePath`).
+   * - Korrekt kjedning av `onFinished` hendelser for å oppdatere spillerens
+   * posisjon etter den sekundære bevegelsen.
+   * Dato: 18-05-25
+   *
+   */
   private void handleActionVisuals(final Node playerTokenNode, final Tile landTile,
       final Runnable onOverallAnimationComplete) {
     if (!(playerTokenNode.getUserData() instanceof PlayerTokenData tokenData)) {
@@ -617,11 +671,15 @@ public class AstroRallyRenderer implements BoardRenderer {
 
 
   /**
-   * Builds a list of TranslateTransition steps that move a token along the given path.
-   *
-   * @param pathTileIds the sequence of tile IDs to traverse
-   * @param initialLayoutCenter the starting center position for the first move
-   * @return a List of TranslateTransitions to play in sequence
+   * KI-assistanse (Gemini 2.5 Pro) ble brukt for å:
+   * - Strukturere løkken for å iterere gjennom {@code pathTileIds}.
+   * - Korrekt hente målsenterposisjonen ({@code targetCenter}) for hver flis i stien.
+   * - Sette opp {@link javafx.animation.TranslateTransition} for hvert steg, spesielt
+   * {@code setToX()} og {@code setToY()} for å beregne den relative bevegelsen
+   * fra {@code initialLayoutCenter} til hver {@code targetCenter}.
+   * - Velge en passende {@link javafx.animation.Interpolator} (Interpolator.LINEAR) for
+   * en jevn "gå"-bevegelse.
+   * Dato: 18-05-25
    */
   private List<TranslateTransition> buildWalkTransitions(final List<Integer> pathTileIds,
       final Point2D initialLayoutCenter) {
@@ -642,6 +700,19 @@ public class AstroRallyRenderer implements BoardRenderer {
     return transitions;
   }
 
+  /**
+   * KI-assistanse (Gemini 2.5 Pro) bidro til:
+   * - Oppsettet av {@link javafx.animation.TranslateTransition} for et direkte "hopp".
+   * - Korrekt bruk av {@code setFromX(0)} og {@code setFromY(0)} da translasjonen er relativ
+   * til tokenets nåværende posisjon etter {@code commitTokenPosition(tokenNode, jumpFromCenter)}.
+   * - Beregning av {@code setToX()} and {@code setToY()} basert på differansen mellom
+   * {@code jumpToCenter} og {@code jumpFromCenter}.
+   * - Valg av {@link javafx.animation.Interpolator} (Interpolator.EASE_BOTH) for en
+   * mykere start/stopp-effekt for hoppet.
+   * - Håndtering av {@code setOnFinished} for å endelig posisjonere tokenet på
+   * {@code jumpToCenter} ved hjelp av {@code commitTokenPosition}.
+   * Dato: 18-05-25
+   */
   private TranslateTransition buildJumpTransition(final Node tokenNode,
       final Point2D jumpFromCenter, final Point2D jumpToCenter) {
     commitTokenPosition(tokenNode, jumpFromCenter);

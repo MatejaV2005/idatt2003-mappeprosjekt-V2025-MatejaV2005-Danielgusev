@@ -8,14 +8,14 @@ import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.core.Dice;
 import edu.ntnu.idi.idatt.model.core.Player;
 import edu.ntnu.idi.idatt.model.core.Tile;
+import edu.ntnu.idi.idatt.utils.AlertHelper;
+import edu.ntnu.idi.idatt.utils.ResourceLoader;
 import edu.ntnu.idi.idatt.view.components.boardgame.BoardComponent;
 import edu.ntnu.idi.idatt.view.components.boardgame.CurrentPlayerPanel;
 import edu.ntnu.idi.idatt.view.components.boardgame.DicePanel;
 import edu.ntnu.idi.idatt.view.components.boardgame.GameInfoPanel;
 import edu.ntnu.idi.idatt.view.components.boardgame.WinDialog;
 import edu.ntnu.idi.idatt.view.renderer.BoardRenderer;
-import edu.ntnu.idi.idatt.utils.AlertHelper;
-import edu.ntnu.idi.idatt.utils.ResourceLoader;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -32,12 +32,21 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+
 /**
  * Generic JavaFX view for any {@link BoardGame}.
  *
  * <p>Displays the game board, controls, and informational panels.
  * Implements {@link BoardGameObserver} to receive model updates.
  * </p>
+ *
+ * <p>KI-assistanse (Gemini 2.5 Pro) ble benyttet som sparringspartner for å utvikle og
+ * forbedre logikken knyttet til:
+ * - Håndtering av observer-metoder for å oppdatere UI basert på spilltilstand.
+ * - Synkronisering av UI-oppdateringer med JavaFX Application Thread.
+ * - Logikk for animasjonsflyt og deaktivering/aktivering av UI-elementer.
+ * Spesifikke metoder hvor KI-assistanse var sentral er kommentert deretter.
+ * Dato for assistanse: 02-05-25
  */
 public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
 
@@ -216,6 +225,27 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
     Platform.runLater(() -> handleMoveAnimation(player, from, to));
   }
 
+
+  /**
+   * Handles the UI updates when a player lands on an action tile and its effect is processed.
+   * This method updates the {@link GameInfoPanel} with the description of the action.
+   * If the action does not result in a move to a new tile, it explicitly calls
+   * {@code updateUiForCurrentTurn} to ensure the UI reflects the current game state.
+   * All UI updates are performed on the JavaFX Application Thread.
+   *
+   * <p>KI-assistanse (Gemini 2.5 Pro) ble brukt for å:
+   * - Strukturere logikken for å trygt hente action-beskrivelsen og bestemme
+   * hvilken flis som skal brukes for informasjonsvisning.
+   * - Sikre at {@code gameInfoPanel.updateActionInfo} kalles med korrekte parametere.
+   * - Implementere logikken for å sjekke om handlingen resulterte i en faktisk
+   * forflytning, og kalle {@code updateUiForCurrentTurn} hvis ikke, for å
+   * oppdatere UI (f.eks. "Play Turn"-knappens tilstand).
+   * Dato: 03-05-25
+   *
+   * @param player The player affected by the action.
+   * @param fromTriggerTile The tile that triggered the action.
+   * @param toDestinationTile The tile the player ended up on after the action.
+   */
   @Override
   public void onActionTileEffect(Player player,
       Tile fromTriggerTile,
@@ -315,6 +345,7 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
     };
   }
 
+
   private void handleMoveAnimation(
       Player player,
       Tile from,
@@ -359,6 +390,16 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
     }
   }
 
+
+  /**
+   * KI-assistanse (Gemini 2.5 Pro) bidro til:
+   * - Å definere betingelsene ({@code canAct}, {@code animationRunning}) for når
+   * "Play Turn"-knappen skal være aktiv eller deaktivert.
+   * - Logikken for å trygt hente nåværende spiller og spillstatus fra controlleren.
+   * - Å sikre at {@code currentPlayerPanel.updateCurrentPlayerHighlight} kun kalles
+   * når ingen animasjon pågår, for å unngå konflikter med visuell tilstand.
+   * Dato: 03-05-25
+   */
   private void updateUiForCurrentTurn() {
     LOGGER.fine(() ->
         "updateUiForCurrentTurn called; animationRunning=" + animationRunning
@@ -408,6 +449,17 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
     winDialogShowing = false;
   }
 
+  /**
+   * KI-assistanse (Gemini 2.5 Pro) ble brukt for å:
+   * - Strukturere logikken for å vise {@link WinDialog} og håndtere resultatet.
+   * - Implementere {@code result.ifPresent} for å behandle brukerens valg
+   * (Game Selection vs. Main Menu).
+   * - Håndtere fallback-logikken ({@code if (result.isEmpty())}) for tilfellet
+   * der dialogen lukkes uten et eksplisitt valg, og da navigere til hovedmenyen.
+   * - Sikre korrekt interaksjon med {@code BoardGameController} for navigasjonsforespørsler.
+   * - Sette eierskap for dialogen ({@code winDialog.initOwner}) for korrekt modal oppførsel.
+   * Dato: 04-05-25
+   * */
   private Optional<ButtonType> getButtonType(Player winner) {
     WinDialog winDialog = new WinDialog(winner.getName());
 

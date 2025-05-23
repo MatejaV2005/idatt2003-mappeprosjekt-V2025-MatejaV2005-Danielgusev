@@ -52,10 +52,16 @@ public class BoardConverter {
    * actions, and the final assembly of the {@link Board} object. It ensures data integrity and
    * structural correctness according to defined board rules.
    *
+   * <p>KI-assistanse (Claude 3.7) ble benyttet for å refaktorere {@code fromDto}-metoden
+   *    til flere mindre, private statiske hjelpemetoder. Dette ble gjort for å
+   *    forbedre lesbarhet, vedlikeholdbarhet og for å etterkomme anbefalinger
+   *    fra SonarQube angående metodens kompleksitet og lengde.
+   *    Dato for assistanse: 17-05-25
+   *
    * @param boardDto the DTO to convert; must not be {@code null}
    * @return a fully initialized and validated {@link Board}
-   * @throws InvalidBoardFormatException if any validation or conversion step fails, detailing the
-   *                                     nature of the error.
+   * @throws InvalidBoardFormatException if any validation or conversion step fails,
+   *                                     detailing the nature of the error.
    */
   public static Board fromDto(BoardDto boardDto) throws InvalidBoardFormatException {
     validateInitialBoardDto(boardDto);

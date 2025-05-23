@@ -46,6 +46,14 @@ import javafx.util.Duration;
  * </p>
  * It uses a {@link ButtonFactory} for creating styled buttons.
  *
+ * <p>KI-assistanse (Gemini 2.5 Pro) ble benyttet som sparringspartner for å:
+ * - Utvikle logikken for dynamisk oppdatering av knappetilstander (enable/disable)
+ * basert på tabellvalg og antall spillere.
+ * - Strukturere lyttere for fanebytte for å oppdatere UI-komponenter korrekt.
+ * - Oppsett av JavaFX Bindings for knappegenskaper.
+ * Spesifikke metoder hvor KI-assistanse var sentral er kommentert deretter.
+ * Dato for assistanse: 20-04-25
+ *
  * @see Player
  * @see TableView
  * @see TabPane
@@ -273,6 +281,16 @@ public class PlayerManagementPanel extends BorderPane {
     return bottomPane;
   }
 
+  /**
+   * KI-assistanse (Gemini 2.5 Pro) bidro til:
+   * - Struktureringen av lytteren for å korrekt bytte ut UI-elementer
+   * ({@code controlsContainer} og senterregionen) basert på valgt fane.
+   * - Logikken for å nullstille statusmeldingen ({@code statusLabel} og
+   * {@code statusClearTimer}) ved fanebytte.
+   * - Å sikre at {@code updateButtonStatesAndStatus()} kalles for å reflektere
+   * tilstanden til den nye aktive fanen.
+   * Dato: 20-04-25
+   */
   private void setupTabChangeListener() {
     playerTabs.getSelectionModel().selectedItemProperty().addListener(
         (obs, oldTab, newTab) -> {
@@ -289,6 +307,18 @@ public class PlayerManagementPanel extends BorderPane {
         });
   }
 
+  /**
+   * KI-assistanse (Gemini 2.5 Pro) var sentral for å:
+   * - Utforme korrekte JavaFX {@link javafx.beans.binding.Bindings} for hver knapp.
+   * - Spesifikt for {@code addSavedPlayerButton}, kombinere betingelser med
+   * {@code Bindings.or()} (sjekke både valg i tabell og spillergrense).
+   * - For {@code addPlayerButton}, bruke {@code Bindings.createBooleanBinding()}
+   * for å koble til {@code isPlayerLimitReached}.
+   * - Sikre at bindingene korrekt lytter til endringer i
+   * {@code selectedItemProperty} fra TableView og størrelsen på
+   * {@code currentPlayersObservableList}.
+   * Dato: 21-04-25
+   */
   private void bindButtonProperties() {
     addSavedPlayerButton.disableProperty().bind(
         Bindings.or(
@@ -389,7 +419,7 @@ public class PlayerManagementPanel extends BorderPane {
         statusLabel.setText(String.format(STATUS_PLAYERS_ADDED_FORMAT, count, pluralS));
         statusLabel.getStyleClass().setAll(STYLE_CLASS_STATUS_LABEL, STYLE_CLASS_STATUS_INFO);
       }
-    } else { // Saved Players Tab is active
+    } else {
       if (savedPlayersObservableList.isEmpty()) {
         statusLabel.setText(STATUS_NO_SAVED_PLAYERS);
         statusLabel.getStyleClass().setAll(STYLE_CLASS_STATUS_LABEL, STYLE_CLASS_STATUS_INFO);
