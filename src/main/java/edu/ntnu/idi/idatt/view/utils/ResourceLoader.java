@@ -5,8 +5,32 @@ import java.io.InputStream;
 import java.net.URL;
 import javafx.scene.image.Image;
 
-public class ResourceLoader {
+/**
+ * A utility class for loading resources such as images and CSS files from the classpath.
+ *
+ * <p>This class provides static methods to simplify the process of accessing embedded
+ * resources within the application. It handles common exceptions that can occur during
+ * resource loading and wraps them in a custom {@link BoardGameResourceException}
+ * for consistent error handling throughout the application.
+ * </p>
+ * This class is not meant to be instantiated.
+ *
+ * @see Image
+ * @see URL
+ * @see BoardGameResourceException
+ */
+public final class ResourceLoader {
 
+
+  /**
+   * Private constructor to prevent instantiation of this utility class.
+   * Throws an {@link IllegalStateException} if an attempt is made to instantiate it
+   * via reflection or other means.
+   */
+  private ResourceLoader() {
+    // Prevent instantiation of this utility class
+    throw new IllegalStateException("Utility class ResourceLoader should not be instantiated.");
+  }
 
   /**
    * Loads an image resource from the classpath.

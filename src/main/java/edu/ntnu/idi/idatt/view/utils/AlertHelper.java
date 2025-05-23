@@ -8,7 +8,7 @@ import javafx.scene.control.ButtonType;
 /**
  * Utility class for creating and displaying consistent alerts throughout the application.
  */
-public class AlertHelper {
+public final class AlertHelper {
 
   /**
    * Private constructor to prevent instantiation of this utility class.
