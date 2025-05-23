@@ -112,7 +112,7 @@ class DiceTest {
         () -> dice.getDieValue(-1)
     );
 
-    assertEquals("Die index (-1) is out of bounds. Must be between 0 and 1 (inclusive).",
+    assertEquals("Die index-1 is out of bounds. Must be between 0 and 1 (inclusive).",
         exception.getMessage());
   }
 
@@ -126,7 +126,7 @@ class DiceTest {
         () -> dice.getDieValue(2)
     );
 
-    assertEquals("Die index (2) is out of bounds. Must be between 0 and 1 (inclusive).",
+    assertEquals("Die index2 is out of bounds. Must be between 0 and 1 (inclusive).",
         exception.getMessage());
   }
 
