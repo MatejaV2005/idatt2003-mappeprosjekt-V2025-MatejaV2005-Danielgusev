@@ -19,7 +19,6 @@ public class BoardGameController {
 
   private static final Logger LOGGER = Logger.getLogger(BoardGameController.class.getName());
 
-  private final GenericBoardGameView view;
   private final BoardGame boardGame;
   private final NavigationController navigationController;
 
@@ -37,12 +36,12 @@ public class BoardGameController {
       final GenericBoardGameView view,
       final BoardGame boardGame,
       final NavigationController navigationController) {
-    this.view = Objects.requireNonNull(view, "View cannot be null");
+    GenericBoardGameView view1 = Objects.requireNonNull(view, "View cannot be null");
     this.boardGame = Objects.requireNonNull(boardGame, "BoardGame cannot be null");
     this.navigationController =
         Objects.requireNonNull(navigationController, "NavigationController cannot be null");
 
-    this.view.setController(this);
+    view1.setController(this);
     initializeGameView();
   }
 
@@ -83,6 +82,8 @@ public class BoardGameController {
    * Logs the current state of the game model for debugging purposes. Includes game over status,
    * current player, player positions, and round count.
    */
+
+  //TODO, hjelp fra KI modell fått her
   protected void logCurrentGameState() {
     try {
       LOGGER.info("--- Current Game State ---");

@@ -75,11 +75,11 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
     root = new BorderPane();
     root.setPadding(new Insets(LAYOUT_PADDING));
 
-    boardComponent       = new BoardComponent(renderer);
-    gameInfoPanel        = new GameInfoPanel();
-    currentPlayerPanel   = new CurrentPlayerPanel();
-    dicePanel            = new DicePanel();
-    playTurnButton       = new Button("Play Turn");
+    boardComponent = new BoardComponent(renderer);
+    gameInfoPanel = new GameInfoPanel();
+    currentPlayerPanel = new CurrentPlayerPanel();
+    dicePanel = new DicePanel();
+    playTurnButton = new Button("Play Turn");
 
     playTurnButton.getStyleClass().add("play-turn-button");
     playTurnButton.setPrefSize(150d, 50d);

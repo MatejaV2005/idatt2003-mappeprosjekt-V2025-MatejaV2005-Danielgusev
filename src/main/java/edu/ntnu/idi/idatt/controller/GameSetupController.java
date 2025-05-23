@@ -8,9 +8,9 @@ import edu.ntnu.idi.idatt.model.core.Player;
 import edu.ntnu.idi.idatt.model.games.GameType;
 import edu.ntnu.idi.idatt.service.BoardManager;
 import edu.ntnu.idi.idatt.service.PlayerManager;
-import edu.ntnu.idi.idatt.view.components.gameSelection.CreatePlayerPopup;
-import edu.ntnu.idi.idatt.view.components.gameSelection.GameInfoPanel;
-import edu.ntnu.idi.idatt.view.components.gameSelection.PlayerManagementPanel;
+import edu.ntnu.idi.idatt.view.components.gameselection.CreatePlayerPopup;
+import edu.ntnu.idi.idatt.view.components.gameselection.InfoPanel;
+import edu.ntnu.idi.idatt.view.components.gameselection.PlayerManagementPanel;
 import edu.ntnu.idi.idatt.view.screens.GameSetupView;
 import edu.ntnu.idi.idatt.view.utils.AlertHelper;
 import java.io.File;
@@ -92,7 +92,7 @@ public class GameSetupController {
     );
 
     view.setScreenTitle(getScreenTitleForGameType(this.currentGameType) + " - Setup");
-    GameInfoPanel gameInfoPanelFromView = view.getGameInfoPanel();
+    InfoPanel infoPanelFromView = view.getGameInfoPanel();
 
     switch (this.currentGameType) {
       case SNAKES_AND_LADDERS:
@@ -102,8 +102,8 @@ public class GameSetupController {
       case ASTRO_RALLY:
         view.setDifficultyPanelVisible(false);
         this.selectedDifficultyOrConfig = "default";
-        if (gameInfoPanelFromView != null) {
-          gameInfoPanelFromView.setAstroRallyInfo();
+        if (infoPanelFromView != null) {
+          infoPanelFromView.setAstroRallyInfo();
         } else {
           LOGGER.warning("GameInfoPanel is null in GameSetupView. Cannot set Astro Rally info.");
         }
@@ -221,7 +221,7 @@ public class GameSetupController {
   public void onDifficultySelected(String difficulty) {
     if (currentGameType == GameType.SNAKES_AND_LADDERS) {
       this.selectedDifficultyOrConfig = difficulty.toLowerCase();
-      GameInfoPanel infoPanelFromView = view.getGameInfoPanel();
+      InfoPanel infoPanelFromView = view.getGameInfoPanel();
 
       if (infoPanelFromView != null) {
         switch (this.selectedDifficultyOrConfig) {
@@ -290,7 +290,7 @@ public class GameSetupController {
       try {
         this.customBoard = boardManager.loadBoardFromFile(selectedFile.getAbsolutePath());
         this.selectedDifficultyOrConfig = "custom";
-        GameInfoPanel infoPanelFromView = view.getGameInfoPanel();
+        InfoPanel infoPanelFromView = view.getGameInfoPanel();
         if (infoPanelFromView != null) {
           infoPanelFromView.setUploadModeInfo();
         }
@@ -315,7 +315,7 @@ public class GameSetupController {
 
   private void resetToDefaultBoardConfigForCurrentGame() {
     this.customBoard = null;
-    GameInfoPanel infoPanelFromView = view.getGameInfoPanel();
+    InfoPanel infoPanelFromView = view.getGameInfoPanel();
     if (infoPanelFromView == null) {
       return;
     }

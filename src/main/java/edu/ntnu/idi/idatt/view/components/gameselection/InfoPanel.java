@@ -176,7 +176,7 @@ public class InfoPanel extends VBox {
     updateGameInfo(
         "Classic Board (Easy)",
         "Easy Difficulty",
-        "60 Tiles, Few traps, many ladders",
+        "50 Tiles, Few traps, many ladders",
         """
         • Roll 2 dice to move.
 
@@ -184,7 +184,7 @@ public class InfoPanel extends VBox {
 
         • Land on a Snake to slide down.
 
-        • First to reach tile 60 wins!
+        • First to reach tile 50 wins!
         """);
   }
 
@@ -196,7 +196,7 @@ public class InfoPanel extends VBox {
     updateGameInfo(
         "Classic Board (Normal)",
         "Normal Difficulty",
-        "90 Tiles, Balanced traps & ladders",
+        "100 Tiles, Balanced traps & ladders",
         """
         • Roll 2 dice to move.
 
@@ -206,7 +206,7 @@ public class InfoPanel extends VBox {
 
         • Some tiles have special effects!
 
-        • First to reach tile 90 wins!
+        • First to reach tile 100 wins!
         """);
   }
 

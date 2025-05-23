@@ -35,7 +35,6 @@ public class NavigationController {
   private Scene titleScene;
   private Scene gameSelectionScene;
   private Scene gameSetupScene;
-  private Scene boardGameScene;
 
   private final PlayerManager playerManager = PlayerManager.getInstance();
   private final BoardGameFactory gameFactory = new BoardGameFactory();
@@ -238,7 +237,7 @@ public class NavigationController {
       navigateToGameSetup(currentBoardGame.getGameType());
       return;
     }
-    boardGameScene = gameView.getScene();
+    Scene boardGameScene = gameView.getScene();
     gameScreenController =
         new BoardGameController(gameView, currentBoardGame, this);
     gameView.initializeView(currentBoardGame);

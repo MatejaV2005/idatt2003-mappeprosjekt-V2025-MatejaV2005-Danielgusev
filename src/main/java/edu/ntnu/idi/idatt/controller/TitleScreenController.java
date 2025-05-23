@@ -8,7 +8,7 @@ import edu.ntnu.idi.idatt.view.screens.TitleScreenView;
  * <p>Routes the user to the game selection screen or exits the application based on button clicks.
  */
 public class TitleScreenController {
-  private final TitleScreenView view;
+
   private final NavigationController navigationController;
 
   /**
@@ -20,7 +20,6 @@ public class TitleScreenController {
   public TitleScreenController(
       TitleScreenView view,
       NavigationController navigationController) {
-    this.view = view;
     this.navigationController = navigationController;
     view.setController(this);
   }

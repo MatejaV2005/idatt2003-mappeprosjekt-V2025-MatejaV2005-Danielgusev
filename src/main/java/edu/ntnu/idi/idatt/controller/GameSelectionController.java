@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 public class GameSelectionController {
 
   private static final Logger LOG = Logger.getLogger(GameSelectionController.class.getName());
-  private final GameSelectionView view;
   private final NavigationController navigationController;
 
   /**
@@ -24,10 +23,10 @@ public class GameSelectionController {
    */
   public GameSelectionController(
       GameSelectionView view, NavigationController navigationController) {
-    this.view = Objects.requireNonNull(view, "GameSelectionView cannot be null.");
+    GameSelectionView view1 = Objects.requireNonNull(view, "GameSelectionView cannot be null.");
     this.navigationController =
         Objects.requireNonNull(navigationController, "NavigationController cannot be null.");
-    this.view.setController(this);
+    view1.setController(this);
   }
 
   /**
