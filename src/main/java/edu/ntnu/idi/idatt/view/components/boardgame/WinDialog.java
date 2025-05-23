@@ -1,5 +1,6 @@
 package edu.ntnu.idi.idatt.view.components.boardgame;
 
+import java.util.logging.Logger;
 import javafx.geometry.Pos;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -20,6 +21,11 @@ import javafx.scene.layout.VBox;
  */
 public class WinDialog extends Dialog<ButtonType> {
 
+  private static final Logger LOGGER = Logger.getLogger(WinDialog.class.getName());
+
+  private final ButtonType backToGameSetup;
+  private final ButtonType mainMenu;
+
   /**
    * Constructs a new {@code WinDialog} for the specified winner.
    *
@@ -35,15 +41,29 @@ public class WinDialog extends Dialog<ButtonType> {
     setTitle("Congratulations!");
     setHeaderText("🎉 " + winnerName + " is the winner! 🎉");
 
-    ButtonType backToGameSetup = new ButtonType(
+    backToGameSetup = new ButtonType(
         "Back to Game Selection",
         ButtonBar.ButtonData.OK_DONE
     );
-    ButtonType mainMenu = new ButtonType(
+    mainMenu = new ButtonType(
         "Main Menu",
         ButtonBar.ButtonData.CANCEL_CLOSE
     );
     getDialogPane().getButtonTypes().setAll(backToGameSetup, mainMenu);
+
+    setResultConverter(clickedButtonType -> {
+      LOGGER.fine("WinDialog.resultConverter called with: " + clickedButtonType);
+      if (clickedButtonType == backToGameSetup) {
+        LOGGER.fine("WinDialog.resultConverter: Returning BackToGameSetup");
+        return backToGameSetup;
+      } else if (clickedButtonType == mainMenu) {
+        LOGGER.fine("WinDialog.resultConverter: Returning MainMenu");
+        return mainMenu;
+      }
+      LOGGER.fine("WinDialog.resultConverter: "
+          + "Returning null (dialog closed via other means or unknown button)");
+      return null;
+    });
 
     VBox content = new VBox(
         10,

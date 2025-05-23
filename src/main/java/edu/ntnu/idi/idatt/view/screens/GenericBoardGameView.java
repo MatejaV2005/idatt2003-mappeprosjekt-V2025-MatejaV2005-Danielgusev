@@ -62,6 +62,8 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
 
   private BoardGameController controller;
   private volatile boolean animationRunning;
+  private boolean winDialogShowing = false;
+
 
   /**
    * Creates a new view using the given {@link BoardRenderer} to draw the board.
@@ -188,6 +190,7 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
     Objects.requireNonNull(game, "Game model cannot be null for initialization");
     try {
       game.addObserver(this);
+      winDialogShowing = false;
       dicePanel.resetDiceDisplay();
       refreshAll(game);
       animationRunning = false;
@@ -273,6 +276,12 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
       return;
     }
     Platform.runLater(() -> {
+      if (winDialogShowing) {
+        LOGGER.info("Win dialog is already showing - ignoring duplicate onGameWon call");
+        return;
+      }
+
+      winDialogShowing = true;
       animationRunning = false;
       handleWin(winner);
     });
@@ -395,28 +404,52 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
       LOGGER.info("WinDialog closed with no selection; returning to main menu.");
       controller.requestGoToMainMenu();
     }
+
+    // Reset the flag when we're done
+    winDialogShowing = false;
   }
 
   private Optional<ButtonType> getButtonType(Player winner) {
     WinDialog winDialog = new WinDialog(winner.getName());
+
+    if (this.scene != null && this.scene.getWindow() != null) {
+      winDialog.initOwner(this.scene.getWindow());
+      LOGGER.fine("WinDialog owner set to current scene's window.");
+    } else {
+      LOGGER.warning("WinDialog owner could not be set: scene or its window is null.");
+    }
+    
+
+    LOGGER.info("WinDialog: Calling showAndWait() for winner: " + winner.getName());
     Optional<ButtonType> result = winDialog.showAndWait();
+
+
     result.ifPresent(buttonType -> {
-      LOGGER.info(() ->
-          "WinDialog selection: " + buttonType.getText()
-              + " (ButtonData: " + buttonType.getButtonData() + ")"
-      );
+      LOGGER.info("WinDialog selection processed: " + buttonType.getText()
+          + " (ButtonData: " + buttonType.getButtonData() + ")");
       if (controller != null) {
         if (buttonType.getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+          LOGGER.fine("Requesting GoToGameSelection from controller.");
           controller.requestGoToGameSelection();
         } else {
+          LOGGER.fine("Requesting GoToMainMenu from controller.");
           controller.requestGoToMainMenu();
         }
       } else {
-        LOGGER.warning("Controller is null; cannot process dialog choice.");
+        LOGGER.warning("Controller is null; cannot process WinDialog choice.");
       }
     });
+
+    if (result.isEmpty()) {
+      LOGGER.info("WinDialog was closed without a button selection (e.g., 'X' button or ESC).");
+      if (controller != null) {
+        LOGGER.fine("Requesting GoToMainMenu from controller due to no selection.");
+        controller.requestGoToMainMenu();
+      }
+    }
     return result;
   }
+
 
   private void refreshAll(BoardGame game) {
     Objects.requireNonNull(game, "Game model cannot be null for refreshAll");
