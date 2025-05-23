@@ -56,7 +56,7 @@ public class BoardGameFactory {
     Board board = switch (difficulty.toLowerCase()) {
       case "easy" -> boardFactory.createEasyBoard();
       case "hard" -> boardFactory.createHardBoard();
-      default     -> boardFactory.createNormalBoard();
+      default -> boardFactory.createNormalBoard();
     };
     Dice dice = new Dice(2);
     GameStrategy strategy = new SnakesAndLaddersStrategy(dice);

@@ -177,6 +177,6 @@ class DiceTest {
 
     assertNotNull(dieList);
     assertEquals(2, dieList.size());
-    assertThrows(UnsupportedOperationException.class, () -> dieList.remove(0));
+    assertThrows(UnsupportedOperationException.class, () -> dieList.removeFirst());
   }
 }

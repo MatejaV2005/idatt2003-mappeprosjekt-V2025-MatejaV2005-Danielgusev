@@ -56,7 +56,6 @@ public class AppInitializer {
     try {
       primaryStage.setTitle(APPLICATION_TITLE);
 
-      // Sett til fullskjerm
       primaryStage.setFullScreen(true);
       primaryStage.setFullScreenExitHint("Trykk ESC for å avslutte fullskjerm");
       primaryStage.setFullScreenExitKeyCombination(KeyCombination.valueOf("ESC"));

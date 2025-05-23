@@ -20,10 +20,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test class for {@link GameEngine}.
- * Verifies the core functionalities of the GameEngine class.
- */
+
 class GameEngineTest {
 
   private Board mockBoard;

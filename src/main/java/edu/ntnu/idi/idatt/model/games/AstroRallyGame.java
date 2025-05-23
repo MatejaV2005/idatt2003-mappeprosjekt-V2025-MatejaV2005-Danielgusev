@@ -1,5 +1,8 @@
 package edu.ntnu.idi.idatt.model.games;
 
+
+import static edu.ntnu.idi.idatt.model.strategy.AstroRallyStrategy.TOTAL_LAPS_TO_WIN;
+
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.core.Dice;
@@ -11,6 +14,7 @@ import edu.ntnu.idi.idatt.model.strategy.AstroRallyStrategy;
 import edu.ntnu.idi.idatt.model.strategy.GameStrategy;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 
 /**
@@ -22,6 +26,8 @@ import java.util.Objects;
  * </p>
  */
 public class AstroRallyGame extends BoardGame {
+  private static final Logger LOGGER = Logger.getLogger(AstroRallyGame.class.getName());
+
 
 
   /**
@@ -85,13 +91,19 @@ public class AstroRallyGame extends BoardGame {
     }
 
     int size = board.getBoardSize();
-    boolean crossedMidToLow =
-        oldTile.getTileId() > size / 2 && newTile.getTileId() < size / 2;
-    boolean idDecreased = oldTile.getTileId() > newTile.getTileId();
 
-    if ((crossedMidToLow && idDecreased)
-        || (!crossedMidToLow && idDecreased && newTile.getTileId() == 1)) {
+    // Only increment lap when crossing from the highest tile to tile 1
+    // or when crossing from a high-numbered tile to a low-numbered tile
+    boolean completedLap =
+        (oldTile.getTileId() == size && newTile.getTileId() == 1)
+            ||
+            (oldTile.getTileId() > size / 2 && newTile.getTileId() < size / 2
+                && oldTile.getTileId() > newTile.getTileId());
+
+    if (completedLap) {
       player.incrementLapsCompleted();
+      LOGGER.info("Player " + player.getName() + " completed lap "
+          + player.getLapsCompleted());
     }
   }
 
@@ -129,13 +141,14 @@ public class AstroRallyGame extends BoardGame {
   }
 
   @Override
-  protected boolean checkWinCondition(Player player) {
-    Objects.requireNonNull(player, "player cannot be null for checkWinCondition");
-    boolean winner = gameEngine.isWinner(player);
-    if (winner) {
-      notifyOnGameWon(player);
-    }
-    return winner;
+  public boolean checkWinCondition(Player player) {
+    ExceptionHandling.requireNonNull(player, "player");
+    Tile tile = player.getCurrentTile();
+
+    boolean isOnFirstTile = tile != null && tile.getTileId() == 1;
+    boolean hasCompletedRequiredLaps = player.getLapsCompleted() >= TOTAL_LAPS_TO_WIN;
+
+    return isOnFirstTile && hasCompletedRequiredLaps;
   }
 
   @Override

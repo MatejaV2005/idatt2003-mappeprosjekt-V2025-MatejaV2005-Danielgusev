@@ -1,8 +1,9 @@
 package edu.ntnu.idi.idatt.model.strategy;
 
-import java.util.List;
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.Player;
+import java.util.List;
+
 
 /**
  * Defines the contract for game-specific behavior in a board game engine.

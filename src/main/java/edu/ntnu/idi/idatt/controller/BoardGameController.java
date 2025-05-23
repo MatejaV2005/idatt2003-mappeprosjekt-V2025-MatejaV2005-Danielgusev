@@ -2,8 +2,8 @@ package edu.ntnu.idi.idatt.controller;
 
 import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.core.Player;
-import edu.ntnu.idi.idatt.view.screens.GenericBoardGameView;
 import edu.ntnu.idi.idatt.utils.AlertHelper;
+import edu.ntnu.idi.idatt.view.screens.GenericBoardGameView;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -79,11 +79,21 @@ public class BoardGameController {
   }
 
   /**
-   * Logs the current state of the game model for debugging purposes. Includes game over status,
-   * current player, player positions, and round count.
+   * Logs the current state of the game model for debugging purposes.
+   * Includes information such as game over status, the current player's name,
+   * the tile ID for each player on the board, and the current round count.
+   * The output is formatted for easy readability in the logs.
+   *
+   * <p>KI-assistanse (Claude 3.7 sonnet) ble brukt for å:
+   * - Strukturere og formatere loggmeldingene for økt lesbarhet.
+   * - Utforme betinget logging for spillerposisjoner, inkludert håndtering
+   * av tilfeller der en spiller ikke har en {@code currentTile} (viser "unknown").
+   * - Sikre robust logging ved å inkludere null-sjekker for {@code currentPlayer}
+   * og {@code boardGame.getPlayers()}.
+   * - Rådgive rundt passende loggnivåer (Level.INFO, Level.WARNING) for ulike
+   * scenarioer innad i metoden.
+   * Dato: 07-04-25
    */
-
-  //TODO, hjelp fra KI modell fått her
   protected void logCurrentGameState() {
     try {
       LOGGER.info("--- Current Game State ---");
@@ -118,7 +128,7 @@ public class BoardGameController {
 
   /**
    * Provides access to the underlying {@link BoardGame} model instance. This allows other parts of
-   * the application (like the view, although discouraged for direct model manipulation) or
+   * the application or
    * potentially other controllers to query the game state.
    *
    * @return The {@link BoardGame} instance being controlled.

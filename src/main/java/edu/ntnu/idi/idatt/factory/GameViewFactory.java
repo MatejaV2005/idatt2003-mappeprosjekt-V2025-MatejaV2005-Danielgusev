@@ -16,7 +16,7 @@ import java.util.Objects;
  *
  * @see AstroRallyRenderer
  * @see SnakesAndLaddersRenderer
- * @since 1.0
+ *
  */
 public class GameViewFactory {
 

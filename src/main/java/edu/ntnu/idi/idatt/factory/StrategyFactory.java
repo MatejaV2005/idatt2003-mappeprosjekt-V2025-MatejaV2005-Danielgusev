@@ -34,8 +34,8 @@ public class StrategyFactory {
    * the provided board and dice.
    *
    * @param gameType The type of game for which to create a strategy. Cannot be null.
-   * @param board    The game {@link Board} that the strategy will operate on. Cannot be null.
-   * @param dice     The {@link Dice} to be used by the strategy. Cannot be null.
+   * @param board The game {@link Board} that the strategy will operate on. Cannot be null.
+   * @param dice The {@link Dice} to be used by the strategy. Cannot be null.
    * @return A {@link GameStrategy} instance appropriate for the specified game type.
    * @throws IllegalArgumentException if any of the parameters are null, or if the {@code gameType}
    *                                  is unsupported or unknown.

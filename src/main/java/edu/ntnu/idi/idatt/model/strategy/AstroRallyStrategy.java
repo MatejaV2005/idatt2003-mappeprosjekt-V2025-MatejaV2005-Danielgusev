@@ -86,7 +86,6 @@ public class AstroRallyStrategy implements GameStrategy {
             "Tile " + currentTileId + " has no next and is not last");
       }
 
-      // Lap detection when crossing tile 1 from elsewhere
       if (nextId == 1 && currentTileId != 1) {
         player.incrementLapsCompleted();
         if (player.getLapsCompleted() >= TOTAL_LAPS_TO_WIN && isOnFinalLap) {

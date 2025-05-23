@@ -202,8 +202,19 @@ public class AstroRallyRenderer implements BoardRenderer {
   }
 
   /**
-   * Creates and adds a single tile visual (rectangle + label) to the board pane.
-   * Also records the tile’s center point for token placement.
+   * Creates and adds a visual representation of a single tile to the board pane.
+   * This includes calculating its position, styling its background based on type
+   * (start, action, or default alternating), and adding a numbered label.
+   * The tile's center position is then cached for player token management.
+   *
+   * <p>Key styling based on {@link ActionType}:
+   * <ul>
+   * <li>Start Tile (ID 1): {@code START_FINISH_TILE_COLOR}</li>
+   * <li>Boost Pad: {@code BOOST_PAD_COLOR}</li>
+   * <li>Asteroid Field: {@code ASTEROID_FIELD_COLOR}</li>
+   * <li>Others: Alternating {@code DEFAULT_TILE_COLOR_1} / {@code DEFAULT_TILE_COLOR_2}</li>
+   * </ul>
+   * </p>
    *
    * @param boardPane the pane to which the tile node will be added; must not be null
    * @param tile the Tile model to render; must not be null
@@ -386,10 +397,20 @@ public class AstroRallyRenderer implements BoardRenderer {
   }
 
   /**
-   * Immediately positions a player token node at the center of the specified tile.
-   * Updates the node’s user data to reflect the new tile ID.
+   * Immediately positions a player token node at the
+   * calculated center of the specified {@code tile}
+   * without animation.
    *
-   * @param playerTokenNode the token Node to place; must not be null
+   * <p>This method updates the token's visual layout coordinates using pre-calculated
+   * center positions from {@code tileCenterPositions}. It also robustly updates the
+   * token's {@code userData} to reflect the new {@code tileId}, handling cases
+   * where {@code userData} is either a {@link Player} instance (wrapping it in
+   * a new {@link PlayerTokenData}) or an existing {@link PlayerTokenData} instance
+   * (updating its {@code currentTileId}). Logs a warning for unexpected
+   * {@code userData} types or missing tile center data.
+   * </p>
+   *
+   * @param playerTokenNode the token Node to place; must not be null.
    * @param tile the Tile on which to place the token; must not be null
    * @param boardPane the Pane containing the board (unused here but part of interface);
    *                  must not be null

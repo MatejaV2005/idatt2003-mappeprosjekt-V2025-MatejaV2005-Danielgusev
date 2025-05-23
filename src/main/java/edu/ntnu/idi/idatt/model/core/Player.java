@@ -11,7 +11,6 @@ import java.util.Objects;
  * operations such as moving along linked tiles, lap counting, and skip-turn logic.
  *
  * @see Tile
- * @since 1.0
  */
 public class Player {
 

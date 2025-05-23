@@ -32,6 +32,8 @@ public class BoardFactory {
    * are created solely to invoke the board‐creation methods.</p>
    */
   public BoardFactory() {
+    // This constructor is intentionally empty.
+    // The factory holds no internal state and requires no setup.
   }
 
 
@@ -179,6 +181,7 @@ public class BoardFactory {
     board.getTileById(77).setLandAction(action);
   }
 
+  @SuppressWarnings("checkstyle:VariableDeclarationUsageDistance")
   private void assignHardActions(Board board) {
     Tile startTile;
     Tile destinationTile;

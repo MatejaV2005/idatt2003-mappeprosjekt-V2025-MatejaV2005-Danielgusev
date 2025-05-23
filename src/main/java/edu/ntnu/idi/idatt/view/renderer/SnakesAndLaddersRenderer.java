@@ -197,8 +197,15 @@ public class SnakesAndLaddersRenderer implements BoardRenderer {
   }
 
   /**
-   * Sets the initial position of a player token at the specified tile without animation.
-   * This should be used when first placing tokens on the board.
+   * Immediately positions a player's token at the center of the specified {@code tile}
+   * without animation, primarily for initial board setup.
+   *
+   * <p>This method retrieves the tile's pre-calculated center, or a fallback if missing.
+   * It ensures the token is added to the {@code boardPane}, forces a layout pass for
+   * accurate bounds (with special handling for {@link javafx.scene.shape.Circle} dimensions),
+   * then sets the token's visual position. Critically, it updates the token's
+   * {@code userData} from an initial {@link Player} object to a {@link PlayerTokenData}
+   * instance, associating the player with the new {@code tileId}.
    *
    * @param playerTokenNode The player token node to position
    * @param tile The tile where the player should be placed
@@ -448,13 +455,6 @@ public class SnakesAndLaddersRenderer implements BoardRenderer {
   }
 
 
-  /**
-   * Calculates the path of tiles to visit when moving from start to end tile.
-   *
-   * @param startTileId The starting tile ID
-   * @param endTileId The ending tile ID
-   * @return A list of tile IDs representing the path
-   */
   private List<Integer> calculatePath(int startTileId, int endTileId) {
     List<Integer> path = new ArrayList<>();
 

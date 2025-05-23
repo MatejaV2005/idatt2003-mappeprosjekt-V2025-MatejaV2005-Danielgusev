@@ -4,12 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Minor refactoring of wrong test output">
+    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="minor refactoring">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Files/Players/players.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/Files/Players/players.CSV" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/config/AppInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/config/AppInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/BoardGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/BoardGameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/GameSelectionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/GameSelectionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/GameSetupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/controller/GameSetupController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardGameFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/BoardGameFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/GameViewFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/GameViewFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/StrategyFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/factory/StrategyFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/core/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/games/AstroRallyGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/games/AstroRallyGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/strategy/AstroRallyStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/strategy/AstroRallyStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/strategy/GameStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/strategy/GameStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/renderer/AstroRallyRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/renderer/AstroRallyRenderer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/renderer/SnakesAndLaddersRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/renderer/SnakesAndLaddersRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GameEngineTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GameEngineTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/boardgames/AstroRallyGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/boardgames/AstroRallyGameTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,6 +147,8 @@
     "JUnit.AsteroidFieldActionTest.constructor_withEmptyDescription_throwsIllegalArgumentException.executor": "Run",
     "JUnit.AsteroidFieldActionTest.constructor_withNullDescription_throwsIllegalArgumentException.executor": "Run",
     "JUnit.AsteroidFieldActionTest.executor": "Run",
+    "JUnit.AstroRallyGameTest.checkWinCondition_playerIsNotWinner_returnsFalseNoNotification.executor": "Run",
+    "JUnit.AstroRallyGameTest.checkWinCondition_playerIsWinner_notifiesAndReturnsTrue.executor": "Run",
     "JUnit.AstroRallyGameTest.executor": "Run",
     "JUnit.AstroRallyGameTest.handleSpecialTileAction_actionBoostPadTile.executor": "Run",
     "JUnit.AstroRallyGameTest.handleSpecialTileAction_noLandAction_notifiesEffectOnSameTile.executor": "Run",
@@ -216,8 +233,8 @@
       <recent name="edu.ntnu.idi.idatt" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.DiceTest">
-    <configuration name="AstroRallyGameTest.handleSpecialTileAction_actionBoostPadTile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.AstroRallyGameTest">
+    <configuration name="AstroRallyGameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="boardgame-V2025-IDATT2003" />
       <extension name="coverage">
         <pattern>
@@ -227,27 +244,39 @@
       </extension>
       <option name="PACKAGE_NAME" value="boardgames" />
       <option name="MAIN_CLASS_NAME" value="boardgames.AstroRallyGameTest" />
-      <option name="METHOD_NAME" value="handleSpecialTileAction_actionBoostPadTile" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="BoardTest.resetBoard_ReInitializesAndRelinksTiles" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="boardgame-V2025-IDATT2003" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="BoardTest" />
-      <option name="METHOD_NAME" value="resetBoard_ReInitializesAndRelinksTiles" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="boardgame-V2025-IDATT2003" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="DiceTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AstroRallyGameTest.checkWinCondition_playerIsNotWinner_returnsFalseNoNotification" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="boardgame-V2025-IDATT2003" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="boardgames.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="boardgames" />
+      <option name="MAIN_CLASS_NAME" value="boardgames.AstroRallyGameTest" />
+      <option name="METHOD_NAME" value="checkWinCondition_playerIsNotWinner_returnsFalseNoNotification" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AstroRallyGameTest.checkWinCondition_playerIsWinner_notifiesAndReturnsTrue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="boardgame-V2025-IDATT2003" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="boardgames.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="boardgames" />
+      <option name="MAIN_CLASS_NAME" value="boardgames.AstroRallyGameTest" />
+      <option name="METHOD_NAME" value="checkWinCondition_playerIsWinner_notifiesAndReturnsTrue" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -272,11 +301,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.DiceTest" />
+        <item itemvalue="JUnit.AstroRallyGameTest" />
+        <item itemvalue="JUnit.AstroRallyGameTest.checkWinCondition_playerIsNotWinner_returnsFalseNoNotification" />
+        <item itemvalue="JUnit.AstroRallyGameTest.checkWinCondition_playerIsWinner_notifiesAndReturnsTrue" />
         <item itemvalue="JUnit.java in boardgame-V2025-IDATT2003" />
         <item itemvalue="JUnit.DiceTest.getDice_ReturnsUnmodifiableList" />
-        <item itemvalue="JUnit.BoardTest.resetBoard_ReInitializesAndRelinksTiles" />
-        <item itemvalue="JUnit.AstroRallyGameTest.handleSpecialTileAction_actionBoostPadTile" />
       </list>
     </recent_temporary>
   </component>
@@ -362,14 +391,6 @@
       <workItem from="1747830178262" duration="9362000" />
       <workItem from="1747840759437" duration="9143000" />
       <workItem from="1747906902732" duration="55192000" />
-    </task>
-    <task id="LOCAL-00253" summary="added javadoc + fixed checkstyle">
-      <option name="closed" value="true" />
-      <created>1747912849780</created>
-      <option name="number" value="00253" />
-      <option name="presentableId" value="LOCAL-00253" />
-      <option name="project" value="LOCAL" />
-      <updated>1747912849780</updated>
     </task>
     <task id="LOCAL-00254" summary="improved javadoc and checkstyle in SnakesAndLaddersGame">
       <option name="closed" value="true" />
@@ -755,7 +776,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747972201744</updated>
     </task>
-    <option name="localTasksCounter" value="302" />
+    <task id="LOCAL-00302" summary="minor refactoring">
+      <option name="closed" value="true" />
+      <created>1747973766529</created>
+      <option name="number" value="00302" />
+      <option name="presentableId" value="LOCAL-00302" />
+      <option name="project" value="LOCAL" />
+      <updated>1747973766529</updated>
+    </task>
+    <option name="localTasksCounter" value="303" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -795,10 +824,10 @@
     <MESSAGE value="modified gameSetupStyle.css" />
     <MESSAGE value="Refactored, WinDialog only appears once by setting a flag" />
     <MESSAGE value="Moved classes to fitting designated packages" />
-    <MESSAGE value="minor refactoring" />
     <MESSAGE value="Added comments for whre AI-assistance was of crucial use" />
     <MESSAGE value="Minor refactoring of wrong test output" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor refactoring of wrong test output" />
+    <MESSAGE value="minor refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor refactoring" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
@@ -808,6 +837,6 @@
     <SUITE FILE_PATH="coverage/boardgame_V2025_IDATT2003$PlayerTest.ic" NAME="PlayerTest Coverage Results" MODIFIED="1747587745891" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
     <SUITE FILE_PATH="coverage/boardgame_V2025_IDATT2003$TileTest__1_.ic" NAME="TileTest (1) Coverage Results" MODIFIED="1747596525912" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
     <SUITE FILE_PATH="coverage/boardgame_V2025_IDATT2003$BoardTest.ic" NAME="BoardTest Coverage Results" MODIFIED="1747596493749" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
-    <SUITE FILE_PATH="coverage/boardgame_V2025_IDATT2003$java_in_boardgame_V2025_IDATT2003.ic" NAME="java in boardgame-V2025-IDATT2003 Coverage Results" MODIFIED="1747972030898" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/boardgame_V2025_IDATT2003$java_in_boardgame_V2025_IDATT2003.ic" NAME="java in boardgame-V2025-IDATT2003 Coverage Results" MODIFIED="1747994608978" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
   </component>
 </project>

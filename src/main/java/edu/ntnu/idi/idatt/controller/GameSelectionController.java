@@ -7,8 +7,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Controller for the game mode selection screen. Handles user interactions and navigation related
- * to game selection.
+ * Controller responsible for handling user interactions on the game selection screen.
+ *
+ * <p>This class interprets user input from the {@link GameSelectionView} and coordinates navigation
+ * between different screens using the {@link NavigationController}. It determines which game mode
+ * has been selected and transitions to the appropriate game setup screen.
+ * It also handles navigation back to the title or previous screen.
  */
 public class GameSelectionController {
 

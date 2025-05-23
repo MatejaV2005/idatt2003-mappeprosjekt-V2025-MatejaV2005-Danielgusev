@@ -1,4 +1,4 @@
-package boardgames; // Assuming this is your test package structure
+package boardgames;
 
 import edu.ntnu.idi.idatt.model.core.Board;
 import edu.ntnu.idi.idatt.model.core.Dice;
@@ -22,6 +22,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Collections;
 import java.util.List;
 
+import static edu.ntnu.idi.idatt.model.strategy.AstroRallyStrategy.TOTAL_LAPS_TO_WIN;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -268,25 +269,37 @@ class AstroRallyGameTest {
   }
 
   @Test
-  void checkWinCondition_playerIsWinner_notifiesAndReturnsTrue() {
-    when(mockAstroRallyStrategy.checkWinCondition(mockPlayer)).thenReturn(true);
+  void checkWinCondition_playerIsWinner_returnsTrue() {
+    when(mockPlayer.getCurrentTile()).thenReturn(mockStartTile);
+    when(mockStartTile.getTileId()).thenReturn(1);
+    when(mockPlayer.getLapsCompleted()).thenReturn(TOTAL_LAPS_TO_WIN);
 
     boolean isWinner = gameSpy.checkWinCondition(mockPlayer);
 
     assertTrue(isWinner);
-    verify(mockAstroRallyStrategy).checkWinCondition(mockPlayer);
-    verify(mockObserver).onGameWon(mockPlayer);
   }
 
   @Test
-  void checkWinCondition_playerIsNotWinner_returnsFalseNoNotification() {
-    when(mockAstroRallyStrategy.checkWinCondition(mockPlayer)).thenReturn(false);
+  void checkWinCondition_playerIsNotWinner_notEnoughLaps_returnsFalse() {
+    when(mockPlayer.getCurrentTile()).thenReturn(mockStartTile);
+    when(mockStartTile.getTileId()).thenReturn(1);
+    when(mockPlayer.getLapsCompleted()).thenReturn(TOTAL_LAPS_TO_WIN - 1);
 
     boolean isWinner = gameSpy.checkWinCondition(mockPlayer);
 
     assertFalse(isWinner);
-    verify(mockAstroRallyStrategy).checkWinCondition(mockPlayer);
-    verify(mockObserver, never()).onGameWon(any(Player.class));
+  }
+
+  @Test
+  void checkWinCondition_playerIsNotWinner_wrongTile_returnsFalse() {
+
+    when(mockPlayer.getCurrentTile()).thenReturn(mockStartTile);
+    when(mockStartTile.getTileId()).thenReturn(2);
+    when(mockPlayer.getLapsCompleted()).thenReturn(TOTAL_LAPS_TO_WIN);
+
+    boolean isWinner = gameSpy.checkWinCondition(mockPlayer);
+
+    assertFalse(isWinner);
   }
 
   @Test
