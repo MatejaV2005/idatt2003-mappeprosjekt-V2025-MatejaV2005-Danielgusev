@@ -153,7 +153,7 @@ public class GameSelectionView {
   }
 
   /**
-   * Creates a game mode panel with a heading and a content area.
+   * Creates a game mode panel with a heading and an image.
    *
    * @param modeName Name of the game mode.
    * @return A styled VBox panel representing a game mode.
@@ -166,10 +166,31 @@ public class GameSelectionView {
     contentArea.getStyleClass().add("white-box");
     contentArea.setPrefSize(300, 450);
 
+    // Load and add the corresponding image based on the game mode
+    String imagePath = "";
+    if (SNAKES_AND_LADDERS.equals(modeName)) {
+      imagePath = "/edu/ntnu/idi/idatt/view/resources/GameScreen/SandL.png";
+    } else if (ASTRO_RALLY.equals(modeName)) {
+      imagePath = "/edu/ntnu/idi/idatt/view/resources/GameScreen/AstroRally.png";
+    }
+
+    try {
+      Image modeImage = ResourceLoader.loadImage(imagePath);
+      ImageView imageView = new ImageView(modeImage);
+      imageView.setPreserveRatio(true);
+      imageView.setFitWidth(280);
+
+      imageView.setLayoutX((contentArea.getPrefWidth() - imageView.getFitWidth()) / 2);
+      imageView.setLayoutY(10);
+
+      contentArea.getChildren().add(imageView);
+    } catch (BoardGameResourceException e) {
+      LOGGER.log(Level.WARNING, "Failed to load game mode image: " + imagePath, e);
+    }
+
     VBox panel = new VBox(15, label, contentArea);
     panel.setAlignment(Pos.TOP_CENTER);
     panel.getStyleClass().add("game-panel");
-
 
     return panel;
   }
