@@ -18,12 +18,14 @@ public final class ExceptionHandling {
   /**
    * Private constructor to prevent instantiation.
    */
-  private ExceptionHandling() {}
+  private ExceptionHandling() {
+
+  }
 
   /**
    * Validates that the given string is not null or blank (i.e., empty or contains only whitespace).
    *
-   * @param input     the string to validate
+   * @param input the string to validate
    * @param fieldName the name of the field (used in exception message)
    * @throws IllegalArgumentException if {@code input} is null or blank
    */
@@ -36,7 +38,7 @@ public final class ExceptionHandling {
   /**
    * Validates that the given object is not null.
    *
-   * @param input     the object to check
+   * @param input the object to check
    * @param fieldName the name of the field (used in exception message)
    * @throws IllegalArgumentException if {@code input} is null
    */
@@ -49,7 +51,7 @@ public final class ExceptionHandling {
   /**
    * Validates that the given integer is positive (greater than zero).
    *
-   * @param input     the number to check
+   * @param input the number to check
    * @param fieldName the name of the field (used in exception message)
    * @throws IllegalArgumentException if {@code input} is negative
    */
@@ -62,9 +64,9 @@ public final class ExceptionHandling {
   /**
    * Validates that an index is within a specified range.
    *
-   * @param index     the index to validate
-   * @param min       minimum acceptable index (inclusive)
-   * @param max       maximum acceptable index (inclusive)
+   * @param index the index to validate
+   * @param min minimum acceptable index (inclusive)
+   * @param max maximum acceptable index (inclusive)
    * @param fieldName the name of the field (used in exception message)
    * @throws IllegalArgumentException if {@code index} is outside the range
    */
