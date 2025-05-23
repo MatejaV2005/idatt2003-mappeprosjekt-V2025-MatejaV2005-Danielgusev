@@ -1,0 +1,117 @@
+
+.popup-root {
+  -fx-background-color: #4A3B49;
+  -fx-padding: 25px;
+  -fx-border-color: #30242E;
+  -fx-border-width: 2px;
+  -fx-border-radius: 10px;
+  -fx-background-radius: 10px;
+}
+
+.popup-title {
+  -fx-font-size: 28px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #F0E6F0;
+  -fx-alignment: center;
+  -fx-padding-bottom: 10px;
+}
+
+.popup-header-image {
+  -fx-padding-bottom: 15px;
+}
+
+.popup-label {
+  -fx-font-size: 16px;
+  -fx-text-fill: #D8BFD8;
+  -fx-font-weight: bold;
+  -fx-padding-top: 10px;
+  -fx-padding-bottom: 5px;
+}
+
+.popup-text-field {
+  -fx-background-color: #FFFACD;
+  -fx-text-fill: #543D52;
+  -fx-prompt-text-fill: #A9A9A9;
+  -fx-border-color: #8A2BE2;
+  -fx-border-width: 1px;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
+  -fx-font-size: 14px;
+  -fx-pref-height: 40px;
+}
+
+.popup-combo-box {
+  -fx-background-color: #8A2BE2;
+  -fx-mark-color: #FFFFFF;
+  -fx-font-size: 14px;
+  -fx-pref-height: 40px;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
+}
+
+.popup-combo-box .list-cell {
+  -fx-text-fill: #FFFFFF;
+  -fx-background-color: #8A2BE2;
+}
+
+.popup-combo-box .list-cell:filled:selected, .popup-combo-box .list-cell:filled:selected:hover {
+  -fx-background-color: #6A1B9A;
+  -fx-text-fill: white;
+}
+
+.popup-combo-box .list-cell:filled:hover {
+  -fx-background-color: #7B1FA2;
+  -fx-text-fill: white;
+}
+
+.popup-combo-box .arrow-button .arrow {
+  -fx-background-color: white;
+}
+
+
+.popup-icon-preview-box {
+  -fx-alignment: center;
+  -fx-padding: 15px;
+  -fx-border-color: #6A1B9A;
+  -fx-border-width: 1px;
+  -fx-border-radius: 5px;
+  -fx-background-color: rgba(0,0,0,0.1);
+  -fx-min-height: 80px;
+}
+
+.popup-error-label {
+  -fx-text-fill: #FF6B6B;
+  -fx-font-size: 12px;
+  -fx-min-height: 30px;
+  -fx-alignment: center-left;
+}
+
+.popup-button-create {
+  -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #9F2B68, #701C48);
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-font-size: 14px;
+  -fx-padding: 10px 20px;
+  -fx-background-radius: 8px;
+  -fx-border-radius: 8px;
+  -fx-pref-width: 100px;
+}
+
+.popup-button-create:hover {
+  -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #B03070, #802050);
+}
+
+.popup-button-cancel {
+  -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #D2042D, #A00020);
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-font-size: 14px;
+  -fx-padding: 10px 20px;
+  -fx-background-radius: 8px;
+  -fx-border-radius: 8px;
+  -fx-pref-width: 100px;
+}
+
+.popup-button-cancel:hover {
+  -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #E00830, #B00424);
+}
