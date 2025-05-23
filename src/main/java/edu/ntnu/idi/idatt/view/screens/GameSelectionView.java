@@ -166,7 +166,6 @@ public class GameSelectionView {
     contentArea.getStyleClass().add("white-box");
     contentArea.setPrefSize(300, 450);
 
-    // Load and add the corresponding image based on the game mode
     String imagePath = "";
     if (SNAKES_AND_LADDERS.equals(modeName)) {
       imagePath = "/edu/ntnu/idi/idatt/view/resources/GameScreen/SandL.png";
