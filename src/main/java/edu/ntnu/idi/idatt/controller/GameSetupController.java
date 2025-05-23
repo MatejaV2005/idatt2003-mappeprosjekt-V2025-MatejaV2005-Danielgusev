@@ -12,7 +12,7 @@ import edu.ntnu.idi.idatt.view.components.gameselection.CreatePlayerPopup;
 import edu.ntnu.idi.idatt.view.components.gameselection.InfoPanel;
 import edu.ntnu.idi.idatt.view.components.gameselection.PlayerManagementPanel;
 import edu.ntnu.idi.idatt.view.screens.GameSetupView;
-import edu.ntnu.idi.idatt.view.utils.AlertHelper;
+import edu.ntnu.idi.idatt.utils.AlertHelper;
 import java.io.File;
 import java.util.List;
 import java.util.Objects;

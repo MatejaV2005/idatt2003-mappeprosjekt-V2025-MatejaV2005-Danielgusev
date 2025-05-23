@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.observer;
+package edu.ntnu.idi.idatt.model.core;
 
 /**
  * Defines an {@code Observable} subject that can be observed by

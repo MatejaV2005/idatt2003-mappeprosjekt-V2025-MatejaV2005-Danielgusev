@@ -5,7 +5,7 @@ import edu.ntnu.idi.idatt.model.core.Player;
 import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.model.core.actions.ActionType;
 import edu.ntnu.idi.idatt.model.core.actions.TileAction;
-import edu.ntnu.idi.idatt.view.utils.PlayerTokenData;
+import edu.ntnu.idi.idatt.utils.PlayerTokenData;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

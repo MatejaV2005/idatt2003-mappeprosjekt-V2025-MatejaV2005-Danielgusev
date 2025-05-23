@@ -3,7 +3,7 @@ package edu.ntnu.idi.idatt.service;
 import edu.ntnu.idi.idatt.exceptions.FileLoadException;
 import edu.ntnu.idi.idatt.exceptions.FileSaveException;
 import edu.ntnu.idi.idatt.exceptions.PlayerManagementException;
-import edu.ntnu.idi.idatt.filehandler.PlayerCsvFileHandler;
+import edu.ntnu.idi.idatt.service.filehandler.PlayerCsvFileHandler;
 import edu.ntnu.idi.idatt.model.core.Player;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import java.util.ArrayList;

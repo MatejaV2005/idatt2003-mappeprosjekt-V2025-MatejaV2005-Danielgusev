@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.view.utils;
+package edu.ntnu.idi.idatt.utils;
 
 import edu.ntnu.idi.idatt.model.core.Player;
 

@@ -2,7 +2,7 @@ package edu.ntnu.idi.idatt.view.components.gameselection;
 
 import edu.ntnu.idi.idatt.exceptions.BoardGameResourceException;
 import edu.ntnu.idi.idatt.model.core.Player;
-import edu.ntnu.idi.idatt.view.utils.ResourceLoader;
+import edu.ntnu.idi.idatt.utils.ResourceLoader;
 import java.util.Optional;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

@@ -8,7 +8,7 @@ import edu.ntnu.idi.idatt.view.components.gameselection.InfoPanel;
 import edu.ntnu.idi.idatt.view.components.gameselection.PlayerManagementPanel;
 import edu.ntnu.idi.idatt.view.decorator.ButtonDecorator;
 import edu.ntnu.idi.idatt.view.decorator.HoverEffectDecorator;
-import edu.ntnu.idi.idatt.view.utils.ResourceLoader;
+import edu.ntnu.idi.idatt.utils.ResourceLoader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.geometry.Insets;

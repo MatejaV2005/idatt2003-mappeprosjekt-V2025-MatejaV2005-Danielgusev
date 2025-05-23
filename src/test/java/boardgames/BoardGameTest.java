@@ -20,7 +20,7 @@ import edu.ntnu.idi.idatt.model.games.GameType;
 import edu.ntnu.idi.idatt.model.core.Tile;
 import edu.ntnu.idi.idatt.model.core.Player;
 import edu.ntnu.idi.idatt.model.strategy.GameStrategy;
-import edu.ntnu.idi.idatt.observer.BoardGameObserver;
+import edu.ntnu.idi.idatt.view.screens.BoardGameObserver;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;

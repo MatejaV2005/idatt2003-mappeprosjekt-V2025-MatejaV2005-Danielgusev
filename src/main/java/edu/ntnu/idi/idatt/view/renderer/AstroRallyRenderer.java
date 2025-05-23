@@ -16,7 +16,7 @@ import edu.ntnu.idi.idatt.model.core.actions.ActionType;
 import edu.ntnu.idi.idatt.model.core.actions.AsteroidFieldAction;
 import edu.ntnu.idi.idatt.model.core.actions.BoostPadAction;
 import edu.ntnu.idi.idatt.model.core.actions.TileAction;
-import edu.ntnu.idi.idatt.view.utils.PlayerTokenData;
+import edu.ntnu.idi.idatt.utils.PlayerTokenData;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

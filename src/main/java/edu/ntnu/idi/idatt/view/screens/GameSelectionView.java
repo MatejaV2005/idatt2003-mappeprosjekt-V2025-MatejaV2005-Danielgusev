@@ -3,7 +3,7 @@ package edu.ntnu.idi.idatt.view.screens;
 import edu.ntnu.idi.idatt.controller.GameSelectionController;
 import edu.ntnu.idi.idatt.exceptions.BoardGameResourceException;
 import edu.ntnu.idi.idatt.factory.ButtonFactory;
-import edu.ntnu.idi.idatt.view.utils.ResourceLoader;
+import edu.ntnu.idi.idatt.utils.ResourceLoader;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;

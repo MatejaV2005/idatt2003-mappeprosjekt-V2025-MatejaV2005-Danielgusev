@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.filehandler;
+package edu.ntnu.idi.idatt.service.filehandler;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

@@ -8,7 +8,7 @@ import edu.ntnu.idi.idatt.model.core.actions.ActionType;
 import edu.ntnu.idi.idatt.model.core.actions.TileAction;
 import edu.ntnu.idi.idatt.model.core.Player;
 import edu.ntnu.idi.idatt.model.games.AstroRallyGame;
-import edu.ntnu.idi.idatt.observer.BoardGameObserver;
+import edu.ntnu.idi.idatt.view.screens.BoardGameObserver;
 import edu.ntnu.idi.idatt.model.strategy.AstroRallyStrategy;
 import edu.ntnu.idi.idatt.model.strategy.GameStrategy;
 

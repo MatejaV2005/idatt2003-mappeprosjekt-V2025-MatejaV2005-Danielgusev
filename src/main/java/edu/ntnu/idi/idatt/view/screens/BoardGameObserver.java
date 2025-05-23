@@ -1,8 +1,9 @@
-package edu.ntnu.idi.idatt.observer;
+package edu.ntnu.idi.idatt.view.screens;
 
 import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.core.Player;
 import edu.ntnu.idi.idatt.model.core.Tile;
+import edu.ntnu.idi.idatt.model.core.Observable;
 
 /**
  * Observer interface for receiving events from a {@link Observable} board game.

@@ -8,15 +8,14 @@ import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.core.Dice;
 import edu.ntnu.idi.idatt.model.core.Player;
 import edu.ntnu.idi.idatt.model.core.Tile;
-import edu.ntnu.idi.idatt.observer.BoardGameObserver;
 import edu.ntnu.idi.idatt.view.components.boardgame.BoardComponent;
 import edu.ntnu.idi.idatt.view.components.boardgame.CurrentPlayerPanel;
 import edu.ntnu.idi.idatt.view.components.boardgame.DicePanel;
 import edu.ntnu.idi.idatt.view.components.boardgame.GameInfoPanel;
 import edu.ntnu.idi.idatt.view.components.boardgame.WinDialog;
 import edu.ntnu.idi.idatt.view.renderer.BoardRenderer;
-import edu.ntnu.idi.idatt.view.utils.AlertHelper;
-import edu.ntnu.idi.idatt.view.utils.ResourceLoader;
+import edu.ntnu.idi.idatt.utils.AlertHelper;
+import edu.ntnu.idi.idatt.utils.ResourceLoader;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -418,7 +417,7 @@ public class GenericBoardGameView implements BoardGameView, BoardGameObserver {
     } else {
       LOGGER.warning("WinDialog owner could not be set: scene or its window is null.");
     }
-    
+
 
     LOGGER.info("WinDialog: Calling showAndWait() for winner: " + winner.getName());
     Optional<ButtonType> result = winDialog.showAndWait();

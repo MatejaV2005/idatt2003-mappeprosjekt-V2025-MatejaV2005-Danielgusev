@@ -3,7 +3,7 @@ package edu.ntnu.idi.idatt.controller;
 import edu.ntnu.idi.idatt.model.core.BoardGame;
 import edu.ntnu.idi.idatt.model.core.Player;
 import edu.ntnu.idi.idatt.view.screens.GenericBoardGameView;
-import edu.ntnu.idi.idatt.view.utils.AlertHelper;
+import edu.ntnu.idi.idatt.utils.AlertHelper;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;

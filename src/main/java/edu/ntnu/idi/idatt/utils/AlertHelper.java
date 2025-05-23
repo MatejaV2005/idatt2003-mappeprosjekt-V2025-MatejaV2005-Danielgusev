@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.view.utils;
+package edu.ntnu.idi.idatt.utils;
 
 import java.util.Optional;
 import javafx.scene.control.Alert;

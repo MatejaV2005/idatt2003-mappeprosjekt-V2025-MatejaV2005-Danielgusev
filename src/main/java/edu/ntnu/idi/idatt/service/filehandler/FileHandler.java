@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.filehandler;
+package edu.ntnu.idi.idatt.service.filehandler;
 
 import edu.ntnu.idi.idatt.exceptions.FileLoadException;
 import edu.ntnu.idi.idatt.exceptions.FileSaveException;

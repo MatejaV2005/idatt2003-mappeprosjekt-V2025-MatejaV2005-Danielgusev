@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt.filehandler;
+package edu.ntnu.idi.idatt.service.filehandler;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;

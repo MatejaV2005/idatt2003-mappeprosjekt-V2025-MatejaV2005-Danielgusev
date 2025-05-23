@@ -1,6 +1,6 @@
 package edu.ntnu.idi.idatt.controller;
 
-import static edu.ntnu.idi.idatt.view.utils.AlertHelper.showErrorAlert;
+import static edu.ntnu.idi.idatt.utils.AlertHelper.showErrorAlert;
 
 import edu.ntnu.idi.idatt.factory.BoardGameFactory;
 import edu.ntnu.idi.idatt.factory.GameViewFactory;

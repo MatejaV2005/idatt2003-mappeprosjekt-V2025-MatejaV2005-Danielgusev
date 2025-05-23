@@ -2,8 +2,7 @@ package edu.ntnu.idi.idatt.model.core;
 
 import edu.ntnu.idi.idatt.model.games.GameType;
 import edu.ntnu.idi.idatt.model.strategy.GameStrategy;
-import edu.ntnu.idi.idatt.observer.BoardGameObserver;
-import edu.ntnu.idi.idatt.observer.Observable;
+import edu.ntnu.idi.idatt.view.screens.BoardGameObserver;
 import edu.ntnu.idi.idatt.utils.ExceptionHandling;
 import java.util.ArrayList;
 import java.util.List;

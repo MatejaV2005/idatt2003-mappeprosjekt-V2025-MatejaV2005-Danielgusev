@@ -2,7 +2,7 @@ package edu.ntnu.idi.idatt.view.components.boardgame;
 
 import edu.ntnu.idi.idatt.exceptions.BoardGameResourceException;
 import edu.ntnu.idi.idatt.model.core.Dice;
-import edu.ntnu.idi.idatt.view.utils.ResourceLoader;
+import edu.ntnu.idi.idatt.utils.ResourceLoader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
