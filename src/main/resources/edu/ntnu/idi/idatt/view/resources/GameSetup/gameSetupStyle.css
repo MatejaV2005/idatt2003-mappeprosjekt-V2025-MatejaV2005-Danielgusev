@@ -46,6 +46,27 @@
   -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0, 0, 0);
 }
 
+.panel-header {
+  -fx-font-size: 18px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #e7c565;
+  -fx-padding: 5px 0 10px 0;
+  -fx-text-alignment: center;
+  -fx-alignment: center;
+}
+
+.info-panel-text {
+  -fx-fill: white;
+  -fx-font-size: 14px;
+}
+
+
+.info-panel-rules {
+  -fx-fill: white;
+  -fx-font-size: 13px;
+  -fx-line-spacing: 2px;
+}
+
 .button {
   -fx-background-color: #5A075B;
   -fx-text-fill: #e7c565;
@@ -153,8 +174,6 @@
   -fx-background-color: transparent;
 }
 
-
-
 .table-view .table-cell {
   -fx-text-fill: white;
   -fx-padding: 8px 10px;
@@ -174,13 +193,13 @@
   -fx-alignment: CENTER;
 }
 
-/* Ensure selected row style overrides the default row background */
+
 .table-view .table-row-cell:selected {
-  -fx-background-color: #5a4a8a; /* Lighter purple for selection */
+  -fx-background-color: #5a4a8a;
 }
 
 .table-view .table-row-cell:selected .table-cell {
-  -fx-text-fill: white; /* Ensure text remains white on selection */
+  -fx-text-fill: white;
 }
 
 .table-view .placeholder .label {
@@ -220,13 +239,6 @@
   -fx-font-weight: bold;
   -fx-padding: 3px 8px;
   -fx-background-radius: 5px;
-}
-
-.panel-header {
-  -fx-font-size: 18px;
-  -fx-font-weight: bold;
-  -fx-text-fill: #e7c565;
-  -fx-padding: 5px 0 10px 0;
 }
 
 .text-field {
@@ -293,4 +305,36 @@
   -fx-alignment: center;
   -fx-spacing: 15px;
   -fx-padding: 20px;
+}
+
+.info-panel {
+  -fx-background-color: #252c4e;
+  -fx-background-radius: 10px;
+  -fx-border-color: #e7c565;
+  -fx-border-width: 2px;
+  -fx-border-radius: 8px;
+  -fx-padding: 15px;
+  -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0, 0, 0);
+}
+
+.panel-header {
+  -fx-font-size: 18px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #e7c565;
+  -fx-padding: 5px 0 10px 0;
+  -fx-text-alignment: center;
+  -fx-alignment: center;
+}
+
+.info-panel-general-detail {
+  -fx-fill: white;
+  -fx-font-size: 15px;
+  -fx-font-weight: bold;
+}
+
+.info-panel-rules {
+  -fx-fill: white;
+  -fx-font-size: 13px;
+  -fx-line-spacing: 2px;
+  -fx-font-weight: normal;
 }
