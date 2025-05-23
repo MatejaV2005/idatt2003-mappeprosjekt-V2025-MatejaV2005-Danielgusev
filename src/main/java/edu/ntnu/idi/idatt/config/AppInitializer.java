@@ -4,6 +4,7 @@ import edu.ntnu.idi.idatt.controller.NavigationController;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
 /**
@@ -54,17 +55,21 @@ public class AppInitializer {
 
     try {
       primaryStage.setTitle(APPLICATION_TITLE);
+
+      // Sett til fullskjerm
+      primaryStage.setFullScreen(true);
+      primaryStage.setFullScreenExitHint("Trykk ESC for å avslutte fullskjerm");
+      primaryStage.setFullScreenExitKeyCombination(KeyCombination.valueOf("ESC"));
+
       primaryStage.setMinWidth(MIN_STAGE_WIDTH);
       primaryStage.setMinHeight(MIN_STAGE_HEIGHT);
       primaryStage.setMaximized(false);
 
       NavigationController navigationController = new NavigationController(primaryStage);
-
-      // Navigate to the initial screen (e.g., title screen)
       navigationController.navigateToTitleScreen();
 
       primaryStage.show();
-      LOGGER.info("Application initialized and primary stage shown successfully.");
+      LOGGER.info("Application initialized in fullscreen and primary stage shown successfully.");
 
     } catch (Exception e) {
       LOGGER.log(Level.SEVERE, "Failed to initialize the application UI.", e);

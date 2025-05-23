@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Added comments for whre AI-assistance was of crucial use" />
+    <list default="true" id="d38db8a7-df11-4f93-a67d-5a3991d0ffb3" name="Changes" comment="Minor refactoring of wrong test output">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/config/AppInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/config/AppInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/strategy/AstroRallyStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/model/strategy/AstroRallyStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/renderer/SnakesAndLaddersRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/ntnu/idi/idatt/view/renderer/SnakesAndLaddersRenderer.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -356,14 +362,6 @@
       <workItem from="1747830178262" duration="9362000" />
       <workItem from="1747840759437" duration="9143000" />
       <workItem from="1747906902732" duration="55192000" />
-    </task>
-    <task id="LOCAL-00252" summary="Javadoc + checkstyle in Tile is improved">
-      <option name="closed" value="true" />
-      <created>1747912687868</created>
-      <option name="number" value="00252" />
-      <option name="presentableId" value="LOCAL-00252" />
-      <option name="project" value="LOCAL" />
-      <updated>1747912687868</updated>
     </task>
     <task id="LOCAL-00253" summary="added javadoc + fixed checkstyle">
       <option name="closed" value="true" />
@@ -749,7 +747,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747965221233</updated>
     </task>
-    <option name="localTasksCounter" value="301" />
+    <task id="LOCAL-00301" summary="Minor refactoring of wrong test output">
+      <option name="closed" value="true" />
+      <created>1747972201743</created>
+      <option name="number" value="00301" />
+      <option name="presentableId" value="LOCAL-00301" />
+      <option name="project" value="LOCAL" />
+      <updated>1747972201744</updated>
+    </task>
+    <option name="localTasksCounter" value="302" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -767,7 +773,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactored, better javadoc and correct checkstyle adherence in DifficultySelectionPanel" />
     <MESSAGE value="refactored GameInfoPanel to InfoPanel. minor refactoring for better visibility, added extensive javadoc and checkstyle adherence" />
     <MESSAGE value="Refactor PlayerManagementPanel: add extensive Javadoc and conform to Google Checkstyle standards" />
     <MESSAGE value="Refactored generic BoardGameView, added extensive javadoc + checkstyle" />
@@ -792,7 +797,8 @@
     <MESSAGE value="Moved classes to fitting designated packages" />
     <MESSAGE value="minor refactoring" />
     <MESSAGE value="Added comments for whre AI-assistance was of crucial use" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added comments for whre AI-assistance was of crucial use" />
+    <MESSAGE value="Minor refactoring of wrong test output" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor refactoring of wrong test output" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
@@ -802,6 +808,6 @@
     <SUITE FILE_PATH="coverage/boardgame_V2025_IDATT2003$PlayerTest.ic" NAME="PlayerTest Coverage Results" MODIFIED="1747587745891" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
     <SUITE FILE_PATH="coverage/boardgame_V2025_IDATT2003$TileTest__1_.ic" NAME="TileTest (1) Coverage Results" MODIFIED="1747596525912" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
     <SUITE FILE_PATH="coverage/boardgame_V2025_IDATT2003$BoardTest.ic" NAME="BoardTest Coverage Results" MODIFIED="1747596493749" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
-    <SUITE FILE_PATH="coverage/boardgame_V2025_IDATT2003$java_in_boardgame_V2025_IDATT2003.ic" NAME="java in boardgame-V2025-IDATT2003 Coverage Results" MODIFIED="1747964134673" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/boardgame_V2025_IDATT2003$java_in_boardgame_V2025_IDATT2003.ic" NAME="java in boardgame-V2025-IDATT2003 Coverage Results" MODIFIED="1747972030898" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
   </component>
 </project>

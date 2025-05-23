@@ -21,7 +21,7 @@ import java.util.List;
 public class AstroRallyStrategy implements GameStrategy {
 
   /** Number of laps required to win (must land on tile 1 after this many laps). */
-  public static final int TOTAL_LAPS_TO_WIN = 1;
+  public static final int TOTAL_LAPS_TO_WIN = 2;
 
   private final Board board;
   private final Dice dice;

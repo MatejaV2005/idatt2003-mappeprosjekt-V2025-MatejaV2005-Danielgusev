@@ -255,17 +255,16 @@ public class InfoPanel extends VBox {
     updateGameInfo(
         "Astro Rally Circuit",
         "Race Mode",
-        "30 Tiles (example), Ship Abilities, 3 Laps",
+        "40 Tiles , 2 Laps",
         """
-        • Choose your Rally Ship, each with unique abilities!
-
+        
         • Roll 2 dice to navigate the cosmic circuit.
 
-        • Watch out for Asteroid Fields and Nebula Clouds.
+        • Watch out for Asteroid Fields!.
 
-        • Utilize Boost Gates and strategic path choices.
+        • Utilize Boost Gates to move forward!.
 
-        • First to complete 3 laps wins the Astro Rally!
+        • First to complete 2 laps wins the Astro Rally!
         """);
   }
 }

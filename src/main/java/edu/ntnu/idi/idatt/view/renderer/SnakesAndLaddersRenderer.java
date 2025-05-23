@@ -228,11 +228,24 @@ public class SnakesAndLaddersRenderer implements BoardRenderer {
       }
     }
 
+    if (!boardPane.getChildren().contains(playerTokenNode)) {
+      boardPane.getChildren().add(playerTokenNode);
+    }
+
+    playerTokenNode.applyCss();
+    playerTokenNode.autosize();
+
     double tokenWidth = playerTokenNode.getBoundsInLocal().getWidth();
     double tokenHeight = playerTokenNode.getBoundsInLocal().getHeight();
 
+    if (playerTokenNode instanceof Circle circle) {
+      double radius = circle.getRadius();
+      tokenWidth = radius * 2;
+      tokenHeight = radius * 2;
+    }
+
     playerTokenNode.setLayoutX(tileCenter.getX() - tokenWidth / 2.0);
-    playerTokenNode.setLayoutY(tileCenter.getY() - tokenHeight / 2.0);
+    playerTokenNode.setLayoutY(tileCenter.getY() - tokenHeight / 2.0 + 2.0);
     playerTokenNode.setTranslateX(0);
     playerTokenNode.setTranslateY(0);
 
@@ -244,6 +257,8 @@ public class SnakesAndLaddersRenderer implements BoardRenderer {
         tileId
     );
   }
+
+
 
   /**
    * {@inheritDoc}
